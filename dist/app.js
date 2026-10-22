@@ -36,11 +36,29 @@ function mediaPreview(n,s){
 }
 function noteGallery(n){
  if(!n.images?.length)return '';
- return `<section class="note-gallery" aria-label="${escapeHTML(n.title)}的原帖配图"><div class="gallery-heading"><h3>原帖配图 <span>${n.images.length} 张</span></h3><small>点击图片，放大阅读</small></div><div class="gallery-thumbnails">${n.images.map((im,i)=>`<button data-image="${escapeHTML(n.id)}" data-image-index="${i}" aria-label="放大第${i+1}张图片：${escapeHTML(im.alt)}"><img src="${escapeHTML(im.src)}" alt="${escapeHTML(im.alt)}" loading="lazy" decoding="async"><span>${String(i+1).padStart(2,'0')} / ${escapeHTML(im.caption||'原帖配图')}</span></button>`).join('')}</div><p class="gallery-attribution">图片来自小红书作者 ${escapeHTML(n.author)}，保留原图与水印。图中文字为作者经验，核对范围见下方说明。</p></section>`;
+ const expected=n.coverage?.expectedImages??n.images.length;
+ return `<section class="note-gallery" id="note-gallery" aria-label="${escapeHTML(n.title)}的原帖配图"><div class="gallery-heading"><h3>原帖图集 <span>${n.images.length} / ${expected} 张</span></h3><small>按原帖顺序 · 点击放大</small></div><div class="gallery-thumbnails">${n.images.map((im,i)=>`<button data-image="${escapeHTML(n.id)}" data-image-index="${i}" aria-label="放大原帖第${im.sourceIndex||i+1}张图片：${escapeHTML(im.alt)}"><img src="${escapeHTML(im.src)}" alt="${escapeHTML(im.alt)}" loading="lazy" decoding="async"><span>原帖 ${String(im.sourceIndex||i+1).padStart(2,'0')} / ${escapeHTML(im.caption||'原帖配图')}</span></button>`).join('')}</div><p class="gallery-attribution">图片来自小红书作者 ${escapeHTML(n.author)}，保留原图与水印。已收录 ${n.images.length} 张${n.images.length===expected?'，静态配图已按原帖数量收齐':'；缺失部分见完整度说明'}。</p></section>`;
+}
+function coverageLabel(n){
+ if(!n.coverage)return n.evidence.includes('配图')||n.evidence.includes('拼图')?'正文 / 配图已核对':'正文已核对';
+ const c=n.coverage;
+ return `${c.bodyRead?'正文已读':'正文待核对'} · 图 ${n.images?.length||0}/${c.expectedImages??'?'}${c.summaryComplete?' · 详细整理':''}`;
+}
+function imageReferences(n,refs=[]){
+ return refs.map(ref=>{const index=(n.images||[]).findIndex(im=>im.sourceIndex===ref);if(index<0)return '';return `<button class="summary-image-ref" data-image="${escapeHTML(n.id)}" data-image-index="${index}" aria-label="查看此要点对应的原帖第${ref}张图片">图 ${ref} ↗</button>`;}).join('');
+}
+function detailedSummary(n){
+ if(!n.sections?.length)return `<div class="detail-label" id="note-summary">内容要点</div><ul class="detail-points">${n.points.map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul>`;
+ return `<section class="detailed-summary" id="note-summary" aria-label="完整内容整理"><div class="detail-label">完整内容整理 <span>${n.sections.reduce((sum,s)=>sum+s.items.length,0)} 项</span></div>${n.sections.map((section,i)=>`<section class="summary-section"><h3><span>${String(i+1).padStart(2,'0')}</span>${escapeHTML(section.title)}</h3><ul class="detail-points">${section.items.map(item=>`<li>${escapeHTML(typeof item==='string'?item:item.text)}${typeof item==='string'?'':imageReferences(n,item.images)}</li>`).join('')}</ul></section>`).join('')}</section>`;
+}
+function coveragePanel(n){
+ if(!n.coverage)return '';
+ const c=n.coverage;
+ return `<div class="coverage-panel ${c.summaryComplete&&c.imagesComplete?'complete':'partial'}"><b>原帖核对范围</b><span>${escapeHTML(coverageLabel(n))}</span><p>${escapeHTML(c.note||'正文和配图分别核对；总结中保留作者经验与适用条件。')}</p></div>`;
 }
 function card(n){
  const s=stageFor(n.stage);const isSaved=saved.has(n.id);
- return `<article class="article-card" data-note="${escapeHTML(n.id)}">${mediaPreview(n,s)}<div class="card-body"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(s?.title)}</span></div><h3 class="card-title"><button class="title-button" data-open="${escapeHTML(n.id)}">${escapeHTML(n.title)}</button></h3><p class="card-summary">${escapeHTML(n.summary)}</p><div class="card-tags">${n.tags.map(t=>`<span># ${escapeHTML(t)}</span>`).join('')}</div><div class="card-bottom"><span class="author-dot">${escapeHTML(n.author.slice(0,1))}</span><span class="author-name" title="${escapeHTML(n.author)}">${escapeHTML(n.author)}</span><time class="card-date" datetime="${n.date}">${n.date.slice(5).replace('-','.')}</time><button class="bookmark-button ${isSaved?'saved':''}" data-save="${escapeHTML(n.id)}" aria-label="${isSaved?'取消收藏':'收藏'}：${escapeHTML(n.title)}" aria-pressed="${isSaved}">${icon('bookmark')}</button></div></div><div class="card-source-row"><span>${n.evidence.includes('配图')||n.evidence.includes('拼图')?'正文 / 配图已核对':'正文已核对'}</span><a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a></div></article>`;
+ return `<article class="article-card" data-note="${escapeHTML(n.id)}">${mediaPreview(n,s)}<div class="card-body"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(s?.title)}</span></div><h3 class="card-title"><button class="title-button" data-open="${escapeHTML(n.id)}">${escapeHTML(n.title)}</button></h3><p class="card-summary">${escapeHTML(n.summary)}</p><div class="card-tags">${n.tags.map(t=>`<span># ${escapeHTML(t)}</span>`).join('')}</div><div class="card-bottom"><span class="author-dot">${escapeHTML(n.author.slice(0,1))}</span><span class="author-name" title="${escapeHTML(n.author)}">${escapeHTML(n.author)}</span><time class="card-date" datetime="${n.date}">${n.date.slice(5).replace('-','.')}</time><button class="bookmark-button ${isSaved?'saved':''}" data-save="${escapeHTML(n.id)}" aria-label="${isSaved?'取消收藏':'收藏'}：${escapeHTML(n.title)}" aria-pressed="${isSaved}">${icon('bookmark')}</button></div></div><div class="card-source-row"><span>${escapeHTML(coverageLabel(n))}</span><a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看原帖 ↗</a></div></article>`;
 }
 function renderLibrary(){
  const result=visibleNotes();const isSaved=state.view==='saved';
@@ -102,7 +120,7 @@ function restorePageScroll(){
 }
 function showNote(id){
  const n=byId(id);if(!n)return;state.opened=id;
- $('dialog-content').innerHTML=`<div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title">${escapeHTML(n.title)}</h2><div class="dialog-meta">${escapeHTML(n.author)} <span>·</span> 发布于 ${n.date} <span>·</span> 小红书</div><p class="dialog-intro">${escapeHTML(n.summary)}</p><div class="detail-label">值得记下来的几件事</div><ul class="detail-points">${n.points.map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul>${noteGallery(n)}<div class="evidence-box"><b>资料核对</b> ${escapeHTML(n.evidence)} · 2026.10.22${n.limits?`<br>${escapeHTML(n.limits)}`:''}</div><div class="dialog-actions"><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button></div><p class="dialog-original">原帖标题：${escapeHTML(n.originalTitle||n.title)}</p>`;
+ $('dialog-content').innerHTML=`<div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title">${escapeHTML(n.title)}</h2><div class="dialog-meta">${escapeHTML(n.author)} <span>·</span> 发布于 ${n.date} <span>·</span> 小红书</div><p class="dialog-intro">${escapeHTML(n.summary)}</p>${coveragePanel(n)}<div class="note-shortcuts"><button data-note-jump="note-summary">详细总结 ↓</button>${n.images?.length?`<button data-note-jump="note-gallery">原帖图集 · ${n.images.length} 张 ↓</button>`:''}</div>${detailedSummary(n)}${noteGallery(n)}<div class="evidence-box"><b>资料核对</b> ${escapeHTML(n.evidence)} · 2026.10.22${n.limits?`<br>${escapeHTML(n.limits)}`:''}</div><div class="dialog-actions"><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button></div><p class="dialog-original">原帖标题：${escapeHTML(n.originalTitle||n.title)}</p>`;
  updateDialogSave(id);$('dialog-content').scrollTop=0;openModal($('article-dialog'));
 }
 function showImage(id,index=0){
@@ -114,7 +132,7 @@ function renderImage(){
  const n=byId(state.imageNote);if(!n?.images?.length)return;
  const image=n.images[state.imageIndex];
  $('image-viewer-title').textContent=n.title;
- $('image-position').textContent=`${state.imageIndex+1} / ${n.images.length}`;
+ $('image-position').textContent=`${image.sourceIndex||state.imageIndex+1} / ${n.coverage?.expectedImages??n.images.length}`;
  $('viewer-image').alt=image.alt;
  $('viewer-image').src=image.src;
  $('viewer-image').hidden=false;
@@ -160,6 +178,7 @@ document.addEventListener('click',event=>{
  if(target.dataset.save)toggleSaved(target.dataset.save);
  if(target.dataset.image)showImage(target.dataset.image,Number(target.dataset.imageIndex)||0);
  if(target.hasAttribute('data-images-filter')){state.imagesOnly=!state.imagesOnly;renderStages();renderLibrary();}
+ if(target.dataset.noteJump){const content=$('dialog-content');const section=document.getElementById(target.dataset.noteJump);if(section)content.scrollTo({top:content.scrollTop+section.getBoundingClientRect().top-content.getBoundingClientRect().top-12,behavior:'smooth'});}
 });
 $('search-input').addEventListener('input',event=>{state.query=event.target.value;renderLibrary();});
 $('sort-select').addEventListener('change',event=>{state.sort=event.target.value;renderLibrary();});

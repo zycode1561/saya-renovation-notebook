@@ -1,188 +1,56 @@
 window.RENOVATION_STAGES = [
- {id:'准备',title:'准备与规划',hint:'流程 · 需求 · 功课',icon:'plan',banner:'先规划，再开工',color:''},
- {id:'预算',title:'预算与签约',hint:'报价 · 合同 · 增项',icon:'receipt',banner:'把每一笔钱问明白',color:'warm'},
- {id:'施工',title:'硬装与水电',hint:'水电 · 泥木 · 验收',icon:'tool',banner:'藏起来的工程，更要看',color:'blue'},
- {id:'厨卫',title:'厨房与卫生间',hint:'布局 · 使用 · 清洁',icon:'kitchen',banner:'好用，才是日常的底色',color:''},
- {id:'安装',title:'定制与安装',hint:'板材 · 柜体 · 收口',icon:'cabinet',banner:'细节落地，才算完成',color:'warm'},
- {id:'入住',title:'入住与复盘',hint:'实住 · 反馈 · 避坑',icon:'house',banner:'从好看，到好好住',color:''}
+  {
+    "id": "准备",
+    "title": "准备与规划",
+    "hint": "流程 · 需求 · 功课",
+    "icon": "plan",
+    "banner": "先规划，再开工",
+    "color": ""
+  },
+  {
+    "id": "预算",
+    "title": "预算与签约",
+    "hint": "报价 · 合同 · 增项",
+    "icon": "receipt",
+    "banner": "把每一笔钱问明白",
+    "color": "warm"
+  },
+  {
+    "id": "施工",
+    "title": "硬装与水电",
+    "hint": "水电 · 泥木 · 验收",
+    "icon": "tool",
+    "banner": "藏起来的工程，更要看",
+    "color": "blue"
+  },
+  {
+    "id": "厨卫",
+    "title": "厨房与卫生间",
+    "hint": "布局 · 使用 · 清洁",
+    "icon": "kitchen",
+    "banner": "好用，才是日常的底色",
+    "color": ""
+  },
+  {
+    "id": "安装",
+    "title": "定制与安装",
+    "hint": "板材 · 柜体 · 收口",
+    "icon": "cabinet",
+    "banner": "细节落地，才算完成",
+    "color": "warm"
+  },
+  {
+    "id": "入住",
+    "title": "入住与复盘",
+    "hint": "实住 · 反馈 · 避坑",
+    "icon": "house",
+    "banner": "从好看，到好好住",
+    "color": ""
+  }
 ];
 window.RENOVATION_NOTES = [
- {id:'company',title:'选装修公司：先把报价、合同和责任问清楚',originalTitle:'1️⃣个很变态🥹但可以选到好装修公司的办法',author:'球球的装修笔记',date:'2026-05-17',url:'https://www.xiaohongshu.com/search_result/6a09cf2000000000360005c9?xsec_token=ABRYR2DZAbob9me5nZTeBygQ8Hy28CzTNRSa1h5beRHqU=&xsec_source=',stage:'预算',type:'攻略',tags:['报价明细','合同','施工沟通'],summary:'从区域报价、材料型号到工期质保，把签约前容易含糊的事项逐项确认。',points:['要求分区域列出材料、人工和辅料，写清品牌、型号、数量，确认搬运、垃圾清运及管理费是否已含。','明确合同签约主体、工期日期、质保范围及延期处理；新增项目先确认内容与费用。','水电完成后保存线路图，施工过程中及时核对贴砖、墙面基层等直接影响后续安装的环节。'],evidence:'已核对笔记正文',limits:'本文侧重沟通方法；具体防水、贴砖等验收参数未在本站独立核验。'},
- {id:'extras',title:'拆改增项：清运、上楼和修补，提前说清',originalTitle:'终于有人把恶意增项整理出来了🙋‍♀️',author:'一枝方糖🐾',date:'2026-06-03',url:'https://www.xiaohongshu.com/search_result/6a1fd035000000003802173a?xsec_token=ABlEIM4pVvzA9Y-PKD9jViFNhhSvci2lADuqwVMKvEKK0=&xsec_source=',stage:'预算',type:'避坑',tags:['拆改','隐性费用','垃圾清运'],summary:'报价没有写清的服务边界，很容易变成开工后的追加费用。',points:['拆墙计价方式、垃圾是否运出小区、材料上楼费用，应在开工前写明。','明确拆除后基层修补的包含范围，避免结束后再单独议价。','旧门窗等可回收物的归属与处理方式提前约定。'],evidence:'已核对正文及“拆除新建阶段”配图',limits:'只整理已查看的拆改费用配图；不据此认定所有增项都不合理，是否增项应对照实际合同与变更。'},
- {id:'custom',title:'全屋定制：问清基材、饰面与封边工艺',originalTitle:'花了3个小时做的全屋定制攻略 | 抄作业',author:'卷卷毛',date:'2026-09-04',url:'https://www.xiaohongshu.com/search_result/6a9ace19000000002802f091?xsec_token=ABgoD3aJXJ7UWiKnyjNLwpjyNzqnervJoVIcAa2Qhq4_c=&xsec_source=',stage:'安装',type:'攻略',tags:['全屋定制','板材','封边'],summary:'把营销名称还原成可比较的材料和工艺，带着具体问题去询价。',points:['分别确认柜体和门板的基材、饰面、加工工艺，核对检测报告对应的产品。','询问饰面由谁加工、封边使用什么工艺，再比较报价与落地能力。','对门板的外观、耐用和日常维护需求做取舍，尽量现场看样。'],evidence:'已核对正文及板材、饰面、封边相关配图',limits:'未采纳原帖中未经独立核验的环保排名、等级换算及绝对化推荐。'},
- {id:'lived',title:'入住半年复盘：藏灰、收口和色差的教训',originalTitle:'入住半年后我的硬装雷点',author:'柚米-home',date:'2026-05-17',url:'https://www.xiaohongshu.com/search_result/6a09bc8b0000000036001541?xsec_token=ABRYR2DZAbob9me5nZTeBygYKgIr4OARaG-RVG_Fi39d0=&xsec_source=',stage:'入住',type:'避坑',tags:['清洁死角','安装收口','色差'],summary:'作者实住后的反馈：好看之外，清洁、安装和真实光线同样影响每天的使用。',points:['作者认为免拉手抽屉凹槽与橱柜踢脚线大缝隙容易藏灰；设计时提前考虑清洁路径。','作者家窗边收口出现开裂，卫生间排风管未固定到通风口，提醒安装完成后查看这些位置。','作者反馈门与窗帘在店内和家中存在色差，选样时尽量结合家里实际光线比较。'],evidence:'已核对正文、总结拼图与窗边收口实拍',limits:'属于作者自家入住体验；不将某一种拉手或收口方案概括为所有家庭都不能使用。'}
-];
-
-window.RENOVATION_NOTES.push(...[
   {
-    "id": "6ad4b548000000000c00a11b",
-    "title": "套餐报价不等于总价：装修预算拆成三份",
-    "author": "一月诺诺（等交付版）",
-    "date": "2026-10-18",
-    "url": "https://www.xiaohongshu.com/search_result/6ad4b548000000000c00a11b?xsec_token=ABZ4JuHq6vFSLvW1qLr6nxEc_Avl42EGJZVJmBMVpcNk0=&xsec_source=",
-    "stage": "预算",
-    "type": "避坑",
-    "summary": "把套餐价还原成真实总支出：套餐内硬装、套餐外增项、业主自购分开列，签约前逐项明确包含范围。",
-    "points": [
-      "核对主材品牌型号，以及橱柜米数、门锁和五金是否计入套餐。",
-      "把吊顶、点位增加、墙排和主材调整等可能增项列出计价方式。",
-      "为定制、门窗、净水、空调安装等业主自购另设预算。",
-      "确认材料到货时间，避免工人等待材料影响工期。"
-    ],
-    "limits": "正文为作者个案；金额和单价不作为本地行情或报价承诺。",
-    "evidence": "已核对笔记正文",
-    "likes": "9",
-    "originalTitle": "拒绝被坑！装修预算必须拆为三部分才算得清！",
-    "tags": [
-      "套餐报价",
-      "自购预算",
-      "增项"
-    ]
-  },
-  {
-    "id": "6937eb83000000001e0100df",
-    "title": "从预算到工序：开工前先对齐设备与安排",
-    "author": "brad",
-    "date": "2025-12-09",
-    "url": "https://www.xiaohongshu.com/search_result/6937eb83000000001e0100df?xsec_token=ABHf58fZTi5ROBrdXftKOr9dBedcYUF8njmPtVLu_ooIs=&xsec_source=",
-    "stage": "准备",
-    "type": "攻略",
-    "summary": "先列完整预算表，再倒推各阶段决策；需水电配合的设备应提前定位置，隐蔽工程留档，安装顺序结合现场调整。",
-    "points": [
-      "预算表覆盖前期花费、硬装、家具软装、定制和电器，随询价逐项更新。",
-      "水电定位前对接橱柜、卫浴、中央空调、净水等相关商家。",
-      "提前确定冰箱、热水器、洗衣机和卫浴设备的位置与尺寸。",
-      "水电铺设后拍照留存；工序和安装时间与现场施工方协商。"
-    ],
-    "limits": "仅提炼流程及预算协同；原文部分施工方式和材料建议未独立核验，不作为工程标准。",
-    "evidence": "已核对笔记正文",
-    "likes": "1042",
-    "originalTitle": "关于装修成本如何确保在自己的预算范围",
-    "tags": [
-      "装修流程",
-      "设备尺寸",
-      "预算规划"
-    ]
-  },
-  {
-    "id": "6abc64740000000002028ea2",
-    "title": "水电定位：按家具和电器安排插座",
-    "author": "屿山海🏠（装修准备中，关必回）",
-    "date": "2026-09-30",
-    "url": "https://www.xiaohongshu.com/search_result/6abc64740000000002028ea2?xsec_token=ABxzQ-hlHZNOy4BQAnznaZ4NkGW6Q34sQyc4pxhzfuWxc=&xsec_source=",
-    "stage": "施工",
-    "type": "攻略",
-    "summary": "按房间和使用场景检查插座点位，先核对家具、电器及柜体尺寸，再和施工方确认高度和位置。",
-    "points": [
-      "玄关、沙发、餐桌及床头逐处核对充电与备用需求。",
-      "厨房嵌入式电器按实际尺寸预留，台面插座避开水槽。",
-      "电视柜和床头柜应核对遮挡情况与线缆空间。",
-      "确认智能马桶、吹风机等卫生间用电点位及防溅方案。"
-    ],
-    "limits": "正文给出的固定高度、倒装等说法不作为通用施工要求；点位须结合实际家具、电器和现场条件确认。",
-    "evidence": "已核对笔记正文",
-    "likes": "1670",
-    "originalTitle": "水电定位表拿走抄｜插座高度一次避坑🔌",
-    "tags": [
-      "水电",
-      "插座定位",
-      "验收留档"
-    ]
-  },
-  {
-    "id": "690c8eb50000000005011f07",
-    "title": "水电验收：核对点位、材料与线路留档",
-    "author": "绒绒牛",
-    "date": "2025-11-06",
-    "url": "https://www.xiaohongshu.com/search_result/690c8eb50000000005011f07?xsec_token=ABOM8uX8PqzeYlKJZx4lI_Z7h1PQ5-a9l6rP3BZH4zAMA=&xsec_source=",
-    "stage": "施工",
-    "type": "攻略",
-    "summary": "把水电验收变成逐图核对与记录：确认点位、材料和回路安排，检查线盒保护，封闭前保存管线位置。",
-    "points": [
-      "对照施工图逐项核实开关、插座点位，及时查漏。",
-      "核对合同约定的管材、电线和网线标识。",
-      "让施工方解释大功率设备的回路配置及检修方案。",
-      "封闭前给线路拍照并归档，检查线盒保护，方便以后安装和检修。"
-    ],
-    "limits": "原帖含开槽长度、穿线数量、材料优劣等绝对化参数，未独立核验，本站不采用；工程验收由专业人员依据适用规范与方案执行。",
-    "evidence": "已核对笔记正文",
-    "likes": "6068",
-    "originalTitle": "求求装修人都存好，水电验收13个避坑指南❗️",
-    "tags": [
-      "水电",
-      "插座定位",
-      "验收留档"
-    ]
-  },
-  {
-    "id": "69b942730000000020038cfe",
-    "title": "卫生间避坑：排水、防臭和检修一起考虑",
-    "author": "三文鱼宝贝的家",
-    "date": "2026-03-17",
-    "url": "https://www.xiaohongshu.com/search_result/69b942730000000020038cfe?xsec_token=ABqwHdXOMm_UWoF9_w_rqZDiy5FuRs0tXZmNoYTExy02A=&xsec_source=",
-    "stage": "厨卫",
-    "type": "避坑",
-    "summary": "卫生间的长期使用问题集中在渗漏、排水、防臭与清洁；设计时把门口、地漏、壁龛、密封和用电点位一起核对。",
-    "points": [
-      "向施工方确认门口、门槛和周边墙面的防水收口。",
-      "检查地漏排水及清理便利性，关注壁龛是否容易积水。",
-      "核对马桶及台盆连接、密封材料和后续检修方式。",
-      "提前考虑智能马桶、浴室柜内充电设备的点位与防溅措施。"
-    ],
-    "limits": "作者个人经验；不采用其绝对化效果、材料推荐或未经核验的施工数值，具体节点由施工方结合现场确认。",
-    "evidence": "已核对笔记正文",
-    "likes": "995",
-    "originalTitle": "卫生间装修经验(千万避雷版)",
-    "tags": [
-      "卫生间",
-      "排水",
-      "检修"
-    ]
-  }
-]);
-
-Object.assign(window.RENOVATION_NOTES.find(n=>n.id==='6abc64740000000002028ea2'),{tags:['插座定位','家具尺寸','用电场景']});
-Object.assign(window.RENOVATION_NOTES.find(n=>n.id==='690c8eb50000000005011f07'),{tags:['水电验收','材料标识','管线留档']});
-
-const existingNoteImages={
-  "extras": [
-    {
-      "src": "media/extras-demolition.webp",
-      "alt": "一枝方糖整理的拆除新建阶段增项提示图",
-      "caption": "拆改计价、清运与修补范围"
-    }
-  ],
-  "custom": [
-    {
-      "src": "media/custom-material.webp",
-      "alt": "卷卷毛全屋定制攻略中的板材与饰面笔记",
-      "caption": "板材与饰面笔记"
-    },
-    {
-      "src": "media/custom-edging.webp",
-      "alt": "卷卷毛全屋定制攻略中的饰面与封边笔记",
-      "caption": "饰面、封边与加工方式"
-    }
-  ],
-  "lived": [
-    {
-      "src": "media/lived-overview.webp",
-      "alt": "柚米-home入住半年后的硬装雷点拼图",
-      "caption": "入住半年后的实住反馈"
-    },
-    {
-      "src": "media/lived-window.webp",
-      "alt": "柚米-home家中窗边收口开裂的实拍图",
-      "caption": "窗边收口开裂实拍"
-    }
-  ]
-};
-for (const [id,images] of Object.entries(existingNoteImages)) { const note=window.RENOVATION_NOTES.find(n=>n.id===id); if(note)note.images=images; }
-
-// 2026-10-22：新增图文来源，已核对正文及选用配图。
-window.RENOVATION_NOTES.unshift(...[
-  {
-    "title": "毛坯房自装流程：先做布局，长周期定制提前安排",
+    "title": "毛坯房装修 20 步：从规划、订货到安装入住",
     "stage": "准备",
     "type": "攻略",
     "tags": [
@@ -190,14 +58,31 @@ window.RENOVATION_NOTES.unshift(...[
       "门窗定制",
       "安装安排"
     ],
-    "summary": "作者把毛坯房自装整理成流程图，提醒开工前先有布局规划，定制门窗预留交付时间，末期再衔接安装、保洁和家具。",
+    "summary": "按作者自装毛坯房的实际顺序，完整整理 20 个环节，特别标出窗户、门柜、灶台的订货提前量及等待期间可穿插的工程。",
     "points": [
-      "开工前拿到户型资料，先明确风格与房间布局。",
-      "有封窗或定制门窗需求时，提前确认量尺、生产和安装周期。",
-      "后期把开关灯具、卫浴安装与开荒保洁、窗帘和家具进场衔接起来。"
+      "第 1 步，格局与风格规划：作者预留 3—5 天，先向物业拿户型图，再决定自行设计或委托设计；开工前至少形成一版明确的空间安排。",
+      "第 2 步，提前定窗：封窗安装通常只占 1—2 天，但作者遇到的定制周期在 15 天以上；需要封阳台时先订货，避免后续贴砖到场后等窗。",
+      "第 3 步，拆改：作者用时 1—2 天，先确定格局，再拆需要调整的墙；原帖特别提醒不要拆承重墙。图中的“一锤 80”属于表达，不能当作拆改报价。",
+      "第 4 步，水电开槽安装：作者安排 3—5 天；开关、插座、灯具与冰箱、洗衣机、电视、烟机、灶具、热水器、扫地机、晾衣架，以及床和沙发的位置一起确认，减少完工后改位。",
+      "第 5 步，排水管隔音：先包隔音棉，再提前定制外包的水泥管构件，给后续贴砖提供基层。作者认为自购材料未必一定比请人施工便宜，要一起比较材料与人工。",
+      "第 6 步，防水：作者安排 3—5 天，采用分三遍涂刷、前遍干后再施工的做法，并进行了 48 小时闭水及楼下渗漏检查；遍数和干燥时间需按实际材料体系确认。",
+      "第 7 步，封窗：安装约 1—2 天，利用前面预订形成的交期，在该案例中先装好窗，再进贴砖环节。",
+      "第 8 步，贴砖：作者用时 10—15 天；提前说清是否全屋通铺、是否做海棠角、阳台墙砖范围、地漏排水口的处理要求，不能只交代“贴砖”便默认效果一致。",
+      "第 9 步，美缝：先清走废砖并打扫，尽量避免用水。作者等待砂浆干燥约 7—10 天，再用 1—2 天做美缝；此等待是案例节奏，受基层湿度和材料影响。",
+      "第 10 步，地面保护：作者安排半天铺地膜；买瓷砖时先问是否赠送保护膜，把后续门柜、吊顶和墙面施工的成品保护一起安排。",
+      "第 11 步，门与衣柜：瓷砖完成后联系复尺，定制卧室门、厨房门、卫生间门及衣柜。原帖给出的制作周期一般超过半个月，不要等到安装前才下单。",
+      "第 12 步，定制灶台：同样在瓷砖完成后量尺；安装可能一天完成，但制作仍需约 5—10 天。应区分制造周期与到场安装时长。",
+      "第 13 步，吊顶：约 5—7 天，在等待门柜时完成客卧及厨卫吊顶，并把窗帘盒一并做进去。",
+      "第 14 步，安装灶台并定橱柜：作者预留 1—2 天，同时提前买好烟机和燃气灶；先用灶台确定烟机位置，装好烟机后再量橱柜，柜体制作约 10 天。作者选择这时做，理由是灶台也有粉尘，拖后会影响橱柜进度。",
+      "第 15 步，安装门、衣柜和橱柜：作者安排 7—10 天，门先安装，随后跟进衣柜，橱柜到货也一起协调；前期下单要覆盖这一安装窗口。",
+      "第 16 步，腻子和墙漆：作者用时 15—20 天，其案例先刷墙固，腻子分三遍，涂料为一底两面，每遍等上一遍干燥后再做。门柜先装、后刷墙是这套案例的安排，实际还需协调收口与保护。",
+      "第 17 步，安装开关、灯具以及卫浴和热水器。",
+      "第 18 步，进行开荒保洁，为窗帘和家具入场准备清洁环境。",
+      "第 19 步，安装窗帘，和前面已完成的窗帘盒衔接。",
+      "第 20 步，家具进场、准备入住。原帖没有给通风时长、室内环境检测或入住判定条件，不能由标题中的“三个月完工”直接推断何时适合入住。"
     ],
-    "evidence": "已核对正文及第 1—2 步、第 17—20 步流程配图",
-    "limits": "只整理实际查看的流程页；图中天数与标题三个月是个案，实际工序和工期需与现场施工方安排，不构成交付承诺。",
+    "evidence": "已读取完整正文及全部 10 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "这是毛坯房业主的自装排期参考，原帖没有统一验收规范或完整预算；工期、涂刷遍数及安装先后应结合材料、现场和施工方案复核，不能简单相加承诺总工期。",
     "id": "683982950000000022035719",
     "originalTitle": "超全穷装顺序（三个月完工不返工）",
     "author": "菜兰兰",
@@ -205,21 +90,265 @@ window.RENOVATION_NOTES.unshift(...[
     "url": "https://www.xiaohongshu.com/search_result/683982950000000022035719?xsec_token=AB9w4xtAVUVeMSOfXCePrAeuVfhAJc_PVyMmfVQF8EEao=&xsec_source=",
     "images": [
       {
-        "alt": "毛坯房前期布局与门窗定制流程图",
-        "caption": "原帖第 1—2 步：布局先行，定制门窗留出生产交付时间；天数为作者经验。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/1f37fc33956b505da77fa25154d06647/notes_pre_post/1040g3k831i3qdt2nmoj04a4rakol6p5mukubuh0!nd_dft_wlteh_webp_3",
-        "src": "media/683982950000000022035719-1.webp"
+        "src": "media/complete/683982950000000022035719/01.webp",
+        "sourceIndex": 1,
+        "alt": "菜兰兰 · 原帖第1张：封面：毛坯房安装顺序",
+        "caption": "封面：毛坯房安装顺序",
+        "width": 950,
+        "height": 1280,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/0b59b8f6b18aab0d08633f8bead364df/notes_pre_post/1040g3k831i3qdt2nmojg4a4rakol6p5m4crdc6o!nd_dft_wlteh_webp_3",
+        "sha256": "64f549c3ccece8cb5ab42f73d69ac6d095266e7ccc9e223cd5934308f1ffa388"
       },
       {
-        "alt": "毛坯房末期安装与保洁家具进场流程图",
-        "caption": "原帖第 17—20 步：安装、保洁、窗帘与家具进场的衔接示例，按现场调整。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/aa3772e44e622f41089473a9bacb2613/notes_pre_post/1040g3k831i3qdt2nmoig4a4rakol6p5melk5quo!nd_dft_wlteh_webp_3",
-        "src": "media/683982950000000022035719-2.webp"
+        "src": "media/complete/683982950000000022035719/02.webp",
+        "sourceIndex": 2,
+        "alt": "菜兰兰 · 原帖第2张：第 1—2 步：设计规划与提前定窗",
+        "caption": "第 1—2 步：设计规划与提前定窗",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/2bf1d9d40e4f08ecad814ba191b33035/notes_pre_post/1040g3k831i3qdt2nmoj04a4rakol6p5mukubuh0!nd_dft_wlteh_webp_3",
+        "sha256": "327aea4b1081021b8e49a0285143de0ff58c7363405463604ee8349b82a8b356"
+      },
+      {
+        "src": "media/complete/683982950000000022035719/03.webp",
+        "sourceIndex": 3,
+        "alt": "菜兰兰 · 原帖第3张：第 3—4 步：拆改与水电定位",
+        "caption": "第 3—4 步：拆改与水电定位",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/e8d532f2269deefd611a6c58545d1987/notes_pre_post/1040g3k831i3qdt2nmok04a4rakol6p5m4tmk1p8!nd_dft_wlteh_webp_3",
+        "sha256": "89d46f47351bcb592a92354d6210773b26286856a1bcb94095a724423dec63f7"
+      },
+      {
+        "src": "media/complete/683982950000000022035719/04.webp",
+        "sourceIndex": 4,
+        "alt": "菜兰兰 · 原帖第4张：第 5—6 步：隔音包管与防水",
+        "caption": "第 5—6 步：隔音包管与防水",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/fef8f487461c404fc6e5577593a9dfa3/notes_pre_post/1040g3k831i3qdt2nmoeg4a4rakol6p5mi5ogtc0!nd_dft_wlteh_webp_3",
+        "sha256": "d4784989b39d52612a8f014d323ab77689651853066366693ece814608d7b63d"
+      },
+      {
+        "src": "media/complete/683982950000000022035719/05.webp",
+        "sourceIndex": 5,
+        "alt": "菜兰兰 · 原帖第5张：第 7—8 步：封窗和贴砖",
+        "caption": "第 7—8 步：封窗和贴砖",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/4c799a8654cdb74422e9ed9e7b1946b7/notes_pre_post/1040g3k831i3qdt2nmoe04a4rakol6p5msmtdki8!nd_dft_wlteh_webp_3",
+        "sha256": "45560ec1ee45ef7a12a6bf46770da24a1797018810bb5dc482ea6a92032150ab"
+      },
+      {
+        "src": "media/complete/683982950000000022035719/06.webp",
+        "sourceIndex": 6,
+        "alt": "菜兰兰 · 原帖第6张：第 9—10 步：美缝、干燥等待与地膜保护",
+        "caption": "第 9—10 步：美缝、干燥等待与地膜保护",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/7cb617fedac7506bb9c7771544313262/notes_pre_post/1040g3k831i3qdt2nmogg4a4rakol6p5mc72qioo!nd_dft_wlteh_webp_3",
+        "sha256": "c08b039c45c6e4a6a100196027d00218924d41a888d0a1aa14cabd2686e4fd53"
+      },
+      {
+        "src": "media/complete/683982950000000022035719/07.webp",
+        "sourceIndex": 7,
+        "alt": "菜兰兰 · 原帖第7张：第 11—12 步：门、衣柜与灶台定制",
+        "caption": "第 11—12 步：门、衣柜与灶台定制",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/6d168d50f7e399fc48906d4c928e22ba/notes_pre_post/1040g3k831i3qdt2nmoh04a4rakol6p5m1urfm2g!nd_dft_wlteh_webp_3",
+        "sha256": "5e8babed20bae4ae3d583992a302181596d34239512ea30f5d1380e545471b30"
+      },
+      {
+        "src": "media/complete/683982950000000022035719/08.webp",
+        "sourceIndex": 8,
+        "alt": "菜兰兰 · 原帖第8张：第 13—14 步：吊顶、灶台及橱柜衔接",
+        "caption": "第 13—14 步：吊顶、灶台及橱柜衔接",
+        "width": 1080,
+        "height": 1439,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/3df122ce0b5f0c97ed61f4a634acb33f/notes_pre_post/1040g3k831i3qdt2nmoi04a4rakol6p5m8m1b6eg!nd_dft_wlteh_webp_3",
+        "sha256": "919cdd6e876daac14193c03f3991df176477af8f74b2d7fcdea3363b456ed9c9"
+      },
+      {
+        "src": "media/complete/683982950000000022035719/09.webp",
+        "sourceIndex": 9,
+        "alt": "菜兰兰 · 原帖第9张：第 15—16 步：门柜安装与腻子墙漆",
+        "caption": "第 15—16 步：门柜安装与腻子墙漆",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/87fddd1e87568e8888c126de01cb0a9f/notes_pre_post/1040g3k831i3qdt2nmohg4a4rakol6p5mqqbotno!nd_dft_wlteh_webp_3",
+        "sha256": "45d54c5d173e2e0609e654eb336e5d32091ced3e5e9ce98c96c8919242ac37d3"
+      },
+      {
+        "src": "media/complete/683982950000000022035719/10.webp",
+        "sourceIndex": 10,
+        "alt": "菜兰兰 · 原帖第10张：第 17—20 步：设备安装、保洁、窗帘与家具",
+        "caption": "第 17—20 步：设备安装、保洁、窗帘与家具",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221744/f8aa1581f6b1ef635c653644f5acc15a/notes_pre_post/1040g3k831i3qdt2nmoig4a4rakol6p5melk5quo!nd_dft_wlteh_webp_3",
+        "sha256": "59380e520c6a77fd31e5909cdd4c36996de8f3a15f4aa2bcece618f342f554be"
       }
-    ]
+    ],
+    "sections": [
+      {
+        "title": "1—4 步：先规划，再订货和拆改",
+        "items": [
+          {
+            "text": "第 1 步，格局与风格规划：作者预留 3—5 天，先向物业拿户型图，再决定自行设计或委托设计；开工前至少形成一版明确的空间安排。",
+            "images": [
+              2
+            ]
+          },
+          {
+            "text": "第 2 步，提前定窗：封窗安装通常只占 1—2 天，但作者遇到的定制周期在 15 天以上；需要封阳台时先订货，避免后续贴砖到场后等窗。",
+            "images": [
+              2
+            ]
+          },
+          {
+            "text": "第 3 步，拆改：作者用时 1—2 天，先确定格局，再拆需要调整的墙；原帖特别提醒不要拆承重墙。图中的“一锤 80”属于表达，不能当作拆改报价。",
+            "images": [
+              3
+            ]
+          },
+          {
+            "text": "第 4 步，水电开槽安装：作者安排 3—5 天；开关、插座、灯具与冰箱、洗衣机、电视、烟机、灶具、热水器、扫地机、晾衣架，以及床和沙发的位置一起确认，减少完工后改位。",
+            "images": [
+              3
+            ]
+          }
+        ]
+      },
+      {
+        "title": "5—8 步：管道、防水、窗与瓷砖衔接",
+        "items": [
+          {
+            "text": "第 5 步，排水管隔音：先包隔音棉，再提前定制外包的水泥管构件，给后续贴砖提供基层。作者认为自购材料未必一定比请人施工便宜，要一起比较材料与人工。",
+            "images": [
+              4
+            ]
+          },
+          {
+            "text": "第 6 步，防水：作者安排 3—5 天，采用分三遍涂刷、前遍干后再施工的做法，并进行了 48 小时闭水及楼下渗漏检查；遍数和干燥时间需按实际材料体系确认。",
+            "images": [
+              4
+            ]
+          },
+          {
+            "text": "第 7 步，封窗：安装约 1—2 天，利用前面预订形成的交期，在该案例中先装好窗，再进贴砖环节。",
+            "images": [
+              5
+            ]
+          },
+          {
+            "text": "第 8 步，贴砖：作者用时 10—15 天；提前说清是否全屋通铺、是否做海棠角、阳台墙砖范围、地漏排水口的处理要求，不能只交代“贴砖”便默认效果一致。",
+            "images": [
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "title": "9—12 步：干燥保护与定制复尺",
+        "items": [
+          {
+            "text": "第 9 步，美缝：先清走废砖并打扫，尽量避免用水。作者等待砂浆干燥约 7—10 天，再用 1—2 天做美缝；此等待是案例节奏，受基层湿度和材料影响。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "第 10 步，地面保护：作者安排半天铺地膜；买瓷砖时先问是否赠送保护膜，把后续门柜、吊顶和墙面施工的成品保护一起安排。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "第 11 步，门与衣柜：瓷砖完成后联系复尺，定制卧室门、厨房门、卫生间门及衣柜。原帖给出的制作周期一般超过半个月，不要等到安装前才下单。",
+            "images": [
+              7
+            ]
+          },
+          {
+            "text": "第 12 步，定制灶台：同样在瓷砖完成后量尺；安装可能一天完成，但制作仍需约 5—10 天。应区分制造周期与到场安装时长。",
+            "images": [
+              7
+            ]
+          }
+        ]
+      },
+      {
+        "title": "13—16 步：穿插吊顶、台柜安装与墙面",
+        "items": [
+          {
+            "text": "第 13 步，吊顶：约 5—7 天，在等待门柜时完成客卧及厨卫吊顶，并把窗帘盒一并做进去。",
+            "images": [
+              8
+            ]
+          },
+          {
+            "text": "第 14 步，安装灶台并定橱柜：作者预留 1—2 天，同时提前买好烟机和燃气灶；先用灶台确定烟机位置，装好烟机后再量橱柜，柜体制作约 10 天。作者选择这时做，理由是灶台也有粉尘，拖后会影响橱柜进度。",
+            "images": [
+              8
+            ]
+          },
+          {
+            "text": "第 15 步，安装门、衣柜和橱柜：作者安排 7—10 天，门先安装，随后跟进衣柜，橱柜到货也一起协调；前期下单要覆盖这一安装窗口。",
+            "images": [
+              9
+            ]
+          },
+          {
+            "text": "第 16 步，腻子和墙漆：作者用时 15—20 天，其案例先刷墙固，腻子分三遍，涂料为一底两面，每遍等上一遍干燥后再做。门柜先装、后刷墙是这套案例的安排，实际还需协调收口与保护。",
+            "images": [
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "title": "17—20 步：设备、保洁与软装收尾",
+        "items": [
+          {
+            "text": "第 17 步，安装开关、灯具以及卫浴和热水器。",
+            "images": [
+              10
+            ]
+          },
+          {
+            "text": "第 18 步，进行开荒保洁，为窗帘和家具入场准备清洁环境。",
+            "images": [
+              10
+            ]
+          },
+          {
+            "text": "第 19 步，安装窗帘，和前面已完成的窗帘盒衔接。",
+            "images": [
+              10
+            ]
+          },
+          {
+            "text": "第 20 步，家具进场、准备入住。原帖没有给通风时长、室内环境检测或入住判定条件，不能由标题中的“三个月完工”直接推断何时适合入住。",
+            "images": [
+              10
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 10,
+      "downloadedImages": 10,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 10 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
   },
   {
-    "title": "瓦工结束后：把瓷砖、排水与安装条件一起检查",
+    "title": "瓦工完工 9 项检查：平整、空鼓、开孔与排水",
     "stage": "施工",
     "type": "避坑",
     "tags": [
@@ -227,14 +356,20 @@ window.RENOVATION_NOTES.unshift(...[
       "瓷砖",
       "排水"
     ],
-    "summary": "瓦工结束先列检查项，再请施工方逐项说明：从瓷砖表面与拼缝，到地漏、出水口和后续柜体安装条件。",
+    "summary": "覆盖原帖全部 9 项现场检查，分清瓷砖观感、铺贴质量与设备排水接口；硬币、手机、弹珠是作者的便捷初查方法。",
     "points": [
-      "检查瓷砖表面平整、拼缝及开孔外观，把异常处标记并拍照。",
-      "把空鼓检查、地漏节点和地面排水纳入验收记录。",
-      "核对花洒出水口位置、墙角与柜体安装的配合条件。"
+      "1. 检查相邻砖高低差：作者把硬币放在瓷砖十字接缝处，向不同方向滑动，观察是否被砖边卡住。重点是发现接缝突起和绊脚感；硬币顺滑只能作为初查现象，不代表整屋平整度已完成测量。",
+      "2. 检查留缝是否一致：作者偏好 2 mm 的缝，认为便于后续美缝，并用硬币作对比。实际要对照所选砖和施工约定逐段查看；原帖“硬币刚好 2 mm”的说法不宜代替量具。",
+      "3. 检查空鼓：作者区分地砖与墙砖，提出地砖不应空鼓、墙砖空鼓率不超过 5%，并提醒敲击墙砖四周及中心点，避免只敲中间。该比例是原帖的验收口径，是否适用应结合砖材、铺法及合同复核，发现异常先标记范围再处理。",
+      "4. 检查开关插座孔：开口形状要规整，双孔等位置中间保留适当支撑，不能随意崩成大洞。原帖关注的后果是面板装上后遮盖不住、边缘留缝，因此要把孔位与实际面板尺寸一起对照。",
+      "5. 检查地漏连接：查看地漏及下水连接处是否连续，有没有断层、空隙。作者担心断层导致返味、渗水及潮湿发霉；应在后续部件遮挡前检查清楚，不要仅看表面的金属盖板是否漂亮。",
+      "7. 检查花洒出水口：核对冷热出水口是否处在相同水平，避免花洒安装时对接困难；这一项针对安装接口，与整面墙是否看起来平直不同。",
+      "9. 检查地面坡向：作者建议在远离地漏处轻放弹珠，观察是否自然向地漏滚动，用来发现明显倒坡。图中也记录了监理没带齐工具、最终用卷尺量两端差距的经历，提醒提前约好检查工具；弹珠结果不能直接替代完整排水验收。",
+      "6. 检查阴阳角垂直：作者给出小于 3 mm 的误差参考，特别关注将来装橱柜和浴室柜的墙角，否则柜体与墙之间容易出现不均匀缝隙。原帖未明确该数值对应的测量长度，现场需和施工验收约定一起确认。",
+      "8. 检查水平度：作者用手机自带水平仪作便捷检查，数值接近 0 时再观察周边；同时提醒手机壳、凸起摄像头会改变接触面。适合发现明显倾斜，关键位置仍应以合适量具确认。"
     ],
-    "evidence": "已核对笔记正文及瓦工验收配图",
-    "limits": "原帖中的硬币、手机水平仪与弹珠只属于个人简易检查思路；固定缝宽、空鼓比例和误差值未独立核验，不作为合格判据。",
+    "evidence": "已读取完整正文及全部 10 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "已覆盖正文和全部 10 张图。原帖主要是业主现场初查经验，没有给出适用标准、完整测量条件或整改判据；2 mm、5% 和 3 mm 均保留为作者参考，不能作为所有工程的统一合格线。",
     "id": "685a7347000000001202343d",
     "originalTitle": "注意⚠️瓦工结束，盯紧这9点❗️没过千万别付款",
     "author": "大柱少吃一点",
@@ -242,15 +377,194 @@ window.RENOVATION_NOTES.unshift(...[
     "url": "https://www.xiaohongshu.com/search_result/685a7347000000001202343d?xsec_token=ABpT0YcuOx5vUdfCeNCGjkiOKO5MckJTm62UC0Sa9PwAk=&xsec_source=",
     "images": [
       {
-        "alt": "瓦工验收原帖封面",
-        "caption": "原帖以瓦工结束后的现场检查为主题；具体合格标准需按合同与适用规范核对。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/b7f391ef49541d010e6135de9753c170/notes_pre_post/1040g3k831j40o8v01g004a64jlvllrjf03ti180!nd_dft_wlteh_webp_3",
-        "src": "media/685a7347000000001202343d-1.webp"
+        "src": "media/complete/685a7347000000001202343d/01.webp",
+        "sourceIndex": 1,
+        "alt": "大柱少吃一点 · 原帖第1张：封面：瓦工验收 9 个检查点",
+        "caption": "封面：瓦工验收 9 个检查点",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/1bf61da52be7004eac89bd2f8bfb83d4/notes_pre_post/1040g3k831j40o8v01g004a64jlvllrjf03ti180!nd_dft_wlteh_webp_3",
+        "sha256": "2456ba07245c607032a3146661477f53e8a298e178ae4e57aba310b899eb9e76"
+      },
+      {
+        "src": "media/complete/685a7347000000001202343d/02.webp",
+        "sourceIndex": 2,
+        "alt": "大柱少吃一点 · 原帖第2张：第 1 项：硬币初查瓷砖接缝高低差",
+        "caption": "第 1 项：硬币初查瓷砖接缝高低差",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/13d0a1bb079a0fed6177d1536cb549d6/notes_pre_post/1040g3k831j40o8v01g0g4a64jlvllrjfmfl0ff0!nd_dft_wlteh_webp_3",
+        "sha256": "2f5e1a8b1869fdb00d6892af0a85abb2745f7aa84e3e1533b674b7ef6872fdbd"
+      },
+      {
+        "src": "media/complete/685a7347000000001202343d/03.webp",
+        "sourceIndex": 3,
+        "alt": "大柱少吃一点 · 原帖第3张：第 2 项：拼缝宽度参考",
+        "caption": "第 2 项：拼缝宽度参考",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/03f14eda24b4213d28510074fbc955c8/notes_pre_post/1040g3k831j40o8v01g104a64jlvllrjfn5qjbu0!nd_dft_wlteh_webp_3",
+        "sha256": "a7fc53afdbc741842aadfe2f3a9f96f71b74a12df5103d6dc43ea02a49eecaf7"
+      },
+      {
+        "src": "media/complete/685a7347000000001202343d/04.webp",
+        "sourceIndex": 4,
+        "alt": "大柱少吃一点 · 原帖第4张：第 3 项：墙地砖空鼓检查",
+        "caption": "第 3 项：墙地砖空鼓检查",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/b39a4d929d33e23f13336f0466d48094/notes_pre_post/1040g3k831j40o8v01g1g4a64jlvllrjfs7pd0n8!nd_dft_wlteh_webp_3",
+        "sha256": "abe65c06d6599df3a7f181353c471f2355c8c0e965f4a14a072294c0fa64e789"
+      },
+      {
+        "src": "media/complete/685a7347000000001202343d/05.webp",
+        "sourceIndex": 5,
+        "alt": "大柱少吃一点 · 原帖第5张：第 4 项：开关插座孔规整度",
+        "caption": "第 4 项：开关插座孔规整度",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/f710985bce0da4c582cda94a8bbed62f/notes_pre_post/1040g3k831j40o8v01g204a64jlvllrjfirp14a8!nd_dft_wlteh_webp_3",
+        "sha256": "71df24a322defe5db1dd98df81b8d9cf7b2a8dffd713fc3bd875583afa04ce1a"
+      },
+      {
+        "src": "media/complete/685a7347000000001202343d/06.webp",
+        "sourceIndex": 6,
+        "alt": "大柱少吃一点 · 原帖第6张：第 5 项：地漏连接有无断层",
+        "caption": "第 5 项：地漏连接有无断层",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/682206861db16174d12c55b7a2e4f622/notes_pre_post/1040g3k831j40o8v01g2g4a64jlvllrjf2jpacs8!nd_dft_wlteh_webp_3",
+        "sha256": "4ea9d7c57a0efb071f1f54ea953930e5648cef89717c2e23304128d625388939"
+      },
+      {
+        "src": "media/complete/685a7347000000001202343d/07.webp",
+        "sourceIndex": 7,
+        "alt": "大柱少吃一点 · 原帖第7张：第 6 项：阴阳角垂直度",
+        "caption": "第 6 项：阴阳角垂直度",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/cbbf996051b6c034e466c624c80810ee/notes_pre_post/1040g3k831j40o8v01g304a64jlvllrjf2ub7788!nd_dft_wlteh_webp_3",
+        "sha256": "c8775c5d791ef777d06424f11c05af9c435500ce7b391a651b8300cf1f614a26"
+      },
+      {
+        "src": "media/complete/685a7347000000001202343d/08.webp",
+        "sourceIndex": 8,
+        "alt": "大柱少吃一点 · 原帖第8张：第 7 项：花洒出水口水平",
+        "caption": "第 7 项：花洒出水口水平",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/2b25df9154a707c47f1af7480a3ec59d/notes_pre_post/1040g3k831j40o8v01g3g4a64jlvllrjf8g8ds30!nd_dft_wlteh_webp_3",
+        "sha256": "e7efd62f133ada7f28549cf10e2cdbb7fdd2f79a255dfba5637faa4622719122"
+      },
+      {
+        "src": "media/complete/685a7347000000001202343d/09.webp",
+        "sourceIndex": 9,
+        "alt": "大柱少吃一点 · 原帖第9张：第 8 项：手机水平仪及接触面影响",
+        "caption": "第 8 项：手机水平仪及接触面影响",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/b548b4eca69ecf0390b63329547cf29a/notes_pre_post/1040g3k831j40o8v01g404a64jlvllrjfms4g62o!nd_dft_wlteh_webp_3",
+        "sha256": "395239b47d1ad4a94fb4018ec7c198c2404efeb59a99853b6c405d7f6b1d18dd"
+      },
+      {
+        "src": "media/complete/685a7347000000001202343d/10.webp",
+        "sourceIndex": 10,
+        "alt": "大柱少吃一点 · 原帖第10张：第 9 项：地面坡向与地漏排水",
+        "caption": "第 9 项：地面坡向与地漏排水",
+        "width": 1080,
+        "height": 1439,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/dc5f2f2427620e0eb37161ddd2059e99/notes_pre_post/1040g3k831j40o8v01g4g4a64jlvllrjfnat0ptg!nd_dft_wlteh_webp_3",
+        "sha256": "b4bbafaff148fcd462e9477d068faed84620df049d5e988e6e49c7facc08ea0d"
       }
-    ]
+    ],
+    "sections": [
+      {
+        "title": "表面观感与拼缝：第 1、2 项",
+        "items": [
+          {
+            "text": "1. 检查相邻砖高低差：作者把硬币放在瓷砖十字接缝处，向不同方向滑动，观察是否被砖边卡住。重点是发现接缝突起和绊脚感；硬币顺滑只能作为初查现象，不代表整屋平整度已完成测量。",
+            "images": [
+              2
+            ]
+          },
+          {
+            "text": "2. 检查留缝是否一致：作者偏好 2 mm 的缝，认为便于后续美缝，并用硬币作对比。实际要对照所选砖和施工约定逐段查看；原帖“硬币刚好 2 mm”的说法不宜代替量具。",
+            "images": [
+              3
+            ]
+          }
+        ]
+      },
+      {
+        "title": "铺贴与开孔：第 3、4 项",
+        "items": [
+          {
+            "text": "3. 检查空鼓：作者区分地砖与墙砖，提出地砖不应空鼓、墙砖空鼓率不超过 5%，并提醒敲击墙砖四周及中心点，避免只敲中间。该比例是原帖的验收口径，是否适用应结合砖材、铺法及合同复核，发现异常先标记范围再处理。",
+            "images": [
+              4
+            ]
+          },
+          {
+            "text": "4. 检查开关插座孔：开口形状要规整，双孔等位置中间保留适当支撑，不能随意崩成大洞。原帖关注的后果是面板装上后遮盖不住、边缘留缝，因此要把孔位与实际面板尺寸一起对照。",
+            "images": [
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "title": "排水与设备安装接口：第 5、7、9 项",
+        "items": [
+          {
+            "text": "5. 检查地漏连接：查看地漏及下水连接处是否连续，有没有断层、空隙。作者担心断层导致返味、渗水及潮湿发霉；应在后续部件遮挡前检查清楚，不要仅看表面的金属盖板是否漂亮。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "7. 检查花洒出水口：核对冷热出水口是否处在相同水平，避免花洒安装时对接困难；这一项针对安装接口，与整面墙是否看起来平直不同。",
+            "images": [
+              8
+            ]
+          },
+          {
+            "text": "9. 检查地面坡向：作者建议在远离地漏处轻放弹珠，观察是否自然向地漏滚动，用来发现明显倒坡。图中也记录了监理没带齐工具、最终用卷尺量两端差距的经历，提醒提前约好检查工具；弹珠结果不能直接替代完整排水验收。",
+            "images": [
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "title": "墙角垂直与水平：第 6、8 项",
+        "items": [
+          {
+            "text": "6. 检查阴阳角垂直：作者给出小于 3 mm 的误差参考，特别关注将来装橱柜和浴室柜的墙角，否则柜体与墙之间容易出现不均匀缝隙。原帖未明确该数值对应的测量长度，现场需和施工验收约定一起确认。",
+            "images": [
+              7
+            ]
+          },
+          {
+            "text": "8. 检查水平度：作者用手机自带水平仪作便捷检查，数值接近 0 时再观察周边；同时提醒手机壳、凸起摄像头会改变接触面。适合发现明显倾斜，关键位置仍应以合适量具确认。",
+            "images": [
+              9
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 10,
+      "downloadedImages": 10,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 10 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
   },
   {
-    "title": "厨房抽屉怎么分：先盘点锅碗，再确定柜体尺寸",
+    "title": "灶下抽屉与调料拉篮：6 区分配、柜宽和内高参考",
     "stage": "厨卫",
     "type": "攻略",
     "tags": [
@@ -258,14 +572,22 @@ window.RENOVATION_NOTES.unshift(...[
       "抽屉分区",
       "柜体尺寸"
     ],
-    "summary": "作者按物品大小、重量和取用频率划分灶台下抽屉：先给每格明确用途，再决定抽屉与拉篮的宽高。",
+    "summary": "这篇不是单纯建议多做抽屉，而是展示一组 70＋80＋35 cm 柜体如何分成餐具、锅具、调料和米罐区，附完整高度与收纳分层。",
     "points": [
-      "常用餐具与调料放在顺手的上层，大锅、米面等较重物品安排下层。",
-      "量好大盘、长柄锅和调料瓶的实际尺寸，核对抽屉净高与净宽。",
-      "灶具会占用下方空间，柜体和抽屉设计要一起考虑，避免装好才发现放不下。"
+      "总体逻辑：轻且常用的餐具、调料放上层，重物与大锅放下层；做饭时最常拿的东西靠近灶具。作者认为，先想清每格用途，比只追求“全做抽屉”或购买成品拉篮更重要。",
+      "整体案例尺寸：台面总高 80 cm，岩板台面厚 2 cm，踢脚线高 10 cm；左、中、右柜面宽分别为 70、80、35 cm。两层抽屉面板均高 34 cm，这些都是作者家实测配置，不能直接推定别家的台面高度。",
+      "面板高度不等于内部可用高度：左上内高 28 cm，中上因避让燃气灶仅有 24 cm，左下和中下为 30 cm。规划时应先量锅碗和设备占位，再看抽屉内部净空，而不是仅凭正面看起来同高。",
+      "左上以吃饭取用为主：利用 28 cm 内高，把约 25 cm 直径的大盘竖放；右侧再设抽中抽，上层分放筷子、短勺、长柄厨具和刀叉等，下层放约 12 cm 的小碗。这样将餐具按尺寸与类型分开。",
+      "左下收纳蒸锅、鸳鸯锅等不常用的大件，避免它们占据上层的高频位置；和上层分别安排，可以保留大锅完整拿取的空间。",
+      "中上受燃气灶侵占，作者放常用的小直径碗碟，示意包含约 19 cm 盘和 16 cm 碗，拿取距离靠近盛菜操作。上层用分隔件让不同类型的碗各有位置。",
+      "中下放常用炒锅、平底锅等长柄锅，示意包含直径约 26 cm 煎炒锅、21 cm 雪平锅；用分隔件区分大小并尝试竖放，取锅时靠近灶台，又保留上层给小餐具。",
+      "右上外侧安排酱油、醋等高瓶，瓶区内高 35 cm；内侧上层安排盐、糖、鸡精等矮罐，内高 18 cm，内侧抽中抽下层约 6 cm，放袋装调料。不同高度分区，避免高瓶挤占矮罐空间。",
+      "右下为米、面、豆等密封罐区，内高 36 cm，较重的容器集中在下部。快炒时常用调料可临时放台面，饭后放回，作者认为这样既顺手也能减少台面和瓶身积油。",
+      "作者在燃气灶下加不锈钢板作为隔断，目的是挡住从台面掉落的汤水、灰尘和油污，便于清理。实施时还要结合实际灶具的安装空间要求协调，不能只照图封住设备下方。",
+      "整套方案的重点是六区用途明确：左上餐具、左下备用大锅，中上小碗盘、中下常用长柄锅，右上调料、右下米面。下单前把自家锅柄长度、盘直径、瓶罐高度与各格净空对应核对。"
     ],
-    "evidence": "已核对完整正文、抽屉实拍与柜体尺寸示意图",
-    "limits": "图中尺寸是作者家个案；灶具下方柜体、隔板、通风和检修空间以所购设备安装要求为准，不直接照抄。",
+    "evidence": "已读取完整正文及全部 10 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "尺寸来自作者自家柜体和实物，适合与设计师讨论分区，不构成通用柜体图纸；原帖没有提供滑轨承重、柜内净宽、预算或灶具安装技术参数。",
     "id": "69e4613a00000000230156ac",
     "originalTitle": "橱柜抽屉拉篮怎么分最好用？尺寸直接抄作业",
     "author": "Seazen",
@@ -273,21 +595,223 @@ window.RENOVATION_NOTES.unshift(...[
     "url": "https://www.xiaohongshu.com/search_result/69e4613a00000000230156ac?xsec_token=ABUspGLGoL4Zy-FqCmqrmoay0eqUOhOW5jHQaMqwfChyk=&xsec_source=",
     "images": [
       {
-        "alt": "作者家厨房抽屉分区实拍",
-        "caption": "Seazen 的自家收纳实例：上层放常用餐具与调料，下层放锅具和较重物品。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/95cce06484704f9bd2e0b82768dad7ce/spectrum/1040g0k031v4l9d9e3u3g5njnf6508q7sqc81tc0!nd_dft_wlteh_webp_3",
-        "src": "media/69e4613a00000000230156ac-1.webp"
+        "src": "media/complete/69e4613a00000000230156ac/01.webp",
+        "sourceIndex": 1,
+        "alt": "Seazen · 原帖第1张：六个收纳区的总体分工",
+        "caption": "六个收纳区的总体分工",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/89aa71c488efec814f98e6bc875b3e38/spectrum/1040g0k031v4l9d9e3u3g5njnf6508q7sqc81tc0!nd_dft_wlteh_webp_3",
+        "sha256": "f9d0eb717cc4c2fdb7473de937c11ba95e9080943d71eaddd095aabc44fa3878"
       },
       {
-        "alt": "橱柜抽屉与物品尺寸配合示意图",
-        "caption": "原图尺寸仅为作者自家方案；重点参考先量物品、再定柜体的规划方式。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/9ed130476a550dc0fbd7b0aab2964db3/spectrum/1040g0k031v4l9d9e3u305njnf6508q7skmspjn8!nd_dft_wlteh_webp_3",
-        "src": "media/69e4613a00000000230156ac-2.webp"
+        "src": "media/complete/69e4613a00000000230156ac/02.webp",
+        "sourceIndex": 2,
+        "alt": "Seazen · 原帖第2张：台面总高、台面厚度及锅碗尺寸示意",
+        "caption": "台面总高、台面厚度及锅碗尺寸示意",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/97514491f949b3203bfd7a507bda41e6/spectrum/1040g0k031v4l9d9e3u305njnf6508q7skmspjn8!nd_dft_wlteh_webp_3",
+        "sha256": "e1c07aa07075671acf6cb3f3c797bc61db5095f8d6d4b6e4fdd21b4100701f19"
+      },
+      {
+        "src": "media/complete/69e4613a00000000230156ac/03.webp",
+        "sourceIndex": 3,
+        "alt": "Seazen · 原帖第3张：70／80／35 cm 柜宽与各抽屉实际内高",
+        "caption": "70／80／35 cm 柜宽与各抽屉实际内高",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/96d604c030c073fc23f67e64c0546d63/spectrum/1040g0k031v4l9d9e3u105njnf6508q7s5a7u5sg!nd_dft_wlteh_webp_3",
+        "sha256": "d5f8a3a6c4376b1ec294cc5c005b90f73201f960b576700eb0854b7d08c297b4"
+      },
+      {
+        "src": "media/complete/69e4613a00000000230156ac/04.webp",
+        "sourceIndex": 4,
+        "alt": "Seazen · 原帖第4张：左上抽中抽：大盘、厨具与小碗",
+        "caption": "左上抽中抽：大盘、厨具与小碗",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/f39d3ef2fdbad924db02cbd0c09919c5/spectrum/1040g0k031v4l9d9e3u405njnf6508q7sv7000l8!nd_dft_wlteh_webp_3",
+        "sha256": "ad81a1460f3b8152b551f6fdd0d71a59dbb96abcbca1686bba5f8dda6b8cf6e9"
+      },
+      {
+        "src": "media/complete/69e4613a00000000230156ac/05.webp",
+        "sourceIndex": 5,
+        "alt": "Seazen · 原帖第5张：28 cm 内高竖放 25 cm 大盘的细节",
+        "caption": "28 cm 内高竖放 25 cm 大盘的细节",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/fffcd58053ac352d79f5f0a66fd2db68/spectrum/1040g0k031v4l9d9e3u0g5njnf6508q7sedn0ak0!nd_dft_wlteh_webp_3",
+        "sha256": "5a1da921e455a82de211012c750249d81e07bfe3735b75b45e648aed8815ca4b"
+      },
+      {
+        "src": "media/complete/69e4613a00000000230156ac/06.webp",
+        "sourceIndex": 6,
+        "alt": "Seazen · 原帖第6张：碗与锅用分隔件分类",
+        "caption": "碗与锅用分隔件分类",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/d88f5375d764d9c5f996b33f99b0ac2c/spectrum/1040g0k031v4l9d9e3u2g5njnf6508q7ss0q1mq8!nd_dft_wlteh_webp_3",
+        "sha256": "0953d5c51c5753cf047e478ced45d3ce5a62916b0783acc01c8cdb34b6f6c614"
+      },
+      {
+        "src": "media/complete/69e4613a00000000230156ac/07.webp",
+        "sourceIndex": 7,
+        "alt": "Seazen · 原帖第7张：调料瓶、袋装调料和米罐分区",
+        "caption": "调料瓶、袋装调料和米罐分区",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/d5358825ae1a0cfab913e1baa9a46e85/spectrum/1040g0k031v4l9d9e3u205njnf6508q7skl2ekj8!nd_dft_wlteh_webp_3",
+        "sha256": "b2b4f34bdebb7985917c9cb794ba6d7707bba4c02f995bfdbd488e8b994e5fe7"
+      },
+      {
+        "src": "media/complete/69e4613a00000000230156ac/08.webp",
+        "sourceIndex": 8,
+        "alt": "Seazen · 原帖第8张：18／6／35／36 cm 拉篮净空",
+        "caption": "18／6／35／36 cm 拉篮净空",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/1ff261882ae34077412f04b3042fc9a3/spectrum/1040g0k031v4l9d9e3u005njnf6508q7skppv64g!nd_dft_wlteh_webp_3",
+        "sha256": "2c6acf3e8a43bd678a721ef5b0e08cce4bf4bb2c64475723bb6eddc5a401a385"
+      },
+      {
+        "src": "media/complete/69e4613a00000000230156ac/09.webp",
+        "sourceIndex": 9,
+        "alt": "Seazen · 原帖第9张：灶台下不锈钢隔板",
+        "caption": "灶台下不锈钢隔板",
+        "width": 1478,
+        "height": 1080,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/4353470d40bfe78b432209ee0dc7536e/spectrum/1040g0k031v4l9d9e3u1g5njnf6508q7sj2toql8!nd_dft_wgth_webp_3",
+        "sha256": "acb4e1a464b5fb2d9d2e717762ad779fc686f5e08941ce25470584b1f670f7cd"
+      },
+      {
+        "src": "media/complete/69e4613a00000000230156ac/10.webp",
+        "sourceIndex": 10,
+        "alt": "Seazen · 原帖第10张：厨房与相邻餐区的整体实景",
+        "caption": "厨房与相邻餐区的整体实景",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/cbae33843716f4c5d3214832ad124f7d/spectrum/1040g34o31v4mva0n2s105njnf6508q7sgdmhlr8!nd_dft_wlteh_webp_3",
+        "sha256": "ca210aa7d3122a6ac92d2aaaa59815aa2143d4e1246175362a4107aca6862b6f"
       }
-    ]
+    ],
+    "sections": [
+      {
+        "title": "先定分工，再定抽屉尺寸",
+        "items": [
+          {
+            "text": "总体逻辑：轻且常用的餐具、调料放上层，重物与大锅放下层；做饭时最常拿的东西靠近灶具。作者认为，先想清每格用途，比只追求“全做抽屉”或购买成品拉篮更重要。",
+            "images": [
+              1,
+              10
+            ]
+          },
+          {
+            "text": "整体案例尺寸：台面总高 80 cm，岩板台面厚 2 cm，踢脚线高 10 cm；左、中、右柜面宽分别为 70、80、35 cm。两层抽屉面板均高 34 cm，这些都是作者家实测配置，不能直接推定别家的台面高度。",
+            "images": [
+              2,
+              3
+            ]
+          },
+          {
+            "text": "面板高度不等于内部可用高度：左上内高 28 cm，中上因避让燃气灶仅有 24 cm，左下和中下为 30 cm。规划时应先量锅碗和设备占位，再看抽屉内部净空，而不是仅凭正面看起来同高。",
+            "images": [
+              3
+            ]
+          }
+        ]
+      },
+      {
+        "title": "左侧 70 cm 柜：大盘餐具与不常用大锅",
+        "items": [
+          {
+            "text": "左上以吃饭取用为主：利用 28 cm 内高，把约 25 cm 直径的大盘竖放；右侧再设抽中抽，上层分放筷子、短勺、长柄厨具和刀叉等，下层放约 12 cm 的小碗。这样将餐具按尺寸与类型分开。",
+            "images": [
+              4,
+              5
+            ]
+          },
+          {
+            "text": "左下收纳蒸锅、鸳鸯锅等不常用的大件，避免它们占据上层的高频位置；和上层分别安排，可以保留大锅完整拿取的空间。",
+            "images": [
+              1,
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "title": "中间 80 cm 柜：小碗盘与长柄锅",
+        "items": [
+          {
+            "text": "中上受燃气灶侵占，作者放常用的小直径碗碟，示意包含约 19 cm 盘和 16 cm 碗，拿取距离靠近盛菜操作。上层用分隔件让不同类型的碗各有位置。",
+            "images": [
+              2,
+              3,
+              6
+            ]
+          },
+          {
+            "text": "中下放常用炒锅、平底锅等长柄锅，示意包含直径约 26 cm 煎炒锅、21 cm 雪平锅；用分隔件区分大小并尝试竖放，取锅时靠近灶台，又保留上层给小餐具。",
+            "images": [
+              2,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "title": "右侧 35 cm 拉篮：按瓶高分层",
+        "items": [
+          {
+            "text": "右上外侧安排酱油、醋等高瓶，瓶区内高 35 cm；内侧上层安排盐、糖、鸡精等矮罐，内高 18 cm，内侧抽中抽下层约 6 cm，放袋装调料。不同高度分区，避免高瓶挤占矮罐空间。",
+            "images": [
+              7,
+              8
+            ]
+          },
+          {
+            "text": "右下为米、面、豆等密封罐区，内高 36 cm，较重的容器集中在下部。快炒时常用调料可临时放台面，饭后放回，作者认为这样既顺手也能减少台面和瓶身积油。",
+            "images": [
+              7,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "title": "灶下隔板与照抄前的核对",
+        "items": [
+          {
+            "text": "作者在燃气灶下加不锈钢板作为隔断，目的是挡住从台面掉落的汤水、灰尘和油污，便于清理。实施时还要结合实际灶具的安装空间要求协调，不能只照图封住设备下方。",
+            "images": [
+              9
+            ]
+          },
+          {
+            "text": "整套方案的重点是六区用途明确：左上餐具、左下备用大锅，中上小碗盘、中下常用长柄锅，右上调料、右下米面。下单前把自家锅柄长度、盘直径、瓶罐高度与各格净空对应核对。",
+            "images": [
+              1,
+              3,
+              8,
+              10
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 10,
+      "downloadedImages": 10,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 10 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
   },
   {
-    "title": "橱柜安装验收：先对合同，再看固定和开槽封边",
+    "title": "橱柜安装验收 16 条：合同、五金、台面和防水收口",
     "stage": "安装",
     "type": "避坑",
     "tags": [
@@ -295,14 +819,27 @@ window.RENOVATION_NOTES.unshift(...[
       "合同核对",
       "开槽封边"
     ],
-    "summary": "用安装实拍把验收落到看得见的位置：材料与布局是否符合约定，吊柜是否稳固，开槽位置是否妥善收口。",
+    "summary": "把原帖 16 条逐项保留，按材料布局、柜体五金、台面尺寸、结构开孔和防水封边分组，验收时可逐图对照。",
     "points": [
-      "对照合同和确认图纸核对板材、颜色、类型与布局，发现不一致先记录。",
-      "请安装方检查吊柜固定，确认安装稳定情况。",
-      "打开柜门查看管线开槽处的封边与收口，拍照留档。"
+      "1. 对照订购内容：拿合同、效果图或确认图，核对实际板材、颜色、材质类型和柜体布局；不能只凭“看着差不多”验收，尤其要确认交付是否与约定一致。",
+      "2. 检查整体稳定：查看地柜和吊柜是否稳固，现场留意晃动、松动等现象。原帖以实拍提示检查稳定性，没有给出统一受力试验方式，应让安装方说明固定情况。",
+      "3. 检查门板：站在正面和侧面观察柜门缝隙是否均匀、门板是否齐平，避免高低错台或局部缝隙明显不同；这一项属于安装调节，不能被门板颜色好看掩盖。",
+      "4. 检查五金和功能配件：原帖特别列出五金、碗篮、反弹器等安装情况。验收时实际操作各类开合和抽拉部件，确认功能完整，而不是只看柜门外观。",
+      "5. 查看板材封边：沿板边和可见切面检查封边是否完成，注意遗漏、粗糙或翘起处；柜体边缘往往在装好后不易再被留意。",
+      "13. 看吊柜有没有背板：打开柜门检查背部构造是否与订购方案一致，不能只在关门状态下验收。原帖单列了这一项，未提供背板厚度或统一结构要求。",
+      "16. 检查现场开槽切口的封边：管线、阀门等位置开出的槽孔也要看，不应只验收工厂加工的外露板边。图中为柜内管线周边切口示例。",
+      "6. 检查灶具与水槽的台面开口：原帖关注边缘是否光滑、不刺手，以及转角是否做圆角处理，避免孔口毛糙；检查时需要看切口实际状态。",
+      "7. 核对台面厚度与平整度：既看厚度是否符合订单，也沿台面观察是否平整，不能只看最外侧装饰边的视觉厚度。原帖未给出合格误差数值。",
+      "8. 量台面高度、宽度：把实际安装完成的尺寸与设计确认值核对。图中卷尺只是作者现场示例，不是推荐所有家庭采用同一台面高度。",
+      "14. 复核台面材质：原帖提到用打火机或白醋检查石英石，这是作者展示的民间辨别办法，不能据此直接确认真伪；可保留为与商家沟通的问题，材质交付仍要对照订购凭据，避免在成品上做可能损伤表面的实验。",
+      "15. 检查台面边缘：沿外边、转角查看是否做磨圆处理，手触位置尤其要留意尖角与粗糙边，和前面的开孔内角检查相互补充。",
+      "9. 核对燃气管开孔：检查台面上需要的燃气管孔是否按实际位置留出，避免橱柜装完后才发现管路无法衔接。原帖只讨论有无开孔，不涉及燃气连接操作。",
+      "10. 查看台面下的加固：作者提醒确认是否设置垫条，并列出木垫条或铝合金垫条两种做法；重点是把台面支撑结构看清，与选用台面的安装方案核对。",
+      "11. 看水槽柜防潮处理：原帖检查水槽下柜体有无铺防水铝箔纸。这项覆盖的是柜内防护，不能凭有铝箔就推断水槽和管件一定不漏水。",
+      "12. 检查台面打胶：重点看转角、拼接缝及相关收口处是否处理到位。不要仅检查正面容易看到的一段，藏在转角里的接缝也要逐处看。"
     ],
-    "evidence": "已核对正文及原帖第 1、2、16 项实拍配图",
-    "limits": "本条只整理已查看的第 1、2、16 项，未声称完整核对原帖全部 16 条；不采纳耐用十年等效果承诺。",
+    "evidence": "已读取完整正文及全部 17 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "完整覆盖原帖 16 项及 17 张实拍图。原帖提供检查方向，没有统一尺寸误差、材料性能标准或完整水电验收流程；“更耐用十年”是作者宣传表述，不能当作寿命保证。",
     "id": "6a9182d60000000021031108",
     "originalTitle": "厨房橱柜安装验收16条！",
     "author": "蘑菇酱🍄",
@@ -310,27 +847,306 @@ window.RENOVATION_NOTES.unshift(...[
     "url": "https://www.xiaohongshu.com/search_result/6a9182d60000000021031108?xsec_token=ABMuUpsrvggBS6Ocgjef7AkuOp_FdDRvtzS6vBaXmLPmA=&xsec_source=",
     "images": [
       {
-        "alt": "橱柜材料颜色布局核对实拍",
-        "caption": "原帖第 1 项：板材、颜色、类型、布局与合同及确认方案核对。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/4af01999f814d2195a203e04228d4631/notes_pre_post/1040g3k8324dpchq60ac05p3om25n5841uteairg!nd_dft_wlteh_webp_3",
-        "src": "media/6a9182d60000000021031108-1.webp"
+        "src": "media/complete/6a9182d60000000021031108/01.webp",
+        "sourceIndex": 1,
+        "alt": "蘑菇酱🍄 · 原帖第1张：封面：厨房橱柜安装验收 16 条",
+        "caption": "封面：厨房橱柜安装验收 16 条",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/fa3b3c066fbdbf1c7be146788ffa43ce/notes_pre_post/1040g3k0324dpch05na605p3om25n58413jp7hug!nd_dft_wlteh_webp_3",
+        "sha256": "64c2a51aecca24f775a43979a6be94175f01bd5867dc8e643e0095bed53751ec"
       },
       {
-        "alt": "吊柜内部与固定检查实拍",
-        "caption": "原帖第 2 项：安装后请施工方检查吊柜是否稳固。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/d3c148b5d9000bc8b69088cfcd621dc8/notes_pre_post/1040g3k8324dpchq60acg5p3om25n5841pn72d0o!nd_dft_wlteh_webp_3",
-        "src": "media/6a9182d60000000021031108-2.webp"
+        "src": "media/complete/6a9182d60000000021031108/02.webp",
+        "sourceIndex": 2,
+        "alt": "蘑菇酱🍄 · 原帖第2张：第 1 条：板材、颜色、类型和布局",
+        "caption": "第 1 条：板材、颜色、类型和布局",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/9069fb2f501cb0fd76598936fc82f1bb/notes_pre_post/1040g3k8324dpchq60ac05p3om25n5841uteairg!nd_dft_wlteh_webp_3",
+        "sha256": "acc156fee9e946917a4b82d8dd9b0c968cc658bfb489989898ee7c8e7bdafd09"
       },
       {
-        "alt": "橱柜管线开槽封边检查实拍",
-        "caption": "原帖第 16 项：打开柜门查看开槽位置的封边收口。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/e60ca0a9421cc6d57f4219e0c2bebd2d/notes_pre_post/1040g3k0324dpch05na405p3om25n5841sseccr0!nd_dft_wlteh_webp_3",
-        "src": "media/6a9182d60000000021031108-3.webp"
+        "src": "media/complete/6a9182d60000000021031108/03.webp",
+        "sourceIndex": 3,
+        "alt": "蘑菇酱🍄 · 原帖第3张：第 2 条：橱柜稳定性",
+        "caption": "第 2 条：橱柜稳定性",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/0ceb8262cbfceb779652a4b5f4a6a509/notes_pre_post/1040g3k8324dpchq60acg5p3om25n5841pn72d0o!nd_dft_wlteh_webp_3",
+        "sha256": "3e52418adc722c83b54972e795888eae2819d742bc282d5ca9fa91ffd8597044"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/04.webp",
+        "sourceIndex": 4,
+        "alt": "蘑菇酱🍄 · 原帖第4张：第 3 条：门板缝隙与齐平度",
+        "caption": "第 3 条：门板缝隙与齐平度",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/7a87d05f773f8503b1a67c8b0bcdc016/notes_pre_post/1040g3k8324dpchq60adg5p3om25n5841m4m66n8!nd_dft_wlteh_webp_3",
+        "sha256": "0343486357008544392b9fb48ad95fdf108fc1445f3dc24cc49fc03b3f213887"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/05.webp",
+        "sourceIndex": 5,
+        "alt": "蘑菇酱🍄 · 原帖第5张：第 4 条：五金、碗篮和反弹器",
+        "caption": "第 4 条：五金、碗篮和反弹器",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/db19ccd91b291575283f0eadcd50e57e/notes_pre_post/1040g3k0324dpch05na4g5p3om25n5841lihtbsg!nd_dft_wlteh_webp_3",
+        "sha256": "0c621ba059f98b78b3f9f7e0016b3f816ec41aed785717a240373e11f3b776e2"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/06.webp",
+        "sourceIndex": 6,
+        "alt": "蘑菇酱🍄 · 原帖第6张：第 5 条：板材封边",
+        "caption": "第 5 条：板材封边",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/e37c1098a4c06214fe96d3b8272a2607/notes_pre_post/1040g3k0324dpch057a005p3om25n58418omvfio!nd_dft_wlteh_webp_3",
+        "sha256": "050811e2e1b0e382a22fd9f021efca20e25391d5ca61ad93008344315d865fa4"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/07.webp",
+        "sourceIndex": 7,
+        "alt": "蘑菇酱🍄 · 原帖第7张：第 6 条：灶具、水槽开口光滑与圆角",
+        "caption": "第 6 条：灶具、水槽开口光滑与圆角",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/fe3659d072164f6a52eecc27f074555a/notes_pre_post/1040g3k0324dpch05na1g5p3om25n5841bmaiumg!nd_dft_wlteh_webp_3",
+        "sha256": "89f3a4dfbe9a6e84c3f3930d89aae616c8b2589df90629b9d9d500304323cccd"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/08.webp",
+        "sourceIndex": 8,
+        "alt": "蘑菇酱🍄 · 原帖第8张：第 7 条：台面厚度和平整度",
+        "caption": "第 7 条：台面厚度和平整度",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/57e04d7a75573f90eb3a100bf954a712/notes_pre_post/1040g3k0324dpch05na005p3om25n5841nc0p3c8!nd_dft_wlteh_webp_3",
+        "sha256": "3cd1fad8b37eb478e4d62ea13c7674be7e73a33f416b4cc87b8f46b296055c24"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/09.webp",
+        "sourceIndex": 9,
+        "alt": "蘑菇酱🍄 · 原帖第9张：第 8 条：台面高度和宽度",
+        "caption": "第 8 条：台面高度和宽度",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/7ef48c9f5ca93df8da808da6e839b13a/notes_pre_post/1040g3k0324dpch05na2g5p3om25n58412ujh4sg!nd_dft_wlteh_webp_3",
+        "sha256": "9496400bc4614ef80fff064f032c5e62513b24072568dd183bf74365e00655f0"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/10.webp",
+        "sourceIndex": 10,
+        "alt": "蘑菇酱🍄 · 原帖第10张：第 9 条：燃气管开孔",
+        "caption": "第 9 条：燃气管开孔",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/8a262b900d8f3cf930a14fa72778a06e/notes_pre_post/1040g3k0324dpch05na5g5p3om25n5841tvr907g!nd_dft_wlteh_webp_3",
+        "sha256": "58ef9e6517634ace22b8b2e2b484f72d751a3c5705ee6d3984e328120ba16a2d"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/11.webp",
+        "sourceIndex": 11,
+        "alt": "蘑菇酱🍄 · 原帖第11张：第 10 条：台面下垫条加固",
+        "caption": "第 10 条：台面下垫条加固",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/a17a35cc4eb75a29642460f5d3df4f70/notes_pre_post/1040g3k0324dpch05na3g5p3om25n58419jp2rp8!nd_dft_wlteh_webp_3",
+        "sha256": "fe3045dbbad68b1db154f767884abe506b8f2654c3e22172752675023a37ef8d"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/12.webp",
+        "sourceIndex": 12,
+        "alt": "蘑菇酱🍄 · 原帖第12张：第 11 条：水槽柜防水铝箔",
+        "caption": "第 11 条：水槽柜防水铝箔",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/6e8c01827b8b844cf379ceffbc074549/notes_pre_post/1040g3k0324dpch05na505p3om25n58415dbdu98!nd_dft_wlteh_webp_3",
+        "sha256": "599f9915fad9a6ee696a8299eb5ddf278bf26f59f0b46677ecc1de895c162a58"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/13.webp",
+        "sourceIndex": 13,
+        "alt": "蘑菇酱🍄 · 原帖第13张：第 12 条：台面转角及接缝打胶",
+        "caption": "第 12 条：台面转角及接缝打胶",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/02a0a04e45187bb8afee859c38c3076b/notes_pre_post/1040g3k0324dpch05na0g5p3om25n5841mq82s68!nd_dft_wlteh_webp_3",
+        "sha256": "dec021b96d6b0f7d85f51cb26b75e24752bb330dd7385617d51f2c001fc80c77"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/14.webp",
+        "sourceIndex": 14,
+        "alt": "蘑菇酱🍄 · 原帖第14张：第 13 条：吊柜背板",
+        "caption": "第 13 条：吊柜背板",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/7cf7bcef0b417b8e66f82f7fce30eb82/notes_pre_post/1040g3k0324dpch05na105p3om25n5841hl10dvg!nd_dft_wlteh_webp_3",
+        "sha256": "a90c1ea05d33573fe20918350a61592a7c702e6f559431b02400645655a9e198"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/15.webp",
+        "sourceIndex": 15,
+        "alt": "蘑菇酱🍄 · 原帖第15张：第 14 条：台面材质及作者展示的辨别方法",
+        "caption": "第 14 条：台面材质及作者展示的辨别方法",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/7ed99c316502aea211fe62e2480d83ca/notes_pre_post/1040g3k0324dpch05na205p3om25n5841bhhpbcg!nd_dft_wlteh_webp_3",
+        "sha256": "949b6e3804deeb910d14064066b7dbbca37a4dbe0a0f956f59e00d082f1bdca4"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/16.webp",
+        "sourceIndex": 16,
+        "alt": "蘑菇酱🍄 · 原帖第16张：第 15 条：台面外缘磨圆",
+        "caption": "第 15 条：台面外缘磨圆",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/22ecfc4a21dedc09aac9f610ef5bd7f9/notes_pre_post/1040g3k0324dpch05na305p3om25n5841peh1ngg!nd_dft_wlteh_webp_3",
+        "sha256": "3258eb9247168a741b3bbfa7520fb030793df9c61d5b2daf7680b809bebbda6e"
+      },
+      {
+        "src": "media/complete/6a9182d60000000021031108/17.webp",
+        "sourceIndex": 17,
+        "alt": "蘑菇酱🍄 · 原帖第17张：第 16 条：管线开槽处封边",
+        "caption": "第 16 条：管线开槽处封边",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/a31ba8c2a71a23e523bbdefc37fff647/notes_pre_post/1040g3k0324dpch05na405p3om25n5841sseccr0!nd_dft_wlteh_webp_3",
+        "sha256": "9cdac2b874451fb6d5ceb31c9e2578d4e08090c14d06976b574e8e008cf10ac8"
       }
-    ]
+    ],
+    "sections": [
+      {
+        "title": "先对合同和柜体整体：第 1—3 项",
+        "items": [
+          {
+            "text": "1. 对照订购内容：拿合同、效果图或确认图，核对实际板材、颜色、材质类型和柜体布局；不能只凭“看着差不多”验收，尤其要确认交付是否与约定一致。",
+            "images": [
+              2
+            ]
+          },
+          {
+            "text": "2. 检查整体稳定：查看地柜和吊柜是否稳固，现场留意晃动、松动等现象。原帖以实拍提示检查稳定性，没有给出统一受力试验方式，应让安装方说明固定情况。",
+            "images": [
+              3
+            ]
+          },
+          {
+            "text": "3. 检查门板：站在正面和侧面观察柜门缝隙是否均匀、门板是否齐平，避免高低错台或局部缝隙明显不同；这一项属于安装调节，不能被门板颜色好看掩盖。",
+            "images": [
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "title": "五金与板材细部：第 4、5、13、16 项",
+        "items": [
+          {
+            "text": "4. 检查五金和功能配件：原帖特别列出五金、碗篮、反弹器等安装情况。验收时实际操作各类开合和抽拉部件，确认功能完整，而不是只看柜门外观。",
+            "images": [
+              5
+            ]
+          },
+          {
+            "text": "5. 查看板材封边：沿板边和可见切面检查封边是否完成，注意遗漏、粗糙或翘起处；柜体边缘往往在装好后不易再被留意。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "13. 看吊柜有没有背板：打开柜门检查背部构造是否与订购方案一致，不能只在关门状态下验收。原帖单列了这一项，未提供背板厚度或统一结构要求。",
+            "images": [
+              14
+            ]
+          },
+          {
+            "text": "16. 检查现场开槽切口的封边：管线、阀门等位置开出的槽孔也要看，不应只验收工厂加工的外露板边。图中为柜内管线周边切口示例。",
+            "images": [
+              17
+            ]
+          }
+        ]
+      },
+      {
+        "title": "台面材料、尺寸与边角：第 6—8、14、15 项",
+        "items": [
+          {
+            "text": "6. 检查灶具与水槽的台面开口：原帖关注边缘是否光滑、不刺手，以及转角是否做圆角处理，避免孔口毛糙；检查时需要看切口实际状态。",
+            "images": [
+              7
+            ]
+          },
+          {
+            "text": "7. 核对台面厚度与平整度：既看厚度是否符合订单，也沿台面观察是否平整，不能只看最外侧装饰边的视觉厚度。原帖未给出合格误差数值。",
+            "images": [
+              8
+            ]
+          },
+          {
+            "text": "8. 量台面高度、宽度：把实际安装完成的尺寸与设计确认值核对。图中卷尺只是作者现场示例，不是推荐所有家庭采用同一台面高度。",
+            "images": [
+              9
+            ]
+          },
+          {
+            "text": "14. 复核台面材质：原帖提到用打火机或白醋检查石英石，这是作者展示的民间辨别办法，不能据此直接确认真伪；可保留为与商家沟通的问题，材质交付仍要对照订购凭据，避免在成品上做可能损伤表面的实验。",
+            "images": [
+              15
+            ]
+          },
+          {
+            "text": "15. 检查台面边缘：沿外边、转角查看是否做磨圆处理，手触位置尤其要留意尖角与粗糙边，和前面的开孔内角检查相互补充。",
+            "images": [
+              16
+            ]
+          }
+        ]
+      },
+      {
+        "title": "支撑、管线和防水：第 9—12 项",
+        "items": [
+          {
+            "text": "9. 核对燃气管开孔：检查台面上需要的燃气管孔是否按实际位置留出，避免橱柜装完后才发现管路无法衔接。原帖只讨论有无开孔，不涉及燃气连接操作。",
+            "images": [
+              10
+            ]
+          },
+          {
+            "text": "10. 查看台面下的加固：作者提醒确认是否设置垫条，并列出木垫条或铝合金垫条两种做法；重点是把台面支撑结构看清，与选用台面的安装方案核对。",
+            "images": [
+              11
+            ]
+          },
+          {
+            "text": "11. 看水槽柜防潮处理：原帖检查水槽下柜体有无铺防水铝箔纸。这项覆盖的是柜内防护，不能凭有铝箔就推断水槽和管件一定不漏水。",
+            "images": [
+              12
+            ]
+          },
+          {
+            "text": "12. 检查台面打胶：重点看转角、拼接缝及相关收口处是否处理到位。不要仅检查正面容易看到的一段，藏在转角里的接缝也要逐处看。",
+            "images": [
+              13
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 17,
+      "downloadedImages": 17,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 17 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
   },
   {
-    "title": "网购灯具：尺寸、清洁和眩光，别只看效果图",
+    "title": "选灯 14 组要点：尺寸、功率、色温、光感与安装细节",
     "stage": "安装",
     "type": "避坑",
     "tags": [
@@ -338,14 +1154,27 @@ window.RENOVATION_NOTES.unshift(...[
       "清洁便利",
       "防眩"
     ],
-    "summary": "把选灯问题从效果图拉回日常使用：造型是否好打理、光线是否直射眼睛、标注尺寸放回家里是否合适。",
+    "summary": "完整归纳尺寸、功率、色温 3 组参数、10 组选购偏好及最后 9 条补充提醒；保留作者数值，也标明哪些只是经验估算。",
     "points": [
-      "复杂造型和朝上开口要考虑积灰及清洁便利性。",
-      "核对发光方向和防眩设计，避免光线直射常坐位置的眼睛。",
-      "网购前把商家标注尺寸放到家中实际位置比划，结合层高与家具再判断。"
+      "1. 尺寸参考：作者建议 15—20㎡客厅用 80—110 cm 灯，10—15㎡房间用 50—60 cm，小于 10㎡的房间也不小于 40 cm。另给圆灯估算式：直径＝房间长宽之和÷12，单位保持一致；例中 4×5 m 房间算得 75 cm。两种估法并不完全一致，应当作比选起点，在家中按实尺模拟。",
+      "2. 功率表是作者参考值：客厅 20—30／30—40／40—50／50—70㎡，分别列 60—80／100—150／220—280／300—350 W；卧室和儿童房 5—10／10—15／15—20／≥20㎡，分别列 13—25／25—38／38—50／≥50 W。厨房 3—5／5—10／10—15㎡列 8—13／13—25／25—38 W；老人房 5—10／10—15／15—20／≥20㎡列 25—50／50—75／75—100／≥100 W；阳台 3—5／5—10㎡列 8—13／13—25 W。原图未说明灯具光通量、配光或房间条件，尤其大客厅高功率区间不可直接当购买指标。",
+      "3. 色温参考：作者用 3000 K 以下表示偏暖、3000—5000 K 表示较自然、5000 K 以上表示偏冷；建议玄关低于 4000 K、客厅 3000—4000 K、餐厨约 4000 K、卧室约 3000 K、卫生间约 5000 K。这些是氛围偏好，应结合家里材质、用灯场景和个人感受看样。",
+      "4. 发光方式：作者偏好环绕侧发光，理由是出光柔和、均匀且防眩；对直接发光形式持保留意见。实际比选应看坐卧位置是否直视亮点，不能只凭“侧发光”名称认定舒适。",
+      "6. 频闪：作者倾向无可视频闪，并提出用手机镜头观察闪动；这可作为发现明显异常的线索，手机画面不能单独证明灯具合格，原帖末页也建议核对频闪相关检测资料。",
+      "7. 调光方式：作者偏好单一固定光色，认为价格低且免去反复按开关切换三色的麻烦；是否需要调光调色应按使用习惯选择，同时问清是否有记忆功能。",
+      "12. 显色性：作者倾向 Ra＞90，反对 Ra＜80，关注物体颜色是否还原自然。可以作为参数比选的一项，但原帖没有给出对应检测报告或实测对比。",
+      "13. 光谱：作者偏好全光谱并提醒关注蓝光，同时在末页要求查看蓝光检测资料。原帖的“护眼”表述属于选购主张，不能单凭宣传词推定保护视力效果。",
+      "5. 预算选择：作者更推荐吸顶灯，认为价格、安装便利性适合低预算家庭；无主灯方案造价较高。这是该帖的成本取舍，不意味着所有户型只能选一种照明形式。",
+      "8. 灯罩：作者推荐亚克力，担心其他塑料灯罩使用后发黄、变脆；具体仍要核对实际材料与品质，不能把某种材料名称直接等同于永久不黄。",
+      "9. 厚薄：作者偏好薄款，理由是视觉轻、不压层高；选型时看实际灯体厚度，避免只被商家效果图里的纤薄感吸引。",
+      "10. 安装贴合：倾向紧贴天花的灯体，减少顶部缝隙积灰及顶面阴影；要结合自家顶面平整情况查看实际安装效果。",
+      "11. 造型：偏好简单款，主要考虑长期耐看与清洁方便；结构复杂、开口朝上的灯具容易形成难擦的位置。",
+      "14a. 使用与维护：除简洁造型、避免向上开口外，末页还提醒卫生间考虑防水，光线避免直射眼睛并关注防眩，少选容易掉色的镀层或漆面。防水与表面耐用性需看产品用途和具体配置。",
+      "14b. 认证与来源：末页要求核对品牌、3C，以及频闪和蓝光相关资料；网购时仔细看品牌标识细节，防止拿相似标识混充。正文“没必要买品牌”与末页“认准大品牌”口径不同，可共同提炼为不要只按名气付费，也不要省略资质与来源核对。",
+      "14c. 网购尺寸：别只看效果图，把商家给的尺寸放到自家空间模拟，再核对灯体是否过大、过小或过厚；这与前面的尺寸公式互相校正，更适合最终下单。"
     ],
-    "evidence": "已核对正文及选灯注意事项配图",
-    "limits": "仅提炼已读配图中的清洁、防眩与尺寸核对；原帖固定尺寸公式、按面积换算瓦数和认证说法未独立核验，不作为通用配置标准。",
+    "evidence": "已读取完整正文及全部 15 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "覆盖全部 15 张图及末页 9 条提醒。该帖包含作者偏好和简化参数表，并非照明设计规范；功率不能独立代表房间亮度，手机拍摄不能独立验证频闪，材料与“全光谱／护眼”宣传也需结合实际检测资料判断。",
     "id": "6a978ba8000000002600aabb",
     "originalTitle": "灯具怎么选，记住这14点，保你不踩坑",
     "author": "小屿软装记",
@@ -353,21 +1182,290 @@ window.RENOVATION_NOTES.unshift(...[
     "url": "https://www.xiaohongshu.com/search_result/6a978ba8000000002600aabb?xsec_token=AB5ZxZCz0kH5lcubvtDhazcfxjoqiTYUMwpZq1elqHT0o=&xsec_source=",
     "images": [
       {
-        "alt": "灯具选购原帖封面",
-        "caption": "小屿软装记的灯具选购笔记；本站提炼尺寸核对、清洁与眩光这几项。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/c9264b085483b2b7b68188d949ec7ced/spectrum/1040g34o324jm0gvs0s705o82dad08fbt8h9osjo!nd_dft_wlteh_webp_3",
-        "src": "media/6a978ba8000000002600aabb-1.webp"
+        "src": "media/complete/6a978ba8000000002600aabb/01.webp",
+        "sourceIndex": 1,
+        "alt": "小屿软装记 · 原帖第1张：封面：灯具选购避坑主题",
+        "caption": "封面：灯具选购避坑主题",
+        "width": 645,
+        "height": 859,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/e6906dec04bb156c8049427fffb8e419/spectrum/1040g34o324jm0gvs0s705o82dad08fbt8h9osjo!nd_dft_wlteh_webp_3",
+        "sha256": "fc4f4cd315ebc1acc48d34e0a1d91e2ac3fc90322f51dca73b06d5169bf29a16"
       },
       {
-        "alt": "灯具选购注意事项原图",
-        "caption": "原图为作者经验汇总；其中认证、材料与耐久等绝对化说法未在本站核验。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/377f74779542c97d16423845512f90d9/spectrum/1040g34o324jm0h4u0m105o82dad08fbtsb7isu0!nd_dft_wlteh_webp_3",
-        "src": "media/6a978ba8000000002600aabb-2.webp"
+        "src": "media/complete/6a978ba8000000002600aabb/02.webp",
+        "sourceIndex": 2,
+        "alt": "小屿软装记 · 原帖第2张：尺寸估算与圆灯直径公式",
+        "caption": "尺寸估算与圆灯直径公式",
+        "width": 642,
+        "height": 856,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/9181b7d81faa6f8c390bafd4d1e5799a/spectrum/1040g34o324jm0gvs0s7g5o82dad08fbtp1s66po!nd_dft_wlteh_webp_3",
+        "sha256": "fa44027f97b68f20e908040889396dc743a57d309dfb803d50a41ccbe1d64101"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/03.webp",
+        "sourceIndex": 3,
+        "alt": "小屿软装记 · 原帖第3张：各房间 LED 功率参考表",
+        "caption": "各房间 LED 功率参考表",
+        "width": 644,
+        "height": 859,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/28396a237f6d588ef7cdfbcfb9e2636f/spectrum/1040g34o324jm0gvs0s805o82dad08fbthkdhnl0!nd_dft_wlteh_webp_3",
+        "sha256": "d6d888c825bee5dd6bbaf221ec20fd4569f63ed36e23386a4e86e13a484ed657"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/04.webp",
+        "sourceIndex": 4,
+        "alt": "小屿软装记 · 原帖第4张：色温区间和不同房间建议",
+        "caption": "色温区间和不同房间建议",
+        "width": 645,
+        "height": 859,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/fb682c8dbf6c7395d89a702278708aaa/spectrum/1040g34o324jm0gvs0s8g5o82dad08fbtkrfat90!nd_dft_wlteh_webp_3",
+        "sha256": "5c935348362c8e96b246baa5674feaca33ae271a161fab0ca2af6a60dda69c17"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/05.webp",
+        "sourceIndex": 5,
+        "alt": "小屿软装记 · 原帖第5张：环绕侧发光与直发光对比",
+        "caption": "环绕侧发光与直发光对比",
+        "width": 641,
+        "height": 859,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/8ef03309bd92869c80d0acd525573675/spectrum/1040g34o324jm0gvs0s905o82dad08fbthjm8f4g!nd_dft_wlteh_webp_3",
+        "sha256": "0f1c73c6df1b883616fb32735b7ce7fb09b8f021b7938f9ae29cdb18a2582a87"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/06.webp",
+        "sourceIndex": 6,
+        "alt": "小屿软装记 · 原帖第6张：吸顶灯与无主灯的预算取舍",
+        "caption": "吸顶灯与无主灯的预算取舍",
+        "width": 642,
+        "height": 862,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/736d58350a50b69a66f5e864477676c9/spectrum/1040g34o324jm0gvs0s9g5o82dad08fbtvd9ttr0!nd_dft_wlteh_webp_3",
+        "sha256": "43433e7573037116c5403fa516c6b9f55b1f9c2547b60fec6d7b3d90524bf812"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/07.webp",
+        "sourceIndex": 7,
+        "alt": "小屿软装记 · 原帖第7张：频闪观察与作者的选购提醒",
+        "caption": "频闪观察与作者的选购提醒",
+        "width": 644,
+        "height": 859,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/a93911edc94388641ded8b9d5b74ac0c/spectrum/1040g34o324jm0gvs0sa05o82dad08fbtfa8idko!nd_dft_wlteh_webp_3",
+        "sha256": "dcea0ac604f726ffb850ae1bc8942f9569af31e844c7e29a5ff2c71cb01e6101"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/08.webp",
+        "sourceIndex": 8,
+        "alt": "小屿软装记 · 原帖第8张：固定光色与三色切换的使用偏好",
+        "caption": "固定光色与三色切换的使用偏好",
+        "width": 645,
+        "height": 859,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/bc0210547adca0f33e53067c3ad9e3ea/spectrum/1040g34o324jm0gvs0sag5o82dad08fbtjstodso!nd_dft_wlteh_webp_3",
+        "sha256": "0451ac63599d21cf3591b49887d1e0586da3e7239ef6ea0aa79c1e89d0aa6f79"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/09.webp",
+        "sourceIndex": 9,
+        "alt": "小屿软装记 · 原帖第9张：灯罩材料与耐久顾虑",
+        "caption": "灯罩材料与耐久顾虑",
+        "width": 647,
+        "height": 861,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/45dc8ee62a8d7655538ad14534b7c5dd/spectrum/1040g34o324jm0gvs0sb05o82dad08fbtr9gnt8g!nd_dft_wlteh_webp_3",
+        "sha256": "b680d5ff7948e0f665f9a286459de67256aea08678b592697bf3929f7059e64e"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/10.webp",
+        "sourceIndex": 10,
+        "alt": "小屿软装记 · 原帖第10张：灯体薄厚和层高观感",
+        "caption": "灯体薄厚和层高观感",
+        "width": 639,
+        "height": 862,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/d3e9617999525979fed4950f0c191e87/spectrum/1040g34o324jm0gvs0sbg5o82dad08fbtag4p670!nd_dft_wlteh_webp_3",
+        "sha256": "7e3b1c8d5c6a48adc2d69b7624844611d862327f0e1dd857174b87ba169a6374"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/11.webp",
+        "sourceIndex": 11,
+        "alt": "小屿软装记 · 原帖第11张：贴顶与留缝安装的清洁差异",
+        "caption": "贴顶与留缝安装的清洁差异",
+        "width": 646,
+        "height": 864,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/2d14c544b97835aac632c52c1d6e4ab4/spectrum/1040g34o324jm0gvs0sc05o82dad08fbt5f3vlu8!nd_dft_wlteh_webp_3",
+        "sha256": "acb53f5f458d8c3e144ad193151b2ce339ce1b08b7084a04ba1ae23831487f24"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/12.webp",
+        "sourceIndex": 12,
+        "alt": "小屿软装记 · 原帖第12张：简洁和复杂造型的维护差异",
+        "caption": "简洁和复杂造型的维护差异",
+        "width": 641,
+        "height": 860,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/5af9ee1c970e122e39f61be03a49bbb7/spectrum/1040g34o324jm0gvs0scg5o82dad08fbtdo67lng!nd_dft_wlteh_webp_3",
+        "sha256": "e0957231ac1362d65931d12dd4858b24ea5dc1037ba7c85853b79e21e8d180df"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/13.webp",
+        "sourceIndex": 13,
+        "alt": "小屿软装记 · 原帖第13张：Ra 显色指数参考",
+        "caption": "Ra 显色指数参考",
+        "width": 644,
+        "height": 860,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/7368271d7954143b99b3b663e5d48c98/spectrum/1040g34o324jm0gvs0sd05o82dad08fbtb5ji5q8!nd_dft_wlteh_webp_3",
+        "sha256": "1c330650e6c2a8c57f35bee20009e617bb0dd457d9c43e523f0314a68dac9b94"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/14.webp",
+        "sourceIndex": 14,
+        "alt": "小屿软装记 · 原帖第14张：全光谱及蓝光宣传关注点",
+        "caption": "全光谱及蓝光宣传关注点",
+        "width": 645,
+        "height": 859,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/94bddfeef811257f5a71253f31258170/spectrum/1040g34o324jm0gvs0sdg5o82dad08fbt3nok7a0!nd_dft_wlteh_webp_3",
+        "sha256": "ffdf44cb154589c6bce9c69847f39e349bdbcdd0bc43d971d810a9fb6797fa23"
+      },
+      {
+        "src": "media/complete/6a978ba8000000002600aabb/15.webp",
+        "sourceIndex": 15,
+        "alt": "小屿软装记 · 原帖第15张：9 条补充提醒：防水、防眩、认证、表面与网购",
+        "caption": "9 条补充提醒：防水、防眩、认证、表面与网购",
+        "width": 641,
+        "height": 860,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/c215c2483834c80dcad3232672c6aecf/spectrum/1040g34o324jm0h4u0m105o82dad08fbtsb7isu0!nd_dft_wlteh_webp_3",
+        "sha256": "2ec97739fa9ee31c6ba212a71a203498d4337077fc328c4e7f00e51abde4b803"
       }
-    ]
+    ],
+    "sections": [
+      {
+        "title": "1—3：先确定尺寸、功率和光色",
+        "items": [
+          {
+            "text": "1. 尺寸参考：作者建议 15—20㎡客厅用 80—110 cm 灯，10—15㎡房间用 50—60 cm，小于 10㎡的房间也不小于 40 cm。另给圆灯估算式：直径＝房间长宽之和÷12，单位保持一致；例中 4×5 m 房间算得 75 cm。两种估法并不完全一致，应当作比选起点，在家中按实尺模拟。",
+            "images": [
+              2
+            ]
+          },
+          {
+            "text": "2. 功率表是作者参考值：客厅 20—30／30—40／40—50／50—70㎡，分别列 60—80／100—150／220—280／300—350 W；卧室和儿童房 5—10／10—15／15—20／≥20㎡，分别列 13—25／25—38／38—50／≥50 W。厨房 3—5／5—10／10—15㎡列 8—13／13—25／25—38 W；老人房 5—10／10—15／15—20／≥20㎡列 25—50／50—75／75—100／≥100 W；阳台 3—5／5—10㎡列 8—13／13—25 W。原图未说明灯具光通量、配光或房间条件，尤其大客厅高功率区间不可直接当购买指标。",
+            "images": [
+              3
+            ]
+          },
+          {
+            "text": "3. 色温参考：作者用 3000 K 以下表示偏暖、3000—5000 K 表示较自然、5000 K 以上表示偏冷；建议玄关低于 4000 K、客厅 3000—4000 K、餐厨约 4000 K、卧室约 3000 K、卫生间约 5000 K。这些是氛围偏好，应结合家里材质、用灯场景和个人感受看样。",
+            "images": [
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "title": "4、6、7、12、13：比较光感和参数",
+        "items": [
+          {
+            "text": "4. 发光方式：作者偏好环绕侧发光，理由是出光柔和、均匀且防眩；对直接发光形式持保留意见。实际比选应看坐卧位置是否直视亮点，不能只凭“侧发光”名称认定舒适。",
+            "images": [
+              5
+            ]
+          },
+          {
+            "text": "6. 频闪：作者倾向无可视频闪，并提出用手机镜头观察闪动；这可作为发现明显异常的线索，手机画面不能单独证明灯具合格，原帖末页也建议核对频闪相关检测资料。",
+            "images": [
+              7,
+              15
+            ]
+          },
+          {
+            "text": "7. 调光方式：作者偏好单一固定光色，认为价格低且免去反复按开关切换三色的麻烦；是否需要调光调色应按使用习惯选择，同时问清是否有记忆功能。",
+            "images": [
+              8
+            ]
+          },
+          {
+            "text": "12. 显色性：作者倾向 Ra＞90，反对 Ra＜80，关注物体颜色是否还原自然。可以作为参数比选的一项，但原帖没有给出对应检测报告或实测对比。",
+            "images": [
+              13
+            ]
+          },
+          {
+            "text": "13. 光谱：作者偏好全光谱并提醒关注蓝光，同时在末页要求查看蓝光检测资料。原帖的“护眼”表述属于选购主张，不能单凭宣传词推定保护视力效果。",
+            "images": [
+              14,
+              15
+            ]
+          }
+        ]
+      },
+      {
+        "title": "5、8—11：预算、外形与清洁维护",
+        "items": [
+          {
+            "text": "5. 预算选择：作者更推荐吸顶灯，认为价格、安装便利性适合低预算家庭；无主灯方案造价较高。这是该帖的成本取舍，不意味着所有户型只能选一种照明形式。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "8. 灯罩：作者推荐亚克力，担心其他塑料灯罩使用后发黄、变脆；具体仍要核对实际材料与品质，不能把某种材料名称直接等同于永久不黄。",
+            "images": [
+              9
+            ]
+          },
+          {
+            "text": "9. 厚薄：作者偏好薄款，理由是视觉轻、不压层高；选型时看实际灯体厚度，避免只被商家效果图里的纤薄感吸引。",
+            "images": [
+              10
+            ]
+          },
+          {
+            "text": "10. 安装贴合：倾向紧贴天花的灯体，减少顶部缝隙积灰及顶面阴影；要结合自家顶面平整情况查看实际安装效果。",
+            "images": [
+              11
+            ]
+          },
+          {
+            "text": "11. 造型：偏好简单款，主要考虑长期耐看与清洁方便；结构复杂、开口朝上的灯具容易形成难擦的位置。",
+            "images": [
+              12,
+              15
+            ]
+          }
+        ]
+      },
+      {
+        "title": "14：末页 9 条提醒中的补充检查",
+        "items": [
+          {
+            "text": "14a. 使用与维护：除简洁造型、避免向上开口外，末页还提醒卫生间考虑防水，光线避免直射眼睛并关注防眩，少选容易掉色的镀层或漆面。防水与表面耐用性需看产品用途和具体配置。",
+            "images": [
+              15
+            ]
+          },
+          {
+            "text": "14b. 认证与来源：末页要求核对品牌、3C，以及频闪和蓝光相关资料；网购时仔细看品牌标识细节，防止拿相似标识混充。正文“没必要买品牌”与末页“认准大品牌”口径不同，可共同提炼为不要只按名气付费，也不要省略资质与来源核对。",
+            "images": [
+              15
+            ]
+          },
+          {
+            "text": "14c. 网购尺寸：别只看效果图，把商家给的尺寸放到自家空间模拟，再核对灯体是否过大、过小或过厚；这与前面的尺寸公式互相校正，更适合最终下单。",
+            "images": [
+              2,
+              15
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 15,
+      "downloadedImages": 15,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 15 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
   },
   {
-    "title": "全屋灯光先看使用：基础、局部和氛围分开安排",
+    "title": "谁懂啊！终于找到了全屋灯光💡方案",
     "stage": "准备",
     "type": "攻略",
     "tags": [
@@ -375,14 +1473,24 @@ window.RENOVATION_NOTES.unshift(...[
       "分区照明",
       "开关分控"
     ],
-    "summary": "先列会客、观影、阅读、备餐等活动，再安排基础照明与局部补光；水电阶段同步确认分控和预留电源。",
+    "summary": "从分层照明到客厅、卧室、厨卫、阳台、过道的布灯，再到光束角、防眩、色温和显色；适合水电定位与选灯前对照，图中参数均为原帖方案参考。",
     "points": [
-      "客厅把通行、会客、阅读与观影分开思考，确定真正需要点亮的区域。",
-      "厨房关注台面操作补光，卧室区分基础照明、床头阅读和衣柜取物。",
-      "提前与设计及施工方确认灯带电源、驱动位置和开关分控，减少后期改动。"
+      "正文把照明分为基础、重点、功能、氛围四层：先保证走动和日常活动亮度，再补台面、阅读或展示照明。会客、观影、起夜应能分别开关；水电阶段确定分路、零线、灯带电源及变压器位置，避免装完吊顶才补线。",
+      "作者提醒避免只靠一盏主灯，也不主张盲目做无主灯；其给出的适用参考是层高至少约2.6米且预算允许。是否吊顶、用磁吸轨道或保留主灯，仍需结合实际层高、照度与开关操作决定。",
+      "客厅示例是两侧反光灯槽作氛围光，沙发与电视背景用预埋磁吸轨道搭配格栅、泛光或轨道灯；茶几补防眩射灯或嵌入格栅，过道补筒灯。图1参考：灯带24V、10W/米、3500K，背景灯12W、4000K，茶几/餐桌射灯12W、3500K。",
+      "餐桌灯按桌面位置定位，选防眩射灯或装饰吊灯。正文建议2700—3500K、Ra≥90，吊灯下沿离桌70—85厘米；这些是方案参考，需结合灯具配光、桌面大小和视线现场试光。",
+      "卧室拆成入户基础光、床尾局部光、反光灯槽/窗帘盒氛围光、床头阅读光和衣柜层板灯。图1例：入户12W/4000K、阅读吊灯7W/4000K、氛围灯带24V/10W每米/3000K、柜内3500K；不要让射灯直照躺卧视线，可另留床下感应夜灯。",
+      "厨房采用顶面基础光、吊柜下层板灯和操作区局部光，避免人站在台面前挡住唯一顶灯。图1例为筒灯10W/4500K、柜下24V灯带10W每米/3500K、操作区10W/4000K；正文另提4000—5000K和IP44+，湿区灯具适用性应核对具体产品。",
+      "卫生间分基础光、洗手盆/马桶局部光、反光槽灯和淋浴光，图1示例分别以4000K、3500K、3500K、4000K搭配，淋浴筒灯10W。镜前与淋浴的实际照明及防潮条件，要按空间和灯具安装要求核实。",
+      "阳台用防眩筒灯作主照明，窗帘盒以三角型材和24V灯带补氛围；过道也采用筒/射灯加反光槽灯。图1例：主灯10W/4000K，灯带10W每米/3500K。正文还补充玄关柜内层板光和感应地脚灯，便于回家与夜间通行。",
+      "图8对比离墙10、15、20、25、30厘米以及15°、24°、36°、45°、60°光束的墙面效果。原帖常用参考为射灯离墙20—30厘米、间距80—120厘米，洗墙常选36°；筒灯参考离墙大于50厘米。实际光斑还受层高、灯具配光与墙面平整度影响，宜试光后定位。",
+      "原帖用小于60°/大于60°概括射灯与筒灯，便于初步理解聚光和泛光，但选购时仍应看产品配光图与用途，不能只凭名称或这个角度分界。",
+      "作者认为黑杯藏眩光更好，白杯关灯时与白顶更协调；图13以灯口到光源约40—50毫米、遮光角约45°帮助理解深防眩。该深度不是所有灯具的通用判据，还要现场看坐卧视角是否直接看到光源。",
+      "正文建议全屋不超过两种色温，卧/餐偏3000K、客/厨/书偏4000K；图11却分别列卧室3000K、餐厅3500K、客厅4000K、卫生间6000K，与图1厨卫方案也不同。可把它们视为不同氛围示例，按本人偏好和相邻空间协调性选择，不必整套照搬。",
+      "显指建议也有差异：正文写Ra≥90，图14主张家用大于95，并用Ra≥98与低显指示意对比。重点是核实产品显色参数并试照墙漆、木色和食物；更高显指属于原帖偏好，不能单独替代亮度、防眩及配光判断。"
     ],
-    "evidence": "已核对完整正文及客厅、卧室分层照明示意图",
-    "limits": "原图是方案示例；灯具类型、色温、瓦数、位置和数量需结合房间、层高及使用习惯，未采用原帖固定阈值与绝对化推荐。",
+    "evidence": "已读取完整正文及全部 14 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "已覆盖采集到的完整正文及14张原图。参数为作者整理的方案与选购经验，未独立核验照明标准或产品性能；正文和配图存在色温、显指建议差异，已分别说明，不能直接作为施工标准。",
     "id": "6a9cd5c8000000002802c955",
     "originalTitle": "谁懂啊！终于找到了全屋灯光💡方案",
     "author": "专业深化设计师",
@@ -390,17 +1498,2392 @@ window.RENOVATION_NOTES.unshift(...[
     "url": "https://www.xiaohongshu.com/search_result/6a9cd5c8000000002802c955?xsec_token=ABrMlkF6_sTu_cTN8mcUB6qNWzOGRvvAnDdiN8br_gtxM=&xsec_source=",
     "images": [
       {
-        "alt": "客厅基础局部氛围照明示意图",
-        "caption": "原帖客厅示意：通行、茶几餐桌、背景与氛围照明按活动分开安排。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/6ca35d23dc4abb91a898350f1af103f7/spectrum/1040g0k0324or9tg9hg0g5pq4i77731vek52c4v8!nd_dft_wlteh_webp_3",
-        "src": "media/6a9cd5c8000000002802c955-1.webp"
+        "src": "media/complete/6a9cd5c8000000002802c955/01.webp",
+        "sourceIndex": 1,
+        "alt": "专业深化设计师 · 原帖第1张：六个空间灯具、功率、色温总表",
+        "caption": "六个空间灯具、功率、色温总表",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/aa3a1290f432a289d620b6c62ed36fff/spectrum/1040g0k0324or9tg9hg005pq4i77731veq7h5ong!nd_dft_wlteh_webp_3",
+        "sha256": "49b229f5c45c3e5c98c2bd7d6ad30f12e0548673067d08eb64b08094c8ea61de"
       },
       {
-        "alt": "卧室阅读衣柜氛围照明示意图",
-        "caption": "原帖卧室示意：基础、床头阅读、衣柜取物和氛围照明对应不同使用场景。",
-        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/807055c2f4771dda52c3ed35aae35350/spectrum/1040g0k0324or9tg9hg105pq4i77731vedkrroe0!nd_dft_wlteh_webp_3",
-        "src": "media/6a9cd5c8000000002802c955-2.webp"
+        "src": "media/complete/6a9cd5c8000000002802c955/02.webp",
+        "sourceIndex": 2,
+        "alt": "专业深化设计师 · 原帖第2张：客厅五类照明布置",
+        "caption": "客厅五类照明布置",
+        "width": 750,
+        "height": 1000,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/d6f22836d7d02ef67fa3f2952b3073c7/spectrum/1040g0k0324or9tg9hg0g5pq4i77731vek52c4v8!nd_dft_wlteh_webp_3",
+        "sha256": "05cb9ae733ec5d8fcef597d719f3fa35e1605358b43371a869591786a4375880"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/03.webp",
+        "sourceIndex": 3,
+        "alt": "专业深化设计师 · 原帖第3张：卧室五类照明与灯具",
+        "caption": "卧室五类照明与灯具",
+        "width": 750,
+        "height": 1000,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/3e418d92dc9434efb4cd1d7d13cadca6/spectrum/1040g0k0324or9tg9hg105pq4i77731vedkrroe0!nd_dft_wlteh_webp_3",
+        "sha256": "055854573d74c89f068c6e2571614be27f692d3dfc1155da1a0ea412f1a13aa6"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/04.webp",
+        "sourceIndex": 4,
+        "alt": "专业深化设计师 · 原帖第4张：过道基础光与灯槽",
+        "caption": "过道基础光与灯槽",
+        "width": 750,
+        "height": 1000,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/762d43c070480ab83e9ffe99b6a85787/spectrum/1040g0k0324or9tg9hg1g5pq4i77731vekho2ht8!nd_dft_wlteh_webp_3",
+        "sha256": "7aec848ff7df28ddf68bd4f2bc06a874a27002418cd95487d3cd676909b988fd"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/05.webp",
+        "sourceIndex": 5,
+        "alt": "专业深化设计师 · 原帖第5张：厨房顶灯、柜下灯和操作补光",
+        "caption": "厨房顶灯、柜下灯和操作补光",
+        "width": 750,
+        "height": 1000,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/8960773f1f76f82608f951d48d2ca9ce/spectrum/1040g0k0324or9tg9hg205pq4i77731ve4s2b460!nd_dft_wlteh_webp_3",
+        "sha256": "06219a16508eda89585843261f0a58f35e8eec8a68466ea904dd9168b2ae1333"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/06.webp",
+        "sourceIndex": 6,
+        "alt": "专业深化设计师 · 原帖第6张：阳台主灯与窗帘盒灯带",
+        "caption": "阳台主灯与窗帘盒灯带",
+        "width": 750,
+        "height": 1000,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/8648392f689e39c4f11cc959d8432a17/spectrum/1040g0k0324or9tg9hg2g5pq4i77731ves7c1bmo!nd_dft_wlteh_webp_3",
+        "sha256": "97f776078f4226265c7c00b9f1ab589b0c19f77fe99bac813603b732fb3611ad"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/07.webp",
+        "sourceIndex": 7,
+        "alt": "专业深化设计师 · 原帖第7张：卫生间四层照明",
+        "caption": "卫生间四层照明",
+        "width": 750,
+        "height": 1000,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/b9f5e54516337140cfd41f34fddba9e6/spectrum/1040g0k0324or9tg9hg305pq4i77731vectcna0g!nd_dft_wlteh_webp_3",
+        "sha256": "ffaec375c1dfa075c221a6dd4bdc7d56aafda6fa9ced285e6cb4f03b57deb3e1"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/08.webp",
+        "sourceIndex": 8,
+        "alt": "专业深化设计师 · 原帖第8张：离墙距离与光束角洗墙效果对比",
+        "caption": "离墙距离与光束角洗墙效果对比",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/82730607c559f5bed9105ea6ec730ade/spectrum/1040g0k0324or9tg9hg3g5pq4i77731vejb1cegg!nd_dft_wlteh_webp_3",
+        "sha256": "0c709bcfe4e55bc7f8851e930766e81affb55560834e9742a6abbab28c6b02f9"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/09.webp",
+        "sourceIndex": 9,
+        "alt": "专业深化设计师 · 原帖第9张：射灯、筒灯及参考间距",
+        "caption": "射灯、筒灯及参考间距",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/e5a0aff90517c527c77b13d12695aa2a/spectrum/1040g0k0324or9tg9hg405pq4i77731ve0mfvapo!nd_dft_wlteh_webp_3",
+        "sha256": "bbd0ffb365b344381a6884823630fbf0dbfcd1dbeccbfdb7bb52bd2ee826ffd1"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/10.webp",
+        "sourceIndex": 10,
+        "alt": "专业深化设计师 · 原帖第10张：筒灯与射灯离墙位置",
+        "caption": "筒灯与射灯离墙位置",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/0856947cfec7b3ed6b5ec5b474ba00b9/spectrum/1040g0k0324or9tg9hg4g5pq4i77731vesl1kol0!nd_dft_wlteh_webp_3",
+        "sha256": "da900309873b17056589416ad3c11d5cdc1bc7911ee3c4307cf65ce74043d6cd"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/11.webp",
+        "sourceIndex": 11,
+        "alt": "专业深化设计师 · 原帖第11张：各空间色温示例",
+        "caption": "各空间色温示例",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/d4785be9af5036a6cd29dd7af429d3df/spectrum/1040g0k0324or9tg9hg505pq4i77731vef5pnr80!nd_dft_wlteh_webp_3",
+        "sha256": "f91d801966957bc9e0e8ff9c1b81d8905a9113263718e3fc2e148b5795c86f18"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/12.webp",
+        "sourceIndex": 12,
+        "alt": "专业深化设计师 · 原帖第12张：黑杯与白杯取舍",
+        "caption": "黑杯与白杯取舍",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/fe2bf893ddf2869f5f476ec38e2e9069/spectrum/1040g0k0324or9tg9hg5g5pq4i77731veqi4n2g0!nd_dft_wlteh_webp_3",
+        "sha256": "fb751edfa94b52babf3a368eedb9704fe5d97dd95805172ec9c9c836b9a6cbbc"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/13.webp",
+        "sourceIndex": 13,
+        "alt": "专业深化设计师 · 原帖第13张：遮光角与深防眩示意",
+        "caption": "遮光角与深防眩示意",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/d8d7fc724d9c701ee1ad0cdecae40cde/spectrum/1040g0k0324or9tg9hg605pq4i77731vedvgbujg!nd_dft_wlteh_webp_3",
+        "sha256": "34ed918e822c0c0b0afcd3fe4e8827ec47ad8014bacd003c54deff6e1ccdc2d8"
+      },
+      {
+        "src": "media/complete/6a9cd5c8000000002802c955/14.webp",
+        "sourceIndex": 14,
+        "alt": "专业深化设计师 · 原帖第14张：显色指数与色彩表现",
+        "caption": "显色指数与色彩表现",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221745/fae73066da88694ac043c5f390e1f495/spectrum/1040g0k0324or9tg9hg6g5pq4i77731vecuf08tg!nd_dft_wlteh_webp_3",
+        "sha256": "626c6f0b0e00b00281f6f6ee468bcca10f9037d8b6a7060ab87b3c073023379d"
       }
-    ]
+    ],
+    "sections": [
+      {
+        "title": "先按生活行为分层，再预留控制",
+        "items": [
+          {
+            "text": "正文把照明分为基础、重点、功能、氛围四层：先保证走动和日常活动亮度，再补台面、阅读或展示照明。会客、观影、起夜应能分别开关；水电阶段确定分路、零线、灯带电源及变压器位置，避免装完吊顶才补线。",
+            "images": [
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "text": "作者提醒避免只靠一盏主灯，也不主张盲目做无主灯；其给出的适用参考是层高至少约2.6米且预算允许。是否吊顶、用磁吸轨道或保留主灯，仍需结合实际层高、照度与开关操作决定。",
+            "images": [
+              1,
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "title": "客厅与卧室：背景、任务和休息分别布灯",
+        "items": [
+          {
+            "text": "客厅示例是两侧反光灯槽作氛围光，沙发与电视背景用预埋磁吸轨道搭配格栅、泛光或轨道灯；茶几补防眩射灯或嵌入格栅，过道补筒灯。图1参考：灯带24V、10W/米、3500K，背景灯12W、4000K，茶几/餐桌射灯12W、3500K。",
+            "images": [
+              1,
+              2
+            ]
+          },
+          {
+            "text": "餐桌灯按桌面位置定位，选防眩射灯或装饰吊灯。正文建议2700—3500K、Ra≥90，吊灯下沿离桌70—85厘米；这些是方案参考，需结合灯具配光、桌面大小和视线现场试光。",
+            "images": [
+              1,
+              2
+            ]
+          },
+          {
+            "text": "卧室拆成入户基础光、床尾局部光、反光灯槽/窗帘盒氛围光、床头阅读光和衣柜层板灯。图1例：入户12W/4000K、阅读吊灯7W/4000K、氛围灯带24V/10W每米/3000K、柜内3500K；不要让射灯直照躺卧视线，可另留床下感应夜灯。",
+            "images": [
+              1,
+              3
+            ]
+          }
+        ]
+      },
+      {
+        "title": "厨房、卫生间与通行空间：补足实际操作位置",
+        "items": [
+          {
+            "text": "厨房采用顶面基础光、吊柜下层板灯和操作区局部光，避免人站在台面前挡住唯一顶灯。图1例为筒灯10W/4500K、柜下24V灯带10W每米/3500K、操作区10W/4000K；正文另提4000—5000K和IP44+，湿区灯具适用性应核对具体产品。",
+            "images": [
+              1,
+              5
+            ]
+          },
+          {
+            "text": "卫生间分基础光、洗手盆/马桶局部光、反光槽灯和淋浴光，图1示例分别以4000K、3500K、3500K、4000K搭配，淋浴筒灯10W。镜前与淋浴的实际照明及防潮条件，要按空间和灯具安装要求核实。",
+            "images": [
+              1,
+              7
+            ]
+          },
+          {
+            "text": "阳台用防眩筒灯作主照明，窗帘盒以三角型材和24V灯带补氛围；过道也采用筒/射灯加反光槽灯。图1例：主灯10W/4000K，灯带10W每米/3500K。正文还补充玄关柜内层板光和感应地脚灯，便于回家与夜间通行。",
+            "images": [
+              1,
+              4,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "title": "筒灯、射灯与洗墙：距离和光束角一起看",
+        "items": [
+          {
+            "text": "图8对比离墙10、15、20、25、30厘米以及15°、24°、36°、45°、60°光束的墙面效果。原帖常用参考为射灯离墙20—30厘米、间距80—120厘米，洗墙常选36°；筒灯参考离墙大于50厘米。实际光斑还受层高、灯具配光与墙面平整度影响，宜试光后定位。",
+            "images": [
+              8,
+              9,
+              10
+            ]
+          },
+          {
+            "text": "原帖用小于60°/大于60°概括射灯与筒灯，便于初步理解聚光和泛光，但选购时仍应看产品配光图与用途，不能只凭名称或这个角度分界。",
+            "images": [
+              9,
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "title": "防眩、色温与显色：保留原帖不同说法",
+        "items": [
+          {
+            "text": "作者认为黑杯藏眩光更好，白杯关灯时与白顶更协调；图13以灯口到光源约40—50毫米、遮光角约45°帮助理解深防眩。该深度不是所有灯具的通用判据，还要现场看坐卧视角是否直接看到光源。",
+            "images": [
+              12,
+              13
+            ]
+          },
+          {
+            "text": "正文建议全屋不超过两种色温，卧/餐偏3000K、客/厨/书偏4000K；图11却分别列卧室3000K、餐厅3500K、客厅4000K、卫生间6000K，与图1厨卫方案也不同。可把它们视为不同氛围示例，按本人偏好和相邻空间协调性选择，不必整套照搬。",
+            "images": [
+              1,
+              11
+            ]
+          },
+          {
+            "text": "显指建议也有差异：正文写Ra≥90，图14主张家用大于95，并用Ra≥98与低显指示意对比。重点是核实产品显色参数并试照墙漆、木色和食物；更高显指属于原帖偏好，不能单独替代亮度、防眩及配光判断。",
+            "images": [
+              14
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 14,
+      "downloadedImages": 14,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 14 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
+  },
+  {
+    "id": "company",
+    "title": "1️⃣个很变态🥹但可以选到好装修公司的办法",
+    "originalTitle": "1️⃣个很变态🥹但可以选到好装修公司的办法",
+    "author": "球球的装修笔记",
+    "date": "2026-05-17",
+    "url": "https://www.xiaohongshu.com/search_result/6a09cf2000000000360005c9?xsec_token=ABRYR2DZAbob9me5nZTeBygQ8Hy28CzTNRSa1h5beRHqU=&xsec_source=",
+    "stage": "预算",
+    "type": "攻略",
+    "tags": [
+      "报价明细",
+      "合同",
+      "施工沟通"
+    ],
+    "summary": "把第一次谈装修公司拆成报价、费用、增项、合同、施工团队和验收六组问题；可直接带去比价、签约及开工沟通。",
+    "points": [
+      "让公司按客厅、厨房、卫生间等区域拆报价，材料、人工、辅料分别列项；水电、瓷砖、乳胶漆、板材写到品牌、系列型号、等级、数量，合同再补尺寸、颜色、工艺和验收要求。几家公司用同一需求比价，才能看出漏项与配置差别。",
+      "优惠、活动期限和适用范围都要留文字凭证；付钱前问清定金能否退、退款条件以及方案或总价不满意如何处理。设计费是否减免、能否抵工程款、包含几版方案和几次修改，也要先谈。",
+      "垃圾费确认由谁清运、清到小区指定点还是运出小区；材料费确认仓库到家、楼层搬运与小区内转运是否都含。管理费问比例、服务项目、收费阶段，材料损耗问范围、比例和超量结算办法。",
+      "“零增项”要转成包含项目、另计项目、超量单价与可协商上限。作者给出的付款谈判示例是开工30%、中期30%、竣工验收30%、留10%质保金；这是其建议，并非统一比例，须按项目与双方实际约定。",
+      "基础与水电类：墙皮铲除范围/厚度，门洞尺寸与修补，水电数量及单价，地漏改位和重做防水，老墙/开槽挂网，湿区止水坎做法。水电不能只留一个宽泛预估，应先量测、列点位并明确超量结算。",
+      "铺贴与收口类：异形切割/碰角、收边条和踢脚线的材料人工辅料、美缝品牌型号、窗台石与门槛石，都要确认收费单位和范围，避免安装最后阶段才报价。",
+      "整体配置类：封阳台或包窗是否在全包内，插座点位够不够，吊顶弧形/双眼皮/石膏线等造型是否另计，厨房止逆阀和烟道密封是否包含。作者举例报价50个点位而实际需60多个，要先清点再谈超额单价。",
+      "调色也要写清：原帖举例深色漆可能按桶加价30%—50%，这只是作者所见收费情形；实际应确定色号、数量、漆料用量、调色费与补漆费用后再签。",
+      "开工、竣工日期具体到日，写清是否包含节假日；分别约定质保项目、年限、增项事先审批流程和价格依据。乙方原因延期的赔付按何种方式计算，也应量化。",
+      "核对营业执照名称与签约公司一致，按原帖建议盖公司公章；合同留白填全或划线。材料不合格的更换、质量问题返工期限、损失及费用责任均需约定，整改后由业主再次确认。",
+      "尾款挂钩全部工程竣工验收，报价、材料表、图纸作为附件盖章，附件合计与合同总价一致。原帖的“日违约金、总额不超5%”只是示例，“没有违约金等于无保护”等表述也不能直接当法律结论。",
+      "问清自有团队还是外包、外包质量责任由谁承担；项目经理是否固定、有无类似案例和过往业主反馈。现场问题找谁、水电验收与闭水等节点提前多久通知，最好形成明确联络安排。",
+      "进场材料现场核品牌、型号、数量；入户门、窗户、地砖及已安装成品如何保护，垃圾每天或分阶段清、在哪里堆放，都要提前确定。",
+      "水电结束保存走向图、全屋点位图和实拍记录；防水明确涂刷遍数、高度、闭水时间、验收与渗漏处理。水电隐蔽、防水、木工和油漆等节点列到场清单，避免封闭后才发现问题。",
+      "贴砖检查空鼓、边角和对缝，提前约定标准与返工责任；墙面核对原墙是否铲除、腻子和基层处理、涂刷范围。吊顶要确认龙骨结构，原帖示例主龙骨间距≤80厘米、副龙骨≤40厘米，属于待结合具体体系核实的参考值。"
+    ],
+    "evidence": "已读取完整正文及全部 11 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "已覆盖完整正文及11张原图。内容是作者的签约与监工提问清单；付款比例、加价幅度、龙骨间距及合同条款示例未独立核验，不作为统一施工、收费或法律标准。",
+    "sections": [
+      {
+        "title": "报价先拆清：总价之外要看包含什么",
+        "items": [
+          {
+            "text": "让公司按客厅、厨房、卫生间等区域拆报价，材料、人工、辅料分别列项；水电、瓷砖、乳胶漆、板材写到品牌、系列型号、等级、数量，合同再补尺寸、颜色、工艺和验收要求。几家公司用同一需求比价，才能看出漏项与配置差别。",
+            "images": [
+              1
+            ]
+          },
+          {
+            "text": "优惠、活动期限和适用范围都要留文字凭证；付钱前问清定金能否退、退款条件以及方案或总价不满意如何处理。设计费是否减免、能否抵工程款、包含几版方案和几次修改，也要先谈。",
+            "images": [
+              1,
+              2,
+              3
+            ]
+          }
+        ]
+      },
+      {
+        "title": "运输、管理和付款：把隐形费用列出来",
+        "items": [
+          {
+            "text": "垃圾费确认由谁清运、清到小区指定点还是运出小区；材料费确认仓库到家、楼层搬运与小区内转运是否都含。管理费问比例、服务项目、收费阶段，材料损耗问范围、比例和超量结算办法。",
+            "images": [
+              2,
+              3
+            ]
+          },
+          {
+            "text": "“零增项”要转成包含项目、另计项目、超量单价与可协商上限。作者给出的付款谈判示例是开工30%、中期30%、竣工验收30%、留10%质保金；这是其建议，并非统一比例，须按项目与双方实际约定。",
+            "images": [
+              2,
+              3,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "title": "常见加价项：签约前逐项确认",
+        "items": [
+          {
+            "text": "基础与水电类：墙皮铲除范围/厚度，门洞尺寸与修补，水电数量及单价，地漏改位和重做防水，老墙/开槽挂网，湿区止水坎做法。水电不能只留一个宽泛预估，应先量测、列点位并明确超量结算。",
+            "images": [
+              4,
+              5
+            ]
+          },
+          {
+            "text": "铺贴与收口类：异形切割/碰角、收边条和踢脚线的材料人工辅料、美缝品牌型号、窗台石与门槛石，都要确认收费单位和范围，避免安装最后阶段才报价。",
+            "images": [
+              4,
+              5
+            ]
+          },
+          {
+            "text": "整体配置类：封阳台或包窗是否在全包内，插座点位够不够，吊顶弧形/双眼皮/石膏线等造型是否另计，厨房止逆阀和烟道密封是否包含。作者举例报价50个点位而实际需60多个，要先清点再谈超额单价。",
+            "images": [
+              5
+            ]
+          },
+          {
+            "text": "调色也要写清：原帖举例深色漆可能按桶加价30%—50%，这只是作者所见收费情形；实际应确定色号、数量、漆料用量、调色费与补漆费用后再签。",
+            "images": [
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "title": "合同写到能执行：工期、主体、责任和附件",
+        "items": [
+          {
+            "text": "开工、竣工日期具体到日，写清是否包含节假日；分别约定质保项目、年限、增项事先审批流程和价格依据。乙方原因延期的赔付按何种方式计算，也应量化。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "核对营业执照名称与签约公司一致，按原帖建议盖公司公章；合同留白填全或划线。材料不合格的更换、质量问题返工期限、损失及费用责任均需约定，整改后由业主再次确认。",
+            "images": [
+              7,
+              8
+            ]
+          },
+          {
+            "text": "尾款挂钩全部工程竣工验收，报价、材料表、图纸作为附件盖章，附件合计与合同总价一致。原帖的“日违约金、总额不超5%”只是示例，“没有违约金等于无保护”等表述也不能直接当法律结论。",
+            "images": [
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "title": "施工由谁负责：提前确认现场与材料",
+        "items": [
+          {
+            "text": "问清自有团队还是外包、外包质量责任由谁承担；项目经理是否固定、有无类似案例和过往业主反馈。现场问题找谁、水电验收与闭水等节点提前多久通知，最好形成明确联络安排。",
+            "images": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "text": "进场材料现场核品牌、型号、数量；入户门、窗户、地砖及已安装成品如何保护，垃圾每天或分阶段清、在哪里堆放，都要提前确定。",
+            "images": [
+              11
+            ]
+          }
+        ]
+      },
+      {
+        "title": "验收不能只看效果：隐蔽和基层先留证",
+        "items": [
+          {
+            "text": "水电结束保存走向图、全屋点位图和实拍记录；防水明确涂刷遍数、高度、闭水时间、验收与渗漏处理。水电隐蔽、防水、木工和油漆等节点列到场清单，避免封闭后才发现问题。",
+            "images": [
+              9,
+              11
+            ]
+          },
+          {
+            "text": "贴砖检查空鼓、边角和对缝，提前约定标准与返工责任；墙面核对原墙是否铲除、腻子和基层处理、涂刷范围。吊顶要确认龙骨结构，原帖示例主龙骨间距≤80厘米、副龙骨≤40厘米，属于待结合具体体系核实的参考值。",
+            "images": [
+              10
+            ]
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "src": "media/complete/company/01.webp",
+        "sourceIndex": 1,
+        "alt": "球球的装修笔记 · 原帖第1张：分项报价、材料、定金与合同细节",
+        "caption": "分项报价、材料、定金与合同细节",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/16ea6636a4df1bea3ab7c919bc0ccb54/notes_pre_post/1040g3k832098mp1e5g705q711e7sj8okhblmtf8!nd_dft_wlteh_webp_3",
+        "sha256": "5c7a4c60f0722237cf5473e19d390f9e6335ccea992a9b2265bd334c3bd580b0"
+      },
+      {
+        "src": "media/complete/company/02.webp",
+        "sourceIndex": 2,
+        "alt": "球球的装修笔记 · 原帖第2张：垃圾、管理、增项和设计费",
+        "caption": "垃圾、管理、增项和设计费",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/098ee62e9917c6b75a343b46b31a0007/notes_pre_post/1040g3k832098mp1e5g7g5q711e7sj8okvlbqum0!nd_dft_wlteh_webp_3",
+        "sha256": "0043edec462a5cb4708785435fff650c3bd34b89d11fff36158b1c83dba208dd"
+      },
+      {
+        "src": "media/complete/company/03.webp",
+        "sourceIndex": 3,
+        "alt": "球球的装修笔记 · 原帖第3张：物流、损耗、付款与限时优惠",
+        "caption": "物流、损耗、付款与限时优惠",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/ebc11616fc195f291e8d9d9d45b57d08/notes_pre_post/1040g3k832098mp1e5g805q711e7sj8oktggdk8o!nd_dft_wlteh_webp_3",
+        "sha256": "a7efb137c31ce23c123fa1ca9cc552f084c82932aa0d1ddcfeb1489af5e662c7"
+      },
+      {
+        "src": "media/complete/company/04.webp",
+        "sourceIndex": 4,
+        "alt": "球球的装修笔记 · 原帖第4张：墙面、切砖、水电、修补等增项",
+        "caption": "墙面、切砖、水电、修补等增项",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/6ed097330b852bd1578518fd4291b647/notes_pre_post/1040g3k832098mp1e5g8g5q711e7sj8ok62c2ci8!nd_dft_wlteh_webp_3",
+        "sha256": "3d672f6bea8eb8f74a69e96a885cbe50f7f611f0e0dfdbbbc65b669f74db04e5"
+      },
+      {
+        "src": "media/complete/company/05.webp",
+        "sourceIndex": 5,
+        "alt": "球球的装修笔记 · 原帖第5张：封阳台、插座、防水、造型及调色增项",
+        "caption": "封阳台、插座、防水、造型及调色增项",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/75b338e06350cfddef988c012f3d494f/notes_pre_post/1040g3k832098mp1e5g905q711e7sj8oklt1r5og!nd_dft_wlteh_webp_3",
+        "sha256": "ac727e006d8ff965197cc03af5795eaf0a53ab4a9f14f8a714087ba7ced42ca7"
+      },
+      {
+        "src": "media/complete/company/06.webp",
+        "sourceIndex": 6,
+        "alt": "球球的装修笔记 · 原帖第6张：工期、质保、增项审批和延期",
+        "caption": "工期、质保、增项审批和延期",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/586c6492d691cd2193879bef89578f91/notes_pre_post/1040g3k832098mp1elg005q711e7sj8okgdim7ug!nd_dft_wlteh_webp_3",
+        "sha256": "5b40179ff2930b3ac0477c65309eba0137d79de4b0f72b544af0e4b584b718da"
+      },
+      {
+        "src": "media/complete/company/07.webp",
+        "sourceIndex": 7,
+        "alt": "球球的装修笔记 · 原帖第7张：材料更换、合同留白、责任及签约主体",
+        "caption": "材料更换、合同留白、责任及签约主体",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/288dfc7e389a588df8fef65ab7e190db/notes_pre_post/1040g3k832098mp1elg0g5q711e7sj8ok9509q98!nd_dft_wlteh_webp_3",
+        "sha256": "4321a9ca70e103f5998ca17bb9f4f854fb23e5e5e2a71ddcd8f1c5ab421abb59"
+      },
+      {
+        "src": "media/complete/company/08.webp",
+        "sourceIndex": 8,
+        "alt": "球球的装修笔记 · 原帖第8张：尾款、违约、返工和报价附件",
+        "caption": "尾款、违约、返工和报价附件",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/435c633546001e6891d47640b70afbf5/notes_pre_post/1040g3k832098mp1elg105q711e7sj8okfn3ggo8!nd_dft_wlteh_webp_3",
+        "sha256": "5e1d25350b0da88c54212a4fb6d94c119ccc99172df0bb3f477ee9b0064c1ef9"
+      },
+      {
+        "src": "media/complete/company/09.webp",
+        "sourceIndex": 9,
+        "alt": "球球的装修笔记 · 原帖第9张：施工队、项目经理、水电图与防水",
+        "caption": "施工队、项目经理、水电图与防水",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/f356c4602988b8524b1af3db1ab124fb/notes_pre_post/1040g3k832098mp1elg1g5q711e7sj8ok5rgh828!nd_dft_wlteh_webp_3",
+        "sha256": "84e19e83f26d67aad94af214c3e1b1e41dac775fa401330fe9e20ef60beaf388"
+      },
+      {
+        "src": "media/complete/company/10.webp",
+        "sourceIndex": 10,
+        "alt": "球球的装修笔记 · 原帖第10张：现场管理、空鼓、吊顶龙骨和墙面基层",
+        "caption": "现场管理、空鼓、吊顶龙骨和墙面基层",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/539dbddec5af3bc12777d9ab4d6173f6/notes_pre_post/1040g3k832098mp1elg205q711e7sj8oksf92g7o!nd_dft_wlteh_webp_3",
+        "sha256": "e4af52f5d1e54cb8b557944d16644ba8de189a10e760cae3c720dc09ed843b77"
+      },
+      {
+        "src": "media/complete/company/11.webp",
+        "sourceIndex": 11,
+        "alt": "球球的装修笔记 · 原帖第11张：成品保护、材料进场、垃圾与验收节点",
+        "caption": "成品保护、材料进场、垃圾与验收节点",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/22b863dfc646caa42f9cc72e5685e96e/notes_pre_post/1040g3k832098mp1elg2g5q711e7sj8oks8ucd6o!nd_dft_wlteh_webp_3",
+        "sha256": "9ea682aadb2b84c399d86d50e30de52c772f93282693a8662e6d2639e129b385"
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 11,
+      "downloadedImages": 11,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 11 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
+  },
+  {
+    "id": "extras",
+    "title": "终于有人把恶意增项整理出来了🙋‍♀️",
+    "originalTitle": "终于有人把恶意增项整理出来了🙋‍♀️",
+    "author": "一枝方糖🐾",
+    "date": "2026-06-03",
+    "url": "https://www.xiaohongshu.com/search_result/6a1fd035000000003802173a?xsec_token=ABlEIM4pVvzA9Y-PKD9jViFNhhSvci2lADuqwVMKvEKK0=&xsec_source=",
+    "stage": "预算",
+    "type": "避坑",
+    "tags": [
+      "拆改",
+      "隐性费用",
+      "垃圾清运"
+    ],
+    "summary": "原帖按拆除、新建、水电、瓦工、木工油漆和全包主材列出约60个容易漏报的收费点。以下保留各阶段核对事项，适合拿着方案、报价和合同逐项勾选。",
+    "points": [
+      "拆墙先确定计价方式与范围，原帖偏向按项打包；垃圾清运问清是否从室内搬运到楼下、再运出小区至处置点，材料上楼费也要明确，不能只听“有电梯就不用搬运费”。",
+      "铲墙皮写清铲到哪一层，阳台保温层提前确定是否处理及单价；原帖提出厨卫铲到红砖、其他到水泥砂浆，仅可作其方案示例，应先看原基层。旧门窗等回收物归属、拆后基层修补范围和费用也一并确认。",
+      "新建墙报价核对防水地梁、门洞过梁、植筋、新旧墙交接挂网、墙顶连接做法以及双面抹灰找平，避免只报砌墙再逐项补钱。原帖推荐混凝土地梁和墙顶斜砌；具体是否采用及如何施工应依墙体体系与现场条件确定。",
+      "报价先说明按米还是总价闭口，按米时约定路径、数量和结算规则；开槽区分砖墙与混凝土，确认综合单价或各自数量。强弱电箱是否移位、空调及排烟共需多少孔、孔费与水电走顶/走地差价，都在定位阶段谈清。",
+      "原帖反对为增加计量而绕线，主张点对点，并提出一管穿3—4根线。这里要核对的是有无无效绕路和重复计费；实际走线、管径、填充与回路必须按负荷及施工条件设计，不能照搬固定根数。",
+      "电线写明品牌、规格及数量。原帖把大功率用4/6平方线作为建议，但截面积需匹配设备负荷、线路长度和保护配置。冰箱要不要独立回路在定位时决定，厨房烟道止逆阀、密封与安装是否含在报价中也别遗漏。",
+      "回填明确材料和工艺，原帖以陶粒替代建筑垃圾；防水写清材料、涂刷范围、遍数与闭水安排。图中推荐两遍、淋浴区2米、48小时闭水，并把卫生间/阳台/厨房分别列项，这些是作者的参考方案，不能替代产品施工要求和项目验收依据。",
+      "包立管问清隔音棉、阻尼片、包管外层材料和按根还是按长度收费；墙面拉毛是否包含，地砖上墙用的胶由谁提供、品牌和数量是什么，都在施工前确定。大规格砖先确认尺寸与铺贴单价，避免临场按普通砖报价翻倍。",
+      "海棠角/碰角与默认阳角条的差别、过门石/窗台石的铺贴人工是否另计，要跟具体做法一起谈。原帖举石材按块80—100元只是收费示例；地面找平先实测，确定是否需要和处理范围。",
+      "美缝或勾缝指定材料，是美缝剂还是彩砂，不要只留“含勾缝”；瓷砖开孔问是否按个另计，止水坎明确适用位置及包工包料费用。原帖倾向全屋开孔及收口打包，可据实协商，重点是同项不漏报、不重复计费。",
+      "吊顶明确按投影还是展开面积并附测量口径，原帖偏向投影计价；无论哪种方式，都应在同一方案和工程量下比总价。龙骨材质先选，原帖推荐轻钢，窗帘盒、灯槽是否算造型另收费也写清。",
+      "石膏线/双眼皮确认几层、每米含工带料价；背景墙以图纸报价，灯带、金属线条等配件列明。木地板先选正铺、人字拼或鱼骨拼，再定人工费，避免铺法变化引入未预期差价。",
+      "踢脚线、门套、窗套及安装辅料不能只默认在全包里；施工期间地面和成品保护由谁付费、何时铺保护，也写入清单。",
+      "墙面基层把找平、挂网、补缝范围列清，避免刮腻子前才增加找平费。提前确定乳胶漆色号数量、深色和调色收费，以及补漆安排；原帖所谓“三色以内免费”是其观察的套餐情形，需问自家合同。",
+      "腻子和涂刷工序写到报价中。原帖建议老房三次、新房两次腻子及一底两面，实际遍数和养护应按基层状况、材料体系及效果要求确定，不能靠刷了几遍就认定质量合格。",
+      "主材写品牌、型号、规格，别只写“同档次”；门锁、拉手、五金、阻尼等配件是否齐全，橱柜套餐限几米、超长单价、主材升级差价都逐项定价。防盗门窗可否自购、原套餐抵扣多少，先看实物或样板再决定。",
+      "开关插座先按家具和家电点位清点，再确认套餐数量及超出价格；甲醛检测的检测主体、方法、范围、合格约定和超标处理责任应具体，不能只写“包环保”。原帖提出超标公司治理，属于其谈判建议，材料等级也不能自动保证整屋检测结果。",
+      "质保以书面项目和期限为准，别让口头五年变合同两年。原帖概括“水电五年、表面两年”，本摘要未独立核验其法律适用条件，签约时应逐项核实依据。管理费问对应服务并议价，免费设计问免除条件，开荒保洁问是否赠送、范围和深度。",
+      "全篇最适合转成一张对照表：项目/做法、是否包含、数量、单位、单价、超量价、责任人和验收依据。约定清楚的另计项目不等于恶意增项；风险在于漏报、范围模糊或施工后才强制告知价格。"
+    ],
+    "evidence": "已读取完整正文及全部 11 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "已覆盖完整正文及11张原图，约60项按主题归并，原图自身有编号跳号。价格、遍数、线径、穿线根数、回填和砌筑做法、质保年限均为作者说法或示例，未独立核验，不作为通用规范；是否合理收费须结合实际合同范围。",
+    "images": [
+      {
+        "src": "media/complete/extras/01.webp",
+        "sourceIndex": 1,
+        "alt": "一枝方糖🐾 · 原帖第1张：恶意增项清单封面",
+        "caption": "恶意增项清单封面",
+        "width": 1080,
+        "height": 1428,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/5a8834f48408e10a7648dd1a6e7043d6/1040g2sg320uoc5qv7u705qb4ujvttd9novsoqa8!nd_dft_wlteh_webp_3",
+        "sha256": "e7e8b2de7b05491efd5e06dd7ef8d99a2bf8bc1d7fba20bef56be6f65d7697e0"
+      },
+      {
+        "src": "media/complete/extras/02.webp",
+        "sourceIndex": 2,
+        "alt": "一枝方糖🐾 · 原帖第2张：拆除、清运、铲墙、回收与修补",
+        "caption": "拆除、清运、铲墙、回收与修补",
+        "width": 1080,
+        "height": 1438,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/64f258cb80785d5ab849393a0846296c/1040g2sg320uoc5qv7u7g5qb4ujvttd9n3hseojg!nd_dft_wlteh_webp_3",
+        "sha256": "544256bfd015694407897c71b8823240e6bdbbc6775d6a13257450da057bd9df"
+      },
+      {
+        "src": "media/complete/extras/03.webp",
+        "sourceIndex": 3,
+        "alt": "一枝方糖🐾 · 原帖第3张：新建墙体、防水地梁和配套工艺",
+        "caption": "新建墙体、防水地梁和配套工艺",
+        "width": 1080,
+        "height": 1428,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/6bc89c14803aa8cd944126267474bd38/1040g2sg320uoc5qv7u805qb4ujvttd9n5lg836o!nd_dft_wlteh_webp_3",
+        "sha256": "db0e4e8f3c933aea1063a79de3e48acc3c155b62665f248347e2cb78572cb65d"
+      },
+      {
+        "src": "media/complete/extras/04.webp",
+        "sourceIndex": 4,
+        "alt": "一枝方糖🐾 · 原帖第4张：水电计价、开槽、移箱、穿线、打孔和走顶",
+        "caption": "水电计价、开槽、移箱、穿线、打孔和走顶",
+        "width": 1080,
+        "height": 1433,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/db83335dd919323048e9f2258669d889/1040g2sg320uoc5qv7u8g5qb4ujvttd9ne715k2g!nd_dft_wlteh_webp_3",
+        "sha256": "e2c9cfca2a1cc91f5b6008bf674034a0c0c8db023d3bd31f7a86b19e62175a0a"
+      },
+      {
+        "src": "media/complete/extras/05.webp",
+        "sourceIndex": 5,
+        "alt": "一枝方糖🐾 · 原帖第5张：布线路径、线材、冰箱回路及止逆阀",
+        "caption": "布线路径、线材、冰箱回路及止逆阀",
+        "width": 1080,
+        "height": 1441,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/e82c9c533c52fb736a65781b0e9c48fe/1040g2sg320uoc5qv7u905qb4ujvttd9n6nui33o!nd_dft_wlteh_webp_3",
+        "sha256": "4f5cf84be498d7a5a04f75b889a1dcbe9e9b83a2a1b57dfdeec69b9972f6c554"
+      },
+      {
+        "src": "media/complete/extras/06.webp",
+        "sourceIndex": 6,
+        "alt": "一枝方糖🐾 · 原帖第6张：回填、防水、包管、拉毛和大砖铺贴",
+        "caption": "回填、防水、包管、拉毛和大砖铺贴",
+        "width": 1080,
+        "height": 1435,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/6bfd0ba2669ad783ab9cdb17cf969efa/1040g2sg320uoc5qv7u9g5qb4ujvttd9ngbojqso!nd_dft_wlteh_webp_3",
+        "sha256": "321734bb3903d7bece141b99f86dd42a8f691f4461a2a5f58e02a68f50d90681"
+      },
+      {
+        "src": "media/complete/extras/07.webp",
+        "sourceIndex": 7,
+        "alt": "一枝方糖🐾 · 原帖第7张：碰角、石材、找平、美缝、开孔和止水坎",
+        "caption": "碰角、石材、找平、美缝、开孔和止水坎",
+        "width": 1080,
+        "height": 1437,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/09b2e8a7deff8bd928a993d85733a49f/1040g2sg320uoc5qv7ua05qb4ujvttd9n8mjqgn8!nd_dft_wlteh_webp_3",
+        "sha256": "7f68aaa808d84baa9107e7232fef88306f31150827ebcd9654d474cc601cfaec"
+      },
+      {
+        "src": "media/complete/extras/08.webp",
+        "sourceIndex": 8,
+        "alt": "一枝方糖🐾 · 原帖第8张：吊顶、龙骨、窗帘盒、造型和地板铺法",
+        "caption": "吊顶、龙骨、窗帘盒、造型和地板铺法",
+        "width": 1080,
+        "height": 1438,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/800b7a6a4f69312dbb74a47ae4f4525a/1040g2sg320uoc5qv7uag5qb4ujvttd9nbm58fmo!nd_dft_wlteh_webp_3",
+        "sha256": "1d6969c8d1797e3a5126c2511e55446e68500a1b6105a850c1fd58322818b2a0"
+      },
+      {
+        "src": "media/complete/extras/09.webp",
+        "sourceIndex": 9,
+        "alt": "一枝方糖🐾 · 原帖第9张：踢脚线、门窗套、保护、基层、调色和涂装",
+        "caption": "踢脚线、门窗套、保护、基层、调色和涂装",
+        "width": 1080,
+        "height": 1447,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/d8b1ae5bc872a6fa5739be0708cab830/1040g2sg320uoc5qv7ub05qb4ujvttd9n693ckmg!nd_dft_wlteh_webp_3",
+        "sha256": "778f4a5903101e7c03c0ca11b45c5432b35d1bb594e5bdc442d7d18b193d4cee"
+      },
+      {
+        "src": "media/complete/extras/10.webp",
+        "sourceIndex": 10,
+        "alt": "一枝方糖🐾 · 原帖第10张：全包主材、配件、橱柜、门窗、插座与检测",
+        "caption": "全包主材、配件、橱柜、门窗、插座与检测",
+        "width": 1080,
+        "height": 1437,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/dc729c5c6b1d3fcf06a91ba564b52fa3/1040g2sg320uoc5qv7ubg5qb4ujvttd9nuvrf8i0!nd_dft_wlteh_webp_3",
+        "sha256": "0f781b66a0113791195e0bbbcf53c0c56c9214dda9a1b41d4e7414bbd05c33fb"
+      },
+      {
+        "src": "media/complete/extras/11.webp",
+        "sourceIndex": 11,
+        "alt": "一枝方糖🐾 · 原帖第11张：质保、管理费、设计费及开荒保洁",
+        "caption": "质保、管理费、设计费及开荒保洁",
+        "width": 1080,
+        "height": 1438,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/bc7dc8230b4ba57dd3a7c332e0317bc6/1040g2sg320uoc5qv7uc05qb4ujvttd9nke0ab3o!nd_dft_wlteh_webp_3",
+        "sha256": "a964d3b868b28a2926119cf36f872db1dcceb4c6a2701a15f2f169668d7731d2"
+      }
+    ],
+    "sections": [
+      {
+        "title": "拆除与新建：范围、垃圾和配套工艺一起报价",
+        "items": [
+          {
+            "text": "拆墙先确定计价方式与范围，原帖偏向按项打包；垃圾清运问清是否从室内搬运到楼下、再运出小区至处置点，材料上楼费也要明确，不能只听“有电梯就不用搬运费”。",
+            "images": [
+              2
+            ]
+          },
+          {
+            "text": "铲墙皮写清铲到哪一层，阳台保温层提前确定是否处理及单价；原帖提出厨卫铲到红砖、其他到水泥砂浆，仅可作其方案示例，应先看原基层。旧门窗等回收物归属、拆后基层修补范围和费用也一并确认。",
+            "images": [
+              2
+            ]
+          },
+          {
+            "text": "新建墙报价核对防水地梁、门洞过梁、植筋、新旧墙交接挂网、墙顶连接做法以及双面抹灰找平，避免只报砌墙再逐项补钱。原帖推荐混凝土地梁和墙顶斜砌；具体是否采用及如何施工应依墙体体系与现场条件确定。",
+            "images": [
+              3
+            ]
+          }
+        ]
+      },
+      {
+        "title": "水电：计量、线路、材料和孔位先定",
+        "items": [
+          {
+            "text": "报价先说明按米还是总价闭口，按米时约定路径、数量和结算规则；开槽区分砖墙与混凝土，确认综合单价或各自数量。强弱电箱是否移位、空调及排烟共需多少孔、孔费与水电走顶/走地差价，都在定位阶段谈清。",
+            "images": [
+              4
+            ]
+          },
+          {
+            "text": "原帖反对为增加计量而绕线，主张点对点，并提出一管穿3—4根线。这里要核对的是有无无效绕路和重复计费；实际走线、管径、填充与回路必须按负荷及施工条件设计，不能照搬固定根数。",
+            "images": [
+              4,
+              5
+            ]
+          },
+          {
+            "text": "电线写明品牌、规格及数量。原帖把大功率用4/6平方线作为建议，但截面积需匹配设备负荷、线路长度和保护配置。冰箱要不要独立回路在定位时决定，厨房烟道止逆阀、密封与安装是否含在报价中也别遗漏。",
+            "images": [
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "title": "瓦工与防水：从回填到美缝逐项锁定",
+        "items": [
+          {
+            "text": "回填明确材料和工艺，原帖以陶粒替代建筑垃圾；防水写清材料、涂刷范围、遍数与闭水安排。图中推荐两遍、淋浴区2米、48小时闭水，并把卫生间/阳台/厨房分别列项，这些是作者的参考方案，不能替代产品施工要求和项目验收依据。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "包立管问清隔音棉、阻尼片、包管外层材料和按根还是按长度收费；墙面拉毛是否包含，地砖上墙用的胶由谁提供、品牌和数量是什么，都在施工前确定。大规格砖先确认尺寸与铺贴单价，避免临场按普通砖报价翻倍。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "海棠角/碰角与默认阳角条的差别、过门石/窗台石的铺贴人工是否另计，要跟具体做法一起谈。原帖举石材按块80—100元只是收费示例；地面找平先实测，确定是否需要和处理范围。",
+            "images": [
+              7
+            ]
+          },
+          {
+            "text": "美缝或勾缝指定材料，是美缝剂还是彩砂，不要只留“含勾缝”；瓷砖开孔问是否按个另计，止水坎明确适用位置及包工包料费用。原帖倾向全屋开孔及收口打包，可据实协商，重点是同项不漏报、不重复计费。",
+            "images": [
+              7
+            ]
+          }
+        ]
+      },
+      {
+        "title": "木工与造型：面积口径、材料和铺法一致",
+        "items": [
+          {
+            "text": "吊顶明确按投影还是展开面积并附测量口径，原帖偏向投影计价；无论哪种方式，都应在同一方案和工程量下比总价。龙骨材质先选，原帖推荐轻钢，窗帘盒、灯槽是否算造型另收费也写清。",
+            "images": [
+              8
+            ]
+          },
+          {
+            "text": "石膏线/双眼皮确认几层、每米含工带料价；背景墙以图纸报价，灯带、金属线条等配件列明。木地板先选正铺、人字拼或鱼骨拼，再定人工费，避免铺法变化引入未预期差价。",
+            "images": [
+              8
+            ]
+          },
+          {
+            "text": "踢脚线、门套、窗套及安装辅料不能只默认在全包里；施工期间地面和成品保护由谁付费、何时铺保护，也写入清单。",
+            "images": [
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "title": "基层与涂装：不只约定面漆品牌",
+        "items": [
+          {
+            "text": "墙面基层把找平、挂网、补缝范围列清，避免刮腻子前才增加找平费。提前确定乳胶漆色号数量、深色和调色收费，以及补漆安排；原帖所谓“三色以内免费”是其观察的套餐情形，需问自家合同。",
+            "images": [
+              9
+            ]
+          },
+          {
+            "text": "腻子和涂刷工序写到报价中。原帖建议老房三次、新房两次腻子及一底两面，实际遍数和养护应按基层状况、材料体系及效果要求确定，不能靠刷了几遍就认定质量合格。",
+            "images": [
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "title": "全包主材与收尾：套餐限制、售后和服务费",
+        "items": [
+          {
+            "text": "主材写品牌、型号、规格，别只写“同档次”；门锁、拉手、五金、阻尼等配件是否齐全，橱柜套餐限几米、超长单价、主材升级差价都逐项定价。防盗门窗可否自购、原套餐抵扣多少，先看实物或样板再决定。",
+            "images": [
+              10
+            ]
+          },
+          {
+            "text": "开关插座先按家具和家电点位清点，再确认套餐数量及超出价格；甲醛检测的检测主体、方法、范围、合格约定和超标处理责任应具体，不能只写“包环保”。原帖提出超标公司治理，属于其谈判建议，材料等级也不能自动保证整屋检测结果。",
+            "images": [
+              10
+            ]
+          },
+          {
+            "text": "质保以书面项目和期限为准，别让口头五年变合同两年。原帖概括“水电五年、表面两年”，本摘要未独立核验其法律适用条件，签约时应逐项核实依据。管理费问对应服务并议价，免费设计问免除条件，开荒保洁问是否赠送、范围和深度。",
+            "images": [
+              11
+            ]
+          },
+          {
+            "text": "全篇最适合转成一张对照表：项目/做法、是否包含、数量、单位、单价、超量价、责任人和验收依据。约定清楚的另计项目不等于恶意增项；风险在于漏报、范围模糊或施工后才强制告知价格。",
+            "images": [
+              1,
+              2,
+              11
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 11,
+      "downloadedImages": 11,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 11 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
+  },
+  {
+    "id": "custom",
+    "title": "花了3个小时做的全屋定制攻略 | 抄作业",
+    "originalTitle": "花了3个小时做的全屋定制攻略 | 抄作业",
+    "author": "卷卷毛",
+    "date": "2026-09-04",
+    "url": "https://www.xiaohongshu.com/search_result/6a9ace19000000002802f091?xsec_token=ABgoD3aJXJ7UWiKnyjNLwpjyNzqnervJoVIcAa2Qhq4_c=&xsec_source=",
+    "stage": "安装",
+    "type": "攻略",
+    "tags": [
+      "全屋定制",
+      "板材",
+      "封边"
+    ],
+    "summary": "覆盖板材、饰面封边、五金、常见加价、25项进店问题及合同售后。适合定橱柜、衣柜前做配置与总价比较，原帖价格和尺寸只作询价参考。",
+    "points": [
+      "原帖将常见基材归为实木、多层、生态、欧松、颗粒和密度板，分别讨论结构、稳定性、造型与价格。作者偏好实木/多层等，排斥密度板；“实木最环保、密度板不环保”的排序属于作者观点，不能只凭基材名字判断实际释放量或品牌所有产品。",
+      "原帖关注ENF及日本F4星，列出≤0.025mg/m³、≤0.3mg/L，并主张双认证。两者检测方法和单位不同，本摘要不采纳其直接等价换算结论。进店应看对应品牌、系列、厚度与检测对象的报告，确认检测的是素板还是饰面成品板。",
+      "素板是尚需后续贴面加工的基材，精板是板材厂已做饰面的成品板，后续还要裁切、封边、打孔。作者重视谁负责贴面与质量控制；其列举的品牌只是示例，不能认定某品牌永远只卖一种板。",
+      "饰面比较包括三聚氰胺的耐磨与性价比、PET的肤感/高光及指纹、烤漆的颜色与划伤维护、实木贴皮的质感保养、吸塑/模压的造型能力和基材。按摸样、耐用需求和预算选，不能只听“高级板”。",
+      "作者推荐PUR或激光封边，分别看重胶线、耐热耐潮和外观，激光通常报价更高；实际问清设备、胶/功能层工艺和样品质量。板材厚度、背板9或18毫米、插槽式还是贴墙式，也要与承重和结构一起确认，原帖“插槽式可用9毫米”只作方案参考。",
+      "铰链和滑轨写品牌、型号、每门数量与是否含阻尼。原帖列进口百隆、海蒂诗、萨郦奇，国产悍高、DTC东泰、顶固、固特供询价；抽屉要看三节轨/托底轨、承重、拉出行程和缓冲，不能只凭名称认定一定半拉或全拉。",
+      "明装拉手是否含、长拉手/内嵌/皮革等是否升级另计，免拉手采用铣槽、45°斜切还是反弹器，逐种问价。气撑、拉直器、裤架、挂衣杆、试衣镜、拉篮、调味篮、骑马抽等功能五金往往另算；自购可先问兼容性及安装费。",
+      "原帖称套餐常含2—3个抽屉，追加约200—500元/个；这是作者的询价参考，要连同轨道配置比较。见光板/侧封板是否与门板同色、顶封板/收口条标准宽度（作者举50—80毫米）及超宽收费，也要写入明细。",
+      "非标先定义边界：作者举衣柜及橱柜地柜深600毫米、吊柜350毫米，高度2.4米以上可能涉及分体/一体板差价。这些是其套餐参考尺寸；自家深度、高度、层板数量、梁柱避让、异形、切角和圆弧均应按图核价。",
+      "玻璃门问铝框、长虹或灰玻的具体配置和面积单价，原帖价格例为几百至上千元/平方米；灯带按米、变压器按个，作者见到几十至一百多元/个，还要问电源预留、开槽及开关是否包含。",
+      "作者提门高超过1.8或2米可能建议加拉直器，约100—300元/个，但是否需要应看板材、门宽厚度和结构。反弹器例价20—80元/个，作者担心损坏和更换；应问质保与可更换性，而非只为极简外观加配件。",
+      "台面确定石英石厚度15或20毫米、颜色、挡水条、台下盆工艺与灶台/水槽开孔，赠送水槽龙头的型号质量及自购安装方式也问清。作者认为20毫米更结实，但实际还受材质、跨距和支撑影响。",
+      "分清投影面积与展开面积各包含什么，套餐面积用完后的每平方米价、加层板、非标和功能件分别算价；运输、上楼、安装是否全含。只有把板材五金、面积口径和所有附加费统一，单价比较才有意义。",
+      "进店最后问：上门测量是否收费、图纸能否带走、出图/生产/安装各需多久，柜体/门板/五金分别保多久、质量问题响应时间。因商家测量或设计错误补板、返工、二次上门如何处理，不能装一半才协商。",
+      "合同写板材品牌系列、厚度和环保等级，五金品牌型号及数量；抽屉、拉手、玻璃门面积、灯带米数等增项做签字附件。工期、延期责任及商家尺寸错误、破损、错色免费重做写明确。",
+      "作者建议分期付款、定金不超过总价20%、安装验收后再付尾款。这是其签约建议，实际要分清定金与其他预付款的约定、支付节点和退款条件，不能当作所有交易的统一安排。"
+    ],
+    "evidence": "已读取完整正文及全部 10 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "已覆盖完整正文与10张原图，图中多次滚动截图有内容重叠，已去重整理。板材环保排序、认证换算、五金表现以及尺寸价格均为作者经验或示例，未独立核验；保留其建议同时注明不能直接推为通用标准。",
+    "images": [
+      {
+        "src": "media/complete/custom/01.webp",
+        "sourceIndex": 1,
+        "alt": "卷卷毛 · 原帖第1张：六类板材、环保等级和饰面",
+        "caption": "六类板材、环保等级和饰面",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/cad6f378789ceb3f8d8fc520c625d5be/1040g2sg324mrl5fq0o7046u5c5obku8a3httlsg!nd_dft_wlteh_webp_3",
+        "sha256": "e8d7d3db50a1323a7c3bfcdc9c12e68a7f0a7f505cab8f26063c80eb496cd97c"
+      },
+      {
+        "src": "media/complete/custom/02.webp",
+        "sourceIndex": 2,
+        "alt": "卷卷毛 · 原帖第2张：饰面、PUR/激光封边及素板精板",
+        "caption": "饰面、PUR/激光封边及素板精板",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/1ff56609497286ff08a63260bcdd0b3d/1040g2sg324mrl5fq0o7g46u5c5obku8a4g7shv0!nd_dft_wlteh_webp_3",
+        "sha256": "1a0c981ed7b7907b1496a1b4beb5289af9895010ddb8a414bf87f06db834624c"
+      },
+      {
+        "src": "media/complete/custom/03.webp",
+        "sourceIndex": 3,
+        "alt": "卷卷毛 · 原帖第3张：素板精板、铰链及抽屉轨道",
+        "caption": "素板精板、铰链及抽屉轨道",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/b4f44457b8f77568bc74f3fbda22bb63/1040g2sg324mrl5fq0o8046u5c5obku8atg7r7fo!nd_dft_wlteh_webp_3",
+        "sha256": "295d804146b2e8a73de9ed331fcce9af602c3f6ab07855a8034b40e17b6fdd70"
+      },
+      {
+        "src": "media/complete/custom/04.webp",
+        "sourceIndex": 4,
+        "alt": "卷卷毛 · 原帖第4张：拉手、功能五金和初步增项",
+        "caption": "拉手、功能五金和初步增项",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/71d84a252bce353f1765d9c024fe2b38/1040g2sg324mrl5fq0o8g46u5c5obku8apjjgnig!nd_dft_wlteh_webp_3",
+        "sha256": "2b48fb3b891af21d17041e5714043af769947d0c78d4413083166a5db76eaa06"
+      },
+      {
+        "src": "media/complete/custom/05.webp",
+        "sourceIndex": 5,
+        "alt": "卷卷毛 · 原帖第5张：见光板、收口、非标尺寸、玻璃、灯带和拉直器",
+        "caption": "见光板、收口、非标尺寸、玻璃、灯带和拉直器",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/1c1c492a4a5c8d2d40d98a4d26022713/1040g2sg324mrl5fq0o9046u5c5obku8avtkgmh8!nd_dft_wlteh_webp_3",
+        "sha256": "b22eae1495b58d24bbc2674af36ea2b81c086f3e9ffda6596f487f217bb633f9"
+      },
+      {
+        "src": "media/complete/custom/06.webp",
+        "sourceIndex": 6,
+        "alt": "卷卷毛 · 原帖第6张：反弹器、功能五金、台面、水槽和运输",
+        "caption": "反弹器、功能五金、台面、水槽和运输",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/70bca14784bb8d9a4da2d44658736cfb/1040g2sg324mrl5fq0o9g46u5c5obku8av0thm5g!nd_dft_wlteh_webp_3",
+        "sha256": "3ad0be7e63bff432f1511edab10edb174d3ed0e4e47980d7f9ec53ef34247bb4"
+      },
+      {
+        "src": "media/complete/custom/07.webp",
+        "sourceIndex": 7,
+        "alt": "卷卷毛 · 原帖第7张：二次上门及进店板材五金问题",
+        "caption": "二次上门及进店板材五金问题",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/4e4922ef7277075c77270dbee8320612/1040g2sg324mrl5fq0oa046u5c5obku8a2lbf0q8!nd_dft_wlteh_webp_3",
+        "sha256": "2bbcf0aa0e4868459ee174deb2c333abc5fd89f83dbc200a914c3bf70c0cf49c"
+      },
+      {
+        "src": "media/complete/custom/08.webp",
+        "sourceIndex": 8,
+        "alt": "卷卷毛 · 原帖第8张：计价、非标和增项必问清单",
+        "caption": "计价、非标和增项必问清单",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/100460299f69b9955675fffe0ef25dd1/1040g2sg324mrl5fq0oag46u5c5obku8als9ih8g!nd_dft_wlteh_webp_3",
+        "sha256": "1dc23cf14b4201af99ffc65f846600cfe5fbfe353fc619dd85492d6922a192c8"
+      },
+      {
+        "src": "media/complete/custom/09.webp",
+        "sourceIndex": 9,
+        "alt": "卷卷毛 · 原帖第9张：设计售后问题与合同板材信息",
+        "caption": "设计售后问题与合同板材信息",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/94e7f02ffab99c73168bfd4298edccd6/1040g2sg324mrl5fq0ob046u5c5obku8aekjulgo!nd_dft_wlteh_webp_3",
+        "sha256": "c043294207e18311483f18f6e960d60b4a0b973df45690acc3bcc3240f228b32"
+      },
+      {
+        "src": "media/complete/custom/10.webp",
+        "sourceIndex": 10,
+        "alt": "卷卷毛 · 原帖第10张：合同配置、分期、工期和免费返工",
+        "caption": "合同配置、分期、工期和免费返工",
+        "width": 1080,
+        "height": 2348,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/f606f4eabd8b16ef7509c2cc3b46aae6/1040g2sg324mrl5fq0obg46u5c5obku8ak14u1oo!nd_dft_wlteh_webp_3",
+        "sha256": "7a39c3a0f27fbff81c51dae8fd5af8892266dc1d570478b9a89d95e41b19aaff"
+      }
+    ],
+    "sections": [
+      {
+        "title": "板材与环保：先问基材，再核对报告对象",
+        "items": [
+          {
+            "text": "原帖将常见基材归为实木、多层、生态、欧松、颗粒和密度板，分别讨论结构、稳定性、造型与价格。作者偏好实木/多层等，排斥密度板；“实木最环保、密度板不环保”的排序属于作者观点，不能只凭基材名字判断实际释放量或品牌所有产品。",
+            "images": [
+              1
+            ]
+          },
+          {
+            "text": "原帖关注ENF及日本F4星，列出≤0.025mg/m³、≤0.3mg/L，并主张双认证。两者检测方法和单位不同，本摘要不采纳其直接等价换算结论。进店应看对应品牌、系列、厚度与检测对象的报告，确认检测的是素板还是饰面成品板。",
+            "images": [
+              1,
+              7
+            ]
+          },
+          {
+            "text": "素板是尚需后续贴面加工的基材，精板是板材厂已做饰面的成品板，后续还要裁切、封边、打孔。作者重视谁负责贴面与质量控制；其列举的品牌只是示例，不能认定某品牌永远只卖一种板。",
+            "images": [
+              2,
+              3
+            ]
+          }
+        ]
+      },
+      {
+        "title": "饰面、封边与厚度：配置写到具体产品",
+        "items": [
+          {
+            "text": "饰面比较包括三聚氰胺的耐磨与性价比、PET的肤感/高光及指纹、烤漆的颜色与划伤维护、实木贴皮的质感保养、吸塑/模压的造型能力和基材。按摸样、耐用需求和预算选，不能只听“高级板”。",
+            "images": [
+              1,
+              2
+            ]
+          },
+          {
+            "text": "作者推荐PUR或激光封边，分别看重胶线、耐热耐潮和外观，激光通常报价更高；实际问清设备、胶/功能层工艺和样品质量。板材厚度、背板9或18毫米、插槽式还是贴墙式，也要与承重和结构一起确认，原帖“插槽式可用9毫米”只作方案参考。",
+            "images": [
+              2,
+              7
+            ]
+          }
+        ]
+      },
+      {
+        "title": "五金：品牌、数量、功能与寿命一起问",
+        "items": [
+          {
+            "text": "铰链和滑轨写品牌、型号、每门数量与是否含阻尼。原帖列进口百隆、海蒂诗、萨郦奇，国产悍高、DTC东泰、顶固、固特供询价；抽屉要看三节轨/托底轨、承重、拉出行程和缓冲，不能只凭名称认定一定半拉或全拉。",
+            "images": [
+              3,
+              7,
+              8
+            ]
+          },
+          {
+            "text": "明装拉手是否含、长拉手/内嵌/皮革等是否升级另计，免拉手采用铣槽、45°斜切还是反弹器，逐种问价。气撑、拉直器、裤架、挂衣杆、试衣镜、拉篮、调味篮、骑马抽等功能五金往往另算；自购可先问兼容性及安装费。",
+            "images": [
+              4,
+              6,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "title": "增项清单：把门、板、抽屉与非标尺寸算进去",
+        "items": [
+          {
+            "text": "原帖称套餐常含2—3个抽屉，追加约200—500元/个；这是作者的询价参考，要连同轨道配置比较。见光板/侧封板是否与门板同色、顶封板/收口条标准宽度（作者举50—80毫米）及超宽收费，也要写入明细。",
+            "images": [
+              4,
+              5
+            ]
+          },
+          {
+            "text": "非标先定义边界：作者举衣柜及橱柜地柜深600毫米、吊柜350毫米，高度2.4米以上可能涉及分体/一体板差价。这些是其套餐参考尺寸；自家深度、高度、层板数量、梁柱避让、异形、切角和圆弧均应按图核价。",
+            "images": [
+              5,
+              8
+            ]
+          },
+          {
+            "text": "玻璃门问铝框、长虹或灰玻的具体配置和面积单价，原帖价格例为几百至上千元/平方米；灯带按米、变压器按个，作者见到几十至一百多元/个，还要问电源预留、开槽及开关是否包含。",
+            "images": [
+              5,
+              8
+            ]
+          },
+          {
+            "text": "作者提门高超过1.8或2米可能建议加拉直器，约100—300元/个，但是否需要应看板材、门宽厚度和结构。反弹器例价20—80元/个，作者担心损坏和更换；应问质保与可更换性，而非只为极简外观加配件。",
+            "images": [
+              5,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "title": "橱柜台面与计价：按最终配置看落地总额",
+        "items": [
+          {
+            "text": "台面确定石英石厚度15或20毫米、颜色、挡水条、台下盆工艺与灶台/水槽开孔，赠送水槽龙头的型号质量及自购安装方式也问清。作者认为20毫米更结实，但实际还受材质、跨距和支撑影响。",
+            "images": [
+              6,
+              8
+            ]
+          },
+          {
+            "text": "分清投影面积与展开面积各包含什么，套餐面积用完后的每平方米价、加层板、非标和功能件分别算价；运输、上楼、安装是否全含。只有把板材五金、面积口径和所有附加费统一，单价比较才有意义。",
+            "images": [
+              7,
+              8,
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "title": "设计、合同与售后：时间和责任也入清单",
+        "items": [
+          {
+            "text": "进店最后问：上门测量是否收费、图纸能否带走、出图/生产/安装各需多久，柜体/门板/五金分别保多久、质量问题响应时间。因商家测量或设计错误补板、返工、二次上门如何处理，不能装一半才协商。",
+            "images": [
+              7,
+              9
+            ]
+          },
+          {
+            "text": "合同写板材品牌系列、厚度和环保等级，五金品牌型号及数量；抽屉、拉手、玻璃门面积、灯带米数等增项做签字附件。工期、延期责任及商家尺寸错误、破损、错色免费重做写明确。",
+            "images": [
+              9,
+              10
+            ]
+          },
+          {
+            "text": "作者建议分期付款、定金不超过总价20%、安装验收后再付尾款。这是其签约建议，实际要分清定金与其他预付款的约定、支付节点和退款条件，不能当作所有交易的统一安排。",
+            "images": [
+              10
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 10,
+      "downloadedImages": 10,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 10 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
+  },
+  {
+    "id": "lived",
+    "title": "入住半年后我的硬装雷点",
+    "originalTitle": "入住半年后我的硬装雷点",
+    "author": "柚米-home",
+    "date": "2026-05-17",
+    "url": "https://www.xiaohongshu.com/search_result/6a09bc8b0000000036001541?xsec_token=ABRYR2DZAbob9me5nZTeBygYKgIr4OARaG-RVG_Fi39d0=&xsec_source=",
+    "stage": "入住",
+    "type": "避坑",
+    "tags": [
+      "清洁死角",
+      "安装收口",
+      "色差"
+    ],
+    "summary": "作者用入住半年的实拍复盘窗边收口、地漏美缝、排风、花洒、厨房照明、台面、踢脚线、免拉手与色差。适合方案定稿及安装验收前逐项对照。",
+    "points": [
+      "窗边没有包窗套，作者对打胶外观不满意，并称不到一个月出现开裂。可在窗台/墙面施工前确认收口方案、基层和材料的衔接，再验收胶缝外观及后续维修责任；这例经历不能直接推导所有窗都必须包套。",
+      "地漏附近美缝未清理干净，留下明显脏污。美缝前重点看砖缝与地漏周边是否清洁、干燥、无残留，施工后及时检查颜色和边缘。原帖展示的是作者家的现场，未分析全部成因。",
+      "抽屉免拉手凹槽容易积灰，是作者的日常清洁痛点。选样时除了看正面简洁程度，也试摸开启是否顺手、凹槽能否擦到；需要经常清理的区域尤其应先体验实物。",
+      "卫生间排风管没有固定到通风口，而是直接放在吊顶上，是作者最明确的安装问题之一。验收时打开检修位置，确认管道确实连接、固定并能实际排风，不能只测试风机有声音就算结束。",
+      "花洒墙面出水接口凸出，导致装饰罩/主体与墙之间有缝。作者建议接口凹入或齐平；实际预留深度应先按所购花洒的安装尺寸和瓷砖完成面确认，再在安装时检查贴合、连接及渗漏，避免把个例尺寸要求套到所有型号。",
+      "作者只靠平板主灯时，晚上切菜区偏暗，因此建议切菜区、水槽上方另补筒灯。可提炼为在站立操作的位置检查手影和台面亮度，决定柜下灯或其他任务照明，不必限定只有一种灯具。",
+      "作者认可高低台切菜、洗碗省腰，但提醒喜欢面食或烘焙的人，不要把揉面区做得过高。定台面高度时按身高及实际切配、洗涤、揉面动作试用，同一厨房不同任务可能需要不同高度。",
+      "橱柜离地尺寸和踢脚线配合不佳，缝隙较大，灰尘进入柜底后不易清理，作者家的猫还能拨开踢脚线。设计时与定制商明确柜脚高度、踢脚线尺寸、安装牢固程度及日后拆洗方式，安装后沿全长查看。",
+      "窗帘在店里看是米白色，装回家后作者感觉整体偏灰。应把布样带到自家靠窗与背光位置，同时看白天、晚上和准备采用的灯光，确认与墙面、地板是否协调，再定整幅。",
+      "门在店里呈奶白，回家却变成冷白且发绿，作者归因于店内打光差异。门板也应拿样或对照实物，在家中主要光源下确认；这属于作者的视觉体验，不能仅凭照片判断色差数值或产品是否发错。"
+    ],
+    "evidence": "已读取完整正文及全部 10 张静态配图，详细要点可点击对应图号交叉查看",
+    "limits": "已覆盖完整正文与10张原图，封面汇总与后续实拍有重复。内容为作者自家入住复盘，尚无独立现场检测或施工资料；尺寸、照明和收口方案应以自家使用需求及具体产品安装条件确定。",
+    "images": [
+      {
+        "src": "media/complete/lived/01.webp",
+        "sourceIndex": 1,
+        "alt": "柚米-home · 原帖第1张：入住半年硬装问题总览",
+        "caption": "入住半年硬装问题总览",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/39a7bdc8269f5be8ae1593767fdc021b/1040g00832096g7uc5g005o30hn8g9c36j2r8k2o!nd_dft_wlteh_webp_3",
+        "sha256": "df8eb7bd087220715aef4d4d70852d8e86d91cfc6ffaa89125ec3a9693e3b819"
+      },
+      {
+        "src": "media/complete/lived/02.webp",
+        "sourceIndex": 2,
+        "alt": "柚米-home · 原帖第2张：窗边打胶收口与开裂实拍",
+        "caption": "窗边打胶收口与开裂实拍",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/62ff45cb6f3e356b11bd38f6fa64fa75/1040g00832096g7uc5g0g5o30hn8g9c365e0e50g!nd_dft_wlteh_webp_3",
+        "sha256": "c68da62ac40fcbbe996762d2d65bbffc3e47fe6f148a661a7400712fb03ff8d4"
+      },
+      {
+        "src": "media/complete/lived/03.webp",
+        "sourceIndex": 3,
+        "alt": "柚米-home · 原帖第3张：地漏附近美缝脏污",
+        "caption": "地漏附近美缝脏污",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/9309e49096b3a9df5cff6341aee2d45e/1040g00832096g7uc5g105o30hn8g9c36r23heb8!nd_dft_wlteh_webp_3",
+        "sha256": "826e1469f4e579c60fd455bda642d8d482d396dda5ec637f75b0876738836be6"
+      },
+      {
+        "src": "media/complete/lived/04.webp",
+        "sourceIndex": 4,
+        "alt": "柚米-home · 原帖第4张：吊顶内未接好的排风管",
+        "caption": "吊顶内未接好的排风管",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/945afd94ff2a3279f70f3a8c041e9351/1040g00832096g7uc5g1g5o30hn8g9c36jral9o0!nd_dft_wlteh_webp_3",
+        "sha256": "ce98feb9cf510720b6ac94a19c1dbb4325fe796e86b2b836e7231bc82afe8afd"
+      },
+      {
+        "src": "media/complete/lived/05.webp",
+        "sourceIndex": 5,
+        "alt": "柚米-home · 原帖第5张：花洒接口凸出与墙面缝隙",
+        "caption": "花洒接口凸出与墙面缝隙",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/969c0fe8b97c17bdfa47974c36faf47a/1040g00832096g7uc5g205o30hn8g9c36tcsbj90!nd_dft_wlteh_webp_3",
+        "sha256": "f5682f0b525080afde4b916f0378bced6510360b7f542200f5ca4e93c5b5550f"
+      },
+      {
+        "src": "media/complete/lived/06.webp",
+        "sourceIndex": 6,
+        "alt": "柚米-home · 原帖第6张：厨房切菜区和水槽补光提醒",
+        "caption": "厨房切菜区和水槽补光提醒",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/802e18d8501d3ab7c5bf89e72d5c4faa/1040g00832096g7uc5g2g5o30hn8g9c360he5ma0!nd_dft_wlteh_webp_3",
+        "sha256": "fed3ab846bb928d1e529dcc0f6316353f9b124ade9fe70b86dc20cca6f49b661"
+      },
+      {
+        "src": "media/complete/lived/07.webp",
+        "sourceIndex": 7,
+        "alt": "柚米-home · 原帖第7张：高低台、揉面高度及橱柜踢脚线",
+        "caption": "高低台、揉面高度及橱柜踢脚线",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/6417bbd92b33f699e71bd6c85908edf4/1040g00832096g7uc5g305o30hn8g9c36mjioqgg!nd_dft_wlteh_webp_3",
+        "sha256": "024af16fe908f0e66ee03d365985980812baabcd572a55427c6690eb68e36b54"
+      },
+      {
+        "src": "media/complete/lived/08.webp",
+        "sourceIndex": 8,
+        "alt": "柚米-home · 原帖第8张：免拉手抽屉凹槽藏灰",
+        "caption": "免拉手抽屉凹槽藏灰",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/6a317fee90e3b09a0a0e2ba5e0521f51/1040g00832096g7uc5g3g5o30hn8g9c363q4r148!nd_dft_wlteh_webp_3",
+        "sha256": "9453838cef1d4a6b9cb2825387ba3a14e9c7b0e3adb92d1dac8a491d34f3430a"
+      },
+      {
+        "src": "media/complete/lived/09.webp",
+        "sourceIndex": 9,
+        "alt": "柚米-home · 原帖第9张：窗帘店内与家中色感差异",
+        "caption": "窗帘店内与家中色感差异",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/90237bf62a7505cc67d43a64fc480706/1040g00832096g7uc5g405o30hn8g9c366nqfu58!nd_dft_wlteh_webp_3",
+        "sha256": "15480c17351f562c83187505f8885ffb567824d6245602d548c7b042c0e9d424"
+      },
+      {
+        "src": "media/complete/lived/10.webp",
+        "sourceIndex": 10,
+        "alt": "柚米-home · 原帖第10张：门板在不同光线下的冷暖色差",
+        "caption": "门板在不同光线下的冷暖色差",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/366085e96be6196326d47b6a32743aaf/1040g00832096g7uc5g4g5o30hn8g9c369ofqh5o!nd_dft_wlteh_webp_3",
+        "sha256": "e04f02b0c0f267c8d86b78d19cce7d04a3e5176ca8c539729e25be0c9acdd2f4"
+      }
+    ],
+    "sections": [
+      {
+        "title": "收口与清洁：小缝隙会影响长期使用",
+        "items": [
+          {
+            "text": "窗边没有包窗套，作者对打胶外观不满意，并称不到一个月出现开裂。可在窗台/墙面施工前确认收口方案、基层和材料的衔接，再验收胶缝外观及后续维修责任；这例经历不能直接推导所有窗都必须包套。",
+            "images": [
+              1,
+              2
+            ]
+          },
+          {
+            "text": "地漏附近美缝未清理干净，留下明显脏污。美缝前重点看砖缝与地漏周边是否清洁、干燥、无残留，施工后及时检查颜色和边缘。原帖展示的是作者家的现场，未分析全部成因。",
+            "images": [
+              1,
+              3
+            ]
+          },
+          {
+            "text": "抽屉免拉手凹槽容易积灰，是作者的日常清洁痛点。选样时除了看正面简洁程度，也试摸开启是否顺手、凹槽能否擦到；需要经常清理的区域尤其应先体验实物。",
+            "images": [
+              1,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "title": "隐蔽连接：装好后也要打开检查",
+        "items": [
+          {
+            "text": "卫生间排风管没有固定到通风口，而是直接放在吊顶上，是作者最明确的安装问题之一。验收时打开检修位置，确认管道确实连接、固定并能实际排风，不能只测试风机有声音就算结束。",
+            "images": [
+              1,
+              4
+            ]
+          },
+          {
+            "text": "花洒墙面出水接口凸出，导致装饰罩/主体与墙之间有缝。作者建议接口凹入或齐平；实际预留深度应先按所购花洒的安装尺寸和瓷砖完成面确认，再在安装时检查贴合、连接及渗漏，避免把个例尺寸要求套到所有型号。",
+            "images": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "title": "厨房：按操作和清扫习惯安排尺寸与灯光",
+        "items": [
+          {
+            "text": "作者只靠平板主灯时，晚上切菜区偏暗，因此建议切菜区、水槽上方另补筒灯。可提炼为在站立操作的位置检查手影和台面亮度，决定柜下灯或其他任务照明，不必限定只有一种灯具。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "作者认可高低台切菜、洗碗省腰，但提醒喜欢面食或烘焙的人，不要把揉面区做得过高。定台面高度时按身高及实际切配、洗涤、揉面动作试用，同一厨房不同任务可能需要不同高度。",
+            "images": [
+              1,
+              7
+            ]
+          },
+          {
+            "text": "橱柜离地尺寸和踢脚线配合不佳，缝隙较大，灰尘进入柜底后不易清理，作者家的猫还能拨开踢脚线。设计时与定制商明确柜脚高度、踢脚线尺寸、安装牢固程度及日后拆洗方式，安装后沿全长查看。",
+            "images": [
+              1,
+              7
+            ]
+          }
+        ]
+      },
+      {
+        "title": "选色：把样品拿回家看实际光线",
+        "items": [
+          {
+            "text": "窗帘在店里看是米白色，装回家后作者感觉整体偏灰。应把布样带到自家靠窗与背光位置，同时看白天、晚上和准备采用的灯光，确认与墙面、地板是否协调，再定整幅。",
+            "images": [
+              1,
+              9
+            ]
+          },
+          {
+            "text": "门在店里呈奶白，回家却变成冷白且发绿，作者归因于店内打光差异。门板也应拿样或对照实物，在家中主要光源下确认；这属于作者的视觉体验，不能仅凭照片判断色差数值或产品是否发错。",
+            "images": [
+              1,
+              10
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 10,
+      "downloadedImages": 10,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 10 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
+  },
+  {
+    "id": "6ad4b548000000000c00a11b",
+    "title": "装修预算怎么拆：套餐、增项、自购与真实报价案例",
+    "author": "一月诺诺（等交付版）",
+    "date": "2026-10-18",
+    "url": "https://www.xiaohongshu.com/search_result/6ad4b548000000000c00a11b?xsec_token=ABZ4JuHq6vFSLvW1qLr6nxEc_Avl42EGJZVJmBMVpcNk0=&xsec_source=",
+    "stage": "预算",
+    "type": "避坑",
+    "summary": "完整拆解作者家的三部分预算，逐项保留套餐边界、增项单价、自购费用和签约前要问的问题。",
+    "points": [
+      "作者采用“套餐内硬装＋套餐外增项＋业主自购”的预算框架，提醒不要把宣传的全包套餐价当成最终装修总支出。",
+      "案例汇总为套餐179913.696元、施工增项29696.14元、自购59399元；按这三项相加约26.90万元。正文的增项条目是举例，并不等于逐条列出了全部增项明细。",
+      "主材逐项核对马桶、花洒、瓷砖、地板、木门、橱柜的具体品牌和型号；确认地砖是否通铺，换砖尺寸和通铺损耗如何计价。",
+      "辅材核对乳胶漆、水管、电线；施工与服务核对拆改、防水、铺砖、墙面处理以及套餐承诺的质保和延期赔付。文中“10年质保”是该案例的合同条件。",
+      "橱柜若限定3米，超出部分怎么算；木门是否含门锁、合页和其他五金，都要在签约前书面确认。",
+      "智能布线点位：作者增加10个点，案例单价150元/点，共1500元。应问清新增点位的定义、数量及计费方式。",
+      "吊顶案例合计15000元，正文列出直线吊顶172元/平方米、窗帘盒110元/米、双眼皮吊顶60元/米等项目；造型不同，计量单位也不同。",
+      "其他示例包括墙排预计3880元，通铺损耗、防水增加及厨房地面升级3000元，冰箱专线、空调内外机线及中央空调风口加固合计2784元。签约前逐项约定单价及包含范围。",
+      "作者自购案例：拆除2000元，厨房推拉门和窗户6500元，前置过滤器＋净水器＋管线机5899元；这些不能默认都含在硬装套餐内。",
+      "空调安装预估9000元；询价时进一步确认高空作业、打孔、铜管加长是否另收费。",
+      "全屋定制预计45平方米、36000元；问清抽屉、增加层板、装饰线条是否加价，以及L形衣柜的面积如何计算。",
+      "自购预算要和量尺、采购、到货、安装时间一起安排，避免材料不到而停工；随方案变化更新总表，别只记已经签约的那一笔。"
+    ],
+    "limits": "金额和套餐条件均为作者自家案例，不代表当地行情或你的最终报价；正文列出的增项示例与增项总额不是完整逐项对账表。",
+    "evidence": "已读取完整正文及全部 1 张静态配图，详细要点可点击对应图号交叉查看",
+    "likes": "9",
+    "originalTitle": "拒绝被坑！装修预算必须拆为三部分才算得清！",
+    "tags": [
+      "套餐报价",
+      "自购预算",
+      "增项"
+    ],
+    "sections": [
+      {
+        "title": "先把总花费分成三份",
+        "items": [
+          {
+            "text": "作者采用“套餐内硬装＋套餐外增项＋业主自购”的预算框架，提醒不要把宣传的全包套餐价当成最终装修总支出。",
+            "images": []
+          },
+          {
+            "text": "案例汇总为套餐179913.696元、施工增项29696.14元、自购59399元；按这三项相加约26.90万元。正文的增项条目是举例，并不等于逐条列出了全部增项明细。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "套餐内：问到品牌型号和数量上限",
+        "items": [
+          {
+            "text": "主材逐项核对马桶、花洒、瓷砖、地板、木门、橱柜的具体品牌和型号；确认地砖是否通铺，换砖尺寸和通铺损耗如何计价。",
+            "images": []
+          },
+          {
+            "text": "辅材核对乳胶漆、水管、电线；施工与服务核对拆改、防水、铺砖、墙面处理以及套餐承诺的质保和延期赔付。文中“10年质保”是该案例的合同条件。",
+            "images": []
+          },
+          {
+            "text": "橱柜若限定3米，超出部分怎么算；木门是否含门锁、合页和其他五金，都要在签约前书面确认。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "套餐外：把高频增项列成报价表",
+        "items": [
+          {
+            "text": "智能布线点位：作者增加10个点，案例单价150元/点，共1500元。应问清新增点位的定义、数量及计费方式。",
+            "images": []
+          },
+          {
+            "text": "吊顶案例合计15000元，正文列出直线吊顶172元/平方米、窗帘盒110元/米、双眼皮吊顶60元/米等项目；造型不同，计量单位也不同。",
+            "images": []
+          },
+          {
+            "text": "其他示例包括墙排预计3880元，通铺损耗、防水增加及厨房地面升级3000元，冰箱专线、空调内外机线及中央空调风口加固合计2784元。签约前逐项约定单价及包含范围。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "业主自购：别漏安装和定制附加费",
+        "items": [
+          {
+            "text": "作者自购案例：拆除2000元，厨房推拉门和窗户6500元，前置过滤器＋净水器＋管线机5899元；这些不能默认都含在硬装套餐内。",
+            "images": []
+          },
+          {
+            "text": "空调安装预估9000元；询价时进一步确认高空作业、打孔、铜管加长是否另收费。",
+            "images": []
+          },
+          {
+            "text": "全屋定制预计45平方米、36000元；问清抽屉、增加层板、装饰线条是否加价，以及L形衣柜的面积如何计算。",
+            "images": []
+          },
+          {
+            "text": "自购预算要和量尺、采购、到货、安装时间一起安排，避免材料不到而停工；随方案变化更新总表，别只记已经签约的那一笔。",
+            "images": []
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "src": "media/complete/6ad4b548000000000c00a11b/01.webp",
+        "sourceIndex": 1,
+        "alt": "一月诺诺（等交付版） · 原帖第1张：预算拆分主题封面；具体费用在原帖正文",
+        "caption": "预算拆分主题封面；具体费用在原帖正文",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221746/3a494ca9e220f0bc8db346d05d9f6444/notes_pre_post/1040g3k0326fd4ce7l0005nu686gg8m7v5eptkd0!nd_dft_wlteh_webp_3",
+        "sha256": "4a0e38a9cc63ed6f2cfc8f8ce57147d6e79e965075a730eb620e8da8c59e9e5d"
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 1,
+      "downloadedImages": 1,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 1 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
+  },
+  {
+    "id": "6937eb83000000001e0100df",
+    "title": "37万元装修复盘：预算总表、八个施工阶段与安装顺序",
+    "author": "brad",
+    "date": "2025-12-09",
+    "url": "https://www.xiaohongshu.com/search_result/6937eb83000000001e0100df?xsec_token=ABHf58fZTi5ROBrdXftKOr9dBedcYUF8njmPtVLu_ooIs=&xsec_source=",
+    "stage": "准备",
+    "type": "攻略",
+    "summary": "从作者完整成本表和装修顺序中，整理预算分类、设备前置决策、八个施工阶段与十三项安装衔接。",
+    "points": [
+      "作者用Excel记录所有能想到的项目，分为前期、人工、辅材、主材、定制、家电、家具软装，并随着市场询价补充预算与实际付款。不要只统计已经下单的项目。",
+      "图表标题列出前期约1.5万元、人工约5.1万元、辅材约4万元、主材约3.7万元、定制约9.6万元、家电约8.6万元、家具软装约5万元；末页显示总计374628.4元。分类标题是约数，未逐行复算所有支出。",
+      "明细从设计费、装修押金、清运、包下水管、打孔，一直记到胶、封边、地漏、角阀、五金、灯带电源和保洁类小项；这些零散费用也会推高总额。",
+      "作者把定制视为预算大头，表中除柜体外还包括封窗、防盗门、房门、门套、推拉门、石材、美缝和衣柜门。询价时按项目拆开，别只盯柜体单价。",
+      "1．量房和设计：比较多家平面方案与报价，把自己的使用需求反馈给设计师，再确认平面、施工、水电、天花等图纸，以及全包、半包或清包的范围。",
+      "2．拆墙：作者提醒先向物业索取房屋结构资料，辨认承重墙与梁，不能只凭效果图决定拆除；涉及结构的位置应先确认可施工条件。",
+      "3．砌墙和修补：把拆改后的墙面、新门洞等衔接好，再进入隐蔽工程定位，避免一边施工一边临时改房间布局。",
+      "橱柜先测量并出厨房水电图，确认烟机和吊柜的位置；冰箱的外形尺寸与摆放位置也要同步决定。",
+      "浴缸、淋浴房或隔断、浴室柜、马桶、拖把池、洗衣机逐一定位，热水器也要明确尺寸与安装位置。",
+      "如有地暖、中央空调、全屋净水，水电定位前就让设备商与设计方对接；不要到贴砖、吊顶后才补问线路和管路。",
+      "5．水电施工包括路线与开槽方案、管线铺设、拍照留档和水压测试。原文谈到线管埋设与尽量走顶等做法，应由现场方案确定，不能据此自行在楼板或结构部位开槽。",
+      "水电铺好后把位置拍全，便于日后打孔和检修；泥工、木工先后由工期与现场调度衔接，作者更倾向先铺客厅砖，再安排吊顶。",
+      "6．泥工阶段处理厨卫及露台等防水和验收，卫生间闭水后与楼下确认情况；铺地板的区域先解决找平，铺地砖则同步定好门槛石等收口。",
+      "地漏、隔断挡水条等要在贴砖前对接预埋；作者特别提到不带裙边的铸铁浴缸需提前就位，再由瓦工封边。是否适用取决于实际设备。",
+      "7．木工可能只做客餐厅吊顶，也可能现场制作衣柜、橱柜或榻榻米。要提前保留开关插座、水槽和烟机的位置，避免柜体遮住使用点位。",
+      "8．油漆阶段包含墙面基层、面漆及现场木作涂装；打算贴墙纸的位置仍需做好基层。作者强调各遍材料干透后再进入下一道。",
+      "作者写了“两遍腻子、三遍乳胶漆”，并倾向免漆柜体配成品柜门、减少现场涂装；这些是其个人工艺与选材经验，实际遍数和材料要按确认方案执行。",
+      "作者安装清单前段为：①橱柜，②厨卫铝扣板吊顶，③烟机、灶具、烤箱和洗碗机等厨房电器，④房门和门套，⑤地板。各厂家应提前确认接口和保护责任。",
+      "中段为：⑥开关、插座与灯，⑦马桶和龙头，⑧淋浴房，⑨卫浴五金，⑩墙纸。涉及钻孔、开槽和扬尘的安装尽量在清洁、软装前完成。",
+      "后段为：⑪家具进场，⑫窗帘，⑬保洁。作者明确表示这不是各地都相同的固定顺序，要按工人调度、设备要求和现场污染程度协调。"
+    ],
+    "limits": "已阅读完整正文及7张静态图；原帖含Live Photo，动态片段未收录。成本表为拍摄图片，细小单价可能不清楚，未逐行复算；工序和施工做法是作者经验，不替代现场方案。",
+    "evidence": "已读取完整正文及全部 7 张静态配图，详细要点可点击对应图号交叉查看",
+    "likes": "1042",
+    "originalTitle": "关于装修成本如何确保在自己的预算范围",
+    "tags": [
+      "装修流程",
+      "设备尺寸",
+      "预算规划"
+    ],
+    "sections": [
+      {
+        "title": "把预算做成能不断更新的总表",
+        "items": [
+          {
+            "text": "作者用Excel记录所有能想到的项目，分为前期、人工、辅材、主材、定制、家电、家具软装，并随着市场询价补充预算与实际付款。不要只统计已经下单的项目。",
+            "images": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "text": "图表标题列出前期约1.5万元、人工约5.1万元、辅材约4万元、主材约3.7万元、定制约9.6万元、家电约8.6万元、家具软装约5万元；末页显示总计374628.4元。分类标题是约数，未逐行复算所有支出。",
+            "images": [
+              2,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "text": "明细从设计费、装修押金、清运、包下水管、打孔，一直记到胶、封边、地漏、角阀、五金、灯带电源和保洁类小项；这些零散费用也会推高总额。",
+            "images": [
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          {
+            "text": "作者把定制视为预算大头，表中除柜体外还包括封窗、防盗门、房门、门套、推拉门、石材、美缝和衣柜门。询价时按项目拆开，别只盯柜体单价。",
+            "images": [
+              5,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "title": "阶段1—3：量房设计、拆改与新建",
+        "items": [
+          {
+            "text": "1．量房和设计：比较多家平面方案与报价，把自己的使用需求反馈给设计师，再确认平面、施工、水电、天花等图纸，以及全包、半包或清包的范围。",
+            "images": []
+          },
+          {
+            "text": "2．拆墙：作者提醒先向物业索取房屋结构资料，辨认承重墙与梁，不能只凭效果图决定拆除；涉及结构的位置应先确认可施工条件。",
+            "images": []
+          },
+          {
+            "text": "3．砌墙和修补：把拆改后的墙面、新门洞等衔接好，再进入隐蔽工程定位，避免一边施工一边临时改房间布局。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "阶段4：水电前先把设备定下来",
+        "items": [
+          {
+            "text": "橱柜先测量并出厨房水电图，确认烟机和吊柜的位置；冰箱的外形尺寸与摆放位置也要同步决定。",
+            "images": []
+          },
+          {
+            "text": "浴缸、淋浴房或隔断、浴室柜、马桶、拖把池、洗衣机逐一定位，热水器也要明确尺寸与安装位置。",
+            "images": []
+          },
+          {
+            "text": "如有地暖、中央空调、全屋净水，水电定位前就让设备商与设计方对接；不要到贴砖、吊顶后才补问线路和管路。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "阶段5—6：水电与泥工衔接",
+        "items": [
+          {
+            "text": "5．水电施工包括路线与开槽方案、管线铺设、拍照留档和水压测试。原文谈到线管埋设与尽量走顶等做法，应由现场方案确定，不能据此自行在楼板或结构部位开槽。",
+            "images": []
+          },
+          {
+            "text": "水电铺好后把位置拍全，便于日后打孔和检修；泥工、木工先后由工期与现场调度衔接，作者更倾向先铺客厅砖，再安排吊顶。",
+            "images": []
+          },
+          {
+            "text": "6．泥工阶段处理厨卫及露台等防水和验收，卫生间闭水后与楼下确认情况；铺地板的区域先解决找平，铺地砖则同步定好门槛石等收口。",
+            "images": []
+          },
+          {
+            "text": "地漏、隔断挡水条等要在贴砖前对接预埋；作者特别提到不带裙边的铸铁浴缸需提前就位，再由瓦工封边。是否适用取决于实际设备。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "阶段7—8：木工与油漆",
+        "items": [
+          {
+            "text": "7．木工可能只做客餐厅吊顶，也可能现场制作衣柜、橱柜或榻榻米。要提前保留开关插座、水槽和烟机的位置，避免柜体遮住使用点位。",
+            "images": []
+          },
+          {
+            "text": "8．油漆阶段包含墙面基层、面漆及现场木作涂装；打算贴墙纸的位置仍需做好基层。作者强调各遍材料干透后再进入下一道。",
+            "images": []
+          },
+          {
+            "text": "作者写了“两遍腻子、三遍乳胶漆”，并倾向免漆柜体配成品柜门、减少现场涂装；这些是其个人工艺与选材经验，实际遍数和材料要按确认方案执行。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "安装季：十三项逐个排期",
+        "items": [
+          {
+            "text": "作者安装清单前段为：①橱柜，②厨卫铝扣板吊顶，③烟机、灶具、烤箱和洗碗机等厨房电器，④房门和门套，⑤地板。各厂家应提前确认接口和保护责任。",
+            "images": []
+          },
+          {
+            "text": "中段为：⑥开关、插座与灯，⑦马桶和龙头，⑧淋浴房，⑨卫浴五金，⑩墙纸。涉及钻孔、开槽和扬尘的安装尽量在清洁、软装前完成。",
+            "images": []
+          },
+          {
+            "text": "后段为：⑪家具进场，⑫窗帘，⑬保洁。作者明确表示这不是各地都相同的固定顺序，要按工人调度、设备要求和现场污染程度协调。",
+            "images": []
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "src": "media/complete/6937eb83000000001e0100df/01.webp",
+        "sourceIndex": 1,
+        "alt": "brad · 原帖第1张：作者装修现场与成本复盘配图",
+        "caption": "作者装修现场与成本复盘配图",
+        "width": 1439,
+        "height": 1080,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/eb2f15e23442a69f58350572f42d9324/1040g2sg31qjhrk2jn4e05o51966g8s4sgb94ruo!nd_dft_wgth_webp_3",
+        "sha256": "029ea6b5300130d0ef5f564c29e87b0048baaf2b1b6e274d321fd86a73fec0f4"
+      },
+      {
+        "src": "media/complete/6937eb83000000001e0100df/02.webp",
+        "sourceIndex": 2,
+        "alt": "brad · 原帖第2张：预算表：前期、人工和辅材开支",
+        "caption": "预算表：前期、人工和辅材开支",
+        "width": 1439,
+        "height": 1080,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/9bd99b0abd70a8da139a459863b6eb72/1040g2sg31qjhrk2jn4eg5o51966g8s4ssbvjhko!nd_dft_wgth_webp_3",
+        "sha256": "71b3dec4b18ffcf5f091bb5690ba3735dab1b55d8a88fba3d26b9220d63b41d2"
+      },
+      {
+        "src": "media/complete/6937eb83000000001e0100df/03.webp",
+        "sourceIndex": 3,
+        "alt": "brad · 原帖第3张：预算表：五金、胶、地漏和零散辅材",
+        "caption": "预算表：五金、胶、地漏和零散辅材",
+        "width": 1439,
+        "height": 1080,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/6f8a8cdc3a63ab1fc358378ab9855cc9/1040g2sg31qjhrk2jn4f05o51966g8s4seeg361g!nd_dft_wgth_webp_3",
+        "sha256": "a9e9d3779e411cbce07e090d96e82ba8fd4b08fa2aef26e18860990058ee2727"
+      },
+      {
+        "src": "media/complete/6937eb83000000001e0100df/04.webp",
+        "sourceIndex": 4,
+        "alt": "brad · 原帖第4张：预算表：辅材末项与瓷砖主材",
+        "caption": "预算表：辅材末项与瓷砖主材",
+        "width": 1439,
+        "height": 1080,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/d404e26a54166c61e3d2b12f604170ce/1040g2sg31qjhrk2jn4fg5o51966g8s4sqmifti8!nd_dft_wgth_webp_3",
+        "sha256": "f98a9502754cb06ea53a1a01d21752d903f85796809f46422c804151aa7a2f83"
+      },
+      {
+        "src": "media/complete/6937eb83000000001e0100df/05.webp",
+        "sourceIndex": 5,
+        "alt": "brad · 原帖第5张：预算表：主材与门窗等定制",
+        "caption": "预算表：主材与门窗等定制",
+        "width": 1439,
+        "height": 1080,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/a8e30d1e622d35d589a79a2ead6fd8c4/1040g2sg31qjhrk2jn4g05o51966g8s4svr2tru0!nd_dft_wgth_webp_3",
+        "sha256": "ffe9b75452239f72e642c56d3d5e1c4a7a6c76990b76d3263f45451e2badcefc"
+      },
+      {
+        "src": "media/complete/6937eb83000000001e0100df/06.webp",
+        "sourceIndex": 6,
+        "alt": "brad · 原帖第6张：预算表：灯具、电器与安装",
+        "caption": "预算表：灯具、电器与安装",
+        "width": 1439,
+        "height": 1080,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/44693c6d4bf445dffafdab6e2ca3d383/1040g2sg31qjhrk2jn4gg5o51966g8s4sh278j78!nd_dft_wgth_webp_3",
+        "sha256": "75c50ed6ed80a0648feecb68ce7f281557ad9d17ce644d9037dd844491001696"
+      },
+      {
+        "src": "media/complete/6937eb83000000001e0100df/07.webp",
+        "sourceIndex": 7,
+        "alt": "brad · 原帖第7张：预算表：家具软装和总支出",
+        "caption": "预算表：家具软装和总支出",
+        "width": 1439,
+        "height": 1080,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/8495d96b28631ea7e7e1f45be5350bac/1040g2sg31qjhrk2jn4h05o51966g8s4s0l9u5m0!nd_dft_wgth_webp_3",
+        "sha256": "22df97940139e704f2bac187e07a1c061a5665f3f0f7962158417f2f21f9ce6a"
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 7,
+      "downloadedImages": 7,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "live-photo",
+      "note": "已按完整正文及全部 7 张静态配图分主题整理，配图按原帖顺序收录。本帖含 Live Photo，仅收录静态画面，动态片段未收录。"
+    }
+  },
+  {
+    "id": "6abc64740000000002028ea2",
+    "title": "全屋水电定位：六个空间的点位、高度与图文差异",
+    "author": "屿山海🏠（装修准备中，关必回）",
+    "date": "2026-09-30",
+    "url": "https://www.xiaohongshu.com/search_result/6abc64740000000002028ea2?xsec_token=ABxzQ-hlHZNOy4BQAnznaZ4NkGW6Q34sQyc4pxhzfuWxc=&xsec_source=",
+    "stage": "施工",
+    "type": "攻略",
+    "summary": "把客厅、玄关、餐厅、卧室、厨房、卫生间六张定位图逐项整理，保留原帖参考高度，并指出正文与配图的不同。",
+    "points": [
+      "作者核心思路是按实际使用场景定位，而不是一味增加插座。把家具、柜体、设备尺寸先放进图纸，再核对遮挡、线缆长度和维修空间。",
+      "本帖正文与图示并不完全一致：厨房台面正文写110cm、图5写140cm；床尾正文30cm、图4写40cm；吹风机正文130cm、图6写140cm。下面按图示整理，并保留这些差异，不能把任一数值直接当通用标准。",
+      "图1把电视柜内插座标为离地40cm；净化器、风扇、落地灯、电动沙发及备用小家电安排低位30cm，先确认能否被家具遮挡以及插头是否受挤。",
+      "沙发手机充电示意100cm，阳台单控、主灯与射灯控制示意130cm；电动窗帘和监控示意200cm。要结合坐姿、窗帘盒及实际层高调整。",
+      "图中柜机插座示意50cm并标“横装”，正文另有空调插座倒装的说法；朝向和位置应与实际设备插头、走线及安装要求核对。",
+      "玄关图2示意：监控220cm、控制开关130cm、鞋柜内手机充电120cm、小夜灯或烘鞋机30cm。正文另提智能门锁130cm；是否需要预留电源要结合具体门锁和柜体。",
+      "餐厅图3示意：餐边柜轨道插座130cm，用于管线机、咖啡机、直饮机；餐桌旁40cm用于充电或火锅，餐厨双控开关130cm。餐桌高度和柜台位置改变时也要重核。",
+      "正文还提出冰箱单独一路、单独插座的思路；应在确定电器清单后请电工明确回路安排，不要只核插座外观位置。",
+      "图4床头两侧控制开关和插座示意70cm，门口三控130cm；床尾风扇、电蚊香或加湿器插座示意40cm。先把床、床垫和床头柜实际尺寸叠上去，避免被柜体挡住。",
+      "电动窗帘示意220cm，挂机空调200cm并标倒装，梳妆台美容仪等插座100cm，另有飘窗点位。正文把床尾写为30cm，与配图不同。",
+      "图5示意油烟机220cm、燃气热水器140cm、台面小家电140cm；燃气报警器另留点位。正文台面高度写110cm，不能把两种写法混成一张施工表。",
+      "图5柜内示意：洗碗机40cm，嵌入式冰箱50cm，净水机、垃圾处理器、小厨宝50cm。实际需结合机身、柜背、管路和插头可达性定位，台面插座还要避开水槽。",
+      "图6把干区、湿区单控和浴霸开关示意130cm，镜柜内充电及吹风机、剃须刀点位示意140cm，电热毛巾架130cm。正文吹风机为130cm，需现场再确认。",
+      "智能马桶侧边插座示意40cm并配置防溅盒；正文提醒避免正好留在马桶后方。应结合马桶尺寸、供水和防溅条件，确认插头能用、能拆、能维护。"
+    ],
+    "limits": "六张原图和正文均已核对。所有高度均是原帖参考值，且图文存在已列出的差异；插座朝向、回路与湿区布置需结合设备和现场确认，不直接照图施工。",
+    "evidence": "已读取完整正文及全部 6 张静态配图，详细要点可点击对应图号交叉查看",
+    "likes": "1670",
+    "originalTitle": "水电定位表拿走抄｜插座高度一次避坑🔌",
+    "tags": [
+      "插座定位",
+      "家具尺寸",
+      "用电场景"
+    ],
+    "sections": [
+      {
+        "title": "先读方法：点位跟着家具和电器走",
+        "items": [
+          {
+            "text": "作者核心思路是按实际使用场景定位，而不是一味增加插座。把家具、柜体、设备尺寸先放进图纸，再核对遮挡、线缆长度和维修空间。",
+            "images": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          {
+            "text": "本帖正文与图示并不完全一致：厨房台面正文写110cm、图5写140cm；床尾正文30cm、图4写40cm；吹风机正文130cm、图6写140cm。下面按图示整理，并保留这些差异，不能把任一数值直接当通用标准。",
+            "images": [
+              4,
+              5,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "title": "客厅：电视、沙发、空调与窗帘",
+        "items": [
+          {
+            "text": "图1把电视柜内插座标为离地40cm；净化器、风扇、落地灯、电动沙发及备用小家电安排低位30cm，先确认能否被家具遮挡以及插头是否受挤。",
+            "images": [
+              1
+            ]
+          },
+          {
+            "text": "沙发手机充电示意100cm，阳台单控、主灯与射灯控制示意130cm；电动窗帘和监控示意200cm。要结合坐姿、窗帘盒及实际层高调整。",
+            "images": [
+              1
+            ]
+          },
+          {
+            "text": "图中柜机插座示意50cm并标“横装”，正文另有空调插座倒装的说法；朝向和位置应与实际设备插头、走线及安装要求核对。",
+            "images": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "title": "玄关与餐厅：收纳和小家电一起考虑",
+        "items": [
+          {
+            "text": "玄关图2示意：监控220cm、控制开关130cm、鞋柜内手机充电120cm、小夜灯或烘鞋机30cm。正文另提智能门锁130cm；是否需要预留电源要结合具体门锁和柜体。",
+            "images": [
+              2
+            ]
+          },
+          {
+            "text": "餐厅图3示意：餐边柜轨道插座130cm，用于管线机、咖啡机、直饮机；餐桌旁40cm用于充电或火锅，餐厨双控开关130cm。餐桌高度和柜台位置改变时也要重核。",
+            "images": [
+              3
+            ]
+          },
+          {
+            "text": "正文还提出冰箱单独一路、单独插座的思路；应在确定电器清单后请电工明确回路安排，不要只核插座外观位置。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "卧室：床头、床尾、梳妆和窗帘",
+        "items": [
+          {
+            "text": "图4床头两侧控制开关和插座示意70cm，门口三控130cm；床尾风扇、电蚊香或加湿器插座示意40cm。先把床、床垫和床头柜实际尺寸叠上去，避免被柜体挡住。",
+            "images": [
+              4
+            ]
+          },
+          {
+            "text": "电动窗帘示意220cm，挂机空调200cm并标倒装，梳妆台美容仪等插座100cm，另有飘窗点位。正文把床尾写为30cm，与配图不同。",
+            "images": [
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "title": "厨房：高位设备、台面与柜内点位",
+        "items": [
+          {
+            "text": "图5示意油烟机220cm、燃气热水器140cm、台面小家电140cm；燃气报警器另留点位。正文台面高度写110cm，不能把两种写法混成一张施工表。",
+            "images": [
+              5
+            ]
+          },
+          {
+            "text": "图5柜内示意：洗碗机40cm，嵌入式冰箱50cm，净水机、垃圾处理器、小厨宝50cm。实际需结合机身、柜背、管路和插头可达性定位，台面插座还要避开水槽。",
+            "images": [
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "title": "卫生间：干湿分区与防溅",
+        "items": [
+          {
+            "text": "图6把干区、湿区单控和浴霸开关示意130cm，镜柜内充电及吹风机、剃须刀点位示意140cm，电热毛巾架130cm。正文吹风机为130cm，需现场再确认。",
+            "images": [
+              6
+            ]
+          },
+          {
+            "text": "智能马桶侧边插座示意40cm并配置防溅盒；正文提醒避免正好留在马桶后方。应结合马桶尺寸、供水和防溅条件，确认插头能用、能拆、能维护。",
+            "images": [
+              6
+            ]
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "src": "media/complete/6abc64740000000002028ea2/01.webp",
+        "sourceIndex": 1,
+        "alt": "屿山海🏠（装修准备中，关必回） · 原帖第1张：客厅开关插座：电视、沙发、空调与窗帘",
+        "caption": "客厅开关插座：电视、沙发、空调与窗帘",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/32c6fbb49f22185eda3a18243272c5de/1040g2sg325nlg3lpl6705pupfk6ji6uo3e19di8!nd_dft_wlteh_webp_3",
+        "sha256": "49a838548c74075b999f311a2205a65b47a21a688a49fd39c7256dd85e1981ad"
+      },
+      {
+        "src": "media/complete/6abc64740000000002028ea2/02.webp",
+        "sourceIndex": 2,
+        "alt": "屿山海🏠（装修准备中，关必回） · 原帖第2张：玄关开关插座：监控、鞋柜与烘鞋机",
+        "caption": "玄关开关插座：监控、鞋柜与烘鞋机",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/3a9a843555b142ca4830e1d3cbe39d7c/1040g2sg325nlg3lpl67g5pupfk6ji6uonk6osao!nd_dft_wlteh_webp_3",
+        "sha256": "087f4fd1d75c8a5872ddb8932bc38c714c7e4e6be7e33592a7bf8a85b9617004"
+      },
+      {
+        "src": "media/complete/6abc64740000000002028ea2/03.webp",
+        "sourceIndex": 3,
+        "alt": "屿山海🏠（装修准备中，关必回） · 原帖第3张：餐厅开关插座：餐边柜、餐桌和双控",
+        "caption": "餐厅开关插座：餐边柜、餐桌和双控",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/3244ea0f31b14aaafad037b1522d9cf1/1040g2sg325nlg3lpl6805pupfk6ji6uofshjkt8!nd_dft_wlteh_webp_3",
+        "sha256": "9c9aa21a7eb990153a1dcadc657e0c80d92bc358fc635458134abe389106f5e1"
+      },
+      {
+        "src": "media/complete/6abc64740000000002028ea2/04.webp",
+        "sourceIndex": 4,
+        "alt": "屿山海🏠（装修准备中，关必回） · 原帖第4张：卧室开关插座：床头、床尾、梳妆与窗帘",
+        "caption": "卧室开关插座：床头、床尾、梳妆与窗帘",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/bd8f470889584fa8cb28e78b1282dd63/1040g2sg325nlg3lpl68g5pupfk6ji6uo5pe4hv0!nd_dft_wlteh_webp_3",
+        "sha256": "0fd59fcb29d4f029937dfddc0ddbf254f3ae26b0196863653a08910db713bf82"
+      },
+      {
+        "src": "media/complete/6abc64740000000002028ea2/05.webp",
+        "sourceIndex": 5,
+        "alt": "屿山海🏠（装修准备中，关必回） · 原帖第5张：厨房开关插座：烟机、台面与嵌入设备",
+        "caption": "厨房开关插座：烟机、台面与嵌入设备",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/9a73aaaef79544dc3de7c1815551a95b/1040g2sg325nlg3lpl6905pupfk6ji6uoos7ag2o!nd_dft_wlteh_webp_3",
+        "sha256": "3f8be3f74715ff97bdbaba5a2288c14390ff23165cc023050873824c9287b85c"
+      },
+      {
+        "src": "media/complete/6abc64740000000002028ea2/06.webp",
+        "sourceIndex": 6,
+        "alt": "屿山海🏠（装修准备中，关必回） · 原帖第6张：卫生间开关插座：镜柜、浴霸和马桶",
+        "caption": "卫生间开关插座：镜柜、浴霸和马桶",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/d6183a691a7a66cf8cf97bfe26b7494f/1040g2sg325nlg3lpl69g5pupfk6ji6uorjt7teo!nd_dft_wlteh_webp_3",
+        "sha256": "a4a0d41dc884f8324ae109fd5a6dd90c9e7fb4f767974e66712f17d347911ac7"
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 6,
+      "downloadedImages": 6,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 6 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
+  },
+  {
+    "id": "690c8eb50000000005011f07",
+    "title": "水电验收13项：图纸、选材、布线、回路与留档",
+    "author": "绒绒牛",
+    "date": "2025-11-06",
+    "url": "https://www.xiaohongshu.com/search_result/690c8eb50000000005011f07?xsec_token=ABOM8uX8PqzeYlKJZx4lI_Z7h1PQ5-a9l6rP3BZH4zAMA=&xsec_source=",
+    "stage": "施工",
+    "type": "攻略",
+    "summary": "按原帖13项逐项整理，并把作者给出的选材偏好和数值，与真正需要现场复核的施工要求区分开。",
+    "points": [
+      "1．逐一对照施工图核对开关与插座，确认房间、数量和位置无遗漏，最好在封闭前完成点位检查。",
+      "2．作者偏向墙面竖槽，并写出非承重墙横槽不超过50cm、承重墙不超过30cm的说法。这是原帖表述，不能把两个数字理解成允许在相应墙体开槽，结构与线路方案仍需专业确认。",
+      "3．原帖主张选择BV线而不选BVR线，理由为寿命与抗氧化。本站保留这一选材观点，但不把两种线材排成普遍优劣；实际型号和用途应与约定配置核对。",
+      "4．原帖给水管选择PPR、不选PVC，并提醒冷、热水管有区别。查验时问清材料用于哪里、标识是否对应合同，以及冷热水使用条件，而不是只认一段颜色或外观。",
+      "5．原帖偏向CAT6A网线，并区分CAT6A、CAT6及“CAT6E”营销标识。把所买产品标识、布线目标和整套网络方案核对清楚，不只看商家口头称作“超六类”。",
+      "6．作者提出强弱电交叉处做屏蔽，并示意强电在上、弱电在下及铝箔包覆。应让施工方解释实际交叉节点与抗干扰处理，不能仅凭有没有包一层箔就认定验收合格。",
+      "7．原帖强调强弱电分开、水电分开，并给电管转弯留弧度，目的包括减少干扰、方便以后抽线检修；应对照现场路线和方案逐段确认。",
+      "8．原帖写“一管不超过三根线”，用来提醒避免塞线太满、影响散热与换线；根数不能脱离管径、线径和具体回路直接套用，应请施工方说明穿线配置。",
+      "9．作者写冷热水管保持水平、左热右冷、间距至少15cm；这些是原帖给出的参考，最终点位与间距要和所选龙头、花洒及管路方案对接。",
+      "10．原帖以“双眼皮”描述热熔接口外观，并据此讨论做工。可用来提醒查看接头，但仅凭外观不能代替施工记录和相应测试。",
+      "11．原帖建议空调、冰箱等大功率或需要独立使用的设备单设回路，减少过载等问题；请电工结合实际负荷明确回路、电线及保护配置。",
+      "12．改电后给线盒盖保护盖，避免水泥、腻子等进入，给后续开关面板安装留出干净、完整的作业条件。",
+      "13．验收后拍下各处管线的位置，按房间归档，保留到以后挂柜、装五金和维修时查看，减少打孔碰到暗埋管线的风险。"
+    ],
+    "limits": "已覆盖正文13项及全部14图。原帖中的横槽长度、穿线根数、材料优劣和热熔外观判断均已明确归属作者观点，不以其直接判定工程合格。",
+    "evidence": "已读取完整正文及全部 14 张静态配图，详细要点可点击对应图号交叉查看",
+    "likes": "6068",
+    "originalTitle": "求求装修人都存好，水电验收13个避坑指南❗️",
+    "tags": [
+      "水电验收",
+      "材料标识",
+      "管线留档"
+    ],
+    "sections": [
+      {
+        "title": "1—2：先核图纸，再问清开槽方案",
+        "items": [
+          {
+            "text": "1．逐一对照施工图核对开关与插座，确认房间、数量和位置无遗漏，最好在封闭前完成点位检查。",
+            "images": [
+              2
+            ]
+          },
+          {
+            "text": "2．作者偏向墙面竖槽，并写出非承重墙横槽不超过50cm、承重墙不超过30cm的说法。这是原帖表述，不能把两个数字理解成允许在相应墙体开槽，结构与线路方案仍需专业确认。",
+            "images": [
+              3
+            ]
+          }
+        ]
+      },
+      {
+        "title": "3—5：电线、水管和网线",
+        "items": [
+          {
+            "text": "3．原帖主张选择BV线而不选BVR线，理由为寿命与抗氧化。本站保留这一选材观点，但不把两种线材排成普遍优劣；实际型号和用途应与约定配置核对。",
+            "images": [
+              4
+            ]
+          },
+          {
+            "text": "4．原帖给水管选择PPR、不选PVC，并提醒冷、热水管有区别。查验时问清材料用于哪里、标识是否对应合同，以及冷热水使用条件，而不是只认一段颜色或外观。",
+            "images": [
+              5
+            ]
+          },
+          {
+            "text": "5．原帖偏向CAT6A网线，并区分CAT6A、CAT6及“CAT6E”营销标识。把所买产品标识、布线目标和整套网络方案核对清楚，不只看商家口头称作“超六类”。",
+            "images": [
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "title": "6—10：管线路径、穿线和水管节点",
+        "items": [
+          {
+            "text": "6．作者提出强弱电交叉处做屏蔽，并示意强电在上、弱电在下及铝箔包覆。应让施工方解释实际交叉节点与抗干扰处理，不能仅凭有没有包一层箔就认定验收合格。",
+            "images": [
+              7
+            ]
+          },
+          {
+            "text": "7．原帖强调强弱电分开、水电分开，并给电管转弯留弧度，目的包括减少干扰、方便以后抽线检修；应对照现场路线和方案逐段确认。",
+            "images": [
+              8
+            ]
+          },
+          {
+            "text": "8．原帖写“一管不超过三根线”，用来提醒避免塞线太满、影响散热与换线；根数不能脱离管径、线径和具体回路直接套用，应请施工方说明穿线配置。",
+            "images": [
+              9
+            ]
+          },
+          {
+            "text": "9．作者写冷热水管保持水平、左热右冷、间距至少15cm；这些是原帖给出的参考，最终点位与间距要和所选龙头、花洒及管路方案对接。",
+            "images": [
+              10
+            ]
+          },
+          {
+            "text": "10．原帖以“双眼皮”描述热熔接口外观，并据此讨论做工。可用来提醒查看接头，但仅凭外观不能代替施工记录和相应测试。",
+            "images": [
+              11
+            ]
+          }
+        ]
+      },
+      {
+        "title": "11—13：回路、成品保护与留档",
+        "items": [
+          {
+            "text": "11．原帖建议空调、冰箱等大功率或需要独立使用的设备单设回路，减少过载等问题；请电工结合实际负荷明确回路、电线及保护配置。",
+            "images": [
+              12
+            ]
+          },
+          {
+            "text": "12．改电后给线盒盖保护盖，避免水泥、腻子等进入，给后续开关面板安装留出干净、完整的作业条件。",
+            "images": [
+              13
+            ]
+          },
+          {
+            "text": "13．验收后拍下各处管线的位置，按房间归档，保留到以后挂柜、装五金和维修时查看，减少打孔碰到暗埋管线的风险。",
+            "images": [
+              14
+            ]
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "src": "media/complete/690c8eb50000000005011f07/01.webp",
+        "sourceIndex": 1,
+        "alt": "绒绒牛 · 原帖第1张：水电验收主题封面",
+        "caption": "水电验收主题封面",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/c8033c2931876dfb6db32331e58cb18a/notes_pre_post/1040g3k031ohuko6tl8004bebhcmond9at4n64u0!nd_dft_wlteh_webp_3",
+        "sha256": "88d2d03b658d54337952aba0d0d3562fc08b67b72211665b46567ad75c2acfee"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/02.webp",
+        "sourceIndex": 2,
+        "alt": "绒绒牛 · 原帖第2张：第1项：对照图纸核对点位",
+        "caption": "第1项：对照图纸核对点位",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/6c0e40426a1571b2af34b67ed572d990/notes_pre_post/1040g3k031ohuko6tl80g4bebhcmond9aqn4b6j0!nd_dft_wlteh_webp_3",
+        "sha256": "3b6c290d7463e8b2a4d965370b29fcef69da55db9c0b53788a3c1b0e7083c66a"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/03.webp",
+        "sourceIndex": 3,
+        "alt": "绒绒牛 · 原帖第3张：第2项：开槽方向与原帖数值",
+        "caption": "第2项：开槽方向与原帖数值",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/08af6c1709eac46318136d444ef99ea2/notes_pre_post/1040g3k031ohuko6tl8104bebhcmond9ap1cp0lg!nd_dft_wlteh_webp_3",
+        "sha256": "c50073536c9bf87433dff5874622767f1d624f378fe7254f3f7166df4d48e39a"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/04.webp",
+        "sourceIndex": 4,
+        "alt": "绒绒牛 · 原帖第4张：第3项：BV与BVR选材观点",
+        "caption": "第3项：BV与BVR选材观点",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/899f2c3de072d2718d4a1466ae95d833/notes_pre_post/1040g3k031ohuko6tl81g4bebhcmond9ah3i8qlo!nd_dft_wlteh_webp_3",
+        "sha256": "e7b27300793ad09a5256bd6c1910c619c93828af6404c6222de99046f88f7136"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/05.webp",
+        "sourceIndex": 5,
+        "alt": "绒绒牛 · 原帖第5张：第4项：给水管和冷热水管",
+        "caption": "第4项：给水管和冷热水管",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/483d0f9f084eaee0b4416d03313a7035/notes_pre_post/1040g3k031ohuko6tl8204bebhcmond9agkjkicg!nd_dft_wlteh_webp_3",
+        "sha256": "c296e98c51ee60826feb471acf9aaf5fcdb008086bad3a07bc52f61cbbd3fbea"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/06.webp",
+        "sourceIndex": 6,
+        "alt": "绒绒牛 · 原帖第6张：第5项：网线类别标识",
+        "caption": "第5项：网线类别标识",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/09555069fb4b40d97340e2ffb05028c5/notes_pre_post/1040g3k031ohuko6tl82g4bebhcmond9andnr9to!nd_dft_wlteh_webp_3",
+        "sha256": "80753a6332646d06e9241e4460c332332d0eaac960d4b6298e0b2eb520b5d29a"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/07.webp",
+        "sourceIndex": 7,
+        "alt": "绒绒牛 · 原帖第7张：第6项：强弱电交叉节点",
+        "caption": "第6项：强弱电交叉节点",
+        "width": 994,
+        "height": 1326,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/897458d68da3829c4ebf5f6c1e1280e3/notes_pre_post/1040g3k031ohuko6tl8304bebhcmond9akpgiaqo!nd_dft_wlteh_webp_3",
+        "sha256": "86808d2d482ae9fa5e2ae30b47ffa5b526debc710c0f315fcbc3dca4f739ab81"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/08.webp",
+        "sourceIndex": 8,
+        "alt": "绒绒牛 · 原帖第8张：第7项：分槽和转弯弧度",
+        "caption": "第7项：分槽和转弯弧度",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/caad679ebd181e29d4b581f9485731e6/notes_pre_post/1040g3k031ohuko6tl83g4bebhcmond9abdgijpg!nd_dft_wlteh_webp_3",
+        "sha256": "c38eb80487b69035f151dcdf9623eed353c5115469dd79c28758e8df8faac964"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/09.webp",
+        "sourceIndex": 9,
+        "alt": "绒绒牛 · 原帖第9张：第8项：穿线数量与检修",
+        "caption": "第8项：穿线数量与检修",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/49b9e789868941170bf47e4d5f779c2e/notes_pre_post/1040g3k031ohuko6tl8404bebhcmond9a9unbcq8!nd_dft_wlteh_webp_3",
+        "sha256": "b9c64f5335f1660ecd8299defebf481669e246794a860e1f2e9f10499b02e602"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/10.webp",
+        "sourceIndex": 10,
+        "alt": "绒绒牛 · 原帖第10张：第9项：冷热水管排列和间距",
+        "caption": "第9项：冷热水管排列和间距",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/af27e01c2021ef8a10409e8488b7792f/notes_pre_post/1040g3k031ohuko6tl84g4bebhcmond9af6ulc6g!nd_dft_wlteh_webp_3",
+        "sha256": "ac532cb07da07ff671cd6e0c692636309f7c70adb8f8ae2638dcd16ca4944e02"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/11.webp",
+        "sourceIndex": 11,
+        "alt": "绒绒牛 · 原帖第11张：第10项：热熔接口外观",
+        "caption": "第10项：热熔接口外观",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/c51c034363f3eb8b3c1db416cfbf37fc/notes_pre_post/1040g3k031ohuko6tl8504bebhcmond9aisp033o!nd_dft_wlteh_webp_3",
+        "sha256": "caafbddc9dc58d118a6c43a2982e94bc0835ea21f6b3b399f1cec7bbd10d7bf2"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/12.webp",
+        "sourceIndex": 12,
+        "alt": "绒绒牛 · 原帖第12张：第11项：设备回路安排",
+        "caption": "第11项：设备回路安排",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/c56e46e00d981576e4a4af292bc98162/notes_pre_post/1040g3k031ohuko6tl85g4bebhcmond9a3u2g4po!nd_dft_wlteh_webp_3",
+        "sha256": "605a76c8a9dd206dd6988f7fbd8f8f6e086cac36847241783a4dd49679006fff"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/13.webp",
+        "sourceIndex": 13,
+        "alt": "绒绒牛 · 原帖第13张：第12项：线盒成品保护",
+        "caption": "第12项：线盒成品保护",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/41ea973da8f3c274b362d3be010c29ea/notes_pre_post/1040g3k031ohuko6tl8604bebhcmond9avgjfc8o!nd_dft_wlteh_webp_3",
+        "sha256": "a1d8f2498fbfa22846c47614cb454b20e4caba83e3dba3feed5dc0a946d972d0"
+      },
+      {
+        "src": "media/complete/690c8eb50000000005011f07/14.webp",
+        "sourceIndex": 14,
+        "alt": "绒绒牛 · 原帖第14张：第13项：线路拍照归档",
+        "caption": "第13项：线路拍照归档",
+        "width": 1080,
+        "height": 1440,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/f7194a2f582487be07c5d7c65d053df3/notes_pre_post/1040g3k031ohuko6tl86g4bebhcmond9amv4sr1g!nd_dft_wlteh_webp_3",
+        "sha256": "3bb4e62149fb3e9e0081415169101f403432b013054e3cf402f84204c9eeeb84"
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 14,
+      "downloadedImages": 14,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 14 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
+  },
+  {
+    "id": "69b942730000000020038cfe",
+    "title": "卫生间九个细节：防水、排水、防臭、用电与清洁",
+    "author": "三文鱼宝贝的家",
+    "date": "2026-03-17",
+    "url": "https://www.xiaohongshu.com/search_result/69b942730000000020038cfe?xsec_token=ABqwHdXOMm_UWoF9_w_rqZDiy5FuRs0tXZmNoYTExy02A=&xsec_source=",
+    "stage": "厨卫",
+    "type": "避坑",
+    "summary": "把原帖九项逐一展开：门口防水、地漏、马桶密封、瓷砖、浴霸、胶、插座、壁龛和下水隔音。",
+    "points": [
+      "1．门口防水：作者关注水汽经砂浆层向门外渗、引发墙皮反碱和起皮，建议门槛下U形加强、做止水节点，并把防水延伸到门外至少30cm。这是原帖方案，材料、范围和节点应结合现场确认。",
+      "2．地漏：作者担心长条地漏内部积污、头发难清，偏向回字形切砖、四周向地漏找坡，并选加长防臭地漏芯。重点是核对排水、清理和连接节点，不能仅凭外形断定好坏。",
+      "3．马桶密封：原帖提醒关注法兰圈材质及老化，建议自备几十元的硅胶密封圈，并在底座用防霉胶收口。应与实际马桶及安装方确认配套和后续检修方式。",
+      "4．瓷砖：作者认为亮光砖容易显水渍，偏好600×1200mm柔光或哑光砖、墙地对缝。尺寸与表面效果是其审美和清洁偏好，需要结合卫生间面积、排版与样品判断。",
+      "5．浴霸：作者不喜欢风暖直接吹向湿着的身体，倾向布置在干区或淋浴区门口，以先加热空间。安装位置仍应结合所选产品的出风和使用条件。",
+      "6．接缝胶：原帖建议马桶、台盆、挡水条等接缝使用防霉中性胶，并关注防霉等级；进口、品牌或“几个月必发霉”的说法不是通用结论，实际先核对产品适用位置和施工收口。",
+      "7．用电点位：智能马桶或马桶盖旁提前预留带防溅措施的插座，浴室柜里考虑牙刷、剃须刀充电，减少入住后走明线和台面杂乱。",
+      "8．壁龛：作者特别强调层板不能积水，给出向外倾斜1—2度的参考。应和师傅确认实际坡向及收口，完成后检查排水，而不是只对着一个角度数字验收。",
+      "9．下水隔音：原帖思路是在弯头、三通等处先处理阻尼，再包隔音棉，兼顾减振与隔声；其“降噪一半”属于未经独立验证的效果表述。"
+    ],
+    "limits": "已读完整正文九项及唯一配图。原帖包含绝对化效果、特定尺寸及材料推荐，本页保留其具体主张和经验归属，不把它们当适用于所有卫生间的施工标准。",
+    "evidence": "已读取完整正文及全部 1 张静态配图，详细要点可点击对应图号交叉查看",
+    "likes": "995",
+    "originalTitle": "卫生间装修经验(千万避雷版)",
+    "tags": [
+      "卫生间",
+      "排水",
+      "检修"
+    ],
+    "sections": [
+      {
+        "title": "1—3：把水路、门口和气味一起看",
+        "items": [
+          {
+            "text": "1．门口防水：作者关注水汽经砂浆层向门外渗、引发墙皮反碱和起皮，建议门槛下U形加强、做止水节点，并把防水延伸到门外至少30cm。这是原帖方案，材料、范围和节点应结合现场确认。",
+            "images": []
+          },
+          {
+            "text": "2．地漏：作者担心长条地漏内部积污、头发难清，偏向回字形切砖、四周向地漏找坡，并选加长防臭地漏芯。重点是核对排水、清理和连接节点，不能仅凭外形断定好坏。",
+            "images": []
+          },
+          {
+            "text": "3．马桶密封：原帖提醒关注法兰圈材质及老化，建议自备几十元的硅胶密封圈，并在底座用防霉胶收口。应与实际马桶及安装方确认配套和后续检修方式。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "4—6：材质、风口与接缝清洁",
+        "items": [
+          {
+            "text": "4．瓷砖：作者认为亮光砖容易显水渍，偏好600×1200mm柔光或哑光砖、墙地对缝。尺寸与表面效果是其审美和清洁偏好，需要结合卫生间面积、排版与样品判断。",
+            "images": []
+          },
+          {
+            "text": "5．浴霸：作者不喜欢风暖直接吹向湿着的身体，倾向布置在干区或淋浴区门口，以先加热空间。安装位置仍应结合所选产品的出风和使用条件。",
+            "images": []
+          },
+          {
+            "text": "6．接缝胶：原帖建议马桶、台盆、挡水条等接缝使用防霉中性胶，并关注防霉等级；进口、品牌或“几个月必发霉”的说法不是通用结论，实际先核对产品适用位置和施工收口。",
+            "images": []
+          }
+        ]
+      },
+      {
+        "title": "7—9：点位、积水和下水噪音",
+        "items": [
+          {
+            "text": "7．用电点位：智能马桶或马桶盖旁提前预留带防溅措施的插座，浴室柜里考虑牙刷、剃须刀充电，减少入住后走明线和台面杂乱。",
+            "images": []
+          },
+          {
+            "text": "8．壁龛：作者特别强调层板不能积水，给出向外倾斜1—2度的参考。应和师傅确认实际坡向及收口，完成后检查排水，而不是只对着一个角度数字验收。",
+            "images": []
+          },
+          {
+            "text": "9．下水隔音：原帖思路是在弯头、三通等处先处理阻尼，再包隔音棉，兼顾减振与隔声；其“降噪一半”属于未经独立验证的效果表述。",
+            "images": []
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "src": "media/complete/69b942730000000020038cfe/01.webp",
+        "sourceIndex": 1,
+        "alt": "三文鱼宝贝的家 · 原帖第1张：卫生间原帖配图；九项避坑细节在正文",
+        "caption": "卫生间原帖配图；九项避坑细节在正文",
+        "width": 1080,
+        "height": 1314,
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221747/eb8a4b34faa2373ea9daeaf09c04d345/notes_pre_post/1040g3k031tqie3br724g49pnjgg2eoa0g87b6ao!nd_dft_wlteh_webp_3",
+        "sha256": "773b688559f3f73fd40d11f4d37144ffe8f0cf32b3920e2dc50cab07f18bceae"
+      }
+    ],
+    "coverage": {
+      "bodyRead": true,
+      "expectedImages": 1,
+      "downloadedImages": 1,
+      "imagesComplete": true,
+      "summaryComplete": true,
+      "mediaType": "image",
+      "note": "已按完整正文及全部 1 张静态配图分主题整理，配图按原帖顺序收录。"
+    }
   }
-]);
+];
