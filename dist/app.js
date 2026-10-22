@@ -80,15 +80,35 @@ function toggleSaved(id){
  if(state.opened===id)updateDialogSave(id);
 }
 function updateDialogSave(id){const b=$('dialog-save');if(b){b.textContent=saved.has(id)?'已收藏 · 点击取消':'收藏这篇笔记';b.setAttribute('aria-pressed',String(saved.has(id)));}}
+// 固定背景而非仅设置 overflow，兼容手机浏览器的触摸滚动；嵌套弹窗共用一把锁。
+let modalPagePosition=null;
+function openModal(dialog){
+ if(dialog.open)return;
+ if(!modalPagePosition){
+  modalPagePosition={x:window.scrollX,y:window.scrollY};
+  document.body.style.setProperty('--modal-page-top',`${-modalPagePosition.y}px`);
+  document.documentElement.classList.add('modal-open');
+  document.body.classList.add('modal-open');
+ }
+ dialog.showModal();
+}
+function restorePageScroll(){
+ if(document.querySelector('dialog[open]')||!modalPagePosition)return;
+ const position=modalPagePosition;modalPagePosition=null;
+ document.body.classList.remove('modal-open');
+ document.documentElement.classList.remove('modal-open');
+ document.body.style.removeProperty('--modal-page-top');
+ window.scrollTo({left:position.x,top:position.y,behavior:'auto'});
+}
 function showNote(id){
  const n=byId(id);if(!n)return;state.opened=id;
  $('dialog-content').innerHTML=`<div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title">${escapeHTML(n.title)}</h2><div class="dialog-meta">${escapeHTML(n.author)} <span>·</span> 发布于 ${n.date} <span>·</span> 小红书</div><p class="dialog-intro">${escapeHTML(n.summary)}</p><div class="detail-label">值得记下来的几件事</div><ul class="detail-points">${n.points.map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul>${noteGallery(n)}<div class="evidence-box"><b>资料核对</b> ${escapeHTML(n.evidence)} · 2026.10.22${n.limits?`<br>${escapeHTML(n.limits)}`:''}</div><div class="dialog-actions"><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button></div><p class="dialog-original">原帖标题：${escapeHTML(n.originalTitle||n.title)}</p>`;
- updateDialogSave(id);if(!$('article-dialog').open)$('article-dialog').showModal();
+ updateDialogSave(id);$('dialog-content').scrollTop=0;openModal($('article-dialog'));
 }
 function showImage(id,index=0){
  const note=byId(id);if(!note?.images?.length)return;
  state.imageNote=id;state.imageIndex=(index+note.images.length)%note.images.length;
- renderImage();if(!$('image-dialog').open)$('image-dialog').showModal();
+ renderImage();openModal($('image-dialog'));
 }
 function renderImage(){
  const n=byId(state.imageNote);if(!n?.images?.length)return;
@@ -112,7 +132,7 @@ $('close-image').addEventListener('click',()=>$('image-dialog').close());
 $('image-prev').addEventListener('click',()=>moveImage(-1));
 $('image-next').addEventListener('click',()=>moveImage(1));
 $('image-zoom').addEventListener('click',()=>{const zoomed=$('viewer-scroll').classList.toggle('zoomed');$('image-zoom').textContent=zoomed?'适应宽度':'放大查看';$('image-zoom').setAttribute('aria-pressed',String(zoomed));});
-$('image-dialog').addEventListener('close',()=>{state.imageNote=null;});
+$('image-dialog').addEventListener('close',()=>{state.imageNote=null;restorePageScroll();});
 $('image-dialog').addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();moveImage(event.key==='ArrowRight'?1:-1);}});
 $('image-dialog').addEventListener('click',event=>{if(event.target===$('image-dialog')){const r=$('image-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('image-dialog').close();}});
 $('viewer-image').addEventListener('error',()=>{$('viewer-image').hidden=true;$('viewer-scroll').querySelector('.image-fallback').hidden=false;});
@@ -148,7 +168,7 @@ $('open-checklist').addEventListener('click',()=>setView('checklist'));
 $('all-stages').addEventListener('click',()=>setStage('all'));
 $('reset-filters').addEventListener('click',()=>{setView('library',false);$('library').scrollIntoView({behavior:'smooth'});});
 $('close-dialog').addEventListener('click',()=>$('article-dialog').close());
-$('article-dialog').addEventListener('close',()=>{state.opened=null;});
+$('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageScroll();});
 $('article-dialog').addEventListener('click',event=>{if(event.target===$('article-dialog')){const r=$('article-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('article-dialog').close();}});
 $('checklist-groups').addEventListener('change',event=>{const id=event.target.dataset.check;if(!id)return;if(event.target.checked)checked.add(id);else checked.delete(id);writeStorage('saya-renovation-checks-v1',[...checked]);const focusId=event.target.id;renderChecklist();document.getElementById(focusId)?.focus();if(!storageAvailable)toast('当前浏览器无法保存，进度仅在本次打开期间保留');});
 $('reset-checklist').addEventListener('click',()=>{if(!checked.size){toast('清单尚未勾选');return;}if(window.confirm('将清除当前浏览器中的所有清单勾选，确认重置吗？')){checked.clear();writeStorage('saya-renovation-checks-v1',[]);renderChecklist();toast('勾选已重置');}});

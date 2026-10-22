@@ -11,3 +11,12 @@
 @media(max-width:760px){.card-banner,.card-photo{height:116px}.photo-badge{font-size:7px;bottom:7px;left:7px;right:7px;max-width:calc(100% - 14px);padding:2px 5px}.gallery-thumbnails{gap:9px}.gallery-thumbnails img{height:160px}.gallery-thumbnails button>span{font-size:8px;padding:7px}.gallery-heading small{font-size:8px}.gallery-attribution{font-size:8px}.viewer-toolbar{padding:12px 14px;gap:10px}.viewer-toolbar h2{font-size:11px}.viewer-controls{padding:9px 10px;gap:8px;font-size:10px}.viewer-controls button{padding:4px 6px;font-size:9px}.viewer-controls>span{min-width:30px}.viewer-scroll{padding:8px;max-height:calc(92vh - 214px)}.viewer-caption{padding:11px 13px 13px}.viewer-caption p{font-size:10px}.viewer-caption>span{font-size:8px;display:block}.viewer-caption a{margin-left:0;font-size:9px}}
 #image-dialog[open]{display:flex;flex-direction:column;height:92vh}.viewer-toolbar,.viewer-controls,.viewer-caption{flex-shrink:0}.viewer-scroll{flex:1;min-height:0}.viewer-caption #image-limits{font-size:9px;color:#9ca58d;line-height:1.7;margin:7px 0 0;border-top:1px solid #eef0e7;padding-top:6px}
 @media(max-width:760px){.viewer-caption #image-limits{font-size:8px;line-height:1.6}}
+/* 手机弹窗独立滚动，正文/大图到边界时不把手势交给背景页面。 */
+html.modal-open{overflow:hidden;overscroll-behavior:none}
+body.modal-open{position:fixed;top:var(--modal-page-top,0);left:0;right:0;width:100%;overflow:hidden;overscroll-behavior:none}
+#article-dialog[open]{display:flex;flex-direction:column;height:min(88vh,900px);height:min(88dvh,900px);max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);padding:0;overflow:hidden;overscroll-behavior:contain}
+#article-dialog .dialog-top{flex:0 0 auto;margin:0;padding:14px 24px;border-bottom:1px solid var(--line);background:var(--white)}
+#dialog-content{flex:1 1 auto;min-height:0;padding:14px 28px 26px;overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y pinch-zoom}
+#viewer-scroll{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y pinch-zoom}
+#image-dialog[open]{height:92vh;height:92dvh;max-height:92vh;max-height:92dvh;overscroll-behavior:contain}
+@media(max-width:760px){#article-dialog .dialog-top{padding:11px 16px}#dialog-content{padding:13px 20px 23px}}
