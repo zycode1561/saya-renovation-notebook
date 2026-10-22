@@ -125,7 +125,7 @@ function showNote(id){
 }
 function showImage(id,index=0){
  const note=byId(id);if(!note?.images?.length)return;
- state.imageNote=id;state.imageIndex=(index+note.images.length)%note.images.length;
+ imageCarousel.reset();state.imageNote=id;state.imageIndex=(index+note.images.length)%note.images.length;
  renderImage();openModal($('image-dialog'));$('viewer-scroll').scrollTo({top:0,left:0,behavior:'instant'});
 }
 function renderImage(){
@@ -134,7 +134,8 @@ function renderImage(){
  $('image-viewer-title').textContent=n.title;
  $('image-position').textContent=`${image.sourceIndex||state.imageIndex+1} / ${n.coverage?.expectedImages??n.images.length}`;
  $('viewer-image').alt=image.alt;
- $('viewer-image').src=image.src;
+ if($('viewer-image').getAttribute('src')!==image.src)$('viewer-image').src=image.src;
+ $('viewer-image').width=image.width;$('viewer-image').height=image.height;
  $('viewer-image').hidden=false;
  $('viewer-scroll').querySelector('.image-fallback').hidden=true;
  $('image-caption').textContent=image.caption||image.alt;
@@ -142,52 +143,57 @@ function renderImage(){
  $('image-limits').textContent=n.limits||'原图内容为作者经验，请结合自家实际条件判断。';
  $('image-source').href=n.url;
  $('image-prev').disabled=n.images.length<2;$('image-next').disabled=n.images.length<2;
- imageSwipe=null;$('viewer-scroll').classList.remove('zoomed');$('image-zoom').textContent='放大查看';$('image-zoom').setAttribute('aria-pressed','false');updateImageGestureHint();
- $('viewer-scroll').scrollTop=0;$('viewer-scroll').scrollLeft=0;
+ $('viewer-scroll').classList.remove('zoomed');$('image-zoom').textContent='放大查看';$('image-zoom').setAttribute('aria-pressed','false');updateImageGestureHint();
+ $('viewer-scroll').scrollTop=0;$('viewer-scroll').scrollLeft=0;primeImageNeighbors(n);
 }
-function moveImage(delta){if(state.imageNote)showImage(state.imageNote,state.imageIndex+delta);}
+function moveImage(delta){
+ if(!state.imageNote)return;
+ if(imageViewport.classList.contains('zoomed')){
+  imageCarousel.reset();state.imageIndex=(state.imageIndex+delta+byId(state.imageNote).images.length)%byId(state.imageNote).images.length;renderImage();
+ }else imageCarousel.step(delta);
+}
 const imageViewport=$('viewer-scroll');
-let imageSwipe=null;
 function updateImageGestureHint(){
  const multiple=(byId(state.imageNote)?.images?.length||0)>1;
  const zoomed=imageViewport.classList.contains('zoomed');
- imageViewport.dataset.swipeEnabled=String(multiple&&!zoomed);
- $('image-gesture-hint').textContent=zoomed?'已放大 · 可上下左右滑动查看':multiple?'左右滑动切图 · 上下滑动看长图':'上下滑动查看长图';
+ $('viewer-stage').dataset.swipeEnabled=String(multiple&&!zoomed);$('viewer-stage').classList.toggle('is-zoomed',zoomed);
+ $('image-gesture-hint').textContent=zoomed?'已放大 · 可上下左右滑动查看':multiple?'左右拖动翻图 · 轻甩切换 · 上下看长图':'上下滑动查看长图';
  imageViewport.setAttribute('aria-label',zoomed?'已放大图片，可上下左右滑动查看':multiple?'原帖大图，左右滑动切换图片，上下滑动查看长图':'原帖大图，可上下滑动查看长图');
 }
-// 仅接管明确的横向手势；纵向滚动、双指缩放和放大后的平移交给浏览器。
-imageViewport.addEventListener('pointerdown',event=>{
- if(!event.isPrimary){imageSwipe=null;return;}
- if(event.button!==0||imageViewport.dataset.swipeEnabled!=='true')return;
- imageSwipe={id:event.pointerId,x:event.clientX,y:event.clientY,axis:null};
- imageViewport.setPointerCapture(event.pointerId);
-});
-imageViewport.addEventListener('pointermove',event=>{
- if(!imageSwipe||event.pointerId!==imageSwipe.id)return;
- const dx=Math.abs(event.clientX-imageSwipe.x),dy=Math.abs(event.clientY-imageSwipe.y);
- if(!imageSwipe.axis&&Math.max(dx,dy)>=10){
-  if(dx>dy*1.25)imageSwipe.axis='x';
-  else if(dy>dx*1.25){imageSwipe=null;return;}
+function primeImageNeighbors(note){
+ for(const [delta,id] of [[-1,'viewer-previous'],[1,'viewer-next']]){
+  const pane=$(id),img=pane.querySelector('img');
+  const image=note.images[(state.imageIndex+delta+note.images.length)%note.images.length];
+  img.hidden=false;img.width=image.width;img.height=image.height;
+  if(img.getAttribute('src')!==image.src){img.src=image.src;if(img.decode)img.decode().catch(()=>{});}
+  pane.dataset.ready=String(img.complete&&img.naturalWidth>0);pane.scrollTop=0;
  }
- if(imageSwipe.axis==='x'&&event.cancelable)event.preventDefault();
+}
+function promoteImageNeighbor(delta){
+ const pane=$(delta>0?'viewer-next':'viewer-previous');
+ const incoming=pane.querySelector('img'),outgoing=$('viewer-image');
+ outgoing.removeAttribute('id');incoming.id='viewer-image';
+ outgoing.replaceWith(incoming);pane.prepend(outgoing);
+ const note=byId(state.imageNote);state.imageIndex=(state.imageIndex+delta+note.images.length)%note.images.length;
+ renderImage();
+}
+const imageCarousel=window.createImageCarousel({
+ stage:$('viewer-stage'),track:$('viewer-track'),
+ canSwipe:()=>$('image-dialog').open&&$('viewer-stage').dataset.swipeEnabled==='true',
+ onStep:promoteImageNeighbor
 });
-imageViewport.addEventListener('pointerup',event=>{
- const gesture=imageSwipe;imageSwipe=null;
- if(!gesture||event.pointerId!==gesture.id||imageViewport.dataset.swipeEnabled!=='true')return;
- const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y;
- const threshold=Math.max(48,Math.min(92,imageViewport.clientWidth*.16));
- if(gesture.axis==='x'&&Math.abs(dx)>=threshold&&Math.abs(dx)>Math.abs(dy)*1.4)moveImage(dx<0?1:-1);
-});
-imageViewport.addEventListener('pointercancel',()=>{imageSwipe=null;});
-imageViewport.addEventListener('lostpointercapture',()=>{imageSwipe=null;});
+$('viewer-stage').addEventListener('load',event=>{if(event.target.parentElement?.classList.contains('viewer-neighbor'))event.target.parentElement.dataset.ready='true';},true);
+$('viewer-stage').addEventListener('error',event=>{
+ if(event.target.id==='viewer-image'){event.target.hidden=true;imageViewport.querySelector('.image-fallback').hidden=false;}
+},true);
 $('close-image').addEventListener('click',()=>$('image-dialog').close());
 $('image-prev').addEventListener('click',()=>moveImage(-1));
 $('image-next').addEventListener('click',()=>moveImage(1));
-$('image-zoom').addEventListener('click',()=>{imageSwipe=null;const zoomed=$('viewer-scroll').classList.toggle('zoomed');$('image-zoom').textContent=zoomed?'适应宽度':'放大查看';$('image-zoom').setAttribute('aria-pressed',String(zoomed));updateImageGestureHint();});
-$('image-dialog').addEventListener('close',()=>{imageSwipe=null;state.imageNote=null;restorePageScroll();});
+$('image-zoom').addEventListener('click',()=>{imageCarousel.reset();const zoomed=$('viewer-scroll').classList.toggle('zoomed');$('image-zoom').textContent=zoomed?'适应宽度':'放大查看';$('image-zoom').setAttribute('aria-pressed',String(zoomed));updateImageGestureHint();});
+$('image-dialog').addEventListener('close',()=>{imageCarousel.reset();state.imageNote=null;restorePageScroll();});
 $('image-dialog').addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();moveImage(event.key==='ArrowRight'?1:-1);}});
 $('image-dialog').addEventListener('click',event=>{if(event.target===$('image-dialog')){const r=$('image-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('image-dialog').close();}});
-$('viewer-image').addEventListener('error',()=>{$('viewer-image').hidden=true;$('viewer-scroll').querySelector('.image-fallback').hidden=false;});
+
 const checklist=[
  {stage:'准备',items:[['plan-list','列出硬装、定制、家具软装和电器，建立完整预算表。','6937eb83000000001e0100df'],['plan-size','在水电定位前明确主要电器、橱柜和卫浴设备的尺寸与位置。','6937eb83000000001e0100df']]},
  {stage:'预算',items:[['budget-range','核对报价中的品牌、型号、数量和服务包含范围。','company'],['budget-extra','确认搬运、清运、拆后修补的费用与计价方式。','extras'],['budget-contract','在合同中明确工期、质保、延期处理和增项确认方式。','company'],['budget-own','把套餐内、套餐外、业主自购分别列预算。','6ad4b548000000000c00a11b']]},
