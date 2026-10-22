@@ -5,7 +5,7 @@
   <meta name="theme-color" content="#203e35"><meta name="description" content="沙耶的装修攻略与避坑手册。按装修阶段查阅经验、对照清单，保留每一条经验的原帖出处。">
   <title>住前笔记 · 沙耶的装修手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23203e35'/%3E%3Cpath d='M16 30 32 16 48 30v20H16zM27 50V35h10v15' fill='none' stroke='%23f5f0e5' stroke-width='4'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=header-20261022"><script src="data.js" defer></script><script src="image-carousel.js" defer></script><script src="app.js?v=header-20261022" defer></script>
+  <link rel="stylesheet" href="styles.css?v=viewer-20261022"><script src="data.js" defer></script><script src="image-carousel.js" defer></script><script src="app.js?v=viewer-20261022" defer></script>
 </head>
 <body>
   <aside class="sidebar">
@@ -42,15 +42,14 @@
   </div>
   <dialog id="article-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><button class="reader-back" id="close-dialog" aria-label="关闭笔记，返回资料库"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><span class="reader-toolbar-label">住前笔记<span class="reader-toolbar-dot"> / </span><small>阅读</small></span><nav class="reader-toolbar-nav" aria-label="阅读导航"><button data-note-jump="note-summary">正文</button><button id="reader-contents-button" data-reader-contents aria-controls="reader-toc" aria-expanded="false">目录</button><button id="reader-gallery-button" data-note-jump="note-gallery">配图</button></nav></div><div id="dialog-content" tabindex="0" role="region" aria-label="帖子正文，可上下滑动"></div></dialog>
   <dialog id="image-dialog" aria-labelledby="image-viewer-title">
-    <div class="viewer-toolbar"><div><span class="eyebrow">原帖配图</span><h2 id="image-viewer-title"></h2></div><button class="icon-button" id="close-image" aria-label="关闭图片"><span data-icon="close"></span></button></div>
-    <div class="viewer-controls"><button id="image-prev" aria-label="上一张图片">← 上一张</button><span id="image-position" aria-live="polite"></span><button id="image-next" aria-label="下一张图片">下一张 →</button><button id="image-zoom" aria-pressed="false">放大查看</button></div>
-    <p class="viewer-gesture-hint" id="image-gesture-hint">左右滑动切图 · 上下滑动看长图</p>
+    <div class="viewer-toolbar"><h2 id="image-viewer-title" tabindex="-1" autofocus></h2><button class="viewer-info-toggle" id="image-info" aria-label="图片说明与来源" aria-expanded="false" aria-controls="image-details">ⓘ</button><button class="icon-button" id="close-image" aria-label="关闭图片"><span data-icon="close"></span></button></div>
     <div class="viewer-stage" id="viewer-stage"><div class="viewer-track" id="viewer-track">
       <div class="viewer-neighbor" id="viewer-previous" aria-hidden="true"><img alt="" draggable="false" decoding="async"><span class="viewer-loading">图片加载中…</span></div>
       <div class="viewer-scroll" id="viewer-scroll" tabindex="0" role="region" aria-label="原帖大图，可滑动查看"><img id="viewer-image" alt="" draggable="false" decoding="async"><p class="image-fallback" hidden>图片暂时无法加载，请查看小红书原帖。</p></div>
       <div class="viewer-neighbor" id="viewer-next" aria-hidden="true"><img alt="" draggable="false" decoding="async"><span class="viewer-loading">图片加载中…</span></div>
     </div></div>
-    <div class="viewer-caption"><p id="image-caption"></p><span id="image-credit"></span><a id="image-source" target="_blank" rel="noopener noreferrer">查看原帖 ↗</a><p id="image-limits"></p></div>
+    <section class="viewer-caption" id="image-details" aria-label="图片说明与来源" hidden><p id="image-caption"></p><span id="image-credit"></span><a id="image-source" target="_blank" rel="noopener noreferrer">查看原帖 ↗</a><p class="viewer-gesture-hint" id="image-gesture-hint">左右滑动切图 · 上下滑动看长图</p><p id="image-limits"></p></section>
+    <div class="viewer-controls"><div class="viewer-paging"><button id="image-prev" aria-label="上一张图片">‹</button><span id="image-position" aria-live="polite"></span><button id="image-next" aria-label="下一张图片">›</button></div><button id="image-zoom" aria-pressed="false">放大查看</button></div>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>

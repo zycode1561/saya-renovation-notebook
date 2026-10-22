@@ -155,7 +155,7 @@ function showNote(id){
 }
 function showImage(id,index=0){
  const note=byId(id);if(!note?.images?.length)return;
- imageCarousel.reset();state.imageNote=id;state.imageIndex=(index+note.images.length)%note.images.length;
+ $('image-details').hidden=true;$('image-info').setAttribute('aria-expanded','false');imageCarousel.reset();state.imageNote=id;state.imageIndex=(index+note.images.length)%note.images.length;
  renderImage();openModal($('image-dialog'));$('viewer-scroll').scrollTo({top:0,left:0,behavior:'instant'});
 }
 function renderImage(){
@@ -216,6 +216,7 @@ $('viewer-stage').addEventListener('load',event=>{if(event.target.parentElement?
 $('viewer-stage').addEventListener('error',event=>{
  if(event.target.id==='viewer-image'){event.target.hidden=true;imageViewport.querySelector('.image-fallback').hidden=false;}
 },true);
+$('image-info').addEventListener('click',()=>{const panel=$('image-details');panel.hidden=!panel.hidden;$('image-info').setAttribute('aria-expanded',String(!panel.hidden));});
 $('close-image').addEventListener('click',()=>$('image-dialog').close());
 $('image-prev').addEventListener('click',()=>moveImage(-1));
 $('image-next').addEventListener('click',()=>moveImage(1));

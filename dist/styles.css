@@ -108,3 +108,37 @@ body.modal-open{position:fixed;top:var(--modal-page-top,0);left:0;right:0;width:
  #article-dialog .reader-stats{font-size:11px;}
 }
 @media(max-width:350px){#article-dialog .reader-toolbar-label{display:none;}}
+
+/* Immersive image viewer: image first, optional source panel. */
+#image-dialog,#image-dialog[open]{width:min(1180px,calc(100vw - 40px));height:96dvh;max-height:96dvh;max-width:none;padding:0;border:1px solid #ffffff18;border-radius:16px;background:#181d1b;color:#e8ede7;box-shadow:0 24px 100px #0006;}
+#image-dialog::backdrop{background:#131b17c9;backdrop-filter:blur(8px);}
+#image-dialog .viewer-toolbar{flex:0 0 auto;min-height:60px;padding:8px 18px;gap:10px;background:#202723;border-bottom:1px solid #ffffff0c;}
+#image-dialog .viewer-toolbar h2{flex:1;min-width:0;font-size:13px;font-weight:500;color:#d9e1d6;margin:0;line-height:1.6;}
+#image-viewer-title:focus{outline:none;}
+#image-dialog .viewer-toolbar button{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;min-height:40px;border:0;border-radius:50%;background:#ffffff08;color:#c7d1c2;font-size:22px;padding:0;}
+#image-dialog .viewer-toolbar button:hover,#image-dialog .viewer-toolbar button[aria-expanded="true"]{background:#ffffff18;color:#fff;}
+#image-dialog button:focus-visible{outline:2px solid #bdd0ac;outline-offset:2px;}
+#image-dialog .viewer-stage{background:#181d1b;}
+#image-dialog .viewer-track>#viewer-scroll,#image-dialog .viewer-track>.viewer-neighbor{padding:0;background:#181d1b;scrollbar-width:thin;scrollbar-color:#5e6c60 #181d1b;}
+#image-dialog .viewer-track img{display:block;width:100%;max-width:900px;height:auto;max-height:none;margin:0 auto;box-shadow:none;}
+#image-dialog .viewer-track>#viewer-scroll.zoomed>img{width:200%;max-width:none;margin:0;}
+#image-dialog .viewer-controls{position:relative;min-height:64px;gap:12px;padding:8px 20px;background:#202723;border-top:1px solid #ffffff0c;color:#cad4c4;justify-content:space-between;}
+#image-dialog .viewer-paging{display:flex;align-items:center;gap:18px;}
+#image-dialog .viewer-controls button{min-width:44px;min-height:44px;padding:6px 12px;border:0;border-radius:10px;background:#ffffff08;color:#dae4d4;font-size:13px;}
+#image-dialog .viewer-controls button:hover:enabled{background:#ffffff18;}
+#image-dialog #image-prev,#image-dialog #image-next{font-size:29px;line-height:1;}
+#image-dialog #image-position{min-width:54px;text-align:center;font-size:13px;letter-spacing:1px;font-variant-numeric:tabular-nums;}
+#image-dialog #image-zoom{margin-left:auto;}
+#image-dialog .viewer-caption{position:absolute;z-index:5;bottom:64px;left:12px;right:12px;max-height:40%;overflow:auto;padding:20px;background:#29322ff5;border:1px solid #ffffff18;border-radius:14px 14px 0 0;box-shadow:0 -12px 32px #0003;color:#adbaa5;}
+#image-dialog .viewer-caption #image-caption{min-height:0;font-size:14px;color:#ecf0e6;line-height:1.7;margin:0 0 12px;}
+#image-dialog .viewer-caption #image-credit,#image-dialog .viewer-caption a{font-size:12px;color:#afc49f;line-height:1.8;}
+#image-dialog .viewer-caption #image-limits{font-size:12px;color:#a4b09c;line-height:1.8;border-top:1px solid #ffffff14;margin-top:12px;padding-top:12px;}
+#image-dialog .viewer-gesture-hint{font-size:12px;color:#a4b09c;background:none;padding:12px 0 0;margin:0;border:0;text-align:left;}
+@media(max-width:760px){
+ #image-dialog,#image-dialog[open]{position:fixed;inset:0;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;border:0;border-radius:0;}
+ #image-dialog .viewer-toolbar{min-height:56px;padding:8px max(12px,env(safe-area-inset-right)) 8px max(16px,env(safe-area-inset-left));padding-top:max(8px,env(safe-area-inset-top));gap:6px;}
+ #image-dialog .viewer-toolbar h2{font-size:12px;}
+ #image-dialog .viewer-controls{padding:6px max(16px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));min-height:60px;}
+ #image-dialog .viewer-caption{bottom:calc(52px + max(8px,env(safe-area-inset-bottom)));left:8px;right:8px;padding:18px;}
+ #image-dialog .viewer-paging{gap:12px;}
+}
