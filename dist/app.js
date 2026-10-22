@@ -142,15 +142,49 @@ function renderImage(){
  $('image-limits').textContent=n.limits||'原图内容为作者经验，请结合自家实际条件判断。';
  $('image-source').href=n.url;
  $('image-prev').disabled=n.images.length<2;$('image-next').disabled=n.images.length<2;
- $('viewer-scroll').classList.remove('zoomed');$('image-zoom').textContent='放大查看';$('image-zoom').setAttribute('aria-pressed','false');
+ imageSwipe=null;$('viewer-scroll').classList.remove('zoomed');$('image-zoom').textContent='放大查看';$('image-zoom').setAttribute('aria-pressed','false');updateImageGestureHint();
  $('viewer-scroll').scrollTop=0;$('viewer-scroll').scrollLeft=0;
 }
 function moveImage(delta){if(state.imageNote)showImage(state.imageNote,state.imageIndex+delta);}
+const imageViewport=$('viewer-scroll');
+let imageSwipe=null;
+function updateImageGestureHint(){
+ const multiple=(byId(state.imageNote)?.images?.length||0)>1;
+ const zoomed=imageViewport.classList.contains('zoomed');
+ imageViewport.dataset.swipeEnabled=String(multiple&&!zoomed);
+ $('image-gesture-hint').textContent=zoomed?'已放大 · 可上下左右滑动查看':multiple?'左右滑动切图 · 上下滑动看长图':'上下滑动查看长图';
+ imageViewport.setAttribute('aria-label',zoomed?'已放大图片，可上下左右滑动查看':multiple?'原帖大图，左右滑动切换图片，上下滑动查看长图':'原帖大图，可上下滑动查看长图');
+}
+// 仅接管明确的横向手势；纵向滚动、双指缩放和放大后的平移交给浏览器。
+imageViewport.addEventListener('pointerdown',event=>{
+ if(!event.isPrimary){imageSwipe=null;return;}
+ if(event.button!==0||imageViewport.dataset.swipeEnabled!=='true')return;
+ imageSwipe={id:event.pointerId,x:event.clientX,y:event.clientY,axis:null};
+ imageViewport.setPointerCapture(event.pointerId);
+});
+imageViewport.addEventListener('pointermove',event=>{
+ if(!imageSwipe||event.pointerId!==imageSwipe.id)return;
+ const dx=Math.abs(event.clientX-imageSwipe.x),dy=Math.abs(event.clientY-imageSwipe.y);
+ if(!imageSwipe.axis&&Math.max(dx,dy)>=10){
+  if(dx>dy*1.25)imageSwipe.axis='x';
+  else if(dy>dx*1.25){imageSwipe=null;return;}
+ }
+ if(imageSwipe.axis==='x'&&event.cancelable)event.preventDefault();
+});
+imageViewport.addEventListener('pointerup',event=>{
+ const gesture=imageSwipe;imageSwipe=null;
+ if(!gesture||event.pointerId!==gesture.id||imageViewport.dataset.swipeEnabled!=='true')return;
+ const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y;
+ const threshold=Math.max(48,Math.min(92,imageViewport.clientWidth*.16));
+ if(gesture.axis==='x'&&Math.abs(dx)>=threshold&&Math.abs(dx)>Math.abs(dy)*1.4)moveImage(dx<0?1:-1);
+});
+imageViewport.addEventListener('pointercancel',()=>{imageSwipe=null;});
+imageViewport.addEventListener('lostpointercapture',()=>{imageSwipe=null;});
 $('close-image').addEventListener('click',()=>$('image-dialog').close());
 $('image-prev').addEventListener('click',()=>moveImage(-1));
 $('image-next').addEventListener('click',()=>moveImage(1));
-$('image-zoom').addEventListener('click',()=>{const zoomed=$('viewer-scroll').classList.toggle('zoomed');$('image-zoom').textContent=zoomed?'适应宽度':'放大查看';$('image-zoom').setAttribute('aria-pressed',String(zoomed));});
-$('image-dialog').addEventListener('close',()=>{state.imageNote=null;restorePageScroll();});
+$('image-zoom').addEventListener('click',()=>{imageSwipe=null;const zoomed=$('viewer-scroll').classList.toggle('zoomed');$('image-zoom').textContent=zoomed?'适应宽度':'放大查看';$('image-zoom').setAttribute('aria-pressed',String(zoomed));updateImageGestureHint();});
+$('image-dialog').addEventListener('close',()=>{imageSwipe=null;state.imageNote=null;restorePageScroll();});
 $('image-dialog').addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();moveImage(event.key==='ArrowRight'?1:-1);}});
 $('image-dialog').addEventListener('click',event=>{if(event.target===$('image-dialog')){const r=$('image-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('image-dialog').close();}});
 $('viewer-image').addEventListener('error',()=>{$('viewer-image').hidden=true;$('viewer-scroll').querySelector('.image-fallback').hidden=false;});

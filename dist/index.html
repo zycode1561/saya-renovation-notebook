@@ -44,7 +44,8 @@
   <dialog id="image-dialog" aria-labelledby="image-viewer-title">
     <div class="viewer-toolbar"><div><span class="eyebrow">原帖配图</span><h2 id="image-viewer-title"></h2></div><button class="icon-button" id="close-image" aria-label="关闭图片"><span data-icon="close"></span></button></div>
     <div class="viewer-controls"><button id="image-prev" aria-label="上一张图片">← 上一张</button><span id="image-position" aria-live="polite"></span><button id="image-next" aria-label="下一张图片">下一张 →</button><button id="image-zoom" aria-pressed="false">放大查看</button></div>
-    <div class="viewer-scroll" id="viewer-scroll" tabindex="0" role="region" aria-label="原帖大图，可滑动查看"><img id="viewer-image" alt=""><p class="image-fallback" hidden>图片暂时无法加载，请查看小红书原帖。</p></div>
+    <p class="viewer-gesture-hint" id="image-gesture-hint">左右滑动切图 · 上下滑动看长图</p>
+    <div class="viewer-scroll" id="viewer-scroll" tabindex="0" role="region" aria-label="原帖大图，可滑动查看"><img id="viewer-image" alt="" draggable="false"><p class="image-fallback" hidden>图片暂时无法加载，请查看小红书原帖。</p></div>
     <div class="viewer-caption"><p id="image-caption"></p><span id="image-credit"></span><a id="image-source" target="_blank" rel="noopener noreferrer">查看原帖 ↗</a><p id="image-limits"></p></div>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
