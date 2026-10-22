@@ -16,23 +16,31 @@ const storedSaved=readStorage('saya-renovation-saved-v1',[]);
 const saved=new Set(Array.isArray(storedSaved)?storedSaved.filter(id=>knownIds.has(id)):[]);
 const storedChecks=readStorage('saya-renovation-checks-v1',[]);
 const checked=new Set(Array.isArray(storedChecks)?storedChecks:[]);
-const state={view:'library',stage:'all',type:'all',query:'',sort:'recommended',opened:null};
+const state={view:'library',stage:'all',type:'all',query:'',sort:'recommended',opened:null,imagesOnly:false,imageNote:null,imageIndex:0};
 let toastTimer;
 function toast(message){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),2300);}
 function visibleNotes(){
  const query=state.query.trim().toLocaleLowerCase();
- let result=notes.filter(n=>(state.view!=='saved'||saved.has(n.id))&&(state.stage==='all'||n.stage===state.stage)&&(state.type==='all'||n.type===state.type)&&(!query||[n.title,n.originalTitle,n.author,n.summary,n.stage,stageFor(n.stage)?.title,...n.tags,...n.points].join(' ').toLocaleLowerCase().includes(query)));
+ let result=notes.filter(n=>(state.view!=='saved'||saved.has(n.id))&&(state.stage==='all'||n.stage===state.stage)&&(state.type==='all'||n.type===state.type)&&(!state.imagesOnly||n.images?.length)&&(!query||[n.title,n.originalTitle,n.author,n.summary,n.stage,stageFor(n.stage)?.title,...n.tags,...n.points,...(n.images||[]).map(i=>i.caption)].join(' ').toLocaleLowerCase().includes(query)));
  if(state.sort==='newest')result=result.slice().sort((a,b)=>b.date.localeCompare(a.date));
  return result;
 }
 function renderStages(){
  $('stage-nav').innerHTML=stages.map((s,i)=>`<button data-stage="${s.id}" class="${state.stage===s.id?'active':''}"><span>${String(i+1).padStart(2,'0')}</span>${s.title}</button>`).join('');
  $('stage-cards').innerHTML=stages.map((s,i)=>`<button class="stage-card ${state.stage===s.id?'active':''}" data-stage="${s.id}" aria-pressed="${state.stage===s.id}"><div class="stage-card-top">${icon(s.icon)}<small>0${i+1}</small></div><b>${s.title}</b><p>${s.hint}</p></button>`).join('');
- $('filter-chips').innerHTML=[{id:'all',title:'全部阶段'},...stages].map(s=>`<button class="chip ${state.stage===s.id?'active':''}" data-stage="${s.id}" aria-pressed="${state.stage===s.id}">${s.title}</button>`).join('');
+ $('filter-chips').innerHTML=[{id:'all',title:'全部阶段'},...stages].map(s=>`<button class="chip ${state.stage===s.id?'active':''}" data-stage="${s.id}" aria-pressed="${state.stage===s.id}">${s.title}</button>`).join('')+`<button class="chip image-filter ${state.imagesOnly?'active':''}" data-images-filter aria-pressed="${state.imagesOnly}">▧ 有配图 · ${notes.filter(n=>n.images?.length).length}</button>`;
+}
+function mediaPreview(n,s){
+ if(!n.images?.length)return `<div class="card-banner ${s?.color||''}"><span class="banner-category">${escapeHTML(s?.title)} / ${n.type==='攻略'?'GUIDE':'LESSONS'}</span><span class="banner-title">${escapeHTML(n.banner||s?.banner)}</span><span class="banner-icon">${icon(s?.icon)}</span></div>`;
+ return `<button class="card-photo" data-image="${escapeHTML(n.id)}" data-image-index="0" aria-label="查看${escapeHTML(n.author)}的${n.images.length}张原帖配图"><img src="${escapeHTML(n.images[0].src)}" alt="${escapeHTML(n.images[0].alt)}" loading="lazy" decoding="async"><span class="photo-badge">▧ ${n.images.length} 张原帖配图 · 点击放大</span></button>`;
+}
+function noteGallery(n){
+ if(!n.images?.length)return '';
+ return `<section class="note-gallery" aria-label="${escapeHTML(n.title)}的原帖配图"><div class="gallery-heading"><h3>原帖配图 <span>${n.images.length} 张</span></h3><small>点击图片，放大阅读</small></div><div class="gallery-thumbnails">${n.images.map((im,i)=>`<button data-image="${escapeHTML(n.id)}" data-image-index="${i}" aria-label="放大第${i+1}张图片：${escapeHTML(im.alt)}"><img src="${escapeHTML(im.src)}" alt="${escapeHTML(im.alt)}" loading="lazy" decoding="async"><span>${String(i+1).padStart(2,'0')} / ${escapeHTML(im.caption||'原帖配图')}</span></button>`).join('')}</div><p class="gallery-attribution">图片来自小红书作者 ${escapeHTML(n.author)}，保留原图与水印。图中文字为作者经验，核对范围见下方说明。</p></section>`;
 }
 function card(n){
  const s=stageFor(n.stage);const isSaved=saved.has(n.id);
- return `<article class="article-card" data-note="${escapeHTML(n.id)}"><div class="card-banner ${s?.color||''}"><span class="banner-category">${escapeHTML(s?.title)} / ${n.type==='攻略'?'GUIDE':'LESSONS'}</span><span class="banner-title">${escapeHTML(n.banner||s?.banner)}</span><span class="banner-icon">${icon(s?.icon)}</span></div><div class="card-body"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(s?.title)}</span></div><h3 class="card-title"><button class="title-button" data-open="${escapeHTML(n.id)}">${escapeHTML(n.title)}</button></h3><p class="card-summary">${escapeHTML(n.summary)}</p><div class="card-tags">${n.tags.map(t=>`<span># ${escapeHTML(t)}</span>`).join('')}</div><div class="card-bottom"><span class="author-dot">${escapeHTML(n.author.slice(0,1))}</span><span class="author-name" title="${escapeHTML(n.author)}">${escapeHTML(n.author)}</span><time class="card-date" datetime="${n.date}">${n.date.slice(5).replace('-','.')}</time><button class="bookmark-button ${isSaved?'saved':''}" data-save="${escapeHTML(n.id)}" aria-label="${isSaved?'取消收藏':'收藏'}：${escapeHTML(n.title)}" aria-pressed="${isSaved}">${icon('bookmark')}</button></div></div><div class="card-source-row"><span>${n.evidence.includes('配图')||n.evidence.includes('拼图')?'正文 / 配图已核对':'正文已核对'}</span><a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a></div></article>`;
+ return `<article class="article-card" data-note="${escapeHTML(n.id)}">${mediaPreview(n,s)}<div class="card-body"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(s?.title)}</span></div><h3 class="card-title"><button class="title-button" data-open="${escapeHTML(n.id)}">${escapeHTML(n.title)}</button></h3><p class="card-summary">${escapeHTML(n.summary)}</p><div class="card-tags">${n.tags.map(t=>`<span># ${escapeHTML(t)}</span>`).join('')}</div><div class="card-bottom"><span class="author-dot">${escapeHTML(n.author.slice(0,1))}</span><span class="author-name" title="${escapeHTML(n.author)}">${escapeHTML(n.author)}</span><time class="card-date" datetime="${n.date}">${n.date.slice(5).replace('-','.')}</time><button class="bookmark-button ${isSaved?'saved':''}" data-save="${escapeHTML(n.id)}" aria-label="${isSaved?'取消收藏':'收藏'}：${escapeHTML(n.title)}" aria-pressed="${isSaved}">${icon('bookmark')}</button></div></div><div class="card-source-row"><span>${n.evidence.includes('配图')||n.evidence.includes('拼图')?'正文 / 配图已核对':'正文已核对'}</span><a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a></div></article>`;
 }
 function renderLibrary(){
  const result=visibleNotes();const isSaved=state.view==='saved';
@@ -46,11 +54,11 @@ function renderLibrary(){
  $('empty').hidden=result.length>0;
  $('empty-title').textContent=isSaved&&saved.size===0?'把有用的经验，先收进来。':'暂时没有匹配的笔记';
  $('empty-copy').textContent=isSaved&&saved.size===0?'点击笔记右下角的书签图标，在这里随时回看。':'换一个关键词，或者清除筛选再试试。';
- $('result-note').textContent=state.stage!=='all'||state.query?`当前找到 ${result.length} 篇${state.stage!=='all'?`「${stageFor(state.stage).title}」`:''}笔记${state.query?`，关键词「${state.query}」`:''}`:'';
+ $('result-note').textContent=state.stage!=='all'||state.query||state.imagesOnly?`当前找到 ${result.length} 篇${state.stage!=='all'?`「${stageFor(state.stage).title}」`:''}${state.imagesOnly?'带配图的':''}笔记${state.query?`，关键词「${state.query}」`:''}`:'';
  document.querySelectorAll('[data-type]').forEach(b=>{b.classList.toggle('active',b.dataset.type===state.type);b.setAttribute('aria-pressed',String(b.dataset.type===state.type));});
 }
 function setView(view,scroll=true){
- state.view=view;state.stage='all';state.type='all';state.query='';$('search-input').value='';
+ state.view=view;state.stage='all';state.type='all';state.query='';state.imagesOnly=false;$('search-input').value='';
  const titles={library:'攻略与避坑',saved:'我的收藏',checklist:'装修检查清单'};
  $('breadcrumb').textContent=titles[view];
  $('hero').hidden=view!=='library';$('stage-section').hidden=view!=='library';$('library').hidden=view==='checklist';$('checklist-page').hidden=view!=='checklist';
@@ -74,9 +82,40 @@ function toggleSaved(id){
 function updateDialogSave(id){const b=$('dialog-save');if(b){b.textContent=saved.has(id)?'已收藏 · 点击取消':'收藏这篇笔记';b.setAttribute('aria-pressed',String(saved.has(id)));}}
 function showNote(id){
  const n=byId(id);if(!n)return;state.opened=id;
- $('dialog-content').innerHTML=`<div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title">${escapeHTML(n.title)}</h2><div class="dialog-meta">${escapeHTML(n.author)} <span>·</span> 发布于 ${n.date} <span>·</span> 小红书</div><p class="dialog-intro">${escapeHTML(n.summary)}</p><div class="detail-label">值得记下来的几件事</div><ul class="detail-points">${n.points.map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul><div class="evidence-box"><b>资料核对</b> ${escapeHTML(n.evidence)} · 2026.10.22${n.limits?`<br>${escapeHTML(n.limits)}`:''}</div><div class="dialog-actions"><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button></div><p class="dialog-original">原帖标题：${escapeHTML(n.originalTitle||n.title)}</p>`;
+ $('dialog-content').innerHTML=`<div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title">${escapeHTML(n.title)}</h2><div class="dialog-meta">${escapeHTML(n.author)} <span>·</span> 发布于 ${n.date} <span>·</span> 小红书</div><p class="dialog-intro">${escapeHTML(n.summary)}</p><div class="detail-label">值得记下来的几件事</div><ul class="detail-points">${n.points.map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul>${noteGallery(n)}<div class="evidence-box"><b>资料核对</b> ${escapeHTML(n.evidence)} · 2026.10.22${n.limits?`<br>${escapeHTML(n.limits)}`:''}</div><div class="dialog-actions"><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button></div><p class="dialog-original">原帖标题：${escapeHTML(n.originalTitle||n.title)}</p>`;
  updateDialogSave(id);if(!$('article-dialog').open)$('article-dialog').showModal();
 }
+function showImage(id,index=0){
+ const note=byId(id);if(!note?.images?.length)return;
+ state.imageNote=id;state.imageIndex=(index+note.images.length)%note.images.length;
+ renderImage();if(!$('image-dialog').open)$('image-dialog').showModal();
+}
+function renderImage(){
+ const n=byId(state.imageNote);if(!n?.images?.length)return;
+ const image=n.images[state.imageIndex];
+ $('image-viewer-title').textContent=n.title;
+ $('image-position').textContent=`${state.imageIndex+1} / ${n.images.length}`;
+ $('viewer-image').alt=image.alt;
+ $('viewer-image').src=image.src;
+ $('viewer-image').hidden=false;
+ $('viewer-scroll').querySelector('.image-fallback').hidden=true;
+ $('image-caption').textContent=image.caption||image.alt;
+ $('image-credit').textContent=`图片来源：小红书 · ${n.author} · 保留原图与水印`;
+ $('image-limits').textContent=n.limits||'原图内容为作者经验，请结合自家实际条件判断。';
+ $('image-source').href=n.url;
+ $('image-prev').disabled=n.images.length<2;$('image-next').disabled=n.images.length<2;
+ $('viewer-scroll').classList.remove('zoomed');$('image-zoom').textContent='放大查看';$('image-zoom').setAttribute('aria-pressed','false');
+ $('viewer-scroll').scrollTop=0;$('viewer-scroll').scrollLeft=0;
+}
+function moveImage(delta){if(state.imageNote)showImage(state.imageNote,state.imageIndex+delta);}
+$('close-image').addEventListener('click',()=>$('image-dialog').close());
+$('image-prev').addEventListener('click',()=>moveImage(-1));
+$('image-next').addEventListener('click',()=>moveImage(1));
+$('image-zoom').addEventListener('click',()=>{const zoomed=$('viewer-scroll').classList.toggle('zoomed');$('image-zoom').textContent=zoomed?'适应宽度':'放大查看';$('image-zoom').setAttribute('aria-pressed',String(zoomed));});
+$('image-dialog').addEventListener('close',()=>{state.imageNote=null;});
+$('image-dialog').addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();moveImage(event.key==='ArrowRight'?1:-1);}});
+$('image-dialog').addEventListener('click',event=>{if(event.target===$('image-dialog')){const r=$('image-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('image-dialog').close();}});
+$('viewer-image').addEventListener('error',()=>{$('viewer-image').hidden=true;$('viewer-scroll').querySelector('.image-fallback').hidden=false;});
 const checklist=[
  {stage:'准备',items:[['plan-list','列出硬装、定制、家具软装和电器，建立完整预算表。','6937eb83000000001e0100df'],['plan-size','在水电定位前明确主要电器、橱柜和卫浴设备的尺寸与位置。','6937eb83000000001e0100df']]},
  {stage:'预算',items:[['budget-range','核对报价中的品牌、型号、数量和服务包含范围。','company'],['budget-extra','确认搬运、清运、拆后修补的费用与计价方式。','extras'],['budget-contract','在合同中明确工期、质保、延期处理和增项确认方式。','company'],['budget-own','把套餐内、套餐外、业主自购分别列预算。','6ad4b548000000000c00a11b']]},
@@ -99,6 +138,8 @@ document.addEventListener('click',event=>{
  if(target.dataset.type){state.type=target.dataset.type;renderLibrary();}
  if(target.dataset.open)showNote(target.dataset.open);
  if(target.dataset.save)toggleSaved(target.dataset.save);
+ if(target.dataset.image)showImage(target.dataset.image,Number(target.dataset.imageIndex)||0);
+ if(target.hasAttribute('data-images-filter')){state.imagesOnly=!state.imagesOnly;renderStages();renderLibrary();}
 });
 $('search-input').addEventListener('input',event=>{state.query=event.target.value;renderLibrary();});
 $('sort-select').addEventListener('change',event=>{state.sort=event.target.value;renderLibrary();});
@@ -111,6 +152,6 @@ $('article-dialog').addEventListener('close',()=>{state.opened=null;});
 $('article-dialog').addEventListener('click',event=>{if(event.target===$('article-dialog')){const r=$('article-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('article-dialog').close();}});
 $('checklist-groups').addEventListener('change',event=>{const id=event.target.dataset.check;if(!id)return;if(event.target.checked)checked.add(id);else checked.delete(id);writeStorage('saya-renovation-checks-v1',[...checked]);const focusId=event.target.id;renderChecklist();document.getElementById(focusId)?.focus();if(!storageAvailable)toast('当前浏览器无法保存，进度仅在本次打开期间保留');});
 $('reset-checklist').addEventListener('click',()=>{if(!checked.size){toast('清单尚未勾选');return;}if(window.confirm('将清除当前浏览器中的所有清单勾选，确认重置吗？')){checked.clear();writeStorage('saya-renovation-checks-v1',[]);renderChecklist();toast('勾选已重置');}});
-document.addEventListener('keydown',event=>{if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open){event.preventDefault();if(state.view==='checklist')setView('library',false);$('search-input').focus();}});
+document.addEventListener('keydown',event=>{if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open){event.preventDefault();if(state.view==='checklist')setView('library',false);$('search-input').focus();}});
 document.querySelector('.brand').addEventListener('click',event=>{event.preventDefault();setView('library');});
 fillIcons();renderStages();renderLibrary();renderChecklist();

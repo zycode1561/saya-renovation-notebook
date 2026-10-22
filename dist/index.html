@@ -29,7 +29,7 @@
       </section>
       <section class="stage-section" id="stage-section"><div class="section-heading"><div><span class="eyebrow">FOLLOW YOUR PROGRESS</span><h2>装修到哪一步了？</h2></div><button class="text-button" id="all-stages">查看全部 <span>↗</span></button></div><div class="stage-cards" id="stage-cards"></div></section>
       <section class="library" id="library" aria-labelledby="library-title">
-        <div class="section-heading library-heading"><div><span class="eyebrow" id="library-eyebrow">YOUR RENOVATION LIBRARY</span><h2 id="library-title">攻略与避坑资料库 <span id="result-total"></span></h2></div><span class="source-note">来自小红书 · 原创摘要整理</span></div>
+        <div class="section-heading library-heading"><div><span class="eyebrow" id="library-eyebrow">YOUR RENOVATION LIBRARY</span><h2 id="library-title">攻略与避坑资料库 <span id="result-total"></span></h2></div><span class="source-note">来自小红书 · 摘要与原帖配图</span></div>
         <div class="library-tools"><div class="tabs" role="group" aria-label="内容类型"><button class="active" data-type="all">全部笔记</button><button data-type="攻略">装修攻略</button><button data-type="避坑">避坑经验</button></div><label class="search"><span data-icon="search"></span><input id="search-input" type="search" placeholder="搜索预算、水电、全屋定制…" aria-label="搜索装修笔记"><kbd>/</kbd></label></div>
         <div class="filter-line"><div class="filter-chips" id="filter-chips"></div><label class="sort-label">排序 <select id="sort-select" aria-label="笔记排序"><option value="recommended">推荐阅读</option><option value="newest">最新发布</option></select></label></div>
         <div class="result-note" id="result-note" aria-live="polite"></div><div class="article-grid" id="article-grid"></div>
@@ -41,6 +41,12 @@
     </main>
   </div>
   <dialog id="article-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">RENOVATION NOTE</span><button class="icon-button" id="close-dialog" aria-label="关闭笔记"><span data-icon="close"></span></button></div><div id="dialog-content"></div></dialog>
+  <dialog id="image-dialog" aria-labelledby="image-viewer-title">
+    <div class="viewer-toolbar"><div><span class="eyebrow">原帖配图</span><h2 id="image-viewer-title"></h2></div><button class="icon-button" id="close-image" aria-label="关闭图片"><span data-icon="close"></span></button></div>
+    <div class="viewer-controls"><button id="image-prev" aria-label="上一张图片">← 上一张</button><span id="image-position" aria-live="polite"></span><button id="image-next" aria-label="下一张图片">下一张 →</button><button id="image-zoom" aria-pressed="false">放大查看</button></div>
+    <div class="viewer-scroll" id="viewer-scroll"><img id="viewer-image" alt=""><p class="image-fallback" hidden>图片暂时无法加载，请查看小红书原帖。</p></div>
+    <div class="viewer-caption"><p id="image-caption"></p><span id="image-credit"></span><a id="image-source" target="_blank" rel="noopener noreferrer">查看原帖 ↗</a><p id="image-limits"></p></div>
+  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

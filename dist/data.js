@@ -143,3 +143,264 @@ window.RENOVATION_NOTES.push(...[
 
 Object.assign(window.RENOVATION_NOTES.find(n=>n.id==='6abc64740000000002028ea2'),{tags:['插座定位','家具尺寸','用电场景']});
 Object.assign(window.RENOVATION_NOTES.find(n=>n.id==='690c8eb50000000005011f07'),{tags:['水电验收','材料标识','管线留档']});
+
+const existingNoteImages={
+  "extras": [
+    {
+      "src": "media/extras-demolition.webp",
+      "alt": "一枝方糖整理的拆除新建阶段增项提示图",
+      "caption": "拆改计价、清运与修补范围"
+    }
+  ],
+  "custom": [
+    {
+      "src": "media/custom-material.webp",
+      "alt": "卷卷毛全屋定制攻略中的板材与饰面笔记",
+      "caption": "板材与饰面笔记"
+    },
+    {
+      "src": "media/custom-edging.webp",
+      "alt": "卷卷毛全屋定制攻略中的饰面与封边笔记",
+      "caption": "饰面、封边与加工方式"
+    }
+  ],
+  "lived": [
+    {
+      "src": "media/lived-overview.webp",
+      "alt": "柚米-home入住半年后的硬装雷点拼图",
+      "caption": "入住半年后的实住反馈"
+    },
+    {
+      "src": "media/lived-window.webp",
+      "alt": "柚米-home家中窗边收口开裂的实拍图",
+      "caption": "窗边收口开裂实拍"
+    }
+  ]
+};
+for (const [id,images] of Object.entries(existingNoteImages)) { const note=window.RENOVATION_NOTES.find(n=>n.id===id); if(note)note.images=images; }
+
+// 2026-10-22：新增图文来源，已核对正文及选用配图。
+window.RENOVATION_NOTES.unshift(...[
+  {
+    "title": "毛坯房自装流程：先做布局，长周期定制提前安排",
+    "stage": "准备",
+    "type": "攻略",
+    "tags": [
+      "自装流程",
+      "门窗定制",
+      "安装安排"
+    ],
+    "summary": "作者把毛坯房自装整理成流程图，提醒开工前先有布局规划，定制门窗预留交付时间，末期再衔接安装、保洁和家具。",
+    "points": [
+      "开工前拿到户型资料，先明确风格与房间布局。",
+      "有封窗或定制门窗需求时，提前确认量尺、生产和安装周期。",
+      "后期把开关灯具、卫浴安装与开荒保洁、窗帘和家具进场衔接起来。"
+    ],
+    "evidence": "已核对正文及第 1—2 步、第 17—20 步流程配图",
+    "limits": "只整理实际查看的流程页；图中天数与标题三个月是个案，实际工序和工期需与现场施工方安排，不构成交付承诺。",
+    "id": "683982950000000022035719",
+    "originalTitle": "超全穷装顺序（三个月完工不返工）",
+    "author": "菜兰兰",
+    "date": "2025-05-30",
+    "url": "https://www.xiaohongshu.com/search_result/683982950000000022035719?xsec_token=AB9w4xtAVUVeMSOfXCePrAeuVfhAJc_PVyMmfVQF8EEao=&xsec_source=",
+    "images": [
+      {
+        "alt": "毛坯房前期布局与门窗定制流程图",
+        "caption": "原帖第 1—2 步：布局先行，定制门窗留出生产交付时间；天数为作者经验。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/1f37fc33956b505da77fa25154d06647/notes_pre_post/1040g3k831i3qdt2nmoj04a4rakol6p5mukubuh0!nd_dft_wlteh_webp_3",
+        "src": "media/683982950000000022035719-1.webp"
+      },
+      {
+        "alt": "毛坯房末期安装与保洁家具进场流程图",
+        "caption": "原帖第 17—20 步：安装、保洁、窗帘与家具进场的衔接示例，按现场调整。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/aa3772e44e622f41089473a9bacb2613/notes_pre_post/1040g3k831i3qdt2nmoig4a4rakol6p5melk5quo!nd_dft_wlteh_webp_3",
+        "src": "media/683982950000000022035719-2.webp"
+      }
+    ]
+  },
+  {
+    "title": "瓦工结束后：把瓷砖、排水与安装条件一起检查",
+    "stage": "施工",
+    "type": "避坑",
+    "tags": [
+      "瓦工验收",
+      "瓷砖",
+      "排水"
+    ],
+    "summary": "瓦工结束先列检查项，再请施工方逐项说明：从瓷砖表面与拼缝，到地漏、出水口和后续柜体安装条件。",
+    "points": [
+      "检查瓷砖表面平整、拼缝及开孔外观，把异常处标记并拍照。",
+      "把空鼓检查、地漏节点和地面排水纳入验收记录。",
+      "核对花洒出水口位置、墙角与柜体安装的配合条件。"
+    ],
+    "evidence": "已核对笔记正文及瓦工验收配图",
+    "limits": "原帖中的硬币、手机水平仪与弹珠只属于个人简易检查思路；固定缝宽、空鼓比例和误差值未独立核验，不作为合格判据。",
+    "id": "685a7347000000001202343d",
+    "originalTitle": "注意⚠️瓦工结束，盯紧这9点❗️没过千万别付款",
+    "author": "大柱少吃一点",
+    "date": "2025-06-24",
+    "url": "https://www.xiaohongshu.com/search_result/685a7347000000001202343d?xsec_token=ABpT0YcuOx5vUdfCeNCGjkiOKO5MckJTm62UC0Sa9PwAk=&xsec_source=",
+    "images": [
+      {
+        "alt": "瓦工验收原帖封面",
+        "caption": "原帖以瓦工结束后的现场检查为主题；具体合格标准需按合同与适用规范核对。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/b7f391ef49541d010e6135de9753c170/notes_pre_post/1040g3k831j40o8v01g004a64jlvllrjf03ti180!nd_dft_wlteh_webp_3",
+        "src": "media/685a7347000000001202343d-1.webp"
+      }
+    ]
+  },
+  {
+    "title": "厨房抽屉怎么分：先盘点锅碗，再确定柜体尺寸",
+    "stage": "厨卫",
+    "type": "攻略",
+    "tags": [
+      "厨房收纳",
+      "抽屉分区",
+      "柜体尺寸"
+    ],
+    "summary": "作者按物品大小、重量和取用频率划分灶台下抽屉：先给每格明确用途，再决定抽屉与拉篮的宽高。",
+    "points": [
+      "常用餐具与调料放在顺手的上层，大锅、米面等较重物品安排下层。",
+      "量好大盘、长柄锅和调料瓶的实际尺寸，核对抽屉净高与净宽。",
+      "灶具会占用下方空间，柜体和抽屉设计要一起考虑，避免装好才发现放不下。"
+    ],
+    "evidence": "已核对完整正文、抽屉实拍与柜体尺寸示意图",
+    "limits": "图中尺寸是作者家个案；灶具下方柜体、隔板、通风和检修空间以所购设备安装要求为准，不直接照抄。",
+    "id": "69e4613a00000000230156ac",
+    "originalTitle": "橱柜抽屉拉篮怎么分最好用？尺寸直接抄作业",
+    "author": "Seazen",
+    "date": "2026-04-19",
+    "url": "https://www.xiaohongshu.com/search_result/69e4613a00000000230156ac?xsec_token=ABUspGLGoL4Zy-FqCmqrmoay0eqUOhOW5jHQaMqwfChyk=&xsec_source=",
+    "images": [
+      {
+        "alt": "作者家厨房抽屉分区实拍",
+        "caption": "Seazen 的自家收纳实例：上层放常用餐具与调料，下层放锅具和较重物品。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/95cce06484704f9bd2e0b82768dad7ce/spectrum/1040g0k031v4l9d9e3u3g5njnf6508q7sqc81tc0!nd_dft_wlteh_webp_3",
+        "src": "media/69e4613a00000000230156ac-1.webp"
+      },
+      {
+        "alt": "橱柜抽屉与物品尺寸配合示意图",
+        "caption": "原图尺寸仅为作者自家方案；重点参考先量物品、再定柜体的规划方式。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/9ed130476a550dc0fbd7b0aab2964db3/spectrum/1040g0k031v4l9d9e3u305njnf6508q7skmspjn8!nd_dft_wlteh_webp_3",
+        "src": "media/69e4613a00000000230156ac-2.webp"
+      }
+    ]
+  },
+  {
+    "title": "橱柜安装验收：先对合同，再看固定和开槽封边",
+    "stage": "安装",
+    "type": "避坑",
+    "tags": [
+      "橱柜验收",
+      "合同核对",
+      "开槽封边"
+    ],
+    "summary": "用安装实拍把验收落到看得见的位置：材料与布局是否符合约定，吊柜是否稳固，开槽位置是否妥善收口。",
+    "points": [
+      "对照合同和确认图纸核对板材、颜色、类型与布局，发现不一致先记录。",
+      "请安装方检查吊柜固定，确认安装稳定情况。",
+      "打开柜门查看管线开槽处的封边与收口，拍照留档。"
+    ],
+    "evidence": "已核对正文及原帖第 1、2、16 项实拍配图",
+    "limits": "本条只整理已查看的第 1、2、16 项，未声称完整核对原帖全部 16 条；不采纳耐用十年等效果承诺。",
+    "id": "6a9182d60000000021031108",
+    "originalTitle": "厨房橱柜安装验收16条！",
+    "author": "蘑菇酱🍄",
+    "date": "2026-08-28",
+    "url": "https://www.xiaohongshu.com/search_result/6a9182d60000000021031108?xsec_token=ABMuUpsrvggBS6Ocgjef7AkuOp_FdDRvtzS6vBaXmLPmA=&xsec_source=",
+    "images": [
+      {
+        "alt": "橱柜材料颜色布局核对实拍",
+        "caption": "原帖第 1 项：板材、颜色、类型、布局与合同及确认方案核对。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/4af01999f814d2195a203e04228d4631/notes_pre_post/1040g3k8324dpchq60ac05p3om25n5841uteairg!nd_dft_wlteh_webp_3",
+        "src": "media/6a9182d60000000021031108-1.webp"
+      },
+      {
+        "alt": "吊柜内部与固定检查实拍",
+        "caption": "原帖第 2 项：安装后请施工方检查吊柜是否稳固。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/d3c148b5d9000bc8b69088cfcd621dc8/notes_pre_post/1040g3k8324dpchq60acg5p3om25n5841pn72d0o!nd_dft_wlteh_webp_3",
+        "src": "media/6a9182d60000000021031108-2.webp"
+      },
+      {
+        "alt": "橱柜管线开槽封边检查实拍",
+        "caption": "原帖第 16 项：打开柜门查看开槽位置的封边收口。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221719/e60ca0a9421cc6d57f4219e0c2bebd2d/notes_pre_post/1040g3k0324dpch05na405p3om25n5841sseccr0!nd_dft_wlteh_webp_3",
+        "src": "media/6a9182d60000000021031108-3.webp"
+      }
+    ]
+  },
+  {
+    "title": "网购灯具：尺寸、清洁和眩光，别只看效果图",
+    "stage": "安装",
+    "type": "避坑",
+    "tags": [
+      "灯具选购",
+      "清洁便利",
+      "防眩"
+    ],
+    "summary": "把选灯问题从效果图拉回日常使用：造型是否好打理、光线是否直射眼睛、标注尺寸放回家里是否合适。",
+    "points": [
+      "复杂造型和朝上开口要考虑积灰及清洁便利性。",
+      "核对发光方向和防眩设计，避免光线直射常坐位置的眼睛。",
+      "网购前把商家标注尺寸放到家中实际位置比划，结合层高与家具再判断。"
+    ],
+    "evidence": "已核对正文及选灯注意事项配图",
+    "limits": "仅提炼已读配图中的清洁、防眩与尺寸核对；原帖固定尺寸公式、按面积换算瓦数和认证说法未独立核验，不作为通用配置标准。",
+    "id": "6a978ba8000000002600aabb",
+    "originalTitle": "灯具怎么选，记住这14点，保你不踩坑",
+    "author": "小屿软装记",
+    "date": "2026-09-02",
+    "url": "https://www.xiaohongshu.com/search_result/6a978ba8000000002600aabb?xsec_token=AB5ZxZCz0kH5lcubvtDhazcfxjoqiTYUMwpZq1elqHT0o=&xsec_source=",
+    "images": [
+      {
+        "alt": "灯具选购原帖封面",
+        "caption": "小屿软装记的灯具选购笔记；本站提炼尺寸核对、清洁与眩光这几项。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/c9264b085483b2b7b68188d949ec7ced/spectrum/1040g34o324jm0gvs0s705o82dad08fbt8h9osjo!nd_dft_wlteh_webp_3",
+        "src": "media/6a978ba8000000002600aabb-1.webp"
+      },
+      {
+        "alt": "灯具选购注意事项原图",
+        "caption": "原图为作者经验汇总；其中认证、材料与耐久等绝对化说法未在本站核验。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/377f74779542c97d16423845512f90d9/spectrum/1040g34o324jm0h4u0m105o82dad08fbtsb7isu0!nd_dft_wlteh_webp_3",
+        "src": "media/6a978ba8000000002600aabb-2.webp"
+      }
+    ]
+  },
+  {
+    "title": "全屋灯光先看使用：基础、局部和氛围分开安排",
+    "stage": "准备",
+    "type": "攻略",
+    "tags": [
+      "灯光规划",
+      "分区照明",
+      "开关分控"
+    ],
+    "summary": "先列会客、观影、阅读、备餐等活动，再安排基础照明与局部补光；水电阶段同步确认分控和预留电源。",
+    "points": [
+      "客厅把通行、会客、阅读与观影分开思考，确定真正需要点亮的区域。",
+      "厨房关注台面操作补光，卧室区分基础照明、床头阅读和衣柜取物。",
+      "提前与设计及施工方确认灯带电源、驱动位置和开关分控，减少后期改动。"
+    ],
+    "evidence": "已核对完整正文及客厅、卧室分层照明示意图",
+    "limits": "原图是方案示例；灯具类型、色温、瓦数、位置和数量需结合房间、层高及使用习惯，未采用原帖固定阈值与绝对化推荐。",
+    "id": "6a9cd5c8000000002802c955",
+    "originalTitle": "谁懂啊！终于找到了全屋灯光💡方案",
+    "author": "专业深化设计师",
+    "date": "2026-09-06",
+    "url": "https://www.xiaohongshu.com/search_result/6a9cd5c8000000002802c955?xsec_token=ABrMlkF6_sTu_cTN8mcUB6qNWzOGRvvAnDdiN8br_gtxM=&xsec_source=",
+    "images": [
+      {
+        "alt": "客厅基础局部氛围照明示意图",
+        "caption": "原帖客厅示意：通行、茶几餐桌、背景与氛围照明按活动分开安排。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/6ca35d23dc4abb91a898350f1af103f7/spectrum/1040g0k0324or9tg9hg0g5pq4i77731vek52c4v8!nd_dft_wlteh_webp_3",
+        "src": "media/6a9cd5c8000000002802c955-1.webp"
+      },
+      {
+        "alt": "卧室阅读衣柜氛围照明示意图",
+        "caption": "原帖卧室示意：基础、床头阅读、衣柜取物和氛围照明对应不同使用场景。",
+        "sourceUrl": "https://sns-webpic-qc.xhscdn.com/202610221720/807055c2f4771dda52c3ed35aae35350/spectrum/1040g0k0324or9tg9hg105pq4i77731vedkrroe0!nd_dft_wlteh_webp_3",
+        "src": "media/6a9cd5c8000000002802c955-2.webp"
+      }
+    ]
+  }
+]);
