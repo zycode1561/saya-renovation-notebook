@@ -121,12 +121,12 @@ function restorePageScroll(){
 function showNote(id){
  const n=byId(id);if(!n)return;state.opened=id;
  $('dialog-content').innerHTML=`<div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title">${escapeHTML(n.title)}</h2><div class="dialog-meta">${escapeHTML(n.author)} <span>·</span> 发布于 ${n.date} <span>·</span> 小红书</div><p class="dialog-intro">${escapeHTML(n.summary)}</p>${coveragePanel(n)}<div class="note-shortcuts"><button data-note-jump="note-summary">详细总结 ↓</button>${n.images?.length?`<button data-note-jump="note-gallery">原帖图集 · ${n.images.length} 张 ↓</button>`:''}</div>${detailedSummary(n)}${noteGallery(n)}<div class="evidence-box"><b>资料核对</b> ${escapeHTML(n.evidence)} · 2026.10.22${n.limits?`<br>${escapeHTML(n.limits)}`:''}</div><div class="dialog-actions"><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button></div><p class="dialog-original">原帖标题：${escapeHTML(n.originalTitle||n.title)}</p>`;
- updateDialogSave(id);$('dialog-content').scrollTop=0;openModal($('article-dialog'));
+ updateDialogSave(id);openModal($('article-dialog'));$('dialog-content').scrollTo({top:0,left:0,behavior:'instant'});
 }
 function showImage(id,index=0){
  const note=byId(id);if(!note?.images?.length)return;
  state.imageNote=id;state.imageIndex=(index+note.images.length)%note.images.length;
- renderImage();openModal($('image-dialog'));
+ renderImage();openModal($('image-dialog'));$('viewer-scroll').scrollTo({top:0,left:0,behavior:'instant'});
 }
 function renderImage(){
  const n=byId(state.imageNote);if(!n?.images?.length)return;
