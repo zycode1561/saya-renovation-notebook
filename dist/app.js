@@ -47,14 +47,39 @@ function coverageLabel(n){
 function imageReferences(n,refs=[]){
  return refs.map(ref=>{const index=(n.images||[]).findIndex(im=>im.sourceIndex===ref);if(index<0)return '';return `<button class="summary-image-ref" data-image="${escapeHTML(n.id)}" data-image-index="${index}" aria-label="查看此要点对应的原帖第${ref}张图片">图 ${ref} ↗</button>`;}).join('');
 }
+function readingParagraphs(text){
+ const result=[];let part='';const nesting=[];
+ const pairs={'“':'”','‘':'’','（':'）','【':'】','《':'》','「':'」'};
+ for(const character of text){
+  part+=character;
+  if(pairs[character])nesting.push(pairs[character]);
+  else if(character===nesting[nesting.length-1])nesting.pop();
+  if('。！？'.includes(character)&&!nesting.length&&part.length>=90){result.push(part);part='';}
+ }
+ if(part){if(part.length<25&&result.length)result[result.length-1]+=part;else result.push(part);}
+ return result;
+}
+function readerPointText(text){
+ const lead=text.match(/^([^。！？；]{2,28}[：:])([\s\S]+)$/u);
+ const heading=lead?`<h4>${escapeHTML(lead[1])}</h4>`:'';
+ return heading+readingParagraphs(lead?lead[2]:text).map(p=>`<p>${escapeHTML(p)}</p>`).join('');
+}
 function detailedSummary(n){
- if(!n.sections?.length)return `<div class="detail-label" id="note-summary">内容要点</div><ul class="detail-points">${n.points.map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul>`;
- return `<section class="detailed-summary" id="note-summary" aria-label="完整内容整理"><div class="detail-label">完整内容整理 <span>${n.sections.reduce((sum,s)=>sum+s.items.length,0)} 项</span></div>${n.sections.map((section,i)=>`<section class="summary-section"><h3><span>${String(i+1).padStart(2,'0')}</span>${escapeHTML(section.title)}</h3><ul class="detail-points">${section.items.map(item=>`<li>${escapeHTML(typeof item==='string'?item:item.text)}${typeof item==='string'?'':imageReferences(n,item.images)}</li>`).join('')}</ul></section>`).join('')}</section>`;
+ if(!n.sections?.length)return `<section class="detailed-summary" id="note-summary"><h3 class="detail-label">内容要点</h3><ul class="detail-points" role="list">${n.points.map(p=>`<li class="reader-point"><div class="reader-point-copy">${readerPointText(p)}</div></li>`).join('')}</ul></section>`;
+ return `<section class="detailed-summary" id="note-summary" aria-label="完整内容整理"><h3 class="detail-label">详细笔记 <span>${n.sections.reduce((sum,s)=>sum+s.items.length,0)} 条要点</span></h3>${n.sections.map((section,i)=>`<section class="summary-section" id="note-section-${i+1}"><h3><span>${String(i+1).padStart(2,'0')}</span>${escapeHTML(section.title)}</h3><ul class="detail-points" role="list">${section.items.map(item=>{const text=typeof item==='string'?item:item.text;const refs=typeof item==='string'?'':imageReferences(n,item.images);return `<li class="reader-point"><div class="reader-point-copy">${readerPointText(text)}</div>${refs?`<div class="reader-point-images"><span>对照原图</span>${refs}</div>`:''}</li>`;}).join('')}</ul></section>`).join('')}</section>`;
+}
+function readerContents(n){
+ if(!n.sections?.length)return '';
+ return `<details class="reader-toc" id="reader-toc"><summary><span>本篇目录</span><small>${n.sections.length} 个主题</small></summary><nav aria-label="本篇主题目录">${n.sections.map((section,i)=>`<button data-note-jump="note-section-${i+1}"><span>${String(i+1).padStart(2,'0')}</span>${escapeHTML(section.title)}</button>`).join('')}</nav></details>`;
 }
 function coveragePanel(n){
  if(!n.coverage)return '';
  const c=n.coverage;
- return `<div class="coverage-panel ${c.summaryComplete&&c.imagesComplete?'complete':'partial'}"><b>原帖核对范围</b><span>${escapeHTML(coverageLabel(n))}</span><p>${escapeHTML(c.note||'正文和配图分别核对；总结中保留作者经验与适用条件。')}</p></div>`;
+ return `<details class="coverage-panel reader-source"><summary><b>资料核对与适用范围</b><span>${escapeHTML(coverageLabel(n))}</span></summary><div><p>${escapeHTML(c.note||'正文和配图分别核对；总结中保留作者经验与适用条件。')}</p><p>${escapeHTML(n.evidence)} · 2026.10.22</p>${n.limits?`<p>${escapeHTML(n.limits)}</p>`:''}<p>原帖标题：${escapeHTML(n.originalTitle||n.title)}</p></div></details>`;
+}
+function scrollReaderTo(id){
+ const content=$('dialog-content'),section=document.getElementById(id);
+ if(section)content.scrollTo({top:content.scrollTop+section.getBoundingClientRect().top-content.getBoundingClientRect().top-16,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
 }
 function card(n){
  const s=stageFor(n.stage);const isSaved=saved.has(n.id);
@@ -120,7 +145,9 @@ function restorePageScroll(){
 }
 function showNote(id){
  const n=byId(id);if(!n)return;state.opened=id;
- $('dialog-content').innerHTML=`<div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title">${escapeHTML(n.title)}</h2><div class="dialog-meta">${escapeHTML(n.author)} <span>·</span> 发布于 ${n.date} <span>·</span> 小红书</div><p class="dialog-intro">${escapeHTML(n.summary)}</p>${coveragePanel(n)}<div class="note-shortcuts"><button data-note-jump="note-summary">详细总结 ↓</button>${n.images?.length?`<button data-note-jump="note-gallery">原帖图集 · ${n.images.length} 张 ↓</button>`:''}</div>${detailedSummary(n)}${noteGallery(n)}<div class="evidence-box"><b>资料核对</b> ${escapeHTML(n.evidence)} · 2026.10.22${n.limits?`<br>${escapeHTML(n.limits)}`:''}</div><div class="dialog-actions"><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button></div><p class="dialog-original">原帖标题：${escapeHTML(n.originalTitle||n.title)}</p>`;
+ const count=n.sections?.reduce((sum,section)=>sum+section.items.length,0)||n.points.length;
+ $('dialog-content').innerHTML=`<article class="reader-document"><header class="reader-heading"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title">${escapeHTML(n.title)}</h2><div class="dialog-meta"><span>${escapeHTML(n.author)}</span><time datetime="${n.date}">${n.date}</time><span>小红书</span></div><div class="reader-stats"><span>${count} 条详细要点</span><span>${n.images?.length||0} 张原帖配图</span></div><p class="dialog-intro">${escapeHTML(n.summary)}</p></header>${readerContents(n)}${detailedSummary(n)}${noteGallery(n)}${coveragePanel(n)}<div class="dialog-actions"><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a></div></article>`;
+ $('reader-contents-button').hidden=!n.sections?.length;$('reader-contents-button').setAttribute('aria-expanded','false');$('reader-gallery-button').hidden=!n.images?.length;
  updateDialogSave(id);openModal($('article-dialog'));$('dialog-content').scrollTo({top:0,left:0,behavior:'instant'});
 }
 function showImage(id,index=0){
@@ -218,7 +245,8 @@ document.addEventListener('click',event=>{
  if(target.dataset.save)toggleSaved(target.dataset.save);
  if(target.dataset.image)showImage(target.dataset.image,Number(target.dataset.imageIndex)||0);
  if(target.hasAttribute('data-images-filter')){state.imagesOnly=!state.imagesOnly;renderStages();renderLibrary();}
- if(target.dataset.noteJump){const content=$('dialog-content');const section=document.getElementById(target.dataset.noteJump);if(section)content.scrollTo({top:content.scrollTop+section.getBoundingClientRect().top-content.getBoundingClientRect().top-12,behavior:'smooth'});}
+ if(target.dataset.noteJump){if(target.closest('.reader-toc'))$('reader-toc').open=false;scrollReaderTo(target.dataset.noteJump);}
+ if(target.hasAttribute('data-reader-contents')){const toc=$('reader-toc');if(toc){toc.open=true;scrollReaderTo('reader-toc');}}
 });
 $('search-input').addEventListener('input',event=>{state.query=event.target.value;renderLibrary();});
 $('sort-select').addEventListener('change',event=>{state.sort=event.target.value;renderLibrary();});
@@ -226,6 +254,7 @@ $('explore').addEventListener('click',()=>$('stage-section').scrollIntoView({beh
 $('open-checklist').addEventListener('click',()=>setView('checklist'));
 $('all-stages').addEventListener('click',()=>setStage('all'));
 $('reset-filters').addEventListener('click',()=>{setView('library',false);$('library').scrollIntoView({behavior:'smooth'});});
+document.addEventListener('toggle',event=>{if(event.target.id==='reader-toc')$('reader-contents-button').setAttribute('aria-expanded',String(event.target.open));},true);
 $('close-dialog').addEventListener('click',()=>$('article-dialog').close());
 $('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageScroll();});
 $('article-dialog').addEventListener('click',event=>{if(event.target===$('article-dialog')){const r=$('article-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('article-dialog').close();}});
