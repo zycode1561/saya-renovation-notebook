@@ -39,9 +39,9 @@ const coverCopy={
  '69b551f7000000001a022244':{tone:'lilac',label:'BUDGET & DESIGN',lines:['预算不同，','配置差在哪？'],footer:'把价格档位，改成配置问题'}
 };
 function mediaPreview(n,s){
- if(!n.images?.length){
+ if(coverCopy[n.id]||!n.images?.length){
   const cover=coverCopy[n.id]||{tone:'sand',label:'RENOVATION NOTES',lines:[n.title],footer:s?.title||'装修笔记'};
-  return `<button class="note-cover cover-${escapeHTML(cover.tone)}" data-open="${escapeHTML(n.id)}" aria-label="阅读笔记：${escapeHTML(n.title)}"><span class="cover-label">${escapeHTML(cover.label)}</span><span class="cover-title">${cover.lines.map(escapeHTML).join('<br>')}</span><span class="cover-rule" aria-hidden="true"></span><span class="cover-footer">${escapeHTML(cover.footer)}</span><span class="cover-credit">整理封面 · 正文笔记</span></button>`;
+  return `<button class="note-cover cover-${escapeHTML(cover.tone)}" data-open="${escapeHTML(n.id)}" aria-label="阅读笔记：${escapeHTML(n.title)}"><span class="cover-label">${escapeHTML(cover.label)}</span><span class="cover-title">${cover.lines.map(escapeHTML).join('<br>')}</span><span class="cover-rule" aria-hidden="true"></span><span class="cover-footer">${escapeHTML(cover.footer)}</span><span class="cover-credit">整理封面 · ${n.expandedAt?'图文详解':'正文笔记'}</span>${n.images?.length?`<span class="cover-image-count">${n.images.length} 张配图</span>`:''}</button>`;
  }
  return `<button class="card-photo" data-open="${escapeHTML(n.id)}" aria-label="阅读笔记：${escapeHTML(n.title)}，含${n.images.length}张原帖配图"><img src="${escapeHTML(n.images[0].src)}" alt="${escapeHTML(n.images[0].alt)}" loading="lazy" decoding="async"><span class="photo-badge">${n.images.length} 张配图</span></button>`;
 }
@@ -53,6 +53,7 @@ function coverageLabel(n){
  if(!n.coverage)return n.evidence.includes('配图')||n.evidence.includes('拼图')?'正文 / 配图已核对':'正文已核对';
  const c=n.coverage;
  if(c.mode==='body-only')return '正文已读 · 配图未核对';
+ if(c.mode==='full-images')return `图文已核对 · 图 ${n.images?.length||0}/${c.expectedImages}`;
  return `${c.bodyRead?'正文已读':'正文待核对'} · 图 ${n.images?.length||0}/${c.expectedImages??'?'}${c.summaryComplete?' · 详细整理':''}`;
 }
 function imageReferences(n,refs=[]){
@@ -75,12 +76,19 @@ function readerPointText(text){
  const heading=lead?`<h4>${escapeHTML(lead[1])}</h4>`:'';
  return heading+readingParagraphs(lead?lead[2]:text).map(p=>`<p>${escapeHTML(p)}</p>`).join('');
 }
+function noteTables(tables=[]){
+ return tables.map(t=>`<div class="note-table-wrap"><table class="note-table columns-${t.columns.length}">${t.title?`<caption>${escapeHTML(t.title)}</caption>`:''}<thead><tr>${t.columns.map(c=>`<th scope="col">${escapeHTML(c)}</th>`).join('')}</tr></thead><tbody>${t.rows.map(row=>`<tr>${row.map(cell=>`<td>${escapeHTML(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>${t.note?`<p class="note-table-explanation">${escapeHTML(t.note)}</p>`:''}</div>`).join('');
+}
+function sectionOrigin(section){
+ const labels={source:'原帖整理',site:'本站建议',calculation:'本站核算'};
+ return section.kind?`<div class="section-origin ${section.kind==='source'?'':'site-origin'}">${labels[section.kind]||'本站整理'}</div>`:'';
+}
 function detailedSummary(n){
  const used=new Set();
  const sectionImages=section=>{const refs=new Set(section.items.flatMap(item=>typeof item==='string'?[]:item.images||[]));const images=(n.images||[]).filter(im=>refs.has(im.sourceIndex)&&!used.has(im));images.forEach(im=>used.add(im));return inlineImages(n,images);};
  let body;
  if(!n.sections?.length)body=`<ul class="detail-points" role="list">${n.points.map(p=>`<li class="reader-point"><div class="reader-point-copy">${readerPointText(p)}</div></li>`).join('')}</ul>`;
- else body=n.sections.map((section,i)=>`<section class="summary-section" id="note-section-${i+1}"><h3><span>${String(i+1).padStart(2,'0')}</span>${escapeHTML(section.title)}</h3><ul class="detail-points" role="list">${section.items.map(item=>{const text=typeof item==='string'?item:item.text;const refs=typeof item==='string'?'':imageReferences(n,item.images);return `<li class="reader-point"><div class="reader-point-copy">${readerPointText(text)}</div>${refs?`<div class="reader-point-images">${refs}</div>`:''}</li>`;}).join('')}</ul>${sectionImages(section)}</section>`).join('');
+ else body=n.sections.map((section,i)=>`<section class="summary-section" id="note-section-${i+1}">${sectionOrigin(section)}<h3><span>${String(i+1).padStart(2,'0')}</span>${escapeHTML(section.title)}</h3><ul class="detail-points" role="list">${section.items.map(item=>{const text=typeof item==='string'?item:item.text;const refs=typeof item==='string'?'':imageReferences(n,item.images);return `<li class="reader-point"><div class="reader-point-copy">${readerPointText(text)}</div>${refs?`<div class="reader-point-images">${refs}</div>`:''}</li>`;}).join('')}</ul>${noteTables(section.tables)}${sectionImages(section)}</section>`).join('');
  const remaining=(n.images||[]).filter(im=>!used.has(im));
  return `<section class="detailed-summary" id="note-summary" aria-label="图文笔记">${body}${remaining.length?`<section class="summary-section"><h3>补充配图</h3>${inlineImages(n,remaining)}</section>`:''}</section>`;
 }
@@ -90,7 +98,7 @@ function readerContents(n){
 }
 function coveragePanel(n){
  const c=n.coverage;
- return `<section class="reader-source note-source-end" aria-label="来源说明"><h3>来源说明</h3><p>小红书 · ${escapeHTML(n.author)} · ${escapeHTML(n.date)}</p><p>原帖：<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(n.originalTitle||n.title)} ↗</a></p><p>${n.images?.length?'配图来自原作者，保留原图与水印；文字为整理笔记。':'文字为本站根据原帖正文整理的摘要；本次未收录配图。'}</p>${c?`<p>${escapeHTML(coverageLabel(n))}。${escapeHTML(c.note||'')}</p>`:''}<p>${escapeHTML(n.evidence)} · 核对日期：${escapeHTML(n.checkedAt||'2026-10-22')}</p>${n.limits?`<p>${escapeHTML(n.limits)}</p>`:''}</section>`;
+ return `<section class="reader-source note-source-end" aria-label="来源说明"><h3>来源说明</h3><p>小红书 · ${escapeHTML(n.author)} · ${escapeHTML(n.date)}</p><p>原帖：<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(n.originalTitle||n.title)} ↗</a></p><p>${n.images?.length?(n.expandedAt?'配图按原帖顺序保留，含原作者收集的参考图及署名；原帖整理、本站建议与核算分区标注。':'配图来自原作者，保留原图与水印；文字为整理笔记。'):'文字为本站根据原帖正文整理的摘要；本次未收录配图。'}</p>${c?`<p>${escapeHTML(coverageLabel(n))}。${escapeHTML(c.note||'')}</p>`:''}<p>${escapeHTML(n.evidence)} · 核对日期：${escapeHTML(n.checkedAt||'2026-10-22')}</p>${n.limits?`<p>${escapeHTML(n.limits)}</p>`:''}</section>`;
 }
 function scrollReaderTo(id){
  const content=$('dialog-content'),section=document.getElementById(id);
@@ -162,7 +170,8 @@ function restorePageScroll(){
 function showNote(id){
  const n=byId(id);if(!n)return;state.opened=id;
  const count=n.sections?.reduce((sum,section)=>sum+section.items.length,0)||n.points.length;
- $('dialog-content').innerHTML=`<article class="reader-document"><header class="reader-heading"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title" tabindex="-1" autofocus>${escapeHTML(n.title)}</h2><div class="reader-stats"><span>${count} 条要点</span><span>${n.images?.length||0} 张配图</span></div><p class="dialog-intro">${escapeHTML(n.summary)}</p></header>${readerContents(n)}${detailedSummary(n)}<div class="dialog-actions"><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a></div>${coveragePanel(n)}</article>`;
+ const tableCount=n.sections?.reduce((sum,section)=>sum+(section.tables?.length||0),0)||0;
+ $('dialog-content').innerHTML=`<article class="reader-document"><header class="reader-heading"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title" tabindex="-1" autofocus>${escapeHTML(n.title)}</h2><div class="reader-stats"><span>${count} 条要点</span><span>${n.images?.length||0} 张配图</span>${tableCount?`<span>${tableCount} 组对照表</span>`:''}</div><p class="dialog-intro">${escapeHTML(n.summary)}</p></header>${readerContents(n)}${detailedSummary(n)}<div class="dialog-actions"><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a></div>${coveragePanel(n)}</article>`;
  $('reader-contents-button').hidden=!n.sections?.length;$('reader-contents-button').setAttribute('aria-expanded','false');$('reader-gallery-button').hidden=!n.images?.length;if(n.images?.length)$('reader-gallery-button').dataset.noteJump=`note-image-${n.images[0].sourceIndex||1}`;
  updateDialogSave(id);openModal($('article-dialog'));$('dialog-content').scrollTo({top:0,left:0,behavior:'instant'});
 }
