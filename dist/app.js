@@ -41,6 +41,7 @@ function noteGallery(n){return '';}
 function coverageLabel(n){
  if(!n.coverage)return n.evidence.includes('配图')||n.evidence.includes('拼图')?'正文 / 配图已核对':'正文已核对';
  const c=n.coverage;
+ if(c.mode==='body-only')return '正文已读 · 配图未核对';
  return `${c.bodyRead?'正文已读':'正文待核对'} · 图 ${n.images?.length||0}/${c.expectedImages??'?'}${c.summaryComplete?' · 详细整理':''}`;
 }
 function imageReferences(n,refs=[]){
@@ -78,7 +79,7 @@ function readerContents(n){
 }
 function coveragePanel(n){
  const c=n.coverage;
- return `<section class="reader-source note-source-end" aria-label="来源说明"><h3>来源说明</h3><p>小红书 · ${escapeHTML(n.author)} · ${escapeHTML(n.date)}</p><p>原帖：<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(n.originalTitle||n.title)} ↗</a></p><p>配图来自原作者，保留原图与水印；文字为整理笔记。</p>${c?`<p>${escapeHTML(coverageLabel(n))}。${escapeHTML(c.note||'')}</p>`:''}<p>${escapeHTML(n.evidence)} · 核对日期：2026.10.22</p>${n.limits?`<p>${escapeHTML(n.limits)}</p>`:''}</section>`;
+ return `<section class="reader-source note-source-end" aria-label="来源说明"><h3>来源说明</h3><p>小红书 · ${escapeHTML(n.author)} · ${escapeHTML(n.date)}</p><p>原帖：<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(n.originalTitle||n.title)} ↗</a></p><p>${n.images?.length?'配图来自原作者，保留原图与水印；文字为整理笔记。':'文字为本站根据原帖正文整理的摘要；本次未收录配图。'}</p>${c?`<p>${escapeHTML(coverageLabel(n))}。${escapeHTML(c.note||'')}</p>`:''}<p>${escapeHTML(n.evidence)} · 核对日期：${escapeHTML(n.checkedAt||'2026-10-22')}</p>${n.limits?`<p>${escapeHTML(n.limits)}</p>`:''}</section>`;
 }
 function scrollReaderTo(id){
  const content=$('dialog-content'),section=document.getElementById(id);
@@ -97,6 +98,7 @@ function renderLibrary(){
  $('saved-count').textContent=saved.size;
  $('side-count').textContent=notes.length;
  $('hero-count').textContent=notes.length;
+ $('source-stats').textContent=`${notes.length} 篇 · ${notes.reduce((sum,n)=>sum+(n.images?.length||0),0)} 张配图 · ${notes.reduce((sum,n)=>sum+n.points.length,0)} 条要点`;
  $('empty').hidden=result.length>0;
  $('empty-title').textContent=isSaved&&saved.size===0?'把有用的经验，先收进来。':'暂时没有匹配的笔记';
  $('empty-copy').textContent=isSaved&&saved.size===0?'点击笔记右下角的书签图标，在这里随时回看。':'换一个关键词，或者清除筛选再试试。';
@@ -107,7 +109,7 @@ function setView(view,scroll=true){
  state.view=view;state.stage='all';state.type='all';state.query='';state.imagesOnly=false;$('search-input').value='';
  const titles={library:'攻略与避坑',saved:'我的收藏',checklist:'装修检查清单'};
  $('breadcrumb').textContent=titles[view];
- $('hero').hidden=view!=='library';$('stage-section').hidden=view!=='library';$('library').hidden=view==='checklist';$('checklist-page').hidden=view!=='checklist';
+ $('current-stage').hidden=view!=='library';$('hero').hidden=view!=='library';$('stage-section').hidden=view!=='library';$('library').hidden=view==='checklist';$('checklist-page').hidden=view!=='checklist';
  document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
  renderStages();renderLibrary();if(view==='checklist')renderChecklist();
  if(scroll)window.scrollTo({top:0,behavior:'smooth'});
@@ -227,7 +229,7 @@ $('image-dialog').addEventListener('click',event=>{if(event.target===$('image-di
 
 const checklist=[
  {stage:'准备',items:[['plan-list','列出硬装、定制、家具软装和电器，建立完整预算表。','6937eb83000000001e0100df'],['plan-size','在水电定位前明确主要电器、橱柜和卫浴设备的尺寸与位置。','6937eb83000000001e0100df']]},
- {stage:'预算',items:[['budget-range','核对报价中的品牌、型号、数量和服务包含范围。','company'],['budget-extra','确认搬运、清运、拆后修补的费用与计价方式。','extras'],['budget-contract','在合同中明确工期、质保、延期处理和增项确认方式。','company'],['budget-own','把套餐内、套餐外、业主自购分别列预算。','6ad4b548000000000c00a11b']]},
+ {stage:'预算',items:[['budget-whole','把预计总额、已支付、未采购和报价未包含项目分别列出。','6a8443160000000025006648'],['company-visit','线下查看施工现场与落地效果，确认实际项目负责人和团队。','69ddcb4e000000001d01a01f'],['company-detail','用相同配置比较报价，追问材料系列、厚度、规格和工艺。','69ddcb4e000000001d01a01f'],['design-brief','写清居住者、生活动线、总预算和各房间的主要用途。','69d5b6da0000000023004c9a'],['design-reference','参考图标注喜欢的具体部分，把不考虑和待确认事项一起列出。','6aa6b1ff0000000026014d71'],['design-feedback','收到方案后逐区反馈原因，核对设备和新增功能是否落实。','688778790000000025015e87'],['budget-range','核对报价中的品牌、型号、数量和服务包含范围。','company'],['budget-extra','确认搬运、清运、拆后修补的费用与计价方式。','extras'],['budget-contract','在合同中明确工期、质保、延期处理和增项确认方式。','company'],['budget-own','把套餐内、套餐外、业主自购分别列预算。','6ad4b548000000000c00a11b']]},
  {stage:'施工',items:[['electric-plan','逐处核对插座与开关，确认家具遮挡和线缆空间。','6abc64740000000002028ea2'],['electric-label','核对合同中的管材、电线和网线标识。','690c8eb50000000005011f07'],['electric-record','封闭前拍照保存管线位置，归档施工图和验收记录。','690c8eb50000000005011f07']]},
  {stage:'厨卫',items:[['bath-water','和施工方确认门口、门槛及周边墙面的防水收口。','69b942730000000020038cfe'],['bath-drain','查看地漏清理便利性、壁龛积水和检修条件。','69b942730000000020038cfe'],['bath-power','确认卫浴设备的用电点位及防溅措施。','69b942730000000020038cfe'],['bath-air','安装后查看卫生间排风管是否接到通风口。','lived']]},
  {stage:'安装',items:[['custom-material','分别写清柜体、门板的基材、饰面和封边工艺。','custom'],['custom-report','核对检测报告对应的产品与实际合同配置。','custom'],['custom-clean','检查柜体缝隙、拉手与窗边收口的清洁和维护条件。','lived']]},
