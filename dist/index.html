@@ -5,7 +5,7 @@
   <meta name="theme-color" content="#ffffff"><meta name="description" content="沙耶的装修攻略与避坑手册。按装修阶段查阅经验、对照清单，保留每一条经验的原帖出处。">
   <title>住前笔记 · 沙耶的装修手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d74738'/%3E%3Cpath d='M16 30 32 16 48 30v20H16zM27 50V35h10v15' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=deep-notes-20261023-final"><link rel="stylesheet" href="collection.css?v=deep-notes-20261023-final"><script src="data.js?v=deep-notes-20261023-final" defer></script><script src="image-carousel.js" defer></script><script src="app.js?v=deep-notes-20261023-final" defer></script>
+  <link rel="stylesheet" href="styles.css?v=sort-menu-20261023"><link rel="stylesheet" href="collection.css?v=sort-menu-20261023"><script src="data.js?v=sort-menu-20261023" defer></script><script src="image-carousel.js" defer></script><script src="app.js?v=sort-menu-20261023" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -40,7 +40,7 @@
       <section class="library" id="library" aria-labelledby="library-title">
         <div class="section-heading library-heading"><div><span class="eyebrow" id="library-eyebrow">收藏一点经验，少走一点弯路</span><h2 id="library-title">装修笔记 <span id="result-total"></span></h2></div></div>
         <div class="library-tools"><div class="tabs" role="group" aria-label="内容类型"><button class="active" data-type="all">全部笔记</button><button data-type="攻略">装修攻略</button><button data-type="避坑">避坑经验</button></div><label class="search"><span data-icon="search"></span><input id="search-input" type="search" placeholder="搜索预算、设计、装修公司…" aria-label="搜索装修笔记"><kbd>/</kbd></label></div>
-        <div class="filter-line"><div class="filter-chips" id="filter-chips"></div><label class="sort-label">排序 <select id="sort-select" aria-label="笔记排序"><option value="recommended">推荐阅读</option><option value="newest">最新发布</option></select></label></div>
+        <div class="filter-line"><div class="filter-chips" id="filter-chips"></div><div class="sort-control" id="sort-control"><span class="sort-caption" id="sort-caption">排序</span><button class="sort-trigger" id="sort-trigger" aria-haspopup="listbox" aria-controls="sort-options" aria-expanded="false" aria-labelledby="sort-caption sort-value"><span id="sort-value">推荐阅读</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="sort-options" id="sort-options" role="listbox" aria-label="笔记排序" hidden><button class="sort-option" role="option" aria-selected="true" data-sort="recommended" tabindex="-1"><span>推荐阅读</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button><button class="sort-option" role="option" aria-selected="false" data-sort="newest" tabindex="-1"><span>最新发布</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button></div></div></div>
         <div class="result-note" id="result-note" aria-live="polite"></div><div class="article-grid" id="article-grid"></div>
         <div class="empty" id="empty" hidden><span data-icon="search"></span><h3 id="empty-title">暂时没有匹配的笔记</h3><p id="empty-copy">换一个关键词，或者清除筛选再试试。</p><button class="primary" id="reset-filters">查看全部笔记</button></div>
         <p class="collection-stats" id="source-stats"></p>
