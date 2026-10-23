@@ -16,7 +16,7 @@ const storedSaved=readStorage('saya-renovation-saved-v1',[]);
 const saved=new Set(Array.isArray(storedSaved)?storedSaved.filter(id=>knownIds.has(id)):[]);
 const storedChecks=readStorage('saya-renovation-checks-v1',[]);
 const checked=new Set(Array.isArray(storedChecks)?storedChecks:[]);
-const state={view:'library',stage:'all',type:'all',query:'',sort:'recommended',opened:null,imagesOnly:false,imageNote:null,imageIndex:0};
+const state={view:'library',stage:'预算',type:'all',query:'',sort:'recommended',opened:null,imagesOnly:false,imageNote:null,imageIndex:0};
 let toastTimer;
 function toast(message){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),2300);}
 function visibleNotes(){
@@ -26,13 +26,24 @@ function visibleNotes(){
  return result;
 }
 function renderStages(){
- $('stage-nav').innerHTML=stages.map((s,i)=>`<button data-stage="${s.id}" class="${state.stage===s.id?'active':''}"><span>${String(i+1).padStart(2,'0')}</span>${s.title}</button>`).join('');
- $('stage-cards').innerHTML=stages.map((s,i)=>`<button class="stage-card ${state.stage===s.id?'active':''}" data-stage="${s.id}" aria-pressed="${state.stage===s.id}"><div class="stage-card-top">${icon(s.icon)}<small>0${i+1}</small></div><b>${s.title}</b><p>${s.hint}</p></button>`).join('');
  $('filter-chips').innerHTML=[{id:'all',title:'全部阶段'},...stages].map(s=>`<button class="chip ${state.stage===s.id?'active':''}" data-stage="${s.id}" aria-pressed="${state.stage===s.id}">${s.title}</button>`).join('')+`<button class="chip image-filter ${state.imagesOnly?'active':''}" data-images-filter aria-pressed="${state.imagesOnly}">▧ 有配图 · ${notes.filter(n=>n.images?.length).length}</button>`;
 }
+const coverCopy={
+ '69d5b6da0000000023004c9a':{tone:'sage',label:'DESIGN BRIEF',lines:['给设计师的','需求说明书'],footer:'从生活动线，到空间功能'},
+ '69ddcb4e000000001d01a01f':{tone:'lilac',label:'BEFORE YOU SIGN',lines:['装修公司','到底怎么选？'],footer:'现场 · 明细 · 负责人'},
+ '6a1a292600000000080272aa':{tone:'sand',label:'FIRST MEETING',lines:['第一次到店，','该问什么？'],footer:'费用边界与施工沟通'},
+ '6aa6b1ff0000000026014d71':{tone:'sage',label:'DESIGN NOTES',lines:['先聊生活，','再聊风格。'],footer:'喜欢的、不要的、待确认的'},
+ '6a756d0600000000280318f0':{tone:'sand',label:'HOME PLANNING',lines:['装修之前，','先认识自己。'],footer:'核心需求 · 空间活动 · 家庭取舍'},
+ '688778790000000025015e87':{tone:'lilac',label:'TALK TO DESIGNER',lines:['把需求，','讲具体一点。'],footer:'家庭、功能、设备与方案反馈'},
+ '6a8443160000000025006648':{tone:'sand',label:'BUDGET NOTES',lines:['预计预算 ≠','最终花费'],footer:'149㎡自装业主的预算记录'},
+ '69b551f7000000001a022244':{tone:'lilac',label:'BUDGET & DESIGN',lines:['预算不同，','配置差在哪？'],footer:'把价格档位，改成配置问题'}
+};
 function mediaPreview(n,s){
- if(!n.images?.length)return `<div class="card-banner ${s?.color||''}"><span class="banner-category">${escapeHTML(s?.title)} / ${n.type==='攻略'?'GUIDE':'LESSONS'}</span><span class="banner-title">${escapeHTML(n.banner||s?.banner)}</span><span class="banner-icon">${icon(s?.icon)}</span></div>`;
- return `<button class="card-photo" data-image="${escapeHTML(n.id)}" data-image-index="0" aria-label="查看${escapeHTML(n.author)}的${n.images.length}张原帖配图"><img src="${escapeHTML(n.images[0].src)}" alt="${escapeHTML(n.images[0].alt)}" loading="lazy" decoding="async"><span class="photo-badge">▧ ${n.images.length} 张原帖配图 · 点击放大</span></button>`;
+ if(!n.images?.length){
+  const cover=coverCopy[n.id]||{tone:'sand',label:'RENOVATION NOTES',lines:[n.title],footer:s?.title||'装修笔记'};
+  return `<button class="note-cover cover-${escapeHTML(cover.tone)}" data-open="${escapeHTML(n.id)}" aria-label="阅读笔记：${escapeHTML(n.title)}"><span class="cover-label">${escapeHTML(cover.label)}</span><span class="cover-title">${cover.lines.map(escapeHTML).join('<br>')}</span><span class="cover-rule" aria-hidden="true"></span><span class="cover-footer">${escapeHTML(cover.footer)}</span><span class="cover-credit">整理封面 · 正文笔记</span></button>`;
+ }
+ return `<button class="card-photo" data-open="${escapeHTML(n.id)}" aria-label="阅读笔记：${escapeHTML(n.title)}，含${n.images.length}张原帖配图"><img src="${escapeHTML(n.images[0].src)}" alt="${escapeHTML(n.images[0].alt)}" loading="lazy" decoding="async"><span class="photo-badge">${n.images.length} 张配图</span></button>`;
 }
 function inlineImages(n,images){
  return images.map(im=>{const index=n.images.indexOf(im);return `<figure class="inline-note-image" id="note-image-${im.sourceIndex||index+1}"><button data-image="${escapeHTML(n.id)}" data-image-index="${index}" aria-label="放大第${im.sourceIndex||index+1}张配图"><img src="${escapeHTML(im.src)}" alt="${escapeHTML(im.alt)}" width="${im.width}" height="${im.height}" loading="lazy" decoding="async"></button><figcaption>图 ${im.sourceIndex||index+1} · ${escapeHTML(im.caption||'配图')}</figcaption></figure>`;}).join('');
@@ -93,8 +104,8 @@ function renderLibrary(){
  const result=visibleNotes();const isSaved=state.view==='saved';
  $('article-grid').innerHTML=result.map(card).join('');
  $('result-total').textContent=`${result.length} 篇`;
- $('library-title').firstChild.textContent=isSaved?'我的收藏 ':'攻略与避坑资料库 ';
- $('library-eyebrow').textContent=isSaved?'KEEP THE NOTES THAT MATTER':'YOUR RENOVATION LIBRARY';
+ $('library-title').firstChild.textContent=isSaved?'我的收藏 ':'装修笔记 ';
+ $('library-eyebrow').textContent=isSaved?'把有用的经验，留在手边':'收藏一点经验，少走一点弯路';
  $('saved-count').textContent=saved.size;
  $('side-count').textContent=notes.length;
  $('hero-count').textContent=notes.length;
@@ -106,10 +117,10 @@ function renderLibrary(){
  document.querySelectorAll('[data-type]').forEach(b=>{b.classList.toggle('active',b.dataset.type===state.type);b.setAttribute('aria-pressed',String(b.dataset.type===state.type));});
 }
 function setView(view,scroll=true){
- state.view=view;state.stage='all';state.type='all';state.query='';state.imagesOnly=false;$('search-input').value='';
- const titles={library:'攻略与避坑',saved:'我的收藏',checklist:'装修检查清单'};
+ state.view=view;state.stage=view==='library'?'预算':'all';state.type='all';state.query='';state.imagesOnly=false;$('search-input').value='';
+ const titles={library:'发现笔记',saved:'我的收藏',checklist:'检查清单'};
  $('breadcrumb').textContent=titles[view];
- $('current-stage').hidden=view!=='library';$('hero').hidden=view!=='library';$('stage-section').hidden=view!=='library';$('library').hidden=view==='checklist';$('checklist-page').hidden=view!=='checklist';
+ $('current-stage').hidden=view!=='library';$('hero').hidden=view!=='library';$('library').hidden=view==='checklist';$('checklist-page').hidden=view!=='checklist';
  document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
  renderStages();renderLibrary();if(view==='checklist')renderChecklist();
  if(scroll)window.scrollTo({top:0,behavior:'smooth'});
@@ -256,10 +267,7 @@ document.addEventListener('click',event=>{
 });
 $('search-input').addEventListener('input',event=>{state.query=event.target.value;renderLibrary();});
 $('sort-select').addEventListener('change',event=>{state.sort=event.target.value;renderLibrary();});
-$('explore').addEventListener('click',()=>$('stage-section').scrollIntoView({behavior:'smooth'}));
-$('open-checklist').addEventListener('click',()=>setView('checklist'));
-$('all-stages').addEventListener('click',()=>setStage('all'));
-$('reset-filters').addEventListener('click',()=>{setView('library',false);$('library').scrollIntoView({behavior:'smooth'});});
+$('reset-filters').addEventListener('click',()=>{setView('library',false);state.stage='all';renderStages();renderLibrary();$('library').scrollIntoView({behavior:'smooth'});});
 document.addEventListener('toggle',event=>{if(event.target.id==='reader-toc')$('reader-contents-button').setAttribute('aria-expanded',String(event.target.open));},true);
 $('close-dialog').addEventListener('click',()=>$('article-dialog').close());
 $('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageScroll();});
