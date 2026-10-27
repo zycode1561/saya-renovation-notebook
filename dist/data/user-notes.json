@@ -1,26 +1,4 @@
 {
   "version": 1,
-  "notes": [
-    {
-      "id": "user-1793115177092-0c612860-e421-4d22-98a8-01f4f9325e1c",
-      "title": "测试",
-      "summary": "测试",
-      "points": [
-        "测试"
-      ],
-      "type": "避坑",
-      "stage": "预算",
-      "tags": [],
-      "author": "沙耶",
-      "date": "2026-10-27",
-      "url": "",
-      "sourceUrl": "",
-      "userNote": true,
-      "images": [],
-      "sections": [],
-      "evidence": "本人记录",
-      "checkedAt": "2026-10-27",
-      "limits": "本人随手记录，请结合自家情况判断。"
-    }
-  ]
+  "notes": []
 }
