@@ -4,7 +4,7 @@ const helpers=source.split('\n').filter(l=>/^ (const mats=|function (box|cyl|loc
 const lBuilder='function lWardrobe(){'+source.split(' function lWardrobe(){')[1].split(' const masterBed=')[0];
 const vanityBuilder='function createMasterVanity(){'+source.split(' function createMasterVanity(){')[1].split(' const masterVanity=createMasterVanity();')[0];
 const setup=['masterBed','masterWardrobe'].map(n=>source.match(new RegExp('const '+n+'=[^;]+;'))[0]);
-const context={T,home:new T.Group(),allMeshes:[],Math};vm.createContext(context);
+const context={clearanceItems:{},T,home:new T.Group(),allMeshes:[],Math};vm.createContext(context);
 vm.runInContext(helpers.join('\n')+'\n'+lBuilder+'\n'+setup.join('\n')+'\n'+vanityBuilder+'\nthis.items={masterBed,masterWardrobe,vanity:createMasterVanity()};',context);
 context.home.updateMatrixWorld(true);const {masterBed,masterWardrobe,vanity}=context.items;
 const bounds=o=>new T.Box3().setFromObject(o),rect=(a,b)=>new T.Box3(new T.Vector3(...a),new T.Vector3(...b));

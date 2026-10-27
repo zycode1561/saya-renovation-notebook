@@ -21,12 +21,13 @@ let state={theta:.16,phi:.71,span:17,cx:6.0,cz:5.55},goal={...state},topView=fal
 const labels=[],pickFloors=[],wallPieces=[],allMeshes=[];
 let walkMode=false,layoutMode='original';
 const layoutParts={};
+const clearanceItems={};let clearanceGroup=null,clearanceEnabled=true;
 let masterBedModel;
 let privacyScreen,privacyCamera,privacyView=null,privacyEnabled=true;
 let activeModel=false,dirty=true,vanityStool,vanityUseZone,vanityInUse=false;
 function selectRoom(id){if(walkMode)exitWalk();if(privacyView)exitPrivacyView();selected=id;fillDetail(id);if(activeModel){goal.cx=rooms[id].center[0];goal.cz=rooms[id].center[1];goal.span=rooms[id].span;goal.phi=topView?.015:.66;goal.theta=topView?0:.12;updateFloorSelection();dirty=true}}
 fillDetail('all');
-try{init3D();activeModel=true;animate()}catch(e){console.error(e);$('#viewer').classList.add('no-webgl');['cat-toggle','human-toggle','vanity-toggle','privacy-toggle','wall-toggle','night-toggle','zoom-in','zoom-out','reset','capture','view2d','view3d'].forEach(id=>$('#'+id).disabled=true)}
+try{init3D();activeModel=true;animate()}catch(e){console.error(e);$('#viewer').classList.add('no-webgl');['clearance-toggle','cat-toggle','human-toggle','vanity-toggle','privacy-toggle','wall-toggle','night-toggle','zoom-in','zoom-out','reset','capture','view2d','view3d'].forEach(id=>$('#'+id).disabled=true)}
 function init3D(){
  const T=THREE;scene=new T.Scene();renderer=new T.WebGLRenderer({canvas:$('#scene'),antialias:true,alpha:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
  camera=new T.OrthographicCamera(-10,10,10,-10,.1,120);scene.add(camera);home=new T.Group();scene.add(home);wallGroup=new T.Group();home.add(wallGroup);catGroup=new T.Group();home.add(catGroup);humanGroup=new T.Group();home.add(humanGroup);catGroup.visible=false;humanGroup.visible=false;nightLights=new T.Group();home.add(nightLights);nightLights.visible=false;
@@ -75,7 +76,7 @@ function init3D(){
   box(11.283,2.15,6.7,.006,.36,.66,'#e4dcc8',g);
   return g;
  }
- const masterBed=compactBed(9.34,8.25);masterBedModel=masterBed;
+ const masterBed=compactBed(9.34,8.25);masterBedModel=masterBed;clearanceItems.masterBed=masterBed;
  const masterWardrobe=lWardrobe();
  rug(9.65,8.25,2.5,2.7,'#c5c9b3');box(8.34,1.48,7.45,.07,.2,.14,'#65705e');bedside(8.75,9.52);
  function createMasterVanity(){
@@ -108,7 +109,7 @@ function init3D(){
   box(8.765,.62,6.45,.82,.025,.025,'#687060',g);
   return g;
  }
- privacyScreen=createPrivacyScreen();
+ privacyScreen=createPrivacyScreen();clearanceItems.screen=privacyScreen;
  const masterVanity=createMasterVanity();vanityStool=masterVanity.stool;
  vanityUseZone=box(10.73,.036,6.7,.78,.008,.62,'#ba946c',home,{transparent:true,opacity:.2,depthWrite:false});vanityUseZone.visible=false;
  line([[8.29,.055,9.69],[11.59,.055,9.69]],'#65705e',.009);
@@ -120,27 +121,28 @@ function init3D(){
  addLabel('master','内嵌梳妆位',[11.18,.85,6.7]);
  // MASTER LAYOUT END
  // Guest room keeps a proper bed and enclosed storage.
- rug(1.3,1.65,2.25,2.1,'#d1cebd');bed(1.0,1.3,1.35,2,0,'#c6ab8c');cabinet(1.27,3.4,2.3,.6,2.15,'#c5ac86',Math.PI);cabinet(2.45,2.8,.4,.7,.73,'#c2a77e',Math.PI/2);
+ rug(1.3,1.65,2.25,2.1,'#d1cebd');clearanceItems.guestBed=bed(1.0,1.3,1.35,2,0,'#c6ab8c');clearanceItems.guestWardrobe=cabinet(1.27,3.4,2.3,.6,2.15,'#c5ac86',Math.PI);cabinet(2.45,2.8,.4,.7,.73,'#c2a77e',Math.PI/2);
  function desk(x,z,w,d,rot=0){const g=local(x,z,rot);box(0,.75,0,w,.065,d,'#c5a87d',g);for(const xx of [-w/2+.08,w/2-.08])for(const zz of [-d/2+.06,d/2-.06])box(xx,.37,zz,.045,.74,.045,'#666f60',g);return g}
  function chair(x,z,rot=0,c='#7e8a74'){const g=local(x,z,rot);box(0,.45,0,.44,.11,.43,c,g);box(0,.72,.2,.44,.5,.07,c,g);for(let xx of [-.16,.16])for(let zz of [-.16,.16])box(xx,.22,zz,.035,.44,.035,'#a28c68',g);return g}
- desk(9.85,.57,2.6,.65);for(const x of [9.2,10.5]){box(x,1.12,.48,.62,.4,.045,'#35443e');box(x,1.12,.507,.57,.35,.006,'#9fb8ae');box(x,.86,.48,.035,.16,.04,'#5e665d');box(x,.8,.49,.23,.025,.14,'#5e665d');box(x,.795,.75,.42,.015,.13,'#ecece1');chair(x,1.38,0,'#7d8b76');cyl(x+.4,.79,.65,.04,.06,'#c3b9a4')}
+ desk(9.85,.57,2.6,.65);for(const x of [9.2,10.5]){box(x,1.12,.48,.62,.4,.045,'#35443e');box(x,1.12,.507,.57,.35,.006,'#9fb8ae');box(x,.86,.48,.035,.16,.04,'#5e665d');box(x,.8,.49,.23,.025,.14,'#5e665d');box(x,.795,.75,.42,.015,.13,'#ecece1');clearanceItems.studyChair=chair(x,1.38,0,'#7d8b76');cyl(x+.4,.79,.65,.04,.06,'#c3b9a4')}
  // Thin side shelves and books.
  cabinet(11.22,1.85,1.9,.3,1.7,'#c4aa83',Math.PI/2);for(let j=0;j<2;j++)for(let i=0;i<7;i++)box(11.02,1.76+j*.2,1.15+i*.19,.12,.16,.06,['#a9b09a','#d3b28b','#e9e3cf'][i%3]);
  rug(6.38,7.7,2.7,3.0,'#d7d5c1');
  // Sofa, facing the right-side television wall.
  const sofa=local(5.25,7.65,Math.PI/2);box(0,.25,0,2.1,.3,.85,'#cacdb8',sofa);box(0,.72,-.34,2.1,.7,.18,'#dadcc8',sofa);for(let x of [-.99,.99])box(x,.52,0,.17,.62,.83,'#dedfcc',sofa);for(let x of [-.48,0,.48])box(x,.44,.01,.47,.13,.63,'#e8e8d5',sofa);box(-.6,.65,-.14,.37,.37,.17,'#8e9d82',sofa).rotation.z=.14;box(.62,.65,-.14,.33,.33,.16,'#bd956e',sofa).rotation.z=-.17;
+ clearanceItems.sofa=sofa;
  const coffee=local(6.45,7.8);box(0,.36,0,.45,.055,.8,'#aa8c63',coffee);for(let z of [-.26,.26])box(0,.18,z,.2,.35,.07,'#aa8c63',coffee);cyl(6.45,.41,7.75,.08,.03,'#eee3c9');box(6.45,.405,8.02,.2,.025,.15,'#89987e');
- cabinet(7.9,7.9,2.15,.3,.42,'#bda078',Math.PI/2);box(8.07,1.28,7.9,.06,.83,1.45,'#2d3f37');box(8.03,1.28,7.9,.012,.74,1.36,'#728c7c');
+ clearanceItems.coffee=coffee;clearanceItems.tv=cabinet(7.9,7.9,2.15,.3,.42,'#bda078',Math.PI/2);box(8.07,1.28,7.9,.06,.83,1.45,'#2d3f37');box(8.03,1.28,7.9,.012,.74,1.36,'#728c7c');
  // Side reading chair, lamp, and art.
  chair(6.35,6.05,Math.PI*.85,'#a0aa90');cyl(5.05,.04,6.15,.21,.06,'#65705e');cyl(5.05,.85,6.15,.023,1.65,'#65705e').userData.naturalOnly=true;cyl(5.05,1.68,6.15,.25,.24,'#f1e6cf',home,.18).userData.naturalOnly=true;box(4.72,1.65,7.5,.04,.68,.65,'#ac9270');box(4.745,1.65,7.5,.02,.58,.55,'#e6dbc0');
  // Dining: long axis runs down the drawing, leaving side passages.
  captureLayout('dining',()=>{
- desk(6.4,3.27,.75,1.3);for(const z of [2.87,3.68]){chair(5.85,z,-Math.PI/2,'#b4bba1');chair(6.95,z,Math.PI/2,'#b4bba1')}cyl(6.4,.88,3.28,.075,.18,'#b8a482');line([[6.4,.97,3.28],[6.42,1.15,3.25]],'#788567',.008);ball(6.46,1.13,3.25,.09,.025,.04,'#8b9675');
+ desk(6.4,3.27,.75,1.3);for(const z of [2.87,3.68]){chair(5.85,z,-Math.PI/2,'#b4bba1');clearanceItems.diningChair=chair(6.95,z,Math.PI/2,'#b4bba1')}cyl(6.4,.88,3.28,.075,.18,'#b8a482');line([[6.4,.97,3.28],[6.42,1.15,3.25]],'#788567',.008);ball(6.46,1.13,3.25,.09,.025,.04,'#8b9675');
  });
  cabinet(3.04,4.56,1.25,.35,1.5,'#bea37c',-Math.PI/2);box(2.87,.045,4.8,.3,.06,.4,'#3d4740');box(2.86,1.12,4.45,.04,.55,.4,'#c4d1bf',home, {metalness:.3});
  // Kitchen L: wash on upper side, prepare in the middle, cook at right.
- cabinet(6.35,.43,2.75,.6,.85,'#809178');cabinet(7.77,1.13,1.35,.6,.85,'#809178',Math.PI/2);box(6.35,.9,.43,2.8,.055,.64,'#efeddf');box(7.77,.9,1.12,.64,.055,1.35,'#efeddf');box(6.35,.935,.43,.65,.025,.43,'#8a9b91');box(6.35,.95,.43,.54,.01,.34,'#bdc9bf');line([[6.55,.95,.27],[6.55,1.18,.27],[6.43,1.18,.27],[6.43,1.08,.27]],'#7b897d',.018);box(7.77,.94,1.2,.48,.025,.62,'#45524a');for(const z of [1.03,1.37]){cyl(7.77,.96,z,.105,.015,'#899586');cyl(7.77,.971,z,.075,.01,'#343f38')}
- box(5.02,1.01,1.25,.68,2.02,.64,'#b7bdb0');box(5.02,1.34,1.579,.62,1.24,.015,'#c9cec2');box(5.02,.36,1.579,.62,.65,.015,'#c4c9be');box(5.25,1.4,1.6,.025,.36,.03,'#697969');box(5.7,.53,.752,.59,.64,.02,'#b8c1b4');box(5.7,.78,.772,.46,.035,.02,'#657560');box(7.8,1.85,1.18,.55,.22,.75,'#b3bbac');
+ cabinet(6.35,.43,2.75,.6,.85,'#809178');cabinet(7.77,1.13,1.35,.6,.85,'#809178',Math.PI/2);box(6.35,.9,.43,2.8,.055,.64,'#efeddf');clearanceItems.kitchenTop=box(7.77,.9,1.12,.64,.055,1.35,'#efeddf');box(6.35,.935,.43,.65,.025,.43,'#8a9b91');box(6.35,.95,.43,.54,.01,.34,'#bdc9bf');line([[6.55,.95,.27],[6.55,1.18,.27],[6.43,1.18,.27],[6.43,1.08,.27]],'#7b897d',.018);box(7.77,.94,1.2,.48,.025,.62,'#45524a');for(const z of [1.03,1.37]){cyl(7.77,.96,z,.105,.015,'#899586');cyl(7.77,.971,z,.075,.01,'#343f38')}
+ clearanceItems.fridge=box(5.02,1.01,1.25,.68,2.02,.64,'#b7bdb0');box(5.02,1.34,1.579,.62,1.24,.015,'#c9cec2');box(5.02,.36,1.579,.62,.65,.015,'#c4c9be');box(5.25,1.4,1.6,.025,.36,.03,'#697969');box(5.7,.53,.752,.59,.64,.02,'#b8c1b4');box(5.7,.78,.772,.46,.035,.02,'#657560');box(7.8,1.85,1.18,.55,.22,.75,'#b3bbac');
  function toilet(x,z,rot=0){const g=local(x,z,rot);box(0,.57,-.16,.38,.7,.19,'#f6f5ec',g);ball(0,.3,.04,.21,.28,.28,'#f4f3e9',g);ball(0,.54,.04,.19,.035,.25,'#d2d9ce',g);ball(0,.56,.04,.14,.01,.19,'#9da99c',g)}
  function basin(x,z,w=.8,rot=0){const g=cabinet(x,z,w,.48,.65,'#b8bfa9',rot);box(0,.74,0,w+.03,.14,.49,'#efeee3',g);ball(0,.817,0,w*.27,.014,.16,'#b1bcae',g);box(0,.95,-.18,.035,.25,.035,'#7b8b7e',g);box(0,1.35,-.26,w*.8,.7,.035,'#c0cdbf',g,{metalness:.35,roughness:.15});return g}
  function shower(x,z,w,d){box(x,.04,z,w,.055,d,'#d0d4c9');box(x-w/2,1.15,z,.022,2.2,d,'#b5c9bb',home,{transparent:true,opacity:.18,depthWrite:false});box(x,1.15,z+d/2,w,2.2,.02,'#b5c9bb',home,{transparent:true,opacity:.18,depthWrite:false});box(x+w/2-.06,1.2,z,.04,1.55,.04,'#6e7e70');cyl(x+w/2-.18,2.02,z,.12,.03,'#708273');box(x,.075,z,.08,.01,.08,'#879784')}
@@ -170,7 +172,7 @@ function init3D(){
 function addLabel(id,text,point,cat=false){const b=document.createElement('button');b.className='room-label';b.textContent=text;b.title=cat?'猫咪资源预留位置':`查看${text}设计`;if(!cat){b.dataset.room=id;b.onclick=e=>{e.stopPropagation();selectRoom(id)}}else b.onclick=()=>toast('猫咪资源位置需结合日常开门习惯与实际使用调整');$('#labels').appendChild(b);labels.push({id,el:b,p:new THREE.Vector3(...point),cat})}
 function resize(){if(!renderer)return;const rect=$('#viewer').getBoundingClientRect();renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;dirty=true}
 function updateCamera(){if(walkMode){updateWalkCamera();return}if(privacyView){updatePrivacyCamera();return}const aspect=camera.aspect||1;let vertical=aspect<.8?state.span*1.4:Math.max(state.span*.8,state.span/aspect);camera.left=-vertical*aspect/2;camera.right=vertical*aspect/2;camera.top=vertical/2;camera.bottom=-vertical/2;camera.updateProjectionMatrix();const distance=25,px=Math.sin(state.phi)*Math.sin(state.theta)*distance,pz=Math.sin(state.phi)*Math.cos(state.theta)*distance;camera.position.set(state.cx+px,Math.cos(state.phi)*distance,state.cz+pz);camera.up.set(0,1,0);camera.lookAt(state.cx,0,state.cz)}
-function animate(now=0){requestAnimationFrame(animate);let moving=walkMode?tickWalk(now):false;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;for(const k of Object.keys(state)){const diff=goal[k]-state[k];if(Math.abs(diff)>.00015){state[k]+=diff*(reduced?1:.12);moving=true}}if(!dirty&&!moving)return;updateCamera();renderer.render(scene,camera);const rect=$('#viewer').getBoundingClientRect();for(const l of labels){const p=l.p.clone().project(camera);l.el.style.display=(l.detailRoom&&selected!==l.detailRoom)||(l.layout&&l.layout!==layoutMode)||walkMode||privacyView||(l.cat&&!catGroup.visible)||p.z>1||p.z< -1||(l.el.textContent.startsWith('屏风＋窄桌')&&!privacyEnabled)?'none':'';l.el.style.left=(p.x*.5+.5)*rect.width+'px';l.el.style.top=(-p.y*.5+.5)*rect.height+'px';l.el.style.opacity=l.cat?'1':selected!=='all'&&l.el.dataset.room!==selected?'.25':'1'}dirty=false}
+function animate(now=0){requestAnimationFrame(animate);let moving=walkMode?tickWalk(now):false;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;for(const k of Object.keys(state)){const diff=goal[k]-state[k];if(Math.abs(diff)>.00015){state[k]+=diff*(reduced?1:.12);moving=true}}if(!dirty&&!moving)return;updateCamera();if(clearanceGroup)updateClearances();renderer.render(scene,camera);const rect=$('#viewer').getBoundingClientRect();for(const l of labels){const p=l.p.clone().project(camera);l.el.style.display=(l.clearance&&!clearanceVisible(l))||(l.detailRoom&&selected!==l.detailRoom)||(l.layout&&l.layout!==layoutMode)||walkMode||privacyView||(l.cat&&!catGroup.visible)||p.z>1||p.z< -1||(l.el.textContent.startsWith('屏风＋窄桌')&&!privacyEnabled)?'none':'';l.el.style.left=(p.x*.5+.5)*rect.width+'px';l.el.style.top=(-p.y*.5+.5)*rect.height+'px';l.el.style.opacity=l.cat?'1':selected!=='all'&&l.el.dataset.room!==selected?'.25':'1'}if(clearanceGroup)positionClearanceLabels(rect);dirty=false}
 function setupInput(){const canvas=$('#scene'),pointers=new Map();let last=null,down=null,pinch=0,mid=null;
  // Rebase both gestures whenever the active pointer set changes.
  function resetGesture(){last=pointers.size===1?[...pointers.values()][0]:null;pinch=0;mid=null;if(pointers.size===2){const [a,b]=[...pointers.values()];pinch=Math.hypot(a[0]-b[0],a[1]-b[1]);mid=[(a[0]+b[0])/2,(a[1]+b[1])/2]}}

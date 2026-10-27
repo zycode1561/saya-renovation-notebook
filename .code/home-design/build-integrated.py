@@ -22,7 +22,7 @@ shutil.copyfile(root/'vendor/LICENSE-three.txt',out/'LICENSE-three.txt')
 # Use the vendored UMD build in module-local CommonJS bindings; no window.THREE.
 vendor=(root/'vendor/three.min.js').read_text()
 (out/'three.js').write_text('const exports = {}; const module = {exports};\n'+vendor+'\nexport default exports;\n')
-source='\n'.join((root/n).read_text() for n in ['styles.js','app.js','privacy.js','walkthrough.js','suite.js'])
+source='\n'.join((root/n).read_text() for n in ['styles.js','app.js','privacy.js','walkthrough.js','suite.js','clearance.js'])
 source=source.replace('document.querySelectorAll','root.querySelectorAll').replace('document.querySelector','root.querySelector').replace('document.body','root.host').replace('document.addEventListener','root.addEventListener').replace('window.__homeDesign','designAPI')
 source=source.replace("'.intro>div>p',",'')
 source=re.sub(r" \$\('\.intro>div>p'\)\.textContent=[^;]+;",'',source)

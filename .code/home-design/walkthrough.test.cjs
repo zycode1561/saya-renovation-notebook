@@ -5,7 +5,7 @@ const source=read('app.js');
 // Build the actual scene with real Three geometry, without WebGL or a browser.
 const geometry=source.slice(source.indexOf(' const mats=new Map();'),source.indexOf(' setupInput();resize();'));
 const elements=new Map();const $=s=>{if(!elements.has(s))elements.set(s,{value:s==='#walk-start'?'entry':'',textContent:'',hidden:true,style:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},focus(){},scrollIntoView(){},getBoundingClientRect:()=>({width:1200,height:600})});return elements.get(s)};
-const context={layoutMode:'original',layoutParts:{},THREE,console,Math,$,matchMedia:()=>({matches:true}),document:{querySelectorAll:()=>[]},toast(){},selectRoom(){},exitPrivacyView(){},syncModernLighting(){},fillDetail(){},activeModel:false,privacyView:null,topView:false,walkMode:false,wallFull:true,selected:'master',window:{},
+const context={clearanceItems:{},layoutMode:'original',layoutParts:{},THREE,console,Math,$,matchMedia:()=>({matches:true}),document:{querySelectorAll:()=>[]},toast(){},selectRoom(){},exitPrivacyView(){},syncModernLighting(){},fillDetail(){},activeModel:false,privacyView:null,topView:false,walkMode:false,wallFull:true,selected:'master',window:{},
  scene:new THREE.Scene(),home:new THREE.Group(),wallGroup:new THREE.Group(),catGroup:new THREE.Group(),humanGroup:new THREE.Group(),nightLights:new THREE.Group(),pickFloors:[],allMeshes:[],wallPieces:[],addLabel(){},labels:[],
  camera:new THREE.OrthographicCamera(),modernCeiling:null,vanityUseZone:null,vanityStool:null,privacyEnabled:true,
  renderer:{},state:{},goal:{}};
