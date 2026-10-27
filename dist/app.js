@@ -124,17 +124,38 @@ function renderLibrary(){
  $('result-note').textContent=state.stage!=='all'||state.query||state.imagesOnly?`当前找到 ${result.length} 篇${state.stage!=='all'?`「${stageFor(state.stage).title}」`:''}${state.imagesOnly?'带配图的':''}笔记${state.query?`，关键词「${state.query}」`:''}`:'';
  document.querySelectorAll('[data-type]').forEach(b=>{b.classList.toggle('active',b.dataset.type===state.type);b.setAttribute('aria-pressed',String(b.dataset.type===state.type));});
 }
+// Each workspace owns its browsing state; model resources load only on first entry.
+const workspaceState=new Map();
+let homeController=null,homeLoading=null;
+function syncHomeWorkspace(){
+ if(homeController){homeController.setActive(state.view==='home');return;}
+ if(state.view!=='home'||homeLoading)return;
+ const status=$('home-load-status');status.hidden=false;status.innerHTML='<p>正在打开我家的方案…</p>';
+ homeLoading=import('./home-workspace.js?v=home-20261027').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
+  homeController=controller;controller.setActive(state.view==='home');status.hidden=true;
+ }).catch(error=>{
+  console.error('Home workspace:',error);status.innerHTML='<p>方案暂时没能加载，笔记和清单仍可使用。</p><button class="primary" id="home-retry">重新加载方案</button>';
+  $('home-retry').onclick=syncHomeWorkspace;
+ }).finally(()=>{homeLoading=null;});
+}
 function setView(view,scroll=true){
- state.view=view;state.stage=view==='library'?'预算':'all';state.type='all';state.query='';state.imagesOnly=false;$('search-input').value='';
- const titles={library:'发现笔记',saved:'我的收藏',checklist:'检查清单'};
+ if(!['library','saved','checklist','home'].includes(view))return;
+ workspaceState.set(state.view,{stage:state.stage,type:state.type,query:state.query,imagesOnly:state.imagesOnly,sort:state.sort,scrollY:window.scrollY});
+ const previous=workspaceState.get(view);
+ state.view=view;
+ Object.assign(state,previous||{stage:view==='library'?'预算':'all',type:'all',query:'',imagesOnly:false,sort:'recommended'});
+ $('search-input').value=state.query;
+ const titles={library:'发现笔记',saved:'我的收藏',checklist:'检查清单',home:'我的家'};
  $('breadcrumb').textContent=titles[view];
- $('current-stage').hidden=view!=='library';$('hero').hidden=view!=='library';$('library').hidden=view==='checklist';$('checklist-page').hidden=view!=='checklist';
- document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
- renderStages();renderLibrary();if(view==='checklist')renderChecklist();
- if(scroll)window.scrollTo({top:0,behavior:'smooth'});
+ $('current-stage').hidden=view!=='library';$('hero').hidden=view!=='library';$('library').hidden=!['library','saved'].includes(view);$('checklist-page').hidden=view!=='checklist';$('home-page').hidden=view!=='home';
+ document.querySelectorAll('.site-nav [data-view]').forEach(b=>{b.classList.toggle('active',b.dataset.view===view);if(b.dataset.view===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
+ $('sort-value').textContent=state.sort==='newest'?'最新发布':'推荐阅读';
+ document.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.sort===state.sort)));
+ renderStages();renderLibrary();if(view==='checklist')renderChecklist();syncHomeWorkspace();
+ if(scroll)window.scrollTo({top:previous?.scrollY||0,behavior:'instant'});
 }
 function setStage(id){
- if(state.view==='checklist')setView('library',false);
+ if(!['library','saved'].includes(state.view))setView('library',false);
  state.stage=id;renderStages();renderLibrary();
  $('library').scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -168,6 +189,7 @@ function restorePageScroll(){
  window.scrollTo({left:position.x,top:position.y,behavior:'auto'});
 }
 function showNote(id){
+ document.dispatchEvent(new CustomEvent('home-reading-change',{detail:true}));
  const n=byId(id);if(!n)return;state.opened=id;
  const count=n.sections?.reduce((sum,section)=>sum+section.items.length,0)||n.points.length;
  const tableCount=n.sections?.reduce((sum,section)=>sum+(section.tables?.length||0),0)||0;
@@ -292,10 +314,10 @@ document.addEventListener('click',event=>{if(!sortControl.contains(event.target)
 $('reset-filters').addEventListener('click',()=>{setView('library',false);state.stage='all';renderStages();renderLibrary();$('library').scrollIntoView({behavior:'smooth'});});
 document.addEventListener('toggle',event=>{if(event.target.id==='reader-toc')$('reader-contents-button').setAttribute('aria-expanded',String(event.target.open));},true);
 $('close-dialog').addEventListener('click',()=>$('article-dialog').close());
-$('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageScroll();});
+$('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageScroll();document.dispatchEvent(new CustomEvent('home-reading-change',{detail:false}));});
 $('article-dialog').addEventListener('click',event=>{if(event.target===$('article-dialog')){const r=$('article-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('article-dialog').close();}});
 $('checklist-groups').addEventListener('change',event=>{const id=event.target.dataset.check;if(!id)return;if(event.target.checked)checked.add(id);else checked.delete(id);writeStorage('saya-renovation-checks-v1',[...checked]);const focusId=event.target.id;renderChecklist();document.getElementById(focusId)?.focus();if(!storageAvailable)toast('当前浏览器无法保存，进度仅在本次打开期间保留');});
 $('reset-checklist').addEventListener('click',()=>{if(!checked.size){toast('清单尚未勾选');return;}if(window.confirm('将清除当前浏览器中的所有清单勾选，确认重置吗？')){checked.clear();writeStorage('saya-renovation-checks-v1',[]);renderChecklist();toast('勾选已重置');}});
-document.addEventListener('keydown',event=>{if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open){event.preventDefault();if(state.view==='checklist')setView('library',false);$('search-input').focus();}});
+document.addEventListener('keydown',event=>{if(state.view==='home')return;if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open){event.preventDefault();if(!['library','saved'].includes(state.view))setView('library',false);$('search-input').focus();}});
 document.querySelector('.brand').addEventListener('click',event=>{event.preventDefault();setView('library');});
 fillIcons();renderStages();renderLibrary();renderChecklist();
