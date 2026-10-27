@@ -32,7 +32,7 @@ source=source.replace(" $('#privacy-orbit').click();",'')
 source=source.replace("'栖间 · '","'住前笔记 · '").replace("'栖间-'","'我的家-'")
 source=source.replace('function animate(now=0){requestAnimationFrame(animate);','function animate(now=0){if(!componentActive)return;frame=requestAnimationFrame(animate);')
 source=source.replace("const rect=$('#viewer').getBoundingClientRect();renderer.setSize", "const rect=$('#viewer').getBoundingClientRect();if(!componentActive||!rect.width||!rect.height)return;renderer.setSize")
-source=source.replace('let last=null,down=null,pinch=0;', 'let last=null,down=null,pinch=0;clearOrbitInput=()=>{for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();last=null;down=null;pinch=0};')
+source=source.replace('let last=null,down=null,pinch=0,mid=null;', 'let last=null,down=null,pinch=0,mid=null;clearOrbitInput=()=>{for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();last=null;down=null;pinch=0;mid=null};')
 source=source.replace("if(!walkMode)return;if(e.code==='Escape'", "if(!componentActive||!walkMode)return;if(e.code==='Escape'")
 # Bubble keyboard events only within this workspace; hidden tabs cannot move the model.
 source=source.replace("window.addEventListener('beforeprint',()=>{", "window.addEventListener('beforeprint',()=>{if(!componentActive)return;")
