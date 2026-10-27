@@ -15,7 +15,7 @@ vm.runInContext(code.slice(code.indexOf('function imageReferences('),code.indexO
 const notes=context.window.RENOVATION_NOTES,updated=notes.slice(0,8);
 const plain=value=>JSON.parse(JSON.stringify(value));
 const previous=vm.createContext({window:{}});
-vm.runInContext(cp.execFileSync('git',['show','27c200d3b69ada4839338f4511c99dc6a10517e2:dist/data.js'],{cwd:root,encoding:'utf8'}),previous);
+vm.runInContext(cp.execFileSync('git',['show','27c200d3b69ada4839338f4511c99dc6a10517e2:dist/data.js'],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','pipe']}),previous);
 assert.deepEqual(plain(notes.slice(8)),plain(previous.window.RENOVATION_NOTES.slice(8)),'Original 15 notes must remain unchanged');
 const evidence=JSON.parse(fs.readFileSync(path.join(root,'.code/budget-design-source-audit.json'),'utf8'));
 let images=0,tables=0,rows=0;
