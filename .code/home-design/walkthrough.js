@@ -100,8 +100,8 @@ function exitWalk(){
  for(const id of ['wall-toggle','vanity-toggle','cat-toggle','human-toggle','privacy-toggle'])$('#'+id).disabled=false;
  $('#wall-toggle').textContent=wallFull?'降低墙体':'完整墙高';$('#wall-toggle').setAttribute('aria-pressed',String(wallFull));
  for(const [id,on] of [['view2d',topView],['view3d',!topView]]){$('#'+id).classList.toggle('active',on);$('#'+id).setAttribute('aria-pressed',String(on))}
- $('#scene').setAttribute('aria-label','住宅交互3D模型：拖动旋转，滚轮缩放，方向键旋转，Home复位。');
- $('#interaction-hint').textContent=topView?'俯视沿用原图方向 · 拖动平移 · 点击房间查看方案':'拖动旋转 · 滚轮缩放 · 点击房间查看方案';
+ $('#scene').setAttribute('aria-label','住宅交互3D模型：拖动旋转（俯视时平移），双指平移，滚轮或捏合缩放，方向键旋转，Home复位。');
+ $('#interaction-hint').textContent=topView?'俯视沿用原图方向 · 单指/双指拖动平移 · 滚轮/捏合缩放 · 点击房间查看方案':'拖动旋转 · 双指平移 · 滚轮/捏合缩放 · 点击房间查看方案';
  syncModernLighting();fillDetail(selected);dirty=true;
 }
 function setupWalk(){
