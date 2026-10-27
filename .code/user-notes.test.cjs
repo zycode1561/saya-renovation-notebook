@@ -35,6 +35,40 @@ for(const [start,end] of [['mediaPreview','inlineImages'],['coverageLabel','imag
 const card=renderer.card(note);assert(card.includes('我的'));assert(card.includes('本人记录'));assert(!card.includes('查看原帖'));assert(!renderer.coveragePanel(note).includes('小红书'));
 renderer.showNote(note.id);assert(element('dialog-content').innerHTML.includes('删除这条'));assert(element('dialog-content').innerHTML.includes('我的'));assert(!element('dialog-content').innerHTML.includes('查看小红书原帖'));
 assert(renderer.card({...note,url:'https://example.com',title:'<img src=x>'}).includes('&lt;img src=x&gt;'));assert(renderer.card({...note,url:'https://example.com'}).includes('打开来源链接'));
+// 验证表单状态切换及胶囊键盘交互，不触发真实 GitHub 请求。
+const uiElements=new Map();
+function uiElement(id){
+ if(!uiElements.has(id))uiElements.set(id,{value:'',type:'password',hidden:false,disabled:false,textContent:'',dataset:{},attrs:{},className:'',listeners:{},
+  classList:{_set:new Set(),add(c){this._set.add(c);},remove(c){this._set.delete(c);},contains(c){return this._set.has(c);},toggle(c,force){if(force===false||(force===undefined&&this._set.has(c)))this._set.delete(c);else this._set.add(c);}},
+  setAttribute(k,v){this.attrs[k]=v;},addEventListener(k,fn){this.listeners[k]=fn;},focus(){this.focused=true;},close(){this.closed=true;},
+  querySelector(){return uiElement(id+'-summary');},scrollIntoView(){}});
+ return uiElements.get(id);
+}
+const groups=['type','stage'].map(name=>{
+ const group=uiElement('group-'+name);group.dataset.choice=name;
+ group.buttons=(name==='type'?['避坑','经验']:['准备','预算','施工','厨卫','安装','入住']).map(value=>{const b=uiElement(name+value);b.dataset.value=value;return b;});
+ group.querySelectorAll=()=>group.buttons;return group;
+});
+const uiForm=uiElement('user-note-form');uiForm.elements={type:{value:'避坑'},stage:{value:'准备'}};
+uiForm.reset=()=>{uiForm.elements.type.value='避坑';uiForm.elements.stage.value='准备';};
+let uiToken='saved-token';
+const ui={window:{UserNotes:{tokenStorage:()=>({read:()=>uiToken,clear:()=>{uiToken='';}})}},localStorage:{},$:uiElement,
+ document:{querySelectorAll:()=>groups,querySelector:()=>uiElement('body')},state:{stage:'厨卫'},stageFor:v=>v==='厨卫',openModal(){},restorePageScroll(){}};
+vm.createContext(ui);
+vm.runInContext(app.slice(app.indexOf('const userNotes=window.UserNotes;'),app.indexOf("$('user-note-form').addEventListener('submit'")),ui);
+ui.openUserNoteForm();assert.equal(uiForm.elements.stage.value,'厨卫');assert.equal(groups[1].buttons[3].attrs['aria-checked'],'true');
+assert.equal(uiElement('submit-user-note').textContent,'保存笔记');assert(uiElement('user-note-delete').hidden);
+let prevented=false;groups[0].listeners.keydown({target:groups[0].buttons[0],key:'ArrowRight',preventDefault(){prevented=true;}});
+assert(prevented);assert.equal(uiForm.elements.type.value,'经验');assert.equal(groups[0].buttons[1].tabIndex,0);assert.equal(groups[0].buttons[0].tabIndex,-1);
+uiElement('toggle-user-token').listeners.click();assert.equal(uiElement('user-note-token').type,'text');
+uiElement('toggle-user-token').listeners.click();assert.equal(uiElement('user-note-token').type,'password');
+ui.openUserNoteForm(note);assert.equal(uiElement('user-note-delete-title').textContent,note.title);assert(uiElement('user-note-fields').disabled);assert(uiElement('user-note-fields').hidden);
+assert.equal(uiElement('submit-user-note').textContent,'确认删除');assert(!uiElement('cancel-user-note').hidden);
+vm.runInContext('userNoteBusy=true',ui);ui.closeUserNoteForm();assert(!uiElement('user-note-dialog').closed);
+vm.runInContext('userNoteBusy=false',ui);ui.closeUserNoteForm();assert(uiElement('user-note-dialog').closed);
+uiElement('clear-user-token').listeners.click();assert.equal(uiToken,'');assert(uiElement('user-note-token-settings').open);assert(!uiElement('user-token-input').hidden);
+ui.openUserNoteForm();assert.equal(uiForm.elements.type.value,'避坑');assert(!uiElement('user-note-fields').disabled);
+assert(!app.includes("window.confirm('确定删除这条笔记"));
 async function run(){
  const other=lib.buildUserNote({...valid.normalized,title:'其他设备记录'},{now:'2026-10-29'});
  let gets=0,puts=0;

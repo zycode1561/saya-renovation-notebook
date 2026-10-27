@@ -214,24 +214,81 @@ footer{font-size:10px;color:#a2a5ac;padding:24px 0;}
 
 /* 随手记录表单与本人笔记标记。 */
 .library-tools{flex-wrap:wrap}
-.add-note{min-height:44px;white-space:nowrap}
-.my-note-tag{display:inline-flex;padding:3px 9px;border-radius:20px;background:#f6e5d4;color:#825331;font-size:12px;font-weight:600}
-#user-note-dialog{width:min(620px,calc(100vw - 24px));max-height:calc(100dvh - 24px);padding:0;border:1px solid #e7ded4;border-radius:20px;background:#fffcf8;color:#403c36;overflow:auto;overscroll-behavior:contain}
-#user-note-dialog::backdrop{background:rgba(40,33,26,.4)}
-#user-note-form{padding:24px;display:grid;gap:18px}
-.user-note-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.user-note-heading h2{margin:0;font-size:24px}
+#add-note{min-height:40px;padding:8px 14px;white-space:nowrap;background:#fff;border:1px solid #e5e7eb;color:#d74738;border-radius:7px;font-size:13px}
+.my-note-tag{display:inline-flex;padding:2px 6px;border:1px solid #e5e7eb;border-radius:4px;background:#f5f5f7;color:#737780;font-size:10px;font-weight:500}
+#user-note-dialog{position:fixed;inset:0;margin:auto;width:min(520px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:0;border:1px solid #e7e8ec;border-radius:14px;background:#fff;color:#26282d;box-shadow:0 24px 80px rgba(38,40,45,.18);overflow:hidden;overscroll-behavior:contain}
+#user-note-dialog::backdrop{background:rgba(38,40,45,.4);backdrop-filter:blur(3px);animation:user-note-fade 150ms ease}
+#user-note-form{display:flex;flex-direction:column;max-height:calc(100dvh - 34px);margin:0}
+.user-note-handle{display:none}
+.user-note-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px 8px 20px;flex-shrink:0}
+.user-note-heading h2{margin:0;font-family:var(--font);font-size:18px;font-weight:600;color:#26282d}
+#user-note-heading:focus{outline:none}
+#close-user-note{width:44px;height:44px;padding:0;border-radius:7px;color:#737780;font-size:26px;font-weight:400}
+.user-note-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 20px 20px;display:grid;gap:18px}
 #user-note-fields{display:grid;gap:16px;border:0;padding:0;margin:0;min-width:0}
-#user-note-fields[hidden],#user-note-form [hidden]{display:none}
-#user-note-form label{display:grid;gap:8px;font-size:14px;font-weight:600}
-#user-note-form input,#user-note-form textarea,#user-note-form select{box-sizing:border-box;width:100%;min-width:0;min-height:46px;padding:12px;border:1px solid #d9cdbf;border-radius:10px;background:#fff;color:inherit;font:inherit;font-size:16px}
-#user-note-form textarea{resize:vertical;line-height:1.7}
-.user-note-selects{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.user-note-token{padding:16px;background:#f5eee6;border-radius:12px;overflow-wrap:anywhere}
+#user-note-form label,.user-note-choice{display:grid;gap:8px;font-size:13px;font-weight:400;color:#737780}
+#user-note-form input,#user-note-form textarea{box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:12px 14px;border:1px solid #e9eaed;border-radius:10px;background:#fff;color:#26282d;font:16px var(--font)}
+#user-note-form input::placeholder,#user-note-form textarea::placeholder{color:#858891}
+#user-note-form input:focus,#user-note-form textarea:focus{outline:none;border-color:#d74738;box-shadow:0 0 0 3px rgba(215,71,56,.12)}
+#user-note-form :is(button,a,summary):focus-visible,#add-note:focus-visible{outline:1px solid #d74738;outline-offset:2px;box-shadow:0 0 0 3px rgba(215,71,56,.12)}
+#user-note-form textarea{resize:vertical;min-height:120px;line-height:1.7}
+.user-note-pills{display:flex;flex-wrap:wrap;gap:8px}
+#user-note-form .user-note-pills button{min-height:44px;padding:8px 14px;border:1px solid #e9eaed;border-radius:999px;background:#fff;color:#737780;font-size:13px;transition:background 180ms ease,border-color 180ms ease}
+#user-note-form .user-note-pills button[aria-checked="true"]{background:#f5f5f7;border-color:#e5e7eb;color:#26282d}
+#user-note-form [data-choice="type"] [data-value="避坑"][aria-checked="true"]{background:#f6f1e9;color:#9c7446;border-color:#e8d9bd}
+#user-note-form [data-choice="type"] [data-value="经验"][aria-checked="true"]{background:#fff0ec;color:#a44f40;border-color:#f0e1da}
+.user-note-token{padding:12px 14px;background:#f5f5f7;border:1px solid #ebedef;border-radius:12px;overflow-wrap:anywhere;color:#737780;font-size:13px}
+.user-note-token summary{cursor:pointer;color:#26282d;min-height:44px;align-content:center}
+.user-note-token ol{padding-left:20px;margin:8px 0 14px;line-height:1.8}
+.user-note-token li+li{margin-top:6px}
+.user-note-token li span{display:block;font-size:12px}
+.user-note-token a{color:#d74738;text-decoration:underline;text-underline-offset:3px}
 .user-note-token p{font-size:13px;line-height:1.8;margin:10px 0 0}
+.user-token-control{display:flex;gap:8px;margin-top:8px}
+#user-note-token{font-family:ui-monospace,monospace}
 #user-note-form button{min-height:44px}
-#submit-user-note{position:sticky;bottom:0;width:100%;box-shadow:0 0 0 8px #fffcf8}
-#user-note-error{margin:0;color:#934322;line-height:1.6}
-#user-note-form button:disabled{opacity:.6;cursor:wait}
+#user-note-form .secondary{border:1px solid #e5e7eb;background:#fff;color:#737780;border-radius:7px;padding:10px 16px;font-size:13px}
+#toggle-user-token{flex-shrink:0}
+#clear-user-token{color:#737780;padding:8px}
+.user-note-actions{display:flex;gap:12px;flex-shrink:0;border-top:1px solid #ebedef;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#fff}
+.user-note-actions button{flex:1;min-width:0}
+#submit-user-note{min-height:44px;padding:10px 16px;background:#d74738;color:#fff;border-radius:7px;font-size:14px}
+#user-note-delete p{margin:0;font-size:13px;color:#737780}
+#user-note-delete #user-note-delete-title{font-size:16px;color:#26282d;margin-bottom:8px;overflow-wrap:anywhere}
+#user-note-error{margin:0;color:#d74738;font-size:13px;line-height:1.6}
+#user-note-error:empty{display:none}
+#user-note-form button:disabled{opacity:.55;cursor:wait}
 .reader-point-copy p{white-space:pre-line}
-@media(max-width:600px){#user-note-form{padding:18px}.add-note{width:100%}#user-note-dialog{border-radius:14px}.dialog-actions{flex-wrap:wrap}}
+@keyframes user-note-slide{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes user-note-fade{from{opacity:0}to{opacity:1}}
+@media(max-width:760px){
+ .library-tools{display:flex;gap:8px;flex-wrap:wrap}
+ .library-tools .tabs{order:0;width:100%;flex:0 0 100%}
+ .library-tools .search{order:1;flex:1;min-width:0;width:auto;margin:0}
+ #add-note{order:2;flex:0 0 auto;width:auto}
+ #user-note-dialog{inset:auto 0 0 0;width:100%;max-height:92dvh;margin:0;border:0;border-radius:16px 16px 0 0}
+ #user-note-dialog[open]{animation:user-note-slide 180ms ease}
+ #user-note-form{max-height:92dvh}
+ .user-note-handle{display:grid;place-items:center;height:36px;flex:0 0 36px;cursor:pointer}
+ .user-note-handle span{width:36px;height:4px;border-radius:999px;background:#d0d2d6}
+ .user-note-heading{padding:0 16px 8px}
+ .user-note-body{padding:8px 16px 20px}
+ .dialog-actions{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){#user-note-dialog[open],#user-note-dialog::backdrop{animation:none}#user-note-form *,#add-note{transition:none;animation:none}}
+
+/* 笔记 UI 第二轮把关：删除态紧凑令牌、等待文案、toast 位置 */
+#user-note-error.is-pending{color:#737780}
+#user-note-form.user-note-delete-mode .user-note-token ol,
+#user-note-form.user-note-delete-mode .user-note-token>p:last-of-type{display:none}
+#user-note-form.user-note-delete-mode .user-note-token{padding:10px 12px}
+#user-note-form.user-note-delete-mode .user-note-token summary{min-height:36px;font-size:13px;color:#737780}
+#user-note-token::placeholder{color:#a0a4ab;opacity:1}
+@media(max-width:760px){
+ .toast{top:max(16px,env(safe-area-inset-top));bottom:auto;transform:translate(-50%,-12px);border-radius:10px;background:#2a2c32}
+ .toast.visible{transform:translate(-50%,0)}
+}
+
+#user-note-token.is-invalid{border-color:#d74738;box-shadow:0 0 0 3px rgba(215,71,56,.12)}
+#user-note-error{margin:0;color:#d74738;font-size:13px;line-height:1.6}
+#user-token-hint{font-size:12px;color:#858891;margin:8px 0 0}

@@ -133,7 +133,7 @@ function syncHomeWorkspace(){
  if(homeController){homeController.setActive(state.view==='home');return;}
  if(state.view!=='home'||homeLoading)return;
  const status=$('home-load-status');status.hidden=false;status.innerHTML='<p>正在打开我家的方案…</p>';
- homeLoading=import('./home-workspace.js?v=home-20261027f').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
+ homeLoading=import('./home-workspace.js?v=home-20261027g').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
   homeController=controller;controller.setActive(state.view==='home');status.hidden=true;
  }).catch(error=>{
   console.error('Home workspace:',error);status.innerHTML='<p>方案暂时没能加载，笔记和清单仍可使用。</p><button class="primary" id="home-retry">重新加载方案</button>';
@@ -292,7 +292,7 @@ document.addEventListener('click',event=>{
  if(target.dataset.stage)setStage(target.dataset.stage);
  if(target.dataset.type){state.type=target.dataset.type;renderLibrary();}
  if(target.dataset.open)showNote(target.dataset.open);
- if(target.dataset.deleteNote){const note=byId(target.dataset.deleteNote);if(note?.userNote&&window.confirm('确定删除这条笔记吗？所有设备都会同步删除。'))openUserNoteForm(note);}
+ if(target.dataset.deleteNote){const note=byId(target.dataset.deleteNote);if(note?.userNote)openUserNoteForm(note);}
  if(target.dataset.save)toggleSaved(target.dataset.save);
  if(target.dataset.image)showImage(target.dataset.image,Number(target.dataset.imageIndex)||0);
  if(target.hasAttribute('data-images-filter')){state.imagesOnly=!state.imagesOnly;renderStages();renderLibrary();}
@@ -329,7 +329,29 @@ fillIcons();renderStages();renderLibrary();renderChecklist();
 const userNotes=window.UserNotes;
 let pendingDelete=null,userNoteBusy=false,userNotesRevision=0,pendingUserNote=null;
 function storedToken(){try{return userNotes.tokenStorage(localStorage).read();}catch{return '';}}
-function refreshTokenUI(){const present=Boolean(storedToken());$('user-token-input').hidden=present;$('user-token-saved').hidden=!present;}
+function refreshTokenUI(){const present=Boolean(storedToken());$('user-token-input').hidden=present;$('user-token-saved').hidden=!present;const settings=$('user-note-token-settings');if(!present)settings.open=true;else if(pendingDelete)settings.open=false;}
+function hideUserToken(){ $('user-note-token').type='password';$('toggle-user-token').textContent='显示';$('toggle-user-token').setAttribute('aria-pressed','false'); }
+function clearUserNoteFieldErrors(){$('user-note-token').classList.remove('is-invalid');$('user-note-error').classList.remove('is-pending');}
+function showUserNoteError(message,{tokenInvalid=false}={}){clearUserNoteFieldErrors();$('user-note-error').textContent=message;if(tokenInvalid)$('user-note-token').classList.add('is-invalid');$('user-note-error').scrollIntoView({block:'nearest'});}
+function syncUserNoteChoices(){
+ document.querySelectorAll('#user-note-form [data-choice]').forEach(group=>{
+  const value=$('user-note-form').elements[group.dataset.choice].value;
+  group.querySelectorAll('[role="radio"]').forEach(button=>{const selected=button.dataset.value===value;button.setAttribute('aria-checked',String(selected));button.tabIndex=selected?0:-1;});
+ });
+}
+document.querySelectorAll('#user-note-form [data-choice]').forEach(group=>{
+ function choose(button){if(userNoteBusy||!button)return;$('user-note-form').elements[group.dataset.choice].value=button.dataset.value;syncUserNoteChoices();}
+ group.addEventListener('click',event=>choose(event.target.closest('[role="radio"]')));
+ group.addEventListener('keydown',event=>{
+  const buttons=[...group.querySelectorAll('[role="radio"]')],index=buttons.indexOf(event.target);
+  if(index<0||userNoteBusy)return;
+  let next;
+  if(['ArrowRight','ArrowDown'].includes(event.key))next=(index+1)%buttons.length;
+  else if(['ArrowLeft','ArrowUp'].includes(event.key))next=(index+buttons.length-1)%buttons.length;
+  else if(event.key==='Home')next=0;else if(event.key==='End')next=buttons.length-1;else return;
+  event.preventDefault();choose(buttons[next]);buttons[next].focus();
+ });
+});
 function applyUserNotes(list){
  notes.splice(0,notes.length,...userNotes.mergeNotes(notes,list));
  knownIds.clear();notes.forEach(n=>knownIds.add(n.id));
@@ -339,27 +361,42 @@ function applyUserNotes(list){
 function openUserNoteForm(note=null){
  if(userNoteBusy)return;
  pendingDelete=note;pendingUserNote=null;
- $('user-note-form').reset();$('user-note-error').textContent='';
+ $('user-note-form').reset();$('user-note-error').textContent='';clearUserNoteFieldErrors();
+ $('user-note-form').classList.toggle('user-note-delete-mode',Boolean(note));
  $('user-note-fields').hidden=Boolean(note);$('user-note-fields').disabled=Boolean(note);
  $('user-note-heading').textContent=note?'删除这条笔记':'记一条';
- $('submit-user-note').textContent=note?'确认删除并写回 GitHub':'写回 GitHub';
+ $('submit-user-note').textContent=note?'确认删除':'保存笔记';
+ $('user-note-delete').hidden=!note;$('user-note-delete-title').textContent=note?.title||'';
+ $('cancel-user-note').hidden=!note;
+ hideUserToken();
  $('user-note-form').elements.stage.value=stageFor(state.stage)?state.stage:'准备';
- refreshTokenUI();openModal($('user-note-dialog'));
+ syncUserNoteChoices();refreshTokenUI();
+ if(note){$('user-note-token-settings').open=!storedToken();$('user-note-token-settings').querySelector('summary').textContent=storedToken()?'令牌已保存，可直接删除':'填写令牌后删除';}
+ else {$('user-note-token-settings').querySelector('summary').textContent='令牌设置';$('user-note-token-settings').open=!storedToken();}
+ openModal($('user-note-dialog'));
+ document.querySelector('.user-note-body').scrollTop=0;
+ if(note)$('cancel-user-note').focus();else $('user-note-heading').focus();
 }
 $('add-note').addEventListener('click',()=>openUserNoteForm());
-$('close-user-note').addEventListener('click',()=>{if(!userNoteBusy)$('user-note-dialog').close();});
+function closeUserNoteForm(){if(!userNoteBusy)$('user-note-dialog').close();}
+$('close-user-note').addEventListener('click',closeUserNoteForm);
+$('cancel-user-note').addEventListener('click',closeUserNoteForm);
+document.querySelector('.user-note-handle').addEventListener('click',closeUserNoteForm);
+$('user-note-dialog').addEventListener('click',event=>{if(event.target===$('user-note-dialog')){const r=event.currentTarget.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeUserNoteForm();}});
+$('user-note-token').addEventListener('input',()=>$('user-note-token').classList.remove('is-invalid'));
+$('toggle-user-token').addEventListener('click',()=>{const show=$('user-note-token').type==='password';$('user-note-token').type=show?'text':'password';$('toggle-user-token').textContent=show?'隐藏':'显示';$('toggle-user-token').setAttribute('aria-pressed',String(show));});
 $('user-note-dialog').addEventListener('cancel',event=>{if(userNoteBusy)event.preventDefault();});
-$('user-note-dialog').addEventListener('close',()=>{pendingDelete=null;pendingUserNote=null;$('user-note-token').value='';restorePageScroll();});
+$('user-note-dialog').addEventListener('close',()=>{pendingDelete=null;pendingUserNote=null;$('user-note-token').value='';hideUserToken();restorePageScroll();});
 $('clear-user-token').addEventListener('click',()=>{
- try{userNotes.tokenStorage(localStorage).clear();$('user-note-token').value='';refreshTokenUI();}catch{$('user-note-error').textContent='浏览器无法清除令牌，请检查存储设置';}
+ try{userNotes.tokenStorage(localStorage).clear();$('user-note-token').value='';hideUserToken();refreshTokenUI();$('user-note-token').focus();}catch{$('user-note-error').textContent='浏览器无法清除令牌，请检查存储设置';}
 });
 $('user-note-form').addEventListener('submit',async event=>{
  event.preventDefault();if(userNoteBusy)return;
  const form=event.currentTarget;
  const checkedInput=userNotes.validateNoteInput(Object.fromEntries(new FormData(form)));
- if(!pendingDelete&&!checkedInput.ok){$('user-note-error').textContent=checkedInput.errors.join('；');return;}
+ if(!pendingDelete&&!checkedInput.ok){showUserNoteError(checkedInput.errors.join('；'));return;}
  const token=storedToken()||$('user-note-token').value.trim();
- if(!token){refreshTokenUI();$('user-note-error').textContent='请先填写 GitHub 令牌';$('user-note-token').focus();return;}
+ if(!token){refreshTokenUI();showUserNoteError('请先填写 GitHub 令牌',{tokenInvalid:true});$('user-note-token').focus();return;}
  try{userNotes.tokenStorage(localStorage).write(token);}catch{$('user-note-error').textContent='浏览器无法保存令牌，请允许本地存储后重试';return;}
  $('user-note-token').value='';refreshTokenUI();
  // 重试沿用同一个编号，避免网络中断后重复添加。
@@ -368,8 +405,10 @@ $('user-note-form').addEventListener('submit',async event=>{
  const note=pendingDelete||pendingUserNote.note,mode=pendingDelete?'delete':'add';
  userNoteBusy=true;userNotesRevision++;
  $('submit-user-note').disabled=true;$('close-user-note').disabled=true;$('clear-user-token').disabled=true;
- $('user-note-fields').disabled=true;
- $('user-note-error').textContent='正在写回 GitHub，请稍候…';
+ $('user-note-fields').disabled=true;$('cancel-user-note').disabled=true;
+ form.setAttribute('aria-busy','true');
+ $('submit-user-note').textContent=mode==='delete'?'正在删除…':'正在保存…';
+ $('user-note-error').classList.add('is-pending');$('user-note-error').textContent='请稍候';
  try{
   const list=await userNotes.writeUserNote({note,mode,token});
   applyUserNotes(list);
@@ -382,10 +421,11 @@ $('user-note-form').addEventListener('submit',async event=>{
    toast('已记好，所有设备都能看到');showNote(note.id);
   }
   $('user-note-dialog').close();
- }catch(error){$('user-note-error').textContent=error.message;}
+ }catch(error){showUserNoteError(error.message,{tokenInvalid:/令牌|权限/.test(error.message)});}
  finally{
   userNoteBusy=false;$('submit-user-note').disabled=false;$('close-user-note').disabled=false;$('clear-user-token').disabled=false;
-  $('user-note-fields').disabled=Boolean(pendingDelete);
+  $('user-note-fields').disabled=Boolean(pendingDelete);$('cancel-user-note').disabled=false;
+  form.setAttribute('aria-busy','false');$('submit-user-note').textContent=pendingDelete?'确认删除':'保存笔记';
  }
 });
 const initialUserNotesRevision=userNotesRevision;
