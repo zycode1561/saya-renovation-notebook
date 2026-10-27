@@ -5,7 +5,7 @@
   <meta name="theme-color" content="#ffffff"><meta name="description" content="沙耶的装修攻略与避坑手册。按装修阶段查阅经验、对照清单，保留每一条经验的原帖出处。">
   <title>住前笔记 · 沙耶的装修手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d74738'/%3E%3Cpath d='M16 30 32 16 48 30v20H16zM27 50V35h10v15' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=sort-compact-20261023"><link rel="stylesheet" href="collection.css?v=sort-compact-20261023"><script src="data.js?v=sort-compact-20261023" defer></script><script src="image-carousel.js" defer></script><script src="app.js?v=sort-compact-20261023" defer></script>
+  <link rel="stylesheet" href="styles.css?v=sort-compact-20261023"><link rel="stylesheet" href="collection.css?v=sort-compact-20261023"><script src="data.js?v=sort-compact-20261023" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261027"><script src="app.js?v=home-20261027" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -14,6 +14,7 @@
       <nav class="site-nav" aria-label="主要导航">
         <button class="nav-item active" data-view="library">发现笔记<span class="nav-count" id="side-count">23</span></button>
         <button class="nav-item" data-view="saved">我的收藏<span class="nav-count" id="saved-count">0</span></button>
+        <button class="nav-item" data-view="home">我的家</button>
         <button class="nav-item" data-view="checklist">检查清单</button>
       </nav>
       <span class="avatar" aria-label="沙耶的装修手册">沙</span>
@@ -46,6 +47,22 @@
         <p class="collection-stats" id="source-stats"></p>
       </section>
       <section class="checklist-page" id="checklist-page" hidden><div class="section-heading"><div><span class="eyebrow">A LITTLE PREPARATION GOES A LONG WAY</span><h1>把容易漏的事，逐项确认。</h1><p class="section-description">根据来源笔记整理的沟通与查阅清单。勾选进度保存在当前浏览器。</p></div></div><div class="progress-card"><span data-icon="checklist"></span><div><b id="progress-label">已确认 0 项</b><div class="progress-track"><div id="progress-fill"></div></div></div><button class="text-button" id="reset-checklist">重置勾选</button></div><div id="checklist-groups"></div></section>
+      <section class="home-page" id="home-page" hidden aria-labelledby="my-home-title">
+        <div class="home-heading"><div><span class="eyebrow">把生活需求，放回自己的家</span><h1 id="my-home-title">我家的装修方案</h1><p>从房间到每一条日常动线，慢慢确认这个家的样子。点击模型里的房间，查看布置、尺寸与需要取舍的细节。</p><div class="home-badges"><span>两人两猫</span><span>主卧套区</span><span>干湿分离</span></div></div><span class="home-status">概念方案 · 2026.10.27</span></div>
+        <div id="home-load-status" class="home-loading" role="status"><p>正在打开我家的方案…</p></div><div id="home-model"></div>
+        <div class="home-plan-bottom"><section class="home-summary"><h2>当前方案，先记住这几件事</h2><ul>
+          <li><strong>主卧：床头靠客厅背墙。</strong>保留 1.8 米床、L 形衣柜与梳妆位，床向窗微移 100 mm。入口 950 × 2,000 mm 遮影屏风，卧室侧接 860 × 240 mm 窄桌，台面高 800 mm。梳妆凳拉出会占用床尾入口，通行前先收凳。</li>
+          <li><strong>套区：约 900 mm 干内廊。</strong>连接主卧与书房，主卫洗漱如厕干区与玻璃移门淋浴湿区分开；书房独立外门可选。原布局对比、门开关都在“查看设置”。</li>
+          <li><strong>餐厅：横放餐桌，沿墙加餐边柜。</strong>餐边柜 1,800 × 400 mm；模型桌边到柜前约 910 mm，仍需按餐椅实际使用与电器散热复核。</li>
+          <li><strong>两只猫，也要随时走得到。</strong>套区方案的三处猫砂预留在阳台、次卧和书房；食水分开，门窗防逃与跳台固定先落实。</li>
+        </ul></section><section class="home-related"><h2>带着方案，再看这些笔记</h2><p>根据当前方案人工选读 · 沿用资料库原文与出处</p>
+          <button data-open="69d5b6da0000000023004c9a">把生活习惯写成设计需求 ↗<small>人数、动线、设备与空间取舍，逐项聊清楚</small></button>
+          <button data-open="6a756d0600000000280318f0">装修之前，先认识自己 ↗<small>把常住方式与家庭活动放在风格前面</small></button>
+          <button data-open="6a1a292600000000080272aa">第一次到店，带着问题去 ↗<small>确认设计交付、费用边界与施工沟通</small></button>
+          <div class="home-check-link"><p>下一步：核对实测净尺寸、门洞与结构、排水防水，以及方案交付范围。相关沟通事项继续记在原检查清单。</p><button class="primary" data-view="checklist">去检查清单 ↗</button></div>
+        </section></div>
+        <p class="home-limit">本方案为概念模型，不是施工图。结构可改性、排水与防水边界、门窗和现场净尺寸仍待核实；模型可通行不代表施工可行。视线检查仅针对给定视点与床面高度，实际遮影效果需现场确认。</p>
+      </section>
       <aside class="bottom-note"><span data-icon="book"></span><div><b>好经验，也要放回自己的家里判断。</b><p>本站整理博主经验，保留正文或配图核对范围。具体施工参数、结构改动及验收要求，请结合房屋条件与适用规范确认。</p></div></aside>
       <footer><span>住前笔记 <i>·</i> 给理想的家，留一点准备时间。</span><span>为沙耶整理 / 2026.10.23</span></footer>
     </main>
