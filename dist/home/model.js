@@ -5,8 +5,13 @@ let designAPI={},componentActive=true,frame=0,clearOrbitInput=()=>{};
 // geometries live only until the next style change. Mesh anchors never change.
 const finishPresets={
  natural:{woodFloor:'wood',cabinet:'wood',stone:'stone',fabric:'fabric',metal:null,wall:null,art:'art',light:['#fff9e9','#9ba998','#fff0d2','#ffd59a'],day:[1.7,2.15,1.05],night:[.55,.22,1.35]},
- modern:{woodFloor:'stone',cabinet:null,stone:'stone',fabric:'fabric',metal:null,wall:null,art:'art',light:['#f7f8f5','#a3acaf','#fff7eb','#ffe4bd'],day:[1.55,2,1.08],night:[.48,.18,1.45]}
+ modern:{woodFloor:'stone',cabinet:null,stone:'stone',fabric:'fabric',metal:null,wall:null,art:'art',light:['#f7f8f5','#a3acaf','#fff7eb','#ffe4bd'],day:[1.55,2,1.08],night:[.48,.18,1.45]},
+ cream:{woodFloor:'wood',cabinet:null,stone:'stone',fabric:'fabric',metal:null,wall:null,art:'art',light:['#fff6e8','#c9b8a0','#ffe8c8','#ffd4a0'],day:[1.75,2.1,1.1],night:[.58,.2,1.38]},
+ newChinese:{woodFloor:'wood',cabinet:'wood',stone:'stone',fabric:'fabric',metal:null,wall:null,art:'art',light:['#f6efdf','#96958a','#ffe5c2','#ffc887'],day:[1.5,1.85,1.02],night:[.45,.16,1.25]},
+ wabi:{woodFloor:'plaster',cabinet:'wood',stone:'plaster',fabric:'linen',metal:null,wall:'plaster',art:'art',light:['#f1efea','#a29b90','#f4ebdb','#f4d7ae'],day:[1.65,1.55,1.02],night:[.6,.12,1.22]},
+ industrial:{woodFloor:'concrete',cabinet:null,stone:'concrete',fabric:'leather',metal:null,wall:'concrete',art:'art',light:['#e8eff5','#888e94','#e6edf6','#ffbf83'],day:[1.45,1.95,1.04],night:[.38,.15,1.3]}
 };
+const finishSurfaces={natural:[.65,.32,.3,.28,3],modern:[.48,.32,.3,.45,2.7],cream:[.85,.6,.38,.3,2.8],newChinese:[.7,.45,.4,.32,2.6],wabi:[.95,.94,.65,.2,2.4],industrial:[.7,.88,.35,.55,3.1]};
 const finishTextures=new Map(),variantGeometries=new Map();
 let finishEnvironment=null,variantStyle=null;
 function finishRole(color){
@@ -24,16 +29,23 @@ function finishTexture(style,kind){
   if(kind==='stone')v=245-25*Math.pow((1+Math.sin(x*.025+y*.019+2*Math.sin(y*.023)))/2,18)+noise*3;
   if(kind==='fabric')v=231+9*Math.sin(x*Math.PI/2)*Math.sin(y*Math.PI/2)+noise*6;
   if(kind==='art')v=style==='natural'?(Math.sin(x*.012)+Math.cos(y*.014)>.3?145:235):((x>260&&y<350)||(x<170&&y>180)?65:240);
+  if(kind==='plaster'||kind==='concrete')v=233+8*Math.sin(x*.047)*Math.cos(y*.039)+noise*(kind==='concrete'?18:10);
+  if(kind==='linen')v=225+12*Math.sin(x*1.7)*Math.sin(y*1.7)+noise*12;
+  if(kind==='leather')v=230+noise*15+4*Math.sin(x*.12+y*.08);
+  if(kind==='art'&&style==='cream')v=((x-180)**2/220**2+(y-260)**2/170**2<1)?211:248;
+  if(kind==='art'&&style==='newChinese')v=y>320+45*Math.sin(x*.014)?115:y>240+60*Math.sin(x*.009)?185:248;
+  if(kind==='art'&&style==='wabi')v=Math.abs(y-290-12*Math.sin(x*.012))<9&&x>100&&x<410?100:245;
+  if(kind==='art'&&style==='industrial')v=x+y>510&&x-y<160?65:245;
   const i=(y*512+x)*4;pixels.data[i]=pixels.data[i+1]=pixels.data[i+2]=v;pixels.data[i+3]=255;
  }
  ctx.putImageData(pixels,0,0);const t=new THREE.CanvasTexture(canvas);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=2;finishTextures.set(key,t);return t;
 }
 function applyFinish(material,style){
- const role=material.userData.finishRole||'paint',kind=finishPresets[style][role];
+ const role=material.userData.finishRole||'paint',kind=finishPresets[style][role],surface=finishSurfaces[style];
  const map=kind?finishTexture(style,kind):null;
  if(material.map!==map){material.map=map;material.needsUpdate=true;}
- material.roughness=({woodFloor:.72,cabinet:style==='natural'?.65:.48,stone:.32,fabric:.96,metal:.3,wall:.92,art:.9})[role]??material.roughness;
- material.metalness=role==='metal'?.8:0;material.envMapIntensity=style==='modern'?.45:.28;
+ material.roughness=({woodFloor:.72,cabinet:surface[0],stone:surface[1],fabric:style==='industrial'?.65:.96,metal:surface[2],wall:.92,art:.9})[role]??material.roughness;
+ material.metalness=role==='metal'?.8:0;material.envMapIntensity=surface[3];
 }
 function prepareFinishEnvironment(){
  if(finishEnvironment)return;
@@ -50,7 +62,25 @@ function furnitureGeometry(kind,style,size){
  const key=[kind,style,...size].join(':');if(variantGeometries.has(key))return variantGeometries.get(key);
  const parts=[];
  function cube(x,y,z,w,h,d){const g=new THREE.BoxGeometry(w,h,d).toNonIndexed();g.translate(x,y,z);parts.push(g)}
- if(style==='natural'&&['back','headboard'].includes(kind)){
+ function cylinder(top=.5,bottom=.5,segments=16){parts.push(new THREE.CylinderGeometry(top,bottom,1,segments).toNonIndexed())}
+ function soft(){parts.push(new THREE.SphereGeometry(.5,16,8).toNonIndexed())}
+ if(style==='cream'){
+  if(['back','headboard','top','seat','shade'].includes(kind))soft();else cylinder(.42,.5);
+ }else if(style==='newChinese'){
+  if(['back','headboard'].includes(kind)){cube(0,.44,0,1,.12,1);cube(0,-.44,0,1,.12,1);for(let i=0;i<5;i++)cube(-.44+i*.22,0,0,.12,.88,.8)}
+  else if(kind==='shade')cylinder(.28,.5,4);else cube(0,0,0,1,1,1);
+ }else if(style==='wabi'){
+  if(kind==='top'){cylinder(.45,.5,7);parts[0].rotateY(.2)}
+  else if(kind==='shade')cylinder(.46,.5,12);
+  else if(kind==='back'){cube(0,-.12,0,1,.76,1);cube(0,.38,0,.92,.24,.85)}
+  else cube(0,0,0,1,1,1);
+ }else if(style==='industrial'){
+  if(kind==='headboard'){for(const y of [-.27,.27])cube(0,y,0,1,.46,1)}
+  else if(kind==='leg'){cube(0,0,0,.32,1,.32);cube(0,-.45,0,1,.1,1)}
+  else if(kind==='shade')cylinder(.3,.5,12);
+  else if(kind==='top'){cube(0,.15,0,1,.7,1);for(const x of [-.42,.42])cube(x,-.35,0,.16,.3,.8)}
+  else cube(0,0,0,1,1,1);
+ }else if(style==='natural'&&['back','headboard'].includes(kind)){
   cube(0,-.44,0,1,.12,1);cube(0,.44,0,1,.12,1);
   for(let i=0;i<7;i++)cube(-.45+i*.15,0,0,.1,.88,.72);
  }else if(style==='modern'&&kind==='back'){
@@ -58,12 +88,12 @@ function furnitureGeometry(kind,style,size){
  }else if(style==='modern'&&kind==='headboard'){
   for(const x of [-.255,.255])cube(x,0,0,.49,1,1);
  }else if(style==='natural'&&['top','shade','seat'].includes(kind)){
-  const g=new THREE.CylinderGeometry(.5,kind==='shade'?.35:.5,1,16).toNonIndexed();parts.push(g);
+  cylinder(.5,kind==='shade'?.35:.5,16);
  }else if(style==='modern'&&kind==='leg'){
   cube(0,0,0,1,1,.32);cube(0,-.45,0,1,.1,1);
  }else cube(0,0,0,1,1,1);
  const g=new THREE.BufferGeometry();for(const name of ['position','normal','uv']){const data=[];for(const p of parts)data.push(...p.getAttribute(name).array);g.setAttribute(name,new THREE.Float32BufferAttribute(data,name==='uv'?2:3))}
- for(const p of parts)p.dispose();g.scale(...size);g.computeBoundingBox();variantGeometries.set(key,g);return g;
+ for(const p of parts)p.dispose();g.computeBoundingBox();const extent=g.boundingBox.getSize(new THREE.Vector3()),center=g.boundingBox.getCenter(new THREE.Vector3());g.translate(-center.x,-center.y,-center.z);g.scale(size[0]/extent.x,size[1]/extent.y,size[2]/extent.z);g.computeBoundingBox();variantGeometries.set(key,g);return g;
 }
 function swapFurniture(style){
  if(variantStyle!==style){for(const g of variantGeometries.values())g.dispose();variantGeometries.clear();variantStyle=style}
@@ -77,14 +107,14 @@ function swapFurniture(style){
 function syncFinishLighting(){
  const p=finishPresets[currentStyle],values=night?p.night:p.day;
  ambient.color.set(p.light[0]);ambient.groundColor.set(p.light[1]);sun.color.set(p.light[2]);ambient.intensity=values[0];sun.intensity=values[1];renderer.toneMappingExposure=values[2];nightLights.visible=night;
- nightLights.children.forEach(l=>{l.color.set(p.light[3]);l.intensity=currentStyle==='modern'?2.7:3});
+ nightLights.children.forEach(l=>{l.color.set(p.light[3]);l.intensity=finishSurfaces[currentStyle][4]});
 }
 function disposeFinishResources(){for(const t of finishTextures.values())t.dispose();finishTextures.clear();for(const g of variantGeometries.values())g.dispose();variantGeometries.clear();finishEnvironment?.dispose();finishEnvironment=null;}
 
-// Two finish schemes share exactly the same architecture, furniture positions and circulation.
+// Six finish schemes share exactly the same architecture, furniture positions and circulation.
 let currentStyle='natural',styleMaterials=[],naturalOnly=[],modernDetails=null,modernCeiling=null;
 let naturalCopy=null;
-const styleNames={natural:'原木自然风',modern:'现代简约风'};
+const styleNames={natural:'原木自然风',modern:'现代简约风',cream:'奶油风',newChinese:'新中式',wabi:'侘寂风',industrial:'工业风'};
 const modernColors={
  '#d5bf9e':'#d5d5d1','#d9c7a9':'#d4d4d1','#d8c5a6':'#d4d4d1','#dac8a9':'#d4d4d1','#d8c3a2':'#d4d4d1','#d5c09f':'#d5d5d1','#d8c3a3':'#d5d5d1',
  '#cfcec0':'#c9cccb','#d3d0c2':'#d4d6d4','#d4d2c6':'#c9cccb','#c9cec2':'#ced1d0','#cccdbd':'#c7cac9','#bbbfb3':'#b5b9b7',
@@ -99,6 +129,11 @@ const modernColors={
  '#b8a37f':'#d4d8d5','#b89a70':'#949a97','#b5aa87':'#aaa99d','#c5b58d':'#b5b2a3','#b6ad95':'#9da4a0','#d8c7a6':'#c6c2b3','#c5c6ae':'#c0c5be','#bdad87':'#969e9b','#b8a482':'#a3aaa5',
  '#65705e':'#30383a','#f1e6cf':'#eaeae3','#ac9270':'#343b3d','#e6dbc0':'#e7e8e2','#f3e6c7':'#eae9e1','#9a875e':'#4e575a'
 };
+const stylePalettes={"cream":["#f7f1e6","#e6d5b8","#efe6d6","#e4d8c4","#c4a882","#cfc6b8","#eee5d8"],"newChinese":["#f3efe6","#8b6b4a","#6e5340","#9aa090","#8a6f4e","#d8d2c4","#c6bfae"],"wabi":["#e4ddd2","#b59a78","#cfc6b6","#b8ada0","#6a6056","#ddd6cb","#d2cbc0"],"industrial":["#c5c4c0","#6d6a64","#3a3d40","#5c5f62","#2a2d30","#8a6a4e","#a5a39e"]};
+const styleDescriptions={"natural":"温暖原木 / 奶油白 / 低饱和绿","modern":"参考图同款气质 · 黑白灰 / 平整柜门 / 线性暖光","cream":"奶白燕麦 / 圆润软包 / 约 3000K 暖光","newChinese":"米白深木 / 对称竖格 / 水墨与沉稳暖光","wabi":"灰泥大地色 / 朴素低矮 / 柔和自然光","industrial":"水泥黑铁 / 厚板金属 / 冷灰日光与暖橙夜灯"};
+const styleSwatches={"cream":["奶白哑光墙柜","雾面浅木地板","燕麦棉麻软包","暖灰石材","细香槟金属"],"newChinese":["米白留白墙","中深木地板","灰绿棉麻与深木柜","淡灰石材","暗铜五金"],"wabi":["矿物灰泥墙","风化木与微水泥地面","粗麻与亚麻灰柜","哑光微水泥","黑褐金属与陶器"],"industrial":["水泥灰墙","深灰水泥地面","深灰皮革与炭黑柜","粗粝水泥厚板","黑铁框架"]};
+const styleColorMaps={natural:{},modern:modernColors};
+for(const [id,palette] of Object.entries(stylePalettes)){const roles=['wall','woodFloor','cabinet','fabric','metal','art','stone'];styleColorMaps[id]={};for(const color of Object.keys(modernColors))styleColorMaps[id][color]=palette[Math.max(0,roles.indexOf(finishRole(color)))];}
 const modernRoomOverrides={
  living:{desc:'沿用原客厅布局，以炭黑直排沙发搭配浅灰地面与米白地毯。电视柜改为深灰色，黑色几何落地灯与局部线性灯带呼应参考图；保留可替换猫墙模块，不因追求整洁而减少猫咪活动空间。',tags:['炭黑沙发','深灰电视柜','局部线性灯光'],facts:{'氛围与收纳':'白色墙面、浅灰大规格铺地示意、米白织物；深灰电视柜下设灯带。黑色沙发表面仅为视觉示意，实际选材先测试耐抓、易洁与触感。'}},
  kitchen:{desc:'保留原厨房的冰箱—水槽—备餐—灶具关系。柜门由灰绿切换为烟灰色，浅灰白台面搭配深色五金与玻璃分隔，呼应参考图的现代简约气质；不增加岛台，也不改变原有厨卫位置。',tags:['烟灰柜门','浅色台面','深色框线']},
@@ -108,7 +143,7 @@ const modernRoomOverrides={
  guest:{tags:['灰色软包','暖白衣柜','客卧保留']}
 };
 function styledRoom(id){const base=rooms[id],patch=currentStyle==='modern'?(modernRoomOverrides[id]||{}):{};const result={...base,...patch,facts:base.facts.map(([key,value])=>[key,patch.facts?.[key]||value])};return layoutMode==='suite'?suiteRoomCopy(id,result):result}
-function updateFloorSelection(){for(const m of pickFloors){const base=currentStyle==='modern'?(modernColors[m.userData.color]||m.userData.color):m.userData.color;m.material.color.set(m.userData.room===selected?(currentStyle==='modern'?'#b6c7cc':'#d5d9b8'):base)}}
+function updateFloorSelection(){for(const m of pickFloors){const base=styleColorMaps[currentStyle][m.userData.color]||m.userData.color;m.material.color.set(m.userData.room===selected?(currentStyle==='modern'?'#b6c7cc':'#d5d9b8'):base)}}
 function prepareStyleModel(){
  prepareFinishEnvironment();
  const seen=new Set();home.traverse(obj=>{for(const material of (Array.isArray(obj.material)?obj.material:obj.material?[obj.material]:[])){if(!material.color||seen.has(material))continue;seen.add(material);styleMaterials.push({material,color:'#'+material.color.getHexString(),roughness:material.roughness,metalness:material.metalness})}if(obj.userData.naturalOnly)naturalOnly.push(obj)});
@@ -134,9 +169,15 @@ function applyStyle(id,notify=false){
  $('#materials .section-head h2').textContent='克制的黑白，有温度的灰。';$('#materials .section-head>p').innerHTML='借鉴你提供的参考图：浅色柜门、深色软装与线性灯光。<br>保留本户型尺度，吊顶与灯带仅为概念示意。';
  const data=[['cream','01 / 暖白哑光','墙顶与平整柜门 · 明亮留白'],['wood','02 / 浅灰石纹','干区地面 · 大规格铺地示意'],['green','03 / 炭黑与烟灰','沙发、餐椅与厨房柜门'],['stone','04 / 米白织物','地毯与床品 · 柔化黑白对比'],['metal','05 / 深色金属','窗框、几何灯与细线条']];
  $('#materials .swatches').innerHTML=data.map(([c,t,d])=>`<div class="material-item"><div class="swatch ${c}"></div><h4>${t}</h4><p>${d}</p></div>`).join('');
+ }else if(stylePalettes[id]){
+ const palette=stylePalettes[id];
+
+ $('.note-float h3').textContent=styleNames[id]+'，住进喜欢的日常。';$('.note-float>p').textContent=styleDescriptions[id];
+ $('#materials .section-head h2').textContent=styleNames[id]+' · 色彩与触感';$('#materials .section-head>p').textContent=styleDescriptions[id];
+ $('#materials .swatches').innerHTML=styleSwatches[id].map((t,i)=>`<div class="material-item"><div class="swatch" style="background:${palette[[0,1,3,6,4][i]]}"></div><h4>0${i+1} / ${t}</h4><p>${['墙面与柜体基调','地面主材','家具与软装','台面与茶几','灯具与五金'][i]}</p></div>`).join('');
  }else for(const [s,html] of Object.entries(naturalCopy))$(s).innerHTML=html;
- $('#style-description').textContent=id==='modern'?'参考图同款气质 · 黑白灰 / 平整柜门 / 线性暖光':'温暖原木 / 奶油白 / 低饱和绿';
- if(activeModel){for(const {material,color,roughness,metalness} of styleMaterials){material.color.set(id==='modern'?(modernColors[color]||color):color);material.roughness=roughness;material.metalness=metalness;if(id==='modern'&&['#cacdb8','#dadcc8','#dedfcc','#e8e8d5'].includes(color))material.roughness=.48;applyFinish(material,id)}for(const obj of naturalOnly)obj.visible=id==='natural';swapFurniture(id);updateFloorSelection();syncModernLighting();if(clearanceGroup)updateClearances()}
+ $('#style-description').textContent=styleDescriptions[id];
+ if(activeModel){for(const {material,color,roughness,metalness} of styleMaterials){material.color.set(styleColorMaps[id][color]||color);material.roughness=roughness;material.metalness=metalness;applyFinish(material,id)}for(const obj of naturalOnly)obj.visible=id==='natural';swapFurniture(id);updateFloorSelection();syncModernLighting();if(clearanceGroup)updateClearances()}
  fillDetail(selected);if(walkMode){refreshWalkCaption();refreshWalkGeometry();}if(privacyView){$('#camera-caption').textContent='视线对比 / '+privacyViews[privacyView].name;refreshPrivacyStatus()}dirty=true;if(notify)toast('已切换为'+styleNames[id]+'，当前视角与房间布局保持一致');
 }
 function setupStyles(){if(activeModel)prepareStyleModel();root.querySelectorAll('[data-style-choice]').forEach(b=>b.onclick=()=>applyStyle(b.dataset.styleChoice,true));$('#style-reference-btn').onclick=()=>$('#style-dialog').showModal();$('#close-style-dialog').onclick=()=>$('#style-dialog').close();$('#style-dialog').addEventListener('click',e=>{if(e.target===$('#style-dialog'))$('#style-dialog').close()});applyStyle('modern')}

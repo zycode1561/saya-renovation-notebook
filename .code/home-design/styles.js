@@ -1,7 +1,7 @@
-// Two finish schemes share exactly the same architecture, furniture positions and circulation.
+// Six finish schemes share exactly the same architecture, furniture positions and circulation.
 let currentStyle='natural',styleMaterials=[],naturalOnly=[],modernDetails=null,modernCeiling=null;
 let naturalCopy=null;
-const styleNames={natural:'原木自然风',modern:'现代简约风'};
+const styleNames={natural:'原木自然风',modern:'现代简约风',cream:'奶油风',newChinese:'新中式',wabi:'侘寂风',industrial:'工业风'};
 const modernColors={
  '#d5bf9e':'#d5d5d1','#d9c7a9':'#d4d4d1','#d8c5a6':'#d4d4d1','#dac8a9':'#d4d4d1','#d8c3a2':'#d4d4d1','#d5c09f':'#d5d5d1','#d8c3a3':'#d5d5d1',
  '#cfcec0':'#c9cccb','#d3d0c2':'#d4d6d4','#d4d2c6':'#c9cccb','#c9cec2':'#ced1d0','#cccdbd':'#c7cac9','#bbbfb3':'#b5b9b7',
@@ -16,6 +16,11 @@ const modernColors={
  '#b8a37f':'#d4d8d5','#b89a70':'#949a97','#b5aa87':'#aaa99d','#c5b58d':'#b5b2a3','#b6ad95':'#9da4a0','#d8c7a6':'#c6c2b3','#c5c6ae':'#c0c5be','#bdad87':'#969e9b','#b8a482':'#a3aaa5',
  '#65705e':'#30383a','#f1e6cf':'#eaeae3','#ac9270':'#343b3d','#e6dbc0':'#e7e8e2','#f3e6c7':'#eae9e1','#9a875e':'#4e575a'
 };
+const stylePalettes={"cream":["#f7f1e6","#e6d5b8","#efe6d6","#e4d8c4","#c4a882","#cfc6b8","#eee5d8"],"newChinese":["#f3efe6","#8b6b4a","#6e5340","#9aa090","#8a6f4e","#d8d2c4","#c6bfae"],"wabi":["#e4ddd2","#b59a78","#cfc6b6","#b8ada0","#6a6056","#ddd6cb","#d2cbc0"],"industrial":["#c5c4c0","#6d6a64","#3a3d40","#5c5f62","#2a2d30","#8a6a4e","#a5a39e"]};
+const styleDescriptions={"natural":"温暖原木 / 奶油白 / 低饱和绿","modern":"参考图同款气质 · 黑白灰 / 平整柜门 / 线性暖光","cream":"奶白燕麦 / 圆润软包 / 约 3000K 暖光","newChinese":"米白深木 / 对称竖格 / 水墨与沉稳暖光","wabi":"灰泥大地色 / 朴素低矮 / 柔和自然光","industrial":"水泥黑铁 / 厚板金属 / 冷灰日光与暖橙夜灯"};
+const styleSwatches={"cream":["奶白哑光墙柜","雾面浅木地板","燕麦棉麻软包","暖灰石材","细香槟金属"],"newChinese":["米白留白墙","中深木地板","灰绿棉麻与深木柜","淡灰石材","暗铜五金"],"wabi":["矿物灰泥墙","风化木与微水泥地面","粗麻与亚麻灰柜","哑光微水泥","黑褐金属与陶器"],"industrial":["水泥灰墙","深灰水泥地面","深灰皮革与炭黑柜","粗粝水泥厚板","黑铁框架"]};
+const styleColorMaps={natural:{},modern:modernColors};
+for(const [id,palette] of Object.entries(stylePalettes)){const roles=['wall','woodFloor','cabinet','fabric','metal','art','stone'];styleColorMaps[id]={};for(const color of Object.keys(modernColors))styleColorMaps[id][color]=palette[Math.max(0,roles.indexOf(finishRole(color)))];}
 const modernRoomOverrides={
  living:{desc:'沿用原客厅布局，以炭黑直排沙发搭配浅灰地面与米白地毯。电视柜改为深灰色，黑色几何落地灯与局部线性灯带呼应参考图；保留可替换猫墙模块，不因追求整洁而减少猫咪活动空间。',tags:['炭黑沙发','深灰电视柜','局部线性灯光'],facts:{'氛围与收纳':'白色墙面、浅灰大规格铺地示意、米白织物；深灰电视柜下设灯带。黑色沙发表面仅为视觉示意，实际选材先测试耐抓、易洁与触感。'}},
  kitchen:{desc:'保留原厨房的冰箱—水槽—备餐—灶具关系。柜门由灰绿切换为烟灰色，浅灰白台面搭配深色五金与玻璃分隔，呼应参考图的现代简约气质；不增加岛台，也不改变原有厨卫位置。',tags:['烟灰柜门','浅色台面','深色框线']},
@@ -25,7 +30,7 @@ const modernRoomOverrides={
  guest:{tags:['灰色软包','暖白衣柜','客卧保留']}
 };
 function styledRoom(id){const base=rooms[id],patch=currentStyle==='modern'?(modernRoomOverrides[id]||{}):{};const result={...base,...patch,facts:base.facts.map(([key,value])=>[key,patch.facts?.[key]||value])};return layoutMode==='suite'?suiteRoomCopy(id,result):result}
-function updateFloorSelection(){for(const m of pickFloors){const base=currentStyle==='modern'?(modernColors[m.userData.color]||m.userData.color):m.userData.color;m.material.color.set(m.userData.room===selected?(currentStyle==='modern'?'#b6c7cc':'#d5d9b8'):base)}}
+function updateFloorSelection(){for(const m of pickFloors){const base=styleColorMaps[currentStyle][m.userData.color]||m.userData.color;m.material.color.set(m.userData.room===selected?(currentStyle==='modern'?'#b6c7cc':'#d5d9b8'):base)}}
 function prepareStyleModel(){
  prepareFinishEnvironment();
  const seen=new Set();home.traverse(obj=>{for(const material of (Array.isArray(obj.material)?obj.material:obj.material?[obj.material]:[])){if(!material.color||seen.has(material))continue;seen.add(material);styleMaterials.push({material,color:'#'+material.color.getHexString(),roughness:material.roughness,metalness:material.metalness})}if(obj.userData.naturalOnly)naturalOnly.push(obj)});
@@ -51,9 +56,15 @@ function applyStyle(id,notify=false){
  $('#materials .section-head h2').textContent='克制的黑白，有温度的灰。';$('#materials .section-head>p').innerHTML='借鉴你提供的参考图：浅色柜门、深色软装与线性灯光。<br>保留本户型尺度，吊顶与灯带仅为概念示意。';
  const data=[['cream','01 / 暖白哑光','墙顶与平整柜门 · 明亮留白'],['wood','02 / 浅灰石纹','干区地面 · 大规格铺地示意'],['green','03 / 炭黑与烟灰','沙发、餐椅与厨房柜门'],['stone','04 / 米白织物','地毯与床品 · 柔化黑白对比'],['metal','05 / 深色金属','窗框、几何灯与细线条']];
  $('#materials .swatches').innerHTML=data.map(([c,t,d])=>`<div class="material-item"><div class="swatch ${c}"></div><h4>${t}</h4><p>${d}</p></div>`).join('');
+ }else if(stylePalettes[id]){
+ const palette=stylePalettes[id];
+ $('.intro>div>p').textContent='为沙耶定制的'+styleNames[id]+'住宅提案 · '+styleDescriptions[id];
+ $('.note-float h3').textContent=styleNames[id]+'，住进喜欢的日常。';$('.note-float>p').textContent=styleDescriptions[id];
+ $('#materials .section-head h2').textContent=styleNames[id]+' · 色彩与触感';$('#materials .section-head>p').textContent=styleDescriptions[id];
+ $('#materials .swatches').innerHTML=styleSwatches[id].map((t,i)=>`<div class="material-item"><div class="swatch" style="background:${palette[[0,1,3,6,4][i]]}"></div><h4>0${i+1} / ${t}</h4><p>${['墙面与柜体基调','地面主材','家具与软装','台面与茶几','灯具与五金'][i]}</p></div>`).join('');
  }else for(const [s,html] of Object.entries(naturalCopy))$(s).innerHTML=html;
- $('#style-description').textContent=id==='modern'?'参考图同款气质 · 黑白灰 / 平整柜门 / 线性暖光':'温暖原木 / 奶油白 / 低饱和绿';
- if(activeModel){for(const {material,color,roughness,metalness} of styleMaterials){material.color.set(id==='modern'?(modernColors[color]||color):color);material.roughness=roughness;material.metalness=metalness;if(id==='modern'&&['#cacdb8','#dadcc8','#dedfcc','#e8e8d5'].includes(color))material.roughness=.48;applyFinish(material,id)}for(const obj of naturalOnly)obj.visible=id==='natural';swapFurniture(id);updateFloorSelection();syncModernLighting();if(clearanceGroup)updateClearances()}
+ $('#style-description').textContent=styleDescriptions[id];
+ if(activeModel){for(const {material,color,roughness,metalness} of styleMaterials){material.color.set(styleColorMaps[id][color]||color);material.roughness=roughness;material.metalness=metalness;applyFinish(material,id)}for(const obj of naturalOnly)obj.visible=id==='natural';swapFurniture(id);updateFloorSelection();syncModernLighting();if(clearanceGroup)updateClearances()}
  fillDetail(selected);if(walkMode){refreshWalkCaption();refreshWalkGeometry();}if(privacyView){$('#camera-caption').textContent='视线对比 / '+privacyViews[privacyView].name;refreshPrivacyStatus()}dirty=true;if(notify)toast('已切换为'+styleNames[id]+'，当前视角与房间布局保持一致');
 }
 function setupStyles(){if(activeModel)prepareStyleModel();document.querySelectorAll('[data-style-choice]').forEach(b=>b.onclick=()=>applyStyle(b.dataset.styleChoice,true));$('#style-reference-btn').onclick=()=>$('#style-dialog').showModal();$('#close-style-dialog').onclick=()=>$('#style-dialog').close();$('#style-dialog').addEventListener('click',e=>{if(e.target===$('#style-dialog'))$('#style-dialog').close()});applyStyle('modern')}
