@@ -211,3 +211,27 @@ footer{font-size:10px;color:#a2a5ac;padding:24px 0;}
 @media(max-width:540px){.cover-image-count{bottom:10px;right:9px;font-size:8px;background:#ffffffa8;}.cover-footer{max-width:100%;}.cover-credit{max-width:calc(100% - 55px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}#article-dialog .note-table{font-size:12px;line-height:1.8;}#article-dialog .note-table th,#article-dialog .note-table td{padding:10px 7px;}#article-dialog .note-table caption{font-size:13px;}#article-dialog .note-table-explanation{font-size:11px;}#article-dialog .section-origin{font-size:10px;}}
 
 @media(max-width:540px){.sort-control{gap:5px;}.sort-trigger{min-height:28px;font-size:11px;padding:4px 6px 4px 8px;gap:6px;}.sort-options{width:112px;}.sort-option{min-height:32px;font-size:11px;padding:6px 7px;}}
+
+/* 随手记录表单与本人笔记标记。 */
+.library-tools{flex-wrap:wrap}
+.add-note{min-height:44px;white-space:nowrap}
+.my-note-tag{display:inline-flex;padding:3px 9px;border-radius:20px;background:#f6e5d4;color:#825331;font-size:12px;font-weight:600}
+#user-note-dialog{width:min(620px,calc(100vw - 24px));max-height:calc(100dvh - 24px);padding:0;border:1px solid #e7ded4;border-radius:20px;background:#fffcf8;color:#403c36;overflow:auto;overscroll-behavior:contain}
+#user-note-dialog::backdrop{background:rgba(40,33,26,.4)}
+#user-note-form{padding:24px;display:grid;gap:18px}
+.user-note-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.user-note-heading h2{margin:0;font-size:24px}
+#user-note-fields{display:grid;gap:16px;border:0;padding:0;margin:0;min-width:0}
+#user-note-fields[hidden],#user-note-form [hidden]{display:none}
+#user-note-form label{display:grid;gap:8px;font-size:14px;font-weight:600}
+#user-note-form input,#user-note-form textarea,#user-note-form select{box-sizing:border-box;width:100%;min-width:0;min-height:46px;padding:12px;border:1px solid #d9cdbf;border-radius:10px;background:#fff;color:inherit;font:inherit;font-size:16px}
+#user-note-form textarea{resize:vertical;line-height:1.7}
+.user-note-selects{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.user-note-token{padding:16px;background:#f5eee6;border-radius:12px;overflow-wrap:anywhere}
+.user-note-token p{font-size:13px;line-height:1.8;margin:10px 0 0}
+#user-note-form button{min-height:44px}
+#submit-user-note{position:sticky;bottom:0;width:100%;box-shadow:0 0 0 8px #fffcf8}
+#user-note-error{margin:0;color:#934322;line-height:1.6}
+#user-note-form button:disabled{opacity:.6;cursor:wait}
+.reader-point-copy p{white-space:pre-line}
+@media(max-width:600px){#user-note-form{padding:18px}.add-note{width:100%}#user-note-dialog{border-radius:14px}.dialog-actions{flex-wrap:wrap}}

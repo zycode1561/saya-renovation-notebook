@@ -13,7 +13,7 @@ function readStorage(key,fallback){try{return JSON.parse(localStorage.getItem(ke
 function writeStorage(key,data){try{localStorage.setItem(key,JSON.stringify(data));}catch{storageAvailable=false;}}
 const knownIds=new Set(notes.map(n=>n.id));
 const storedSaved=readStorage('saya-renovation-saved-v1',[]);
-const saved=new Set(Array.isArray(storedSaved)?storedSaved.filter(id=>knownIds.has(id)):[]);
+const saved=new Set(Array.isArray(storedSaved)?storedSaved.filter(id=>knownIds.has(id)||(typeof id==='string'&&id.startsWith('user-'))):[]);
 const storedChecks=readStorage('saya-renovation-checks-v1',[]);
 const checked=new Set(Array.isArray(storedChecks)?storedChecks:[]);
 const state={view:'library',stage:'预算',type:'all',query:'',sort:'recommended',opened:null,imagesOnly:false,imageNote:null,imageIndex:0};
@@ -40,8 +40,8 @@ const coverCopy={
 };
 function mediaPreview(n,s){
  if(coverCopy[n.id]||!n.images?.length){
-  const cover=coverCopy[n.id]||{tone:'sand',label:'RENOVATION NOTES',lines:[n.title],footer:s?.title||'装修笔记'};
-  return `<button class="note-cover cover-${escapeHTML(cover.tone)}" data-open="${escapeHTML(n.id)}" aria-label="阅读笔记：${escapeHTML(n.title)}"><span class="cover-label">${escapeHTML(cover.label)}</span><span class="cover-title">${cover.lines.map(escapeHTML).join('<br>')}</span><span class="cover-rule" aria-hidden="true"></span><span class="cover-footer">${escapeHTML(cover.footer)}</span><span class="cover-credit">整理封面 · ${n.expandedAt?'图文详解':'正文笔记'}</span>${n.images?.length?`<span class="cover-image-count">${n.images.length} 张配图</span>`:''}</button>`;
+  const cover=coverCopy[n.id]||{tone:'sand',label:n.userNote?'我的装修记录':'RENOVATION NOTES',lines:[n.title],footer:s?.title||'装修笔记'};
+  return `<button class="note-cover cover-${escapeHTML(cover.tone)}" data-open="${escapeHTML(n.id)}" aria-label="阅读笔记：${escapeHTML(n.title)}"><span class="cover-label">${escapeHTML(cover.label)}</span><span class="cover-title">${cover.lines.map(escapeHTML).join('<br>')}</span><span class="cover-rule" aria-hidden="true"></span><span class="cover-footer">${escapeHTML(cover.footer)}</span><span class="cover-credit">${n.userNote?'本人记录':`整理封面 · ${n.expandedAt?'图文详解':'正文笔记'}`}</span>${n.images?.length?`<span class="cover-image-count">${n.images.length} 张配图</span>`:''}</button>`;
  }
  return `<button class="card-photo" data-open="${escapeHTML(n.id)}" aria-label="阅读笔记：${escapeHTML(n.title)}，含${n.images.length}张原帖配图"><img src="${escapeHTML(n.images[0].src)}" alt="${escapeHTML(n.images[0].alt)}" loading="lazy" decoding="async"><span class="photo-badge">${n.images.length} 张配图</span></button>`;
 }
@@ -50,6 +50,7 @@ function inlineImages(n,images){
 }
 function noteGallery(n){return '';}
 function coverageLabel(n){
+ if(n.userNote)return '本人记录';
  if(!n.coverage)return n.evidence.includes('配图')||n.evidence.includes('拼图')?'正文 / 配图已核对':'正文已核对';
  const c=n.coverage;
  if(c.mode==='body-only')return '正文已读 · 配图未核对';
@@ -97,6 +98,7 @@ function readerContents(n){
  return `<details class="reader-toc" id="reader-toc"><summary><span>本篇目录</span><small>${n.sections.length} 个主题</small></summary><nav aria-label="本篇主题目录">${n.sections.map((section,i)=>`<button data-note-jump="note-section-${i+1}"><span>${String(i+1).padStart(2,'0')}</span>${escapeHTML(section.title)}</button>`).join('')}</nav></details>`;
 }
 function coveragePanel(n){
+ if(n.userNote)return `<section class="reader-source note-source-end" aria-label="来源说明"><h3>本人记录</h3><p>沙耶 · ${escapeHTML(n.date)}</p>${n.url?`<p><a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">打开来源链接 ↗</a></p>`:''}<p>${escapeHTML(n.limits)}</p></section>`;
  const c=n.coverage;
  return `<section class="reader-source note-source-end" aria-label="来源说明"><h3>来源说明</h3><p>小红书 · ${escapeHTML(n.author)} · ${escapeHTML(n.date)}</p><p>原帖：<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(n.originalTitle||n.title)} ↗</a></p><p>${n.images?.length?(n.expandedAt?'配图按原帖顺序保留，含原作者收集的参考图及署名；原帖整理、本站建议与核算分区标注。':'配图来自原作者，保留原图与水印；文字为整理笔记。'):'文字为本站根据原帖正文整理的摘要；本次未收录配图。'}</p>${c?`<p>${escapeHTML(coverageLabel(n))}。${escapeHTML(c.note||'')}</p>`:''}<p>${escapeHTML(n.evidence)} · 核对日期：${escapeHTML(n.checkedAt||'2026-10-22')}</p>${n.limits?`<p>${escapeHTML(n.limits)}</p>`:''}</section>`;
 }
@@ -106,7 +108,7 @@ function scrollReaderTo(id){
 }
 function card(n){
  const s=stageFor(n.stage);const isSaved=saved.has(n.id);
- return `<article class="article-card" data-note="${escapeHTML(n.id)}">${mediaPreview(n,s)}<div class="card-body"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(s?.title)}</span></div><h3 class="card-title"><button class="title-button" data-open="${escapeHTML(n.id)}">${escapeHTML(n.title)}</button></h3><p class="card-summary">${escapeHTML(n.summary)}</p><div class="card-tags">${n.tags.map(t=>`<span># ${escapeHTML(t)}</span>`).join('')}</div><div class="card-bottom"><span class="author-dot">${escapeHTML(n.author.slice(0,1))}</span><span class="author-name" title="${escapeHTML(n.author)}">${escapeHTML(n.author)}</span><time class="card-date" datetime="${n.date}">${n.date.slice(5).replace('-','.')}</time><button class="bookmark-button ${isSaved?'saved':''}" data-save="${escapeHTML(n.id)}" aria-label="${isSaved?'取消收藏':'收藏'}：${escapeHTML(n.title)}" aria-pressed="${isSaved}">${icon('bookmark')}</button></div></div><div class="card-source-row"><span>${escapeHTML(coverageLabel(n))}</span><a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看原帖 ↗</a></div></article>`;
+ return `<article class="article-card" data-note="${escapeHTML(n.id)}">${mediaPreview(n,s)}<div class="card-body"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(s?.title)}</span>${n.userNote?'<span class="my-note-tag">我的</span>':''}</div><h3 class="card-title"><button class="title-button" data-open="${escapeHTML(n.id)}">${escapeHTML(n.title)}</button></h3><p class="card-summary">${escapeHTML(n.summary)}</p><div class="card-tags">${n.tags.map(t=>`<span># ${escapeHTML(t)}</span>`).join('')}</div><div class="card-bottom"><span class="author-dot">${escapeHTML(n.author.slice(0,1))}</span><span class="author-name" title="${escapeHTML(n.author)}">${escapeHTML(n.author)}</span><time class="card-date" datetime="${n.date}">${n.date.slice(5).replace('-','.')}</time><button class="bookmark-button ${isSaved?'saved':''}" data-save="${escapeHTML(n.id)}" aria-label="${isSaved?'取消收藏':'收藏'}：${escapeHTML(n.title)}" aria-pressed="${isSaved}">${icon('bookmark')}</button></div></div><div class="card-source-row"><span>${escapeHTML(coverageLabel(n))}</span>${n.url?`<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${n.userNote?'打开来源链接':'查看原帖'} ↗</a>`:''}</div></article>`;
 }
 function renderLibrary(){
  const result=visibleNotes();const isSaved=state.view==='saved';
@@ -131,7 +133,7 @@ function syncHomeWorkspace(){
  if(homeController){homeController.setActive(state.view==='home');return;}
  if(state.view!=='home'||homeLoading)return;
  const status=$('home-load-status');status.hidden=false;status.innerHTML='<p>正在打开我家的方案…</p>';
- homeLoading=import('./home-workspace.js?v=home-20261027e').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
+ homeLoading=import('./home-workspace.js?v=home-20261027f').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
   homeController=controller;controller.setActive(state.view==='home');status.hidden=true;
  }).catch(error=>{
   console.error('Home workspace:',error);status.innerHTML='<p>方案暂时没能加载，笔记和清单仍可使用。</p><button class="primary" id="home-retry">重新加载方案</button>';
@@ -193,7 +195,7 @@ function showNote(id){
  const n=byId(id);if(!n)return;state.opened=id;
  const count=n.sections?.reduce((sum,section)=>sum+section.items.length,0)||n.points.length;
  const tableCount=n.sections?.reduce((sum,section)=>sum+(section.tables?.length||0),0)||0;
- $('dialog-content').innerHTML=`<article class="reader-document"><header class="reader-heading"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span></div><h2 id="dialog-title" tabindex="-1" autofocus>${escapeHTML(n.title)}</h2><div class="reader-stats"><span>${count} 条要点</span><span>${n.images?.length||0} 张配图</span>${tableCount?`<span>${tableCount} 组对照表</span>`:''}</div><p class="dialog-intro">${escapeHTML(n.summary)}</p></header>${readerContents(n)}${detailedSummary(n)}<div class="dialog-actions"><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button><a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">查看小红书原帖 ↗</a></div>${coveragePanel(n)}</article>`;
+ $('dialog-content').innerHTML=`<article class="reader-document"><header class="reader-heading"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span>${n.userNote?'<span class="my-note-tag">我的</span>':''}</div><h2 id="dialog-title" tabindex="-1" autofocus>${escapeHTML(n.title)}</h2><div class="reader-stats"><span>${count} 条要点</span><span>${n.images?.length||0} 张配图</span>${tableCount?`<span>${tableCount} 组对照表</span>`:''}</div><p class="dialog-intro">${escapeHTML(n.summary)}</p></header>${readerContents(n)}${detailedSummary(n)}<div class="dialog-actions"><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button>${n.url?`<a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${n.userNote?'打开来源链接':'查看小红书原帖'} ↗</a>`:''}${n.userNote?`<button class="secondary" data-delete-note="${escapeHTML(n.id)}">删除这条</button>`:''}</div>${coveragePanel(n)}</article>`;
  $('reader-contents-button').hidden=!n.sections?.length;$('reader-contents-button').setAttribute('aria-expanded','false');$('reader-gallery-button').hidden=!n.images?.length;if(n.images?.length)$('reader-gallery-button').dataset.noteJump=`note-image-${n.images[0].sourceIndex||1}`;
  updateDialogSave(id);openModal($('article-dialog'));$('dialog-content').scrollTo({top:0,left:0,behavior:'instant'});
 }
@@ -290,6 +292,7 @@ document.addEventListener('click',event=>{
  if(target.dataset.stage)setStage(target.dataset.stage);
  if(target.dataset.type){state.type=target.dataset.type;renderLibrary();}
  if(target.dataset.open)showNote(target.dataset.open);
+ if(target.dataset.deleteNote){const note=byId(target.dataset.deleteNote);if(note?.userNote&&window.confirm('确定删除这条笔记吗？所有设备都会同步删除。'))openUserNoteForm(note);}
  if(target.dataset.save)toggleSaved(target.dataset.save);
  if(target.dataset.image)showImage(target.dataset.image,Number(target.dataset.imageIndex)||0);
  if(target.hasAttribute('data-images-filter')){state.imagesOnly=!state.imagesOnly;renderStages();renderLibrary();}
@@ -318,6 +321,72 @@ $('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageS
 $('article-dialog').addEventListener('click',event=>{if(event.target===$('article-dialog')){const r=$('article-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('article-dialog').close();}});
 $('checklist-groups').addEventListener('change',event=>{const id=event.target.dataset.check;if(!id)return;if(event.target.checked)checked.add(id);else checked.delete(id);writeStorage('saya-renovation-checks-v1',[...checked]);const focusId=event.target.id;renderChecklist();document.getElementById(focusId)?.focus();if(!storageAvailable)toast('当前浏览器无法保存，进度仅在本次打开期间保留');});
 $('reset-checklist').addEventListener('click',()=>{if(!checked.size){toast('清单尚未勾选');return;}if(window.confirm('将清除当前浏览器中的所有清单勾选，确认重置吗？')){checked.clear();writeStorage('saya-renovation-checks-v1',[]);renderChecklist();toast('勾选已重置');}});
-document.addEventListener('keydown',event=>{if(state.view==='home')return;if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open){event.preventDefault();if(!['library','saved'].includes(state.view))setView('library',false);$('search-input').focus();}});
+document.addEventListener('keydown',event=>{if(state.view==='home')return;if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open&&!$('user-note-dialog').open){event.preventDefault();if(!['library','saved'].includes(state.view))setView('library',false);$('search-input').focus();}});
 document.querySelector('.brand').addEventListener('click',event=>{event.preventDefault();setView('library');});
 fillIcons();renderStages();renderLibrary();renderChecklist();
+
+// 写入成功后直接使用已提交的数据，避免原始文件缓存覆盖本次修改。
+const userNotes=window.UserNotes;
+let pendingDelete=null,userNoteBusy=false,userNotesRevision=0,pendingUserNote=null;
+function storedToken(){try{return userNotes.tokenStorage(localStorage).read();}catch{return '';}}
+function refreshTokenUI(){const present=Boolean(storedToken());$('user-token-input').hidden=present;$('user-token-saved').hidden=!present;}
+function applyUserNotes(list){
+ notes.splice(0,notes.length,...userNotes.mergeNotes(notes,list));
+ knownIds.clear();notes.forEach(n=>knownIds.add(n.id));
+ for(const id of saved)if(!knownIds.has(id))saved.delete(id);
+ renderStages();renderLibrary();
+}
+function openUserNoteForm(note=null){
+ if(userNoteBusy)return;
+ pendingDelete=note;pendingUserNote=null;
+ $('user-note-form').reset();$('user-note-error').textContent='';
+ $('user-note-fields').hidden=Boolean(note);$('user-note-fields').disabled=Boolean(note);
+ $('user-note-heading').textContent=note?'删除这条笔记':'记一条';
+ $('submit-user-note').textContent=note?'确认删除并写回 GitHub':'写回 GitHub';
+ $('user-note-form').elements.stage.value=stageFor(state.stage)?state.stage:'准备';
+ refreshTokenUI();openModal($('user-note-dialog'));
+}
+$('add-note').addEventListener('click',()=>openUserNoteForm());
+$('close-user-note').addEventListener('click',()=>{if(!userNoteBusy)$('user-note-dialog').close();});
+$('user-note-dialog').addEventListener('cancel',event=>{if(userNoteBusy)event.preventDefault();});
+$('user-note-dialog').addEventListener('close',()=>{pendingDelete=null;pendingUserNote=null;$('user-note-token').value='';restorePageScroll();});
+$('clear-user-token').addEventListener('click',()=>{
+ try{userNotes.tokenStorage(localStorage).clear();$('user-note-token').value='';refreshTokenUI();}catch{$('user-note-error').textContent='浏览器无法清除令牌，请检查存储设置';}
+});
+$('user-note-form').addEventListener('submit',async event=>{
+ event.preventDefault();if(userNoteBusy)return;
+ const form=event.currentTarget;
+ const checkedInput=userNotes.validateNoteInput(Object.fromEntries(new FormData(form)));
+ if(!pendingDelete&&!checkedInput.ok){$('user-note-error').textContent=checkedInput.errors.join('；');return;}
+ const token=storedToken()||$('user-note-token').value.trim();
+ if(!token){refreshTokenUI();$('user-note-error').textContent='请先填写 GitHub 令牌';$('user-note-token').focus();return;}
+ try{userNotes.tokenStorage(localStorage).write(token);}catch{$('user-note-error').textContent='浏览器无法保存令牌，请允许本地存储后重试';return;}
+ $('user-note-token').value='';refreshTokenUI();
+ // 重试沿用同一个编号，避免网络中断后重复添加。
+ const draft=JSON.stringify(checkedInput.normalized);
+ if(!pendingDelete&&pendingUserNote?.draft!==draft)pendingUserNote={draft,note:userNotes.buildUserNote(checkedInput.normalized)};
+ const note=pendingDelete||pendingUserNote.note,mode=pendingDelete?'delete':'add';
+ userNoteBusy=true;userNotesRevision++;
+ $('submit-user-note').disabled=true;$('close-user-note').disabled=true;$('clear-user-token').disabled=true;
+ $('user-note-fields').disabled=true;
+ $('user-note-error').textContent='正在写回 GitHub，请稍候…';
+ try{
+  const list=await userNotes.writeUserNote({note,mode,token});
+  applyUserNotes(list);
+  if(mode==='delete'){
+   saved.delete(note.id);writeStorage('saya-renovation-saved-v1',[...saved]);
+   $('article-dialog').close();toast('已删除，所有设备都会同步');
+  }else{
+   state.stage='all';state.type='all';state.query='';state.imagesOnly=false;
+   $('search-input').value='';renderStages();renderLibrary();
+   toast('已记好，所有设备都能看到');showNote(note.id);
+  }
+  $('user-note-dialog').close();
+ }catch(error){$('user-note-error').textContent=error.message;}
+ finally{
+  userNoteBusy=false;$('submit-user-note').disabled=false;$('close-user-note').disabled=false;$('clear-user-token').disabled=false;
+  $('user-note-fields').disabled=Boolean(pendingDelete);
+ }
+});
+const initialUserNotesRevision=userNotesRevision;
+userNotes.loadUserNotes().then(list=>{if(userNotesRevision===initialUserNotesRevision)applyUserNotes(list);});

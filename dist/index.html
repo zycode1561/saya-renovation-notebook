@@ -5,7 +5,7 @@
   <meta name="theme-color" content="#ffffff"><meta name="description" content="沙耶的装修攻略与避坑手册。按装修阶段查阅经验、对照清单，保留每一条经验的原帖出处。">
   <title>住前笔记 · 沙耶的装修手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d74738'/%3E%3Cpath d='M16 30 32 16 48 30v20H16zM27 50V35h10v15' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=sort-compact-20261023"><link rel="stylesheet" href="collection.css?v=sort-compact-20261023"><script src="data.js?v=sort-compact-20261023" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261027e"><script src="app.js?v=home-20261027e" defer></script>
+  <link rel="stylesheet" href="styles.css?v=sort-compact-20261023"><link rel="stylesheet" href="collection.css?v=home-20261027f"><script src="data.js?v=sort-compact-20261023" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261027f"><script src="user-notes.js?v=home-20261027f" defer></script><script src="app.js?v=home-20261027f" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -40,7 +40,7 @@
       </div></details>
       <section class="library" id="library" aria-labelledby="library-title">
         <div class="section-heading library-heading"><div><span class="eyebrow" id="library-eyebrow">收藏一点经验，少走一点弯路</span><h2 id="library-title">装修笔记 <span id="result-total"></span></h2></div></div>
-        <div class="library-tools"><div class="tabs" role="group" aria-label="内容类型"><button class="active" data-type="all">全部笔记</button><button data-type="攻略">装修攻略</button><button data-type="避坑">避坑经验</button></div><label class="search"><span data-icon="search"></span><input id="search-input" type="search" placeholder="搜索预算、设计、装修公司…" aria-label="搜索装修笔记"><kbd>/</kbd></label></div>
+        <div class="library-tools"><button class="primary add-note" id="add-note">+ 记一条</button><div class="tabs" role="group" aria-label="内容类型"><button class="active" data-type="all">全部笔记</button><button data-type="攻略">装修攻略</button><button data-type="避坑">避坑经验</button></div><label class="search"><span data-icon="search"></span><input id="search-input" type="search" placeholder="搜索预算、设计、装修公司…" aria-label="搜索装修笔记"><kbd>/</kbd></label></div>
         <div class="filter-line"><div class="filter-chips" id="filter-chips"></div><div class="sort-control" id="sort-control"><span class="sort-caption" id="sort-caption">排序</span><button class="sort-trigger" id="sort-trigger" aria-haspopup="listbox" aria-controls="sort-options" aria-expanded="false" aria-labelledby="sort-caption sort-value"><span id="sort-value">推荐阅读</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="sort-options" id="sort-options" role="listbox" aria-label="笔记排序" hidden><button class="sort-option" role="option" aria-selected="true" data-sort="recommended" tabindex="-1"><span>推荐阅读</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button><button class="sort-option" role="option" aria-selected="false" data-sort="newest" tabindex="-1"><span>最新发布</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button></div></div></div>
         <div class="result-note" id="result-note" aria-live="polite"></div><div class="article-grid" id="article-grid"></div>
         <div class="empty" id="empty" hidden><span data-icon="search"></span><h3 id="empty-title">暂时没有匹配的笔记</h3><p id="empty-copy">换一个关键词，或者清除筛选再试试。</p><button class="primary" id="reset-filters">查看全部笔记</button></div>
@@ -67,6 +67,24 @@
       <footer><span>住前笔记 <i>·</i> 给理想的家，留一点准备时间。</span><span>为沙耶整理 / 2026.10.23</span></footer>
     </main>
   </div>
+  <dialog id="user-note-dialog" aria-labelledby="user-note-heading">
+    <form id="user-note-form">
+      <div class="user-note-heading"><h2 id="user-note-heading">记一条</h2><button type="button" id="close-user-note" class="secondary" aria-label="关闭表单">关闭</button></div>
+      <fieldset id="user-note-fields">
+        <label>标题<input name="title" required autocomplete="off"></label>
+        <label>内容<textarea name="content" required rows="7" placeholder="记下这次的经验，或者下次要避开的坑…"></textarea></label>
+        <div class="user-note-selects"><label>阶段<select name="stage"><option>准备</option><option>预算</option><option>施工</option><option>厨卫</option><option>安装</option><option>入住</option></select></label><label>类型<select name="type"><option>避坑</option><option>经验</option></select></label></div>
+        <label>来源链接（可选）<input name="sourceUrl" type="url" placeholder="https://" inputmode="url"></label>
+      </fieldset>
+      <section class="user-note-token" aria-label="令牌设置">
+        <label id="user-token-input">GitHub 令牌<input id="user-note-token" type="password" autocomplete="off" spellcheck="false"></label>
+        <p id="user-token-saved" hidden>已保存令牌 · <button type="button" id="clear-user-token" class="text-button">清除</button></p>
+        <p>在 GitHub <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">创建精细权限令牌（fine-grained PAT）</a>，选择仓库 zycode1561/saya-renovation-notebook，将内容权限（Contents）设为读写（Read and write）。令牌只保存在此浏览器，其他设备需各自填写。</p>
+      </section>
+      <p id="user-note-error" role="alert"></p>
+      <button class="primary" id="submit-user-note" type="submit">写回 GitHub</button>
+    </form>
+  </dialog>
   <dialog id="article-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><button class="reader-back" id="close-dialog" aria-label="关闭笔记，返回资料库"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><span class="reader-toolbar-label">住前笔记<span class="reader-toolbar-dot"> / </span><small>阅读</small></span><nav class="reader-toolbar-nav" aria-label="阅读导航"><button data-note-jump="note-summary">正文</button><button id="reader-contents-button" data-reader-contents aria-controls="reader-toc" aria-expanded="false">目录</button><button id="reader-gallery-button" data-note-jump="note-gallery">配图</button></nav></div><div id="dialog-content" tabindex="0" role="region" aria-label="帖子正文，可上下滑动"></div></dialog>
   <dialog id="image-dialog" aria-labelledby="image-viewer-title">
     <div class="viewer-toolbar"><h2 id="image-viewer-title" tabindex="-1" autofocus></h2><button class="viewer-info-toggle" id="image-info" aria-label="图片说明与来源" aria-expanded="false" aria-controls="image-details">ⓘ</button><button class="icon-button" id="close-image" aria-label="关闭图片"><span data-icon="close"></span></button></div>
