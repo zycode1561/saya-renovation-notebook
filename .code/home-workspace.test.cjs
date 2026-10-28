@@ -14,15 +14,16 @@ assert.deepEqual([state.stage,state.type,state.query,state.imagesOnly,state.sort
 ctx.setView('home');assert.equal(ctx.window.scrollY,340);ctx.setView('saved');assert.equal(state.query,'');ctx.setView('library');assert.equal(state.query,'台面');
 assert.equal(app.includes("localStorage.clear("),false);
 // Run the emitted frame loop and lifecycle, including idempotent resumes and zero-size resize.
-const queued=new Map();let next=0,renders=0,resizes=0,clears=0;
+const queued=new Map();let next=0,renders=0,resizes=0,clears=0,labelLayouts=0;
 const sceneNode={classList:{remove(){}},getBoundingClientRect:()=>({width:640,height:540})};
-const life={clearanceGroup:null,componentActive:true,frame:0,activeModel:true,dirty:true,walkMode:false,labels:[],state:{cx:3},goal:{cx:3},renderer:{render(){renders++},setSize(){resizes++}},scene:{},camera:{},root:{querySelectorAll:()=>[]},$:()=>sceneNode,clearWalkInput(){clears++},clearOrbitInput(){clears++},toast:{},clearTimeout(){},resize:null,matchMedia:()=>({matches:false}),updateCamera(){},requestAnimationFrame(fn){queued.set(++next,fn);return next},cancelAnimationFrame(id){queued.delete(id)}};
+const life={positionClearanceLabels(){labelLayouts++},clearanceGroup:null,componentActive:true,frame:0,activeModel:true,dirty:true,walkMode:false,labels:[],state:{cx:3},goal:{cx:3},renderer:{render(){renders++},setSize(){resizes++}},scene:{},camera:{},root:{querySelectorAll:()=>[]},$:()=>sceneNode,clearWalkInput(){clears++},clearOrbitInput(){clears++},toast:{},clearTimeout(){},resize:null,matchMedia:()=>({matches:false}),updateCamera(){},requestAnimationFrame(fn){queued.set(++next,fn);return next},cancelAnimationFrame(id){queued.delete(id)}};
 vm.createContext(life);
 const animate=model.slice(model.indexOf('function animate('),model.indexOf('function setupInput('));
 const resize=model.slice(model.indexOf('function resize('),model.indexOf('function updateCamera('));
 const lifecycle=model.slice(model.indexOf('function setActive(value)'),model.indexOf('return {setActive,get active'));
 vm.runInContext(resize+animate+lifecycle,life);
 life.animate();assert.equal(renders,1);assert.equal(queued.size,1);
+queued.clear();life.animate();assert.equal(renders,1);assert.equal(labelLayouts,2);
 life.setActive(false);assert.equal(queued.size,0);assert.equal(clears,2);const before=[renders,resizes];life.resize();life.animate();assert.deepEqual([renders,resizes],before);
 life.setActive(true);assert.equal(queued.size,1);assert.equal(renders,2);assert.equal(resizes,1);life.setActive(true);assert.equal(queued.size,1);
 assert.equal(life.state.cx,3);life.setActive(false);sceneNode.getBoundingClientRect=()=>({width:0,height:0});life.setActive(true);assert.equal(resizes,1);assert.equal(Number.isNaN(life.camera.aspect),false);
@@ -35,4 +36,4 @@ const html=read('dist/index.html');const section=html.slice(html.indexOf('id="ho
 for(const [,id] of section.matchAll(/data-open="([^"]+)"/g))assert(ids.has(id),'Related note must exist: '+id);
 console.log('PASS: independent filters/scroll, native isolation, valid related notes, pause/cancel, input cleanup, idempotent resume and zero-size resize.');
 
-const version="home-20261028a";for(const file of ["dist/app.js","dist/index.html","dist/home-workspace.js"]){const versions=read(file).match(/home-\d{8}[a-z]?/g);assert(versions?.length);assert(versions.every(v=>v===version),file+" cache mismatch")}
+const version="home-20261028b";for(const file of ["dist/app.js","dist/index.html","dist/home-workspace.js"]){const versions=read(file).match(/home-\d{8}[a-z]?/g);assert(versions?.length);assert(versions.every(v=>v===version),file+" cache mismatch")}

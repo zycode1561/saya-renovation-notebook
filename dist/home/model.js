@@ -356,7 +356,24 @@ function init3D(){
 function addLabel(id,text,point,cat=false){const b=document.createElement('button');b.className='room-label';b.textContent=text;b.title=cat?'猫咪资源预留位置':`查看${text}设计`;if(!cat){b.dataset.room=id;b.onclick=e=>{e.stopPropagation();selectRoom(id)}}else b.onclick=()=>toast('猫咪资源位置需结合日常开门习惯与实际使用调整');$('#labels').appendChild(b);labels.push({id,el:b,p:new THREE.Vector3(...point),cat})}
 function resize(){if(!renderer)return;const rect=$('#viewer').getBoundingClientRect();if(!componentActive||!rect.width||!rect.height)return;renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;dirty=true}
 function updateCamera(){if(walkMode){updateWalkCamera();return}if(privacyView){updatePrivacyCamera();return}const aspect=camera.aspect||1;let vertical=aspect<.8?state.span*1.4:Math.max(state.span*.8,state.span/aspect);camera.left=-vertical*aspect/2;camera.right=vertical*aspect/2;camera.top=vertical/2;camera.bottom=-vertical/2;camera.updateProjectionMatrix();const distance=25,px=Math.sin(state.phi)*Math.sin(state.theta)*distance,pz=Math.sin(state.phi)*Math.cos(state.theta)*distance;camera.position.set(state.cx+px,Math.cos(state.phi)*distance,state.cz+pz);camera.up.set(0,1,0);camera.lookAt(state.cx,0,state.cz)}
-function animate(now=0){if(!componentActive)return;frame=requestAnimationFrame(animate);let moving=walkMode?tickWalk(now):false;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;for(const k of Object.keys(state)){const diff=goal[k]-state[k];if(Math.abs(diff)>.00015){state[k]+=diff*(reduced?1:.12);moving=true}}if(!dirty&&!moving)return;updateCamera();if(clearanceGroup)updateClearances();renderer.render(scene,camera);const rect=$('#viewer').getBoundingClientRect();for(const l of labels){const p=l.p.clone().project(camera);l.el.style.display=(l.clearance&&!clearanceVisible(l))||(l.detailRoom&&selected!==l.detailRoom)||(l.layout&&l.layout!==layoutMode)||walkMode||privacyView||(l.cat&&!catGroup.visible)||p.z>1||p.z< -1||(l.el.textContent.startsWith('屏风＋窄桌')&&!privacyEnabled)?'none':'';l.el.style.left=(p.x*.5+.5)*rect.width+'px';l.el.style.top=(-p.y*.5+.5)*rect.height+'px';l.el.style.opacity=l.cat?'1':selected!=='all'&&l.el.dataset.room!==selected?'.25':'1'}if(clearanceGroup)positionClearanceLabels(rect);dirty=false}
+// Measure the rendered box, including CSS transforms and any label-container offset.
+function positionLabelWithinViewer(el,rect,x,y){
+ el.style.left=x+'px';el.style.top=y+'px';
+ const box=el.getBoundingClientRect(),margin=8;
+ if(!box.width||!box.height)return null;
+ if(box.width>rect.width-2*margin||box.height>rect.height-2*margin){el.style.display='none';return null}
+ const left=Math.max(margin,Math.min(rect.width-box.width-margin,box.left-rect.left));
+ const top=Math.max(margin,Math.min(rect.height-box.height-margin,box.top-rect.top));
+ el.style.left=(x+left-(box.left-rect.left))+'px';
+ el.style.top=(y+top-(box.top-rect.top))+'px';
+ return {left,top,width:box.width,height:box.height};
+}
+function labelAnchorVisible(point,projected){
+ return point.clone().applyMatrix4(camera.matrixWorldInverse).z<0&&
+  [projected.x,projected.y,projected.z].every(Number.isFinite)&&
+  Math.abs(projected.x)<=1.5&&Math.abs(projected.y)<=1.5&&Math.abs(projected.z)<=1;
+}
+function animate(now=0){if(!componentActive)return;frame=requestAnimationFrame(animate);let moving=walkMode?tickWalk(now):false;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;for(const k of Object.keys(state)){const diff=goal[k]-state[k];if(Math.abs(diff)>.00015){state[k]+=diff*(reduced?1:.12);moving=true}}if(dirty||moving){updateCamera();if(clearanceGroup)updateClearances();renderer.render(scene,camera);}const rect=$('#viewer').getBoundingClientRect();for(const l of labels){const p=l.p.clone().project(camera);l.el.style.display=(l.clearance&&!clearanceVisible(l))||(l.detailRoom&&selected!==l.detailRoom)||(l.layout&&l.layout!==layoutMode)||walkMode||privacyView||(l.cat&&!catGroup.visible)||!labelAnchorVisible(l.p,p)||(l.el.textContent.startsWith('屏风＋窄桌')&&!privacyEnabled)?'none':'';if(l.el.style.display!=='none')positionLabelWithinViewer(l.el,rect,(p.x*.5+.5)*rect.width,(-p.y*.5+.5)*rect.height);l.el.style.opacity=l.cat?'1':selected!=='all'&&l.el.dataset.room!==selected?'.25':'1'}positionClearanceLabels(rect);dirty=false}
 function setupInput(){const canvas=$('#scene'),pointers=new Map();let last=null,down=null,pinch=0,mid=null;clearOrbitInput=()=>{for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();last=null;down=null;pinch=0;mid=null};
  // Rebase both gestures whenever the active pointer set changes.
  function resetGesture(){last=pointers.size===1?[...pointers.values()][0]:null;pinch=0;mid=null;if(pointers.size===2){const [a,b]=[...pointers.values()];pinch=Math.hypot(a[0]-b[0],a[1]-b[1]);mid=[(a[0]+b[0])/2,(a[1]+b[1])/2]}}
@@ -678,6 +695,7 @@ function buildSuiteModel(){
  function label(id,text,point){addLabel(id,text,point);const l=labels[labels.length-1];l.layout='suite';suiteLabels.push(l)}
  label('dining','餐边柜 · 180 × 40 cm',[7.91,2.32,4.05]);
  label('baths','内廊 · 净宽约 90 cm',[8.74,.12,3.85]);
+ labels[labels.length-1].el.className+=' suite-corridor-label';
  label('baths','干区 · 洗漱 / 如厕',[9.86,.1,4.44]);suiteLabels.at(-1).detailRoom='baths';
  label('baths','湿区 · 玻璃移门',[10.94,.1,4.6]);suiteLabels.at(-1).detailRoom='baths';
  label('study','第三处猫砂位',[9.5,.3,2.75]);suiteLabels.at(-1).detailRoom='study';
@@ -774,15 +792,30 @@ function updateClearances(){
  }
  for(const l of clearanceGroup.userData.labels.slice(rows.length)){l.room=null;l.line.visible=false}
 }
-// Keep projected labels inside the viewer and separate adjacent measurements on phones.
+// Both model dimensions and live clearance capsules share one collision pass.
 function positionClearanceLabels(rect){
- const placed=[];
- for(const l of clearanceGroup.userData.labels){
-  if(l.el.style.display==='none')continue;
-  const w=l.el.offsetWidth,h=l.el.offsetHeight,margin=8;
-  let x=Math.max(w/2+margin,Math.min(rect.width-w/2-margin,parseFloat(l.el.style.left))),y=Math.max(h/2+margin,Math.min(rect.height-h/2-margin,parseFloat(l.el.style.top)));
-  for(let n=0;n<placed.length+1;n++){const hit=placed.find(p=>Math.abs(x-p.x)<(w+p.w)/2+4&&Math.abs(y-p.y)<(h+p.h)/2+4);if(!hit)break;y=hit.y-(h+hit.h)/2-5}
-  l.el.style.left=x+'px';l.el.style.top=y+'px';placed.push({x,y,w,h});
+ const placed=[],gap=8,margin=8;
+ const overlaps=(a,b)=>a.left<b.left+b.width+gap&&a.left+a.width+gap>b.left&&a.top<b.top+b.height+gap&&a.top+a.height+gap>b.top;
+ for(const l of labels){
+  if(!(l.clearance||/净距|净宽|\b(?:cm|mm)\b/.test(l.el.textContent))||l.el.style.display==='none')continue;
+  const x=parseFloat(l.el.style.left),y=parseFloat(l.el.style.top);
+  const box=positionLabelWithinViewer(l.el,rect,x,y);if(!box)continue;
+  const start={...box};
+  // Search the current row horizontally first, then rows below existing boxes.
+  const rows=[box.top,...placed.map(p=>p.top+p.height+gap).filter(top=>top>box.top).sort((a,b)=>a-b)];
+  let target=null;
+  for(const top of rows){
+   if(top+box.height>rect.height-margin)continue;
+   const candidates=[box.left,...placed.flatMap(p=>[p.left+p.width+gap,p.left-box.width-gap])]
+    .filter(left=>left>=margin&&left+box.width<=rect.width-margin).sort((a,b)=>Math.abs(a-start.left)-Math.abs(b-start.left));
+   for(const left of candidates){const next={...box,left,top};if(!placed.some(p=>overlaps(next,p))){target=next;break}}
+   if(target)break;
+  }
+  // A full canvas cannot accommodate another capsule without clipping/overlap.
+  if(!target){l.el.style.display='none';continue}
+  l.el.style.left=(parseFloat(l.el.style.left)+target.left-start.left)+'px';
+  l.el.style.top=(parseFloat(l.el.style.top)+target.top-start.top)+'px';
+  placed.push(target);
  }
 }
 function setupClearances(){

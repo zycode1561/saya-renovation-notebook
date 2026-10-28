@@ -19,6 +19,41 @@
 .style-chip.newChinese{background:linear-gradient(135deg,#f3efe6 50%,#6e5340 50%)}body[data-style=newChinese]{--paper:#f3efe6;--ink:#8a6f4e;--muted:#8a6f4e;--line:#8b6b4a;--green:#6e5340;--white:#fffaf2}body[data-style=newChinese] .viewer{background:radial-gradient(ellipse at center,#f3efe6,#8b6b4a)}body[data-style=newChinese] .viewer.night{background:radial-gradient(ellipse at center,#8a6f4e,#252422)}
 .style-chip.wabi{background:linear-gradient(135deg,#e4ddd2 50%,#cfc6b6 50%)}body[data-style=wabi]{--paper:#e4ddd2;--ink:#6a6056;--muted:#6a6056;--line:#b59a78;--green:#cfc6b6;--white:#fffaf2}body[data-style=wabi] .viewer{background:radial-gradient(ellipse at center,#e4ddd2,#b59a78)}body[data-style=wabi] .viewer.night{background:radial-gradient(ellipse at center,#6a6056,#252422)}
 .style-chip.industrial{background:linear-gradient(135deg,#c5c4c0 50%,#3a3d40 50%)}body[data-style=industrial]{--paper:#c5c4c0;--ink:#2a2d30;--muted:#2a2d30;--line:#6d6a64;--green:#3a3d40;--white:#fffaf2}body[data-style=industrial] .viewer{background:radial-gradient(ellipse at center,#c5c4c0,#6d6a64)}body[data-style=industrial] .viewer.night{background:radial-gradient(ellipse at center,#2a2d30,#252422)}
+
+/* UI only: do not override canvas, viewer lighting, swatches or scene materials. */
+:root,:host,:host([data-style=modern]),body[data-style=modern]{--ink:#1f2328;--muted:#5a6170;--green:#394553;--accent:#394553;--glass-bg:rgba(255,255,255,.55);--glass-strong:rgba(255,255,255,.75);--glass-filter:blur(24px) saturate(170%);--glass-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 8px 32px rgba(30,40,60,.08)}
+body{background:radial-gradient(ellipse at 10% 10%,#e6e1db,transparent 57%),radial-gradient(ellipse at 90% 30%,#dfe7ec,transparent 60%),radial-gradient(ellipse at 40% 95%,#eee9df,transparent 60%),#f0f1f0;background-attachment:fixed}
+:is(header,.explorer,.home-room-card,.home-more,.segmented,.view-caption,.note-float,dialog,#toast){background:var(--glass-bg);color:var(--ink);border:1px solid rgba(255,255,255,.72);border-radius:20px;box-shadow:var(--glass-shadow);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter)}
+:is(.home-settings-body,.underbar,.original-card,.notice){background:var(--glass-bg);color:var(--muted)}
+:is(button,.tag,.room-label){background:var(--glass-bg);border:1px solid rgba(255,255,255,.72);border-radius:999px;color:var(--ink);box-shadow:var(--glass-shadow);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter)}
+:is(.segmented button.active,.room-menu button.active,.style-options button.active,.layout-options button[aria-pressed=true],.privacy-actions button[aria-pressed=true],.tools button[aria-pressed=true],.room-label.active){background:var(--glass-strong);color:var(--ink);border-color:rgba(65,75,90,.3)}
+:is(#detail-desc,.detail-list span,.tag,.home-settings>summary,.home-settings>summary span,.view-caption small,.underbar>span,.detail-num,.style-bar-title,.eyebrow,#layout-status,#privacy-status){color:var(--muted)}
+dialog::backdrop{background:rgba(40,48,60,.2)}
+.home-component,.home-toolbar,.home-settings,.room-menu{min-width:0;max-width:100%}.home-room-card{overflow-wrap:anywhere}.segmented{flex-wrap:wrap}.home-toolbar .scene-top{min-width:0}.view-caption{padding:10px 14px}
+
+.room-label,.room-label.clearance-label,.room-label:hover{background:rgba(255,255,255,.62);color:#1f2328;border:1px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 6px 16px rgba(30,40,60,.08);opacity:1!important}
+.home-settings>summary,.home-settings>summary::after,.detail-num{color:#1f2328}
+@media(max-width:640px){
+ :root,:host,:host([data-style=modern]),body[data-style=modern]{--glass-bg:rgba(255,255,255,.55);--glass-strong:rgba(255,255,255,.58);--glass-filter:blur(20px) saturate(160%)}
+ .room-menu{flex-wrap:wrap;overflow:visible}
+ .room-label,.room-label.clearance-label{background:rgba(255,255,255,.58)}
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:root,:host{--glass-bg:rgba(255,255,255,.94);--glass-strong:rgba(255,255,255,.94);--glass-filter:none}:is(.explorer,.home-room-card,.home-more,.segmented,button,.tag,.room-label,.view-caption){background:rgba(255,255,255,.94)}}
+@media(prefers-reduced-transparency:reduce){:root,:host{--glass-bg:#fff;--glass-strong:#fff;--glass-filter:none}:is(.explorer,.home-room-card,.home-more,.segmented,button,.tag,.room-label,.view-caption){background:#fff}*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
+.segmented button,.room-menu button,.style-options button,.layout-options button,.layout-actions button,.privacy-actions button,.tools button{border-radius:999px}
+.viewer.focused .room-label:not(.active){opacity:1!important}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:host([data-style=modern]),body[data-style=modern]{--glass-bg:rgba(255,255,255,.94);--glass-strong:rgba(255,255,255,.94);--glass-filter:none}}
+@media(prefers-reduced-transparency:reduce){:host([data-style=modern]),body[data-style=modern]{--glass-bg:#fff;--glass-strong:#fff;--glass-filter:none}}
+/* Keep dimension text whole; lift the corridor note above nearby measurements. */
+.room-label{width:max-content;max-width:none;white-space:nowrap;overflow:visible;text-overflow:clip}
+.room-label.suite-corridor-label{transform:translate(-50%,calc(-50% - 44px))}
+
+/* ID and theme rules in the base sheet must not restore opaque UI surfaces. */
+#toast{background:var(--glass-bg);color:#1f2328}
+.materials{background:var(--glass-bg)!important}
+.notice{border-left-color:rgba(32,36,44,.16)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.room-label,.room-label.clearance-label,.room-label:hover{background:rgba(255,255,255,.94)}}
+@media(prefers-reduced-transparency:reduce){.room-label,.room-label.clearance-label,.room-label:hover{background:#fff}}
 </style></head><body>
 <header><div class="brand"><div class="brand-mark">栖</div><div><strong>栖间</strong><small>SAYA'S HOME</small></div></div><nav class="nav"><a href="#explore">空间漫游</a><a href="#materials">材质与色彩</a><a href="#cats">两猫的家</a><a href="#notes">设计说明</a></nav><div class="edition">HOME STUDY / 01</div></header>
 <main><section class="intro"><div><div class="eyebrow">A QUIET HOME, SHARED BY FOUR</div><h1>两人，两猫。<br><em>把日子，住成喜欢的样子。</em></h1><p>为沙耶定制的现代自然风住宅提案 · 温暖原木 × 奶油白 × 灰绿色</p></div><div class="intro-meta"><div><b>02</b><small>常住家人</small></div><div><b>02</b><small>猫咪伙伴</small></div><div><b>01</b><small>双人书房</small></div></div></section>
@@ -407,7 +442,24 @@ function init3D(){
 function addLabel(id,text,point,cat=false){const b=document.createElement('button');b.className='room-label';b.textContent=text;b.title=cat?'猫咪资源预留位置':`查看${text}设计`;if(!cat){b.dataset.room=id;b.onclick=e=>{e.stopPropagation();selectRoom(id)}}else b.onclick=()=>toast('猫咪资源位置需结合日常开门习惯与实际使用调整');$('#labels').appendChild(b);labels.push({id,el:b,p:new THREE.Vector3(...point),cat})}
 function resize(){if(!renderer)return;const rect=$('#viewer').getBoundingClientRect();renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;dirty=true}
 function updateCamera(){if(walkMode){updateWalkCamera();return}if(privacyView){updatePrivacyCamera();return}const aspect=camera.aspect||1;let vertical=aspect<.8?state.span*1.4:Math.max(state.span*.8,state.span/aspect);camera.left=-vertical*aspect/2;camera.right=vertical*aspect/2;camera.top=vertical/2;camera.bottom=-vertical/2;camera.updateProjectionMatrix();const distance=25,px=Math.sin(state.phi)*Math.sin(state.theta)*distance,pz=Math.sin(state.phi)*Math.cos(state.theta)*distance;camera.position.set(state.cx+px,Math.cos(state.phi)*distance,state.cz+pz);camera.up.set(0,1,0);camera.lookAt(state.cx,0,state.cz)}
-function animate(now=0){requestAnimationFrame(animate);let moving=walkMode?tickWalk(now):false;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;for(const k of Object.keys(state)){const diff=goal[k]-state[k];if(Math.abs(diff)>.00015){state[k]+=diff*(reduced?1:.12);moving=true}}if(!dirty&&!moving)return;updateCamera();if(clearanceGroup)updateClearances();renderer.render(scene,camera);const rect=$('#viewer').getBoundingClientRect();for(const l of labels){const p=l.p.clone().project(camera);l.el.style.display=(l.clearance&&!clearanceVisible(l))||(l.detailRoom&&selected!==l.detailRoom)||(l.layout&&l.layout!==layoutMode)||walkMode||privacyView||(l.cat&&!catGroup.visible)||p.z>1||p.z< -1||(l.el.textContent.startsWith('屏风＋窄桌')&&!privacyEnabled)?'none':'';l.el.style.left=(p.x*.5+.5)*rect.width+'px';l.el.style.top=(-p.y*.5+.5)*rect.height+'px';l.el.style.opacity=l.cat?'1':selected!=='all'&&l.el.dataset.room!==selected?'.25':'1'}if(clearanceGroup)positionClearanceLabels(rect);dirty=false}
+// Measure the rendered box, including CSS transforms and any label-container offset.
+function positionLabelWithinViewer(el,rect,x,y){
+ el.style.left=x+'px';el.style.top=y+'px';
+ const box=el.getBoundingClientRect(),margin=8;
+ if(!box.width||!box.height)return null;
+ if(box.width>rect.width-2*margin||box.height>rect.height-2*margin){el.style.display='none';return null}
+ const left=Math.max(margin,Math.min(rect.width-box.width-margin,box.left-rect.left));
+ const top=Math.max(margin,Math.min(rect.height-box.height-margin,box.top-rect.top));
+ el.style.left=(x+left-(box.left-rect.left))+'px';
+ el.style.top=(y+top-(box.top-rect.top))+'px';
+ return {left,top,width:box.width,height:box.height};
+}
+function labelAnchorVisible(point,projected){
+ return point.clone().applyMatrix4(camera.matrixWorldInverse).z<0&&
+  [projected.x,projected.y,projected.z].every(Number.isFinite)&&
+  Math.abs(projected.x)<=1.5&&Math.abs(projected.y)<=1.5&&Math.abs(projected.z)<=1;
+}
+function animate(now=0){requestAnimationFrame(animate);let moving=walkMode?tickWalk(now):false;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;for(const k of Object.keys(state)){const diff=goal[k]-state[k];if(Math.abs(diff)>.00015){state[k]+=diff*(reduced?1:.12);moving=true}}if(dirty||moving){updateCamera();if(clearanceGroup)updateClearances();renderer.render(scene,camera);}const rect=$('#viewer').getBoundingClientRect();for(const l of labels){const p=l.p.clone().project(camera);l.el.style.display=(l.clearance&&!clearanceVisible(l))||(l.detailRoom&&selected!==l.detailRoom)||(l.layout&&l.layout!==layoutMode)||walkMode||privacyView||(l.cat&&!catGroup.visible)||!labelAnchorVisible(l.p,p)||(l.el.textContent.startsWith('屏风＋窄桌')&&!privacyEnabled)?'none':'';if(l.el.style.display!=='none')positionLabelWithinViewer(l.el,rect,(p.x*.5+.5)*rect.width,(-p.y*.5+.5)*rect.height);l.el.style.opacity=l.cat?'1':selected!=='all'&&l.el.dataset.room!==selected?'.25':'1'}positionClearanceLabels(rect);dirty=false}
 function setupInput(){const canvas=$('#scene'),pointers=new Map();let last=null,down=null,pinch=0,mid=null;
  // Rebase both gestures whenever the active pointer set changes.
  function resetGesture(){last=pointers.size===1?[...pointers.values()][0]:null;pinch=0;mid=null;if(pointers.size===2){const [a,b]=[...pointers.values()];pinch=Math.hypot(a[0]-b[0],a[1]-b[1]);mid=[(a[0]+b[0])/2,(a[1]+b[1])/2]}}
@@ -729,6 +781,7 @@ function buildSuiteModel(){
  function label(id,text,point){addLabel(id,text,point);const l=labels[labels.length-1];l.layout='suite';suiteLabels.push(l)}
  label('dining','餐边柜 · 180 × 40 cm',[7.91,2.32,4.05]);
  label('baths','内廊 · 净宽约 90 cm',[8.74,.12,3.85]);
+ labels[labels.length-1].el.className+=' suite-corridor-label';
  label('baths','干区 · 洗漱 / 如厕',[9.86,.1,4.44]);suiteLabels.at(-1).detailRoom='baths';
  label('baths','湿区 · 玻璃移门',[10.94,.1,4.6]);suiteLabels.at(-1).detailRoom='baths';
  label('study','第三处猫砂位',[9.5,.3,2.75]);suiteLabels.at(-1).detailRoom='study';
@@ -825,15 +878,30 @@ function updateClearances(){
  }
  for(const l of clearanceGroup.userData.labels.slice(rows.length)){l.room=null;l.line.visible=false}
 }
-// Keep projected labels inside the viewer and separate adjacent measurements on phones.
+// Both model dimensions and live clearance capsules share one collision pass.
 function positionClearanceLabels(rect){
- const placed=[];
- for(const l of clearanceGroup.userData.labels){
-  if(l.el.style.display==='none')continue;
-  const w=l.el.offsetWidth,h=l.el.offsetHeight,margin=8;
-  let x=Math.max(w/2+margin,Math.min(rect.width-w/2-margin,parseFloat(l.el.style.left))),y=Math.max(h/2+margin,Math.min(rect.height-h/2-margin,parseFloat(l.el.style.top)));
-  for(let n=0;n<placed.length+1;n++){const hit=placed.find(p=>Math.abs(x-p.x)<(w+p.w)/2+4&&Math.abs(y-p.y)<(h+p.h)/2+4);if(!hit)break;y=hit.y-(h+hit.h)/2-5}
-  l.el.style.left=x+'px';l.el.style.top=y+'px';placed.push({x,y,w,h});
+ const placed=[],gap=8,margin=8;
+ const overlaps=(a,b)=>a.left<b.left+b.width+gap&&a.left+a.width+gap>b.left&&a.top<b.top+b.height+gap&&a.top+a.height+gap>b.top;
+ for(const l of labels){
+  if(!(l.clearance||/净距|净宽|\b(?:cm|mm)\b/.test(l.el.textContent))||l.el.style.display==='none')continue;
+  const x=parseFloat(l.el.style.left),y=parseFloat(l.el.style.top);
+  const box=positionLabelWithinViewer(l.el,rect,x,y);if(!box)continue;
+  const start={...box};
+  // Search the current row horizontally first, then rows below existing boxes.
+  const rows=[box.top,...placed.map(p=>p.top+p.height+gap).filter(top=>top>box.top).sort((a,b)=>a-b)];
+  let target=null;
+  for(const top of rows){
+   if(top+box.height>rect.height-margin)continue;
+   const candidates=[box.left,...placed.flatMap(p=>[p.left+p.width+gap,p.left-box.width-gap])]
+    .filter(left=>left>=margin&&left+box.width<=rect.width-margin).sort((a,b)=>Math.abs(a-start.left)-Math.abs(b-start.left));
+   for(const left of candidates){const next={...box,left,top};if(!placed.some(p=>overlaps(next,p))){target=next;break}}
+   if(target)break;
+  }
+  // A full canvas cannot accommodate another capsule without clipping/overlap.
+  if(!target){l.el.style.display='none';continue}
+  l.el.style.left=(parseFloat(l.el.style.left)+target.left-start.left)+'px';
+  l.el.style.top=(parseFloat(l.el.style.top)+target.top-start.top)+'px';
+  placed.push(target);
  }
 }
 function setupClearances(){

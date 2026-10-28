@@ -43,15 +43,30 @@ function updateClearances(){
  }
  for(const l of clearanceGroup.userData.labels.slice(rows.length)){l.room=null;l.line.visible=false}
 }
-// Keep projected labels inside the viewer and separate adjacent measurements on phones.
+// Both model dimensions and live clearance capsules share one collision pass.
 function positionClearanceLabels(rect){
- const placed=[];
- for(const l of clearanceGroup.userData.labels){
-  if(l.el.style.display==='none')continue;
-  const w=l.el.offsetWidth,h=l.el.offsetHeight,margin=8;
-  let x=Math.max(w/2+margin,Math.min(rect.width-w/2-margin,parseFloat(l.el.style.left))),y=Math.max(h/2+margin,Math.min(rect.height-h/2-margin,parseFloat(l.el.style.top)));
-  for(let n=0;n<placed.length+1;n++){const hit=placed.find(p=>Math.abs(x-p.x)<(w+p.w)/2+4&&Math.abs(y-p.y)<(h+p.h)/2+4);if(!hit)break;y=hit.y-(h+hit.h)/2-5}
-  l.el.style.left=x+'px';l.el.style.top=y+'px';placed.push({x,y,w,h});
+ const placed=[],gap=8,margin=8;
+ const overlaps=(a,b)=>a.left<b.left+b.width+gap&&a.left+a.width+gap>b.left&&a.top<b.top+b.height+gap&&a.top+a.height+gap>b.top;
+ for(const l of labels){
+  if(!(l.clearance||/净距|净宽|\b(?:cm|mm)\b/.test(l.el.textContent))||l.el.style.display==='none')continue;
+  const x=parseFloat(l.el.style.left),y=parseFloat(l.el.style.top);
+  const box=positionLabelWithinViewer(l.el,rect,x,y);if(!box)continue;
+  const start={...box};
+  // Search the current row horizontally first, then rows below existing boxes.
+  const rows=[box.top,...placed.map(p=>p.top+p.height+gap).filter(top=>top>box.top).sort((a,b)=>a-b)];
+  let target=null;
+  for(const top of rows){
+   if(top+box.height>rect.height-margin)continue;
+   const candidates=[box.left,...placed.flatMap(p=>[p.left+p.width+gap,p.left-box.width-gap])]
+    .filter(left=>left>=margin&&left+box.width<=rect.width-margin).sort((a,b)=>Math.abs(a-start.left)-Math.abs(b-start.left));
+   for(const left of candidates){const next={...box,left,top};if(!placed.some(p=>overlaps(next,p))){target=next;break}}
+   if(target)break;
+  }
+  // A full canvas cannot accommodate another capsule without clipping/overlap.
+  if(!target){l.el.style.display='none';continue}
+  l.el.style.left=(parseFloat(l.el.style.left)+target.left-start.left)+'px';
+  l.el.style.top=(parseFloat(l.el.style.top)+target.top-start.top)+'px';
+  placed.push(target);
  }
 }
 function setupClearances(){

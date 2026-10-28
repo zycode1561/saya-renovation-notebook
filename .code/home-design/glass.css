@@ -1,0 +1,34 @@
+/* UI only: do not override canvas, viewer lighting, swatches or scene materials. */
+:root,:host,:host([data-style=modern]),body[data-style=modern]{--ink:#1f2328;--muted:#5a6170;--green:#394553;--accent:#394553;--glass-bg:rgba(255,255,255,.55);--glass-strong:rgba(255,255,255,.75);--glass-filter:blur(24px) saturate(170%);--glass-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 8px 32px rgba(30,40,60,.08)}
+body{background:radial-gradient(ellipse at 10% 10%,#e6e1db,transparent 57%),radial-gradient(ellipse at 90% 30%,#dfe7ec,transparent 60%),radial-gradient(ellipse at 40% 95%,#eee9df,transparent 60%),#f0f1f0;background-attachment:fixed}
+:is(header,.explorer,.home-room-card,.home-more,.segmented,.view-caption,.note-float,dialog,#toast){background:var(--glass-bg);color:var(--ink);border:1px solid rgba(255,255,255,.72);border-radius:20px;box-shadow:var(--glass-shadow);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter)}
+:is(.home-settings-body,.underbar,.original-card,.notice){background:var(--glass-bg);color:var(--muted)}
+:is(button,.tag,.room-label){background:var(--glass-bg);border:1px solid rgba(255,255,255,.72);border-radius:999px;color:var(--ink);box-shadow:var(--glass-shadow);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter)}
+:is(.segmented button.active,.room-menu button.active,.style-options button.active,.layout-options button[aria-pressed=true],.privacy-actions button[aria-pressed=true],.tools button[aria-pressed=true],.room-label.active){background:var(--glass-strong);color:var(--ink);border-color:rgba(65,75,90,.3)}
+:is(#detail-desc,.detail-list span,.tag,.home-settings>summary,.home-settings>summary span,.view-caption small,.underbar>span,.detail-num,.style-bar-title,.eyebrow,#layout-status,#privacy-status){color:var(--muted)}
+dialog::backdrop{background:rgba(40,48,60,.2)}
+.home-component,.home-toolbar,.home-settings,.room-menu{min-width:0;max-width:100%}.home-room-card{overflow-wrap:anywhere}.segmented{flex-wrap:wrap}.home-toolbar .scene-top{min-width:0}.view-caption{padding:10px 14px}
+
+.room-label,.room-label.clearance-label,.room-label:hover{background:rgba(255,255,255,.62);color:#1f2328;border:1px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 6px 16px rgba(30,40,60,.08);opacity:1!important}
+.home-settings>summary,.home-settings>summary::after,.detail-num{color:#1f2328}
+@media(max-width:640px){
+ :root,:host,:host([data-style=modern]),body[data-style=modern]{--glass-bg:rgba(255,255,255,.55);--glass-strong:rgba(255,255,255,.58);--glass-filter:blur(20px) saturate(160%)}
+ .room-menu{flex-wrap:wrap;overflow:visible}
+ .room-label,.room-label.clearance-label{background:rgba(255,255,255,.58)}
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:root,:host{--glass-bg:rgba(255,255,255,.94);--glass-strong:rgba(255,255,255,.94);--glass-filter:none}:is(.explorer,.home-room-card,.home-more,.segmented,button,.tag,.room-label,.view-caption){background:rgba(255,255,255,.94)}}
+@media(prefers-reduced-transparency:reduce){:root,:host{--glass-bg:#fff;--glass-strong:#fff;--glass-filter:none}:is(.explorer,.home-room-card,.home-more,.segmented,button,.tag,.room-label,.view-caption){background:#fff}*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
+.segmented button,.room-menu button,.style-options button,.layout-options button,.layout-actions button,.privacy-actions button,.tools button{border-radius:999px}
+.viewer.focused .room-label:not(.active){opacity:1!important}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:host([data-style=modern]),body[data-style=modern]{--glass-bg:rgba(255,255,255,.94);--glass-strong:rgba(255,255,255,.94);--glass-filter:none}}
+@media(prefers-reduced-transparency:reduce){:host([data-style=modern]),body[data-style=modern]{--glass-bg:#fff;--glass-strong:#fff;--glass-filter:none}}
+/* Keep dimension text whole; lift the corridor note above nearby measurements. */
+.room-label{width:max-content;max-width:none;white-space:nowrap;overflow:visible;text-overflow:clip}
+.room-label.suite-corridor-label{transform:translate(-50%,calc(-50% - 44px))}
+
+/* ID and theme rules in the base sheet must not restore opaque UI surfaces. */
+#toast{background:var(--glass-bg);color:#1f2328}
+.materials{background:var(--glass-bg)!important}
+.notice{border-left-color:rgba(32,36,44,.16)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.room-label,.room-label.clearance-label,.room-label:hover{background:rgba(255,255,255,.94)}}
+@media(prefers-reduced-transparency:reduce){.room-label,.room-label.clearance-label,.room-label:hover{background:#fff}}

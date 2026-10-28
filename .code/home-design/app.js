@@ -172,7 +172,24 @@ function init3D(){
 function addLabel(id,text,point,cat=false){const b=document.createElement('button');b.className='room-label';b.textContent=text;b.title=cat?'猫咪资源预留位置':`查看${text}设计`;if(!cat){b.dataset.room=id;b.onclick=e=>{e.stopPropagation();selectRoom(id)}}else b.onclick=()=>toast('猫咪资源位置需结合日常开门习惯与实际使用调整');$('#labels').appendChild(b);labels.push({id,el:b,p:new THREE.Vector3(...point),cat})}
 function resize(){if(!renderer)return;const rect=$('#viewer').getBoundingClientRect();renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;dirty=true}
 function updateCamera(){if(walkMode){updateWalkCamera();return}if(privacyView){updatePrivacyCamera();return}const aspect=camera.aspect||1;let vertical=aspect<.8?state.span*1.4:Math.max(state.span*.8,state.span/aspect);camera.left=-vertical*aspect/2;camera.right=vertical*aspect/2;camera.top=vertical/2;camera.bottom=-vertical/2;camera.updateProjectionMatrix();const distance=25,px=Math.sin(state.phi)*Math.sin(state.theta)*distance,pz=Math.sin(state.phi)*Math.cos(state.theta)*distance;camera.position.set(state.cx+px,Math.cos(state.phi)*distance,state.cz+pz);camera.up.set(0,1,0);camera.lookAt(state.cx,0,state.cz)}
-function animate(now=0){requestAnimationFrame(animate);let moving=walkMode?tickWalk(now):false;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;for(const k of Object.keys(state)){const diff=goal[k]-state[k];if(Math.abs(diff)>.00015){state[k]+=diff*(reduced?1:.12);moving=true}}if(!dirty&&!moving)return;updateCamera();if(clearanceGroup)updateClearances();renderer.render(scene,camera);const rect=$('#viewer').getBoundingClientRect();for(const l of labels){const p=l.p.clone().project(camera);l.el.style.display=(l.clearance&&!clearanceVisible(l))||(l.detailRoom&&selected!==l.detailRoom)||(l.layout&&l.layout!==layoutMode)||walkMode||privacyView||(l.cat&&!catGroup.visible)||p.z>1||p.z< -1||(l.el.textContent.startsWith('屏风＋窄桌')&&!privacyEnabled)?'none':'';l.el.style.left=(p.x*.5+.5)*rect.width+'px';l.el.style.top=(-p.y*.5+.5)*rect.height+'px';l.el.style.opacity=l.cat?'1':selected!=='all'&&l.el.dataset.room!==selected?'.25':'1'}if(clearanceGroup)positionClearanceLabels(rect);dirty=false}
+// Measure the rendered box, including CSS transforms and any label-container offset.
+function positionLabelWithinViewer(el,rect,x,y){
+ el.style.left=x+'px';el.style.top=y+'px';
+ const box=el.getBoundingClientRect(),margin=8;
+ if(!box.width||!box.height)return null;
+ if(box.width>rect.width-2*margin||box.height>rect.height-2*margin){el.style.display='none';return null}
+ const left=Math.max(margin,Math.min(rect.width-box.width-margin,box.left-rect.left));
+ const top=Math.max(margin,Math.min(rect.height-box.height-margin,box.top-rect.top));
+ el.style.left=(x+left-(box.left-rect.left))+'px';
+ el.style.top=(y+top-(box.top-rect.top))+'px';
+ return {left,top,width:box.width,height:box.height};
+}
+function labelAnchorVisible(point,projected){
+ return point.clone().applyMatrix4(camera.matrixWorldInverse).z<0&&
+  [projected.x,projected.y,projected.z].every(Number.isFinite)&&
+  Math.abs(projected.x)<=1.5&&Math.abs(projected.y)<=1.5&&Math.abs(projected.z)<=1;
+}
+function animate(now=0){requestAnimationFrame(animate);let moving=walkMode?tickWalk(now):false;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;for(const k of Object.keys(state)){const diff=goal[k]-state[k];if(Math.abs(diff)>.00015){state[k]+=diff*(reduced?1:.12);moving=true}}if(dirty||moving){updateCamera();if(clearanceGroup)updateClearances();renderer.render(scene,camera);}const rect=$('#viewer').getBoundingClientRect();for(const l of labels){const p=l.p.clone().project(camera);l.el.style.display=(l.clearance&&!clearanceVisible(l))||(l.detailRoom&&selected!==l.detailRoom)||(l.layout&&l.layout!==layoutMode)||walkMode||privacyView||(l.cat&&!catGroup.visible)||!labelAnchorVisible(l.p,p)||(l.el.textContent.startsWith('屏风＋窄桌')&&!privacyEnabled)?'none':'';if(l.el.style.display!=='none')positionLabelWithinViewer(l.el,rect,(p.x*.5+.5)*rect.width,(-p.y*.5+.5)*rect.height);l.el.style.opacity=l.cat?'1':selected!=='all'&&l.el.dataset.room!==selected?'.25':'1'}positionClearanceLabels(rect);dirty=false}
 function setupInput(){const canvas=$('#scene'),pointers=new Map();let last=null,down=null,pinch=0,mid=null;
  // Rebase both gestures whenever the active pointer set changes.
  function resetGesture(){last=pointers.size===1?[...pointers.values()][0]:null;pinch=0;mid=null;if(pointers.size===2){const [a,b]=[...pointers.values()];pinch=Math.hypot(a[0]-b[0],a[1]-b[1]);mid=[(a[0]+b[0])/2,(a[1]+b[1])/2]}}

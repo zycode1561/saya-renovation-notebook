@@ -93,6 +93,7 @@ function buildSuiteModel(){
  function label(id,text,point){addLabel(id,text,point);const l=labels[labels.length-1];l.layout='suite';suiteLabels.push(l)}
  label('dining','餐边柜 · 180 × 40 cm',[7.91,2.32,4.05]);
  label('baths','内廊 · 净宽约 90 cm',[8.74,.12,3.85]);
+ labels[labels.length-1].el.className+=' suite-corridor-label';
  label('baths','干区 · 洗漱 / 如厕',[9.86,.1,4.44]);suiteLabels.at(-1).detailRoom='baths';
  label('baths','湿区 · 玻璃移门',[10.94,.1,4.6]);suiteLabels.at(-1).detailRoom='baths';
  label('study','第三处猫砂位',[9.5,.3,2.75]);suiteLabels.at(-1).detailRoom='study';

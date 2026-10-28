@@ -56,6 +56,6 @@ return {setActive,get active(){return componentActive},get supported(){return ac
 """
 (out/'model.js').write_text(prelude+source+end)
 css=re.sub(r'body\[data-style=([^\]]+)\]',r':host([data-style=\1])',(root/'style.css').read_text())
-css+='\n'+(root/'integrated.css').read_text()
+css+='\n'+(root/'integrated.css').read_text()+'\n'+(root/'glass.css').read_text()
 (out/'model.css').write_text(css)
 print('Built native home component from shared model sources')

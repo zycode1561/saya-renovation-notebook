@@ -1,16 +1,16 @@
 /* Eight-step planning checklist. */
-.checklist-page{padding-top:12px;color:#2d3036;}
+.checklist-page{padding-top:12px;color:#1f2328;}
 .checklist-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;}
 .checklist-page h1{margin:12px 0;font-size:30px;line-height:1.5;letter-spacing:-.7px;}
-.checklist-heading .section-description{margin:0;color:#737780;}
-.check-guide-link{font-size:12px;color:#b94034;min-height:44px;padding:8px 0;text-align:left;}
+.checklist-heading .section-description{margin:0;color:#5a6170;}
+.check-guide-link{font-size:12px;color:#5a6170;min-height:44px;padding:8px 0;text-align:left;}
 .checklist-heading>.check-guide-link{white-space:nowrap;}
 .planning-overview{margin:30px 0;display:grid;grid-template-columns:1fr 1fr;gap:48px;background:#faf8f6;border:1px solid #f0eae5;border-radius:14px;padding:26px 30px;}
-.check-kicker{font-size:11px;letter-spacing:1px;color:#8a7e76;}
+.check-kicker{font-size:11px;letter-spacing:1px;color:#5a6170;}
 .planning-count{display:flex;gap:18px;align-items:center;margin:8px 0 15px;}
-.planning-count strong{font-size:36px;font-weight:550;line-height:1.2;letter-spacing:-1px;color:#333338;font-variant-numeric:tabular-nums;}
+.planning-count strong{font-size:36px;font-weight:550;line-height:1.2;letter-spacing:-1px;color:#1f2328;font-variant-numeric:tabular-nums;}
 .planning-count strong small{font-size:16px;margin-left:3px;}
-.planning-count>span{font-size:12px;color:#787880;}
+.planning-count>span{font-size:12px;color:#5a6170;}
 .planning-overview .progress-track{height:5px;background:#e9e3df;margin:0;border-radius:10px;overflow:hidden;}
 .planning-overview .progress-track>div{height:100%;background:#d74738;transition:none;}
 .planning-next{border-left:1px solid #e7dfd9;padding-left:36px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;}
@@ -21,61 +21,61 @@
 .check-step{display:flex;align-items:center;gap:13px;text-align:left;padding:13px 15px;min-height:69px;border:1px solid transparent;border-radius:9px;}
 .check-step:hover{background:#fafafa;}
 .check-step.active{background:#fff2ee;border-color:#f6ded7;}
-.check-step-number{font-size:13px;color:#92949b;font-variant-numeric:tabular-nums;min-width:23px;}
+.check-step-number{font-size:13px;color:#5a6170;font-variant-numeric:tabular-nums;min-width:23px;}
 .check-step-number .icon{width:19px;height:19px;}
 .check-step-copy{display:grid;gap:2px;}
 .check-step-copy b{font-size:14px;font-weight:550;}
-.check-step-copy small{font-size:11px;color:#858892;}
-.check-step.active .check-step-copy b,.check-step.active .check-step-number{color:#bc4034;}
-.check-step.complete .check-step-number{color:#4c7962;}
-.check-step-arrow{margin-left:auto;color:#ba4337;opacity:0;}
+.check-step-copy small{font-size:11px;color:#5a6170;}
+.check-step.active .check-step-copy b,.check-step.active .check-step-number{color:#5a6170;}
+.check-step.complete .check-step-number{color:#5a6170;}
+.check-step-arrow{margin-left:auto;color:#5a6170;opacity:0;}
 .check-step.active .check-step-arrow{opacity:1;}
 .checklist-detail{padding:28px 30px;border:1px solid #e9e9ed;border-radius:14px;scroll-margin-top:100px;}
 .check-detail-heading{display:flex;justify-content:space-between;gap:16px;align-items:center;}
 .check-detail-heading h2{font-size:23px;letter-spacing:-.4px;line-height:1.5;margin:8px 0 0;}
-.check-detail-heading h2 span{font-size:14px;font-weight:400;color:#7e8088;letter-spacing:0;}
-.check-detail-count{font-size:11px;white-space:nowrap;color:#878992;background:#f5f5f6;border-radius:20px;padding:4px 9px;}
-.check-detail-count.complete{color:#4b715a;background:#edf4ee;}
+.check-detail-heading h2 span{font-size:14px;font-weight:400;color:#5a6170;letter-spacing:0;}
+.check-detail-count{font-size:11px;white-space:nowrap;color:#5a6170;background:#f5f5f6;border-radius:20px;padding:4px 9px;}
+.check-detail-count.complete{color:#5a6170;background:#edf4ee;}
 .check-deliverable{display:flex;gap:12px;background:#f7f8f7;border-radius:8px;padding:15px 17px;margin:23px 0 20px;align-items:center;}
-.check-deliverable>.icon{color:#7c897e;}
+.check-deliverable>.icon{color:#5a6170;}
 .check-deliverable div{display:grid;gap:3px;}
-.check-deliverable small{font-size:11px;color:#7b827c;}
-.check-deliverable b{font-size:13px;font-weight:500;color:#49554d;}
-.check-detail-tools{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#8b8e95;gap:12px;}
-.check-detail-tools button{font-size:11px;min-height:44px;padding:8px 0 8px 12px;color:#71757e;}
-.check-detail-tools button[aria-pressed=true]{color:#b94034;}
+.check-deliverable small{font-size:11px;color:#5a6170;}
+.check-deliverable b{font-size:13px;font-weight:500;color:#1f2328;}
+.check-detail-tools{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#5a6170;gap:12px;}
+.check-detail-tools button{font-size:11px;min-height:44px;padding:8px 0 8px 12px;color:#5a6170;}
+.check-detail-tools button[aria-pressed=true]{color:#5a6170;}
 .check-task{display:flex;gap:14px;padding:19px 0;border-bottom:1px solid #efeff2;cursor:pointer;}
-.check-task input{appearance:auto;accent-color:#d74738;flex:none;width:18px;height:18px;margin:4px 0 0;cursor:pointer;}
+.check-task input{appearance:auto;accent-color:#394553;flex:none;width:18px;height:18px;margin:4px 0 0;cursor:pointer;}
 .check-task>span{display:grid;gap:6px;min-width:0;}
-.check-task b{font-size:14px;line-height:1.7;font-weight:550;color:#3f4249;}
-.check-task small{font-size:12px;line-height:1.9;color:#858992;}
-.check-task:hover b{color:#b94034;}
-.check-task.is-checked b{font-weight:400;color:#8b8f96;text-decoration:line-through;text-decoration-color:#c5c7cc;}
-.check-task.is-checked small{color:#969aa1;}
+.check-task b{font-size:14px;line-height:1.7;font-weight:550;color:#1f2328;}
+.check-task small{font-size:12px;line-height:1.9;color:#5a6170;}
+.check-task:hover b{color:#5a6170;}
+.check-task.is-checked b{font-weight:400;color:#5a6170;text-decoration:line-through;text-decoration-color:#c5c7cc;}
+.check-task.is-checked small{color:#5a6170;}
 .check-task:last-child{border-bottom:0;}
 .check-completion{background:#fcf8f3;border-left:2px solid #d9bb96;padding:14px 17px;margin:18px 0 12px;}
-.check-completion>span{display:flex;align-items:center;gap:7px;font-size:12px;color:#8c714f;}
+.check-completion>span{display:flex;align-items:center;gap:7px;font-size:12px;color:#5a6170;}
 .check-completion .icon{width:15px;height:15px;}
-.check-completion p{font-size:12px;line-height:1.9;color:#8b8173;margin:7px 0 0;}
+.check-completion p{font-size:12px;line-height:1.9;color:#5a6170;margin:7px 0 0;}
 .check-detail-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:8px;}
 .check-detail-bottom>div{display:flex;gap:16px;}
 .check-prev,.check-next{font-size:12px;min-height:44px;padding:8px 0;}
-.check-prev{color:#8c8f97;}.check-next{color:#b94034;}
+.check-prev{color:#5a6170;}.check-next{color:#5a6170;}
 .checklist-page button:disabled{opacity:.35;cursor:default;}
-.check-done{padding:36px 12px;color:#50745c;text-align:center;font-size:14px;}
-.check-done span{display:block;font-size:12px;color:#878e89;margin-top:9px;}
+.check-done{padding:36px 12px;color:#5a6170;text-align:center;font-size:14px;}
+.check-done span{display:block;font-size:12px;color:#5a6170;margin-top:9px;}
 .checklist-extras{margin-top:20px;border:1px solid #ececef;border-radius:10px;}
 .checklist-extras>summary{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:17px 21px;font-size:13px;list-style:none;cursor:pointer;}
 .checklist-extras>summary::-webkit-details-marker{display:none;}
-.checklist-extras summary small{font-size:11px;color:#92949c;margin-left:9px;}
-.checklist-extras>p{font-size:12px;color:#858992;margin:0;padding:0 21px 10px;}
+.checklist-extras summary small{font-size:11px;color:#5a6170;margin-left:9px;}
+.checklist-extras>p{font-size:12px;color:#5a6170;margin:0;padding:0 21px 10px;}
 .checklist-extras .check-group{margin:0;border:0;border-radius:0;padding:12px 21px;}
 .checklist-extras .check-group h3{font-size:13px;margin:6px 0;}
 .checklist-extras .check-item{font-size:12px;gap:10px;}
 .checklist-extras .check-item label{flex:1;cursor:pointer;}
 .checklist-storage{display:flex;gap:20px;justify-content:space-between;align-items:center;padding:22px 0 8px;}
-.checklist-storage p{font-size:11px;color:#999ba3;line-height:1.8;}
-.checklist-storage button{white-space:nowrap;font-size:11px;min-height:44px;color:#8c8e96;}
+.checklist-storage p{font-size:11px;color:#5a6170;line-height:1.8;}
+.checklist-storage button{white-space:nowrap;font-size:11px;min-height:44px;color:#5a6170;}
 @media(max-width:900px){.checklist-heading{align-items:flex-start;flex-direction:column;gap:8px;}.checklist-layout{grid-template-columns:164px minmax(0,1fr);gap:18px;}.check-step{padding:12px 10px;gap:10px;}.checklist-detail{padding:23px;}.check-detail-heading{align-items:flex-start;}.check-detail-heading h2 span{display:block;margin-top:4px;}.planning-overview{gap:24px;padding:23px;}.planning-next{padding-left:24px;}}
 @media(max-width:640px){.checklist-page{padding-top:0;}.checklist-page h1{font-size:25px;max-width:310px;letter-spacing:-.5px;}.checklist-heading .section-description{font-size:12px;line-height:1.8;}.planning-overview{grid-template-columns:1fr;gap:18px;margin:19px 0 22px;padding:20px;}.planning-count{margin:9px 0 14px;}.planning-count strong{font-size:33px;}.planning-next{padding:15px 0 0;border-left:0;border-top:1px solid #e7dfd9;}.planning-next b{font-size:12px;}.checklist-layout{display:block;}.checklist-steps{position:static;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:19px;}.check-step{padding:10px 4px;display:flex;flex-direction:column;gap:4px;min-height:90px;text-align:center;}.check-step-number{font-size:11px;line-height:18px;height:18px;}.check-step-number .icon{height:17px;}.check-step-copy b{font-size:12px;}.check-step-copy small{font-size:10px;}.check-step-arrow{display:none;}.checklist-detail{padding:20px 17px;scroll-margin-top:120px;}.check-detail-heading h2{font-size:22px;}.check-detail-heading h2 span{font-size:12px;margin-top:6px;}.check-detail-count{font-size:10px;padding:4px 7px;margin-top:1px;}.check-deliverable{padding:13px 12px;margin:21px 0 10px;}.check-deliverable b{font-size:12px;line-height:1.8;}.check-task{gap:12px;padding:18px 0;}.check-task b{font-size:14px;}.check-task small{font-size:12px;line-height:1.9;}.check-completion{padding:13px;}.check-detail-bottom{flex-wrap:wrap;gap:2px;}.check-detail-bottom>div{margin-left:auto;gap:23px;}.checklist-storage{display:block;padding-top:15px;}.checklist-storage p{margin-bottom:0;}.checklist-extras .check-group{padding:12px 16px;}.checklist-extras>summary{padding:17px 16px;}.checklist-extras .check-source{min-height:44px;}}
 @media(max-width:640px){.planning-next{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;}.planning-next>.check-kicker{display:none;}.planning-next b{margin:0;}.planning-next button{white-space:nowrap;}.check-step{min-height:81px;}.checklist-heading>.check-guide-link{min-height:35px;}}
