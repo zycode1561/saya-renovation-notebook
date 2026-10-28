@@ -2,3 +2,9 @@
 .sites-runtime/
 node_modules/
 *.log
+
+# Local QA, handoffs, and generated offline exports
+.code/home-qa/
+.code/home-qa.md
+.code/home-design/*.html
+!/.code/home-design/template.html

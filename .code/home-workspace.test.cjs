@@ -16,7 +16,7 @@ assert.equal(app.includes("localStorage.clear("),false);
 // Run the emitted frame loop and lifecycle, including idempotent resumes and zero-size resize.
 const queued=new Map();let next=0,renders=0,resizes=0,clears=0;
 const sceneNode={classList:{remove(){}},getBoundingClientRect:()=>({width:640,height:540})};
-const life={componentActive:true,frame:0,activeModel:true,dirty:true,walkMode:false,labels:[],state:{cx:3},goal:{cx:3},renderer:{render(){renders++},setSize(){resizes++}},scene:{},camera:{},root:{querySelectorAll:()=>[]},$:()=>sceneNode,clearWalkInput(){clears++},clearOrbitInput(){clears++},toast:{},clearTimeout(){},resize:null,matchMedia:()=>({matches:false}),updateCamera(){},requestAnimationFrame(fn){queued.set(++next,fn);return next},cancelAnimationFrame(id){queued.delete(id)}};
+const life={clearanceGroup:null,componentActive:true,frame:0,activeModel:true,dirty:true,walkMode:false,labels:[],state:{cx:3},goal:{cx:3},renderer:{render(){renders++},setSize(){resizes++}},scene:{},camera:{},root:{querySelectorAll:()=>[]},$:()=>sceneNode,clearWalkInput(){clears++},clearOrbitInput(){clears++},toast:{},clearTimeout(){},resize:null,matchMedia:()=>({matches:false}),updateCamera(){},requestAnimationFrame(fn){queued.set(++next,fn);return next},cancelAnimationFrame(id){queued.delete(id)}};
 vm.createContext(life);
 const animate=model.slice(model.indexOf('function animate('),model.indexOf('function setupInput('));
 const resize=model.slice(model.indexOf('function resize('),model.indexOf('function updateCamera('));
@@ -34,3 +34,5 @@ const ids=new Set(context.window.RENOVATION_NOTES.map(n=>n.id));
 const html=read('dist/index.html');const section=html.slice(html.indexOf('id="home-page"'),html.indexOf('<aside class="bottom-note">'));
 for(const [,id] of section.matchAll(/data-open="([^"]+)"/g))assert(ids.has(id),'Related note must exist: '+id);
 console.log('PASS: independent filters/scroll, native isolation, valid related notes, pause/cancel, input cleanup, idempotent resume and zero-size resize.');
+
+const version="home-20261027g";for(const file of ["dist/app.js","dist/index.html","dist/home-workspace.js"]){const versions=read(file).match(/home-\d{8}[a-z]?/g);assert(versions?.length);assert(versions.every(v=>v===version),file+" cache mismatch")}

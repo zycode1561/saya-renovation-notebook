@@ -16,7 +16,7 @@ function suiteRoomCopy(id,base){
 }
 function buildSuiteModel(){
  const T=THREE;suiteGroup=new T.Group();suiteGroup.name='suite-alternative';home.add(suiteGroup);
- function material(color,extra={}){const m=new T.MeshStandardMaterial({color,roughness:.8,...extra});styleMaterials.push({material:m,color,roughness:m.roughness,metalness:m.metalness});return m}
+ function material(color,extra={}){const m=new T.MeshStandardMaterial({color,roughness:.8,...extra});m.userData.finishRole=typeof finishRole==='function'?finishRole(color):'paint';styleMaterials.push({material:m,color,roughness:m.roughness,metalness:m.metalness});return m}
  function box(name,x,y,z,w,h,d,color,parent=suiteGroup,extra={}){const m=new T.Mesh(new T.BoxGeometry(w,h,d),material(color,extra));m.name=name;m.position.set(x,y,z);m.castShadow=!extra.transparent;m.receiveShadow=true;parent.add(m);return m}
  function wall(name,x,z,w,d,parent=suiteGroup){const m=box(name,x,.53,z,w,1.06,d,'#efeee5',parent);wallPieces.push({m,h:2.7});return m}
  function ball(name,x,y,z,rx,ry,rz,color,parent=suiteGroup){const m=new T.Mesh(new T.SphereGeometry(1,20,12),material(color));m.name=name;m.position.set(x,y,z);m.scale.set(rx,ry,rz);parent.add(m);return m}
@@ -78,7 +78,7 @@ function buildSuiteModel(){
  for(const x of [5.8,6.5])for(const z of [2.99,4.31]){
   const front=z<3.65?1:-1;
   box('suite-chair-seat',x,.45,z,.44,.11,.43,'#b4bba1');
-  box('suite-chair-back',x,.72,z-front*.2,.44,.5,.07,'#b4bba1');
+  box('suite-chair-back',x,.72,z-front*.2,.44,.5,.07,'#b4bba1').userData.furniturePart='back';
   for(const dx of [-.16,.16])for(const dz of [-.16,.16])box('suite-chair-leg',x+dx,.22,z+dz,.035,.44,.035,'#a28c68');
  }
  cylinder('suite-table-vase',6.15,.88,3.65,.07,.18,'#b8a482');

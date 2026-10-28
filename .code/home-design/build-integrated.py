@@ -22,7 +22,7 @@ shutil.copyfile(root/'vendor/LICENSE-three.txt',out/'LICENSE-three.txt')
 # Use the vendored UMD build in module-local CommonJS bindings; no window.THREE.
 vendor=(root/'vendor/three.min.js').read_text()
 (out/'three.js').write_text('const exports = {}; const module = {exports};\n'+vendor+'\nexport default exports;\n')
-source='\n'.join((root/n).read_text() for n in ['styles.js','app.js','privacy.js','walkthrough.js','suite.js'])
+source='\n'.join((root/n).read_text() for n in ['finishes.js','styles.js','app.js','privacy.js','walkthrough.js','suite.js','clearance.js'])
 source=source.replace('document.querySelectorAll','root.querySelectorAll').replace('document.querySelector','root.querySelector').replace('document.body','root.host').replace('document.addEventListener','root.addEventListener').replace('window.__homeDesign','designAPI')
 source=source.replace("'.intro>div>p',",'')
 source=re.sub(r" \$\('\.intro>div>p'\)\.textContent=[^;]+;",'',source)
@@ -32,7 +32,7 @@ source=source.replace(" $('#privacy-orbit').click();",'')
 source=source.replace("'栖间 · '","'住前笔记 · '").replace("'栖间-'","'我的家-'")
 source=source.replace('function animate(now=0){requestAnimationFrame(animate);','function animate(now=0){if(!componentActive)return;frame=requestAnimationFrame(animate);')
 source=source.replace("const rect=$('#viewer').getBoundingClientRect();renderer.setSize", "const rect=$('#viewer').getBoundingClientRect();if(!componentActive||!rect.width||!rect.height)return;renderer.setSize")
-source=source.replace('let last=null,down=null,pinch=0;', 'let last=null,down=null,pinch=0;clearOrbitInput=()=>{for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();last=null;down=null;pinch=0};')
+source=source.replace('let last=null,down=null,pinch=0,mid=null;', 'let last=null,down=null,pinch=0,mid=null;clearOrbitInput=()=>{for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();last=null;down=null;pinch=0;mid=null};')
 source=source.replace("if(!walkMode)return;if(e.code==='Escape'", "if(!componentActive||!walkMode)return;if(e.code==='Escape'")
 # Bubble keyboard events only within this workspace; hidden tabs cannot move the model.
 source=source.replace("window.addEventListener('beforeprint',()=>{", "window.addEventListener('beforeprint',()=>{if(!componentActive)return;")
@@ -55,7 +55,7 @@ return {setActive,get active(){return componentActive},get supported(){return ac
 }
 """
 (out/'model.js').write_text(prelude+source+end)
-css=(root/'style.css').read_text().replace('body[data-style=modern]',':host([data-style=modern])')
+css=re.sub(r'body\[data-style=([^\]]+)\]',r':host([data-style=\1])',(root/'style.css').read_text())
 css+='\n'+(root/'integrated.css').read_text()
 (out/'model.css').write_text(css)
 print('Built native home component from shared model sources')
