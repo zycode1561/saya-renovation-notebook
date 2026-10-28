@@ -292,13 +292,56 @@ const checklist=[
  {stage:'安装',items:[['custom-material','分别写清柜体、门板的基材、饰面和封边工艺。','custom'],['custom-report','核对检测报告对应的产品与实际合同配置。','custom'],['custom-clean','检查柜体缝隙、拉手与窗边收口的清洁和维护条件。','lived']]},
  {stage:'入住',items:[['lived-color','把门与窗帘的样品放在家中实际光线下比较。','lived'],['lived-finish','记录安装收口、排风和清洁上的问题，联系责任方处理。','lived']]}
 ];
-function renderChecklist(){
- const valid=checklist.flatMap(g=>g.items).filter(i=>byId(i[2]));
- const count=valid.filter(i=>checked.has(i[0])).length;
- $('progress-label').textContent=`已确认 ${count} / ${valid.length} 项`;
- $('progress-fill').style.width=`${valid.length?count/valid.length*100:0}%`;
- $('checklist-groups').innerHTML=checklist.map((g,index)=>{const s=stageFor(g.stage);const items=g.items.filter(i=>byId(i[2]));return `<section class="check-group"><h2>${icon(s.icon)}${s.title}<small>0${index+1}</small></h2>${items.map(([id,text,source])=>`<div class="check-item"><input type="checkbox" id="check-${id}" data-check="${id}" ${checked.has(id)?'checked':''}><label for="check-${id}">${escapeHTML(text)}</label><button class="check-source" data-open="${source}" aria-label="查看此清单项的来源笔记">来源 ↗</button></div>`).join('')}</section>`;}).join('');
+const planningSteps=window.CHECKLIST_STEPS;
+const planningIds=new Set(planningSteps.flatMap(step=>step.items.map(item=>item[0])));
+const extraChecklist=checklist.map(group=>({...group,items:group.items.filter(item=>!planningIds.has(item[0])&&byId(item[2]))})).filter(group=>group.items.length);
+let activeCheckStep=Math.max(0,planningSteps.findIndex(step=>step.items.some(item=>!checked.has(item[0]))));
+let pendingChecksOnly=false;
+function planningProgress(){
+ const items=planningSteps.flatMap(step=>step.items);
+ const done=items.filter(item=>checked.has(item[0])).length;
+ const completed=planningSteps.filter(step=>step.items.every(item=>checked.has(item[0]))).length;
+ const next=planningSteps.findIndex(step=>step.items.some(item=>!checked.has(item[0])));
+ return {items,done,completed,next};
 }
+function renderChecklist(){
+ const {items,done,completed,next}=planningProgress();
+ $('progress-label').textContent=`已确认 ${done} / ${items.length} 项 · ${completed} / 8 步完成`;
+ $('checklist-percent').innerHTML=`${Math.round(done/items.length*100)}<small>%</small>`;
+ $('progress-fill').style.width=`${done/items.length*100}%`;
+ $('checklist-progress').setAttribute('aria-valuemax',items.length);
+ $('checklist-progress').setAttribute('aria-valuenow',done);
+ $('checklist-next-title').textContent=next<0?'八步准备已全部确认':`${String(next+1).padStart(2,'0')} ${planningSteps[next].title} · ${planningSteps[next].items.find(item=>!checked.has(item[0]))[1]}`;
+ $('checklist-continue').textContent=next<0?'回顾开工交底 →':'继续核对 →';
+ $('checklist-steps').innerHTML=planningSteps.map((step,index)=>{
+  const count=step.items.filter(item=>checked.has(item[0])).length;
+  return `<button class="check-step ${activeCheckStep===index?'active':''} ${count===step.items.length?'complete':''}" data-check-step="${index}" ${activeCheckStep===index?'aria-current="step"':''} aria-controls="checklist-detail"><span class="check-step-number">${count===step.items.length?icon('check'):String(index+1).padStart(2,'0')}</span><span class="check-step-copy"><b>${step.title}</b><small>${count===step.items.length?'已完成':`已确认 ${count} / ${step.items.length}`}</small></span><span class="check-step-arrow" aria-hidden="true">→</span></button>`;
+ }).join('');
+ const step=planningSteps[activeCheckStep],count=step.items.filter(item=>checked.has(item[0])).length;
+ const visible=step.items.filter(item=>!pendingChecksOnly||!checked.has(item[0]));
+ $('checklist-detail').innerHTML=`<header class="check-detail-heading"><div><span class="check-kicker">STEP ${String(activeCheckStep+1).padStart(2,'0')} / 08</span><h2 id="check-step-title" tabindex="-1">${step.title}<span> · ${step.subtitle}</span></h2></div><span class="check-detail-count ${count===step.items.length?'complete':''}">${count===step.items.length?'本步已确认':`${count} / ${step.items.length} 已确认`}</span></header><div class="check-deliverable">${icon('plan')}<div><small>这一步，准备好</small><b>${step.output}</b></div></div><div class="check-detail-tools"><span>逐项核对，确认后勾选</span><button id="check-pending" aria-pressed="${pendingChecksOnly}">${pendingChecksOnly?'显示全部':'只看待确认'} <span aria-hidden="true">${pendingChecksOnly?'✓':'○'}</span></button></div><div class="check-task-list">${visible.map(([id,title,hint])=>`<label class="check-task ${checked.has(id)?'is-checked':''}" for="check-${id}"><input type="checkbox" id="check-${id}" data-check="${id}" ${checked.has(id)?'checked':''}><span><b>${escapeHTML(title)}</b><small>${escapeHTML(hint)}</small></span></label>`).join('')||'<div class="check-done">这一阶段没有待确认事项了。<span>可以查看下一步，也可以显示全部回顾记录。</span></div>'}</div><aside class="check-completion"><span>${icon('check')} 完成标志</span><p>${step.gate}</p></aside><div class="check-detail-bottom"><button class="check-guide-link" data-check-guide="${activeCheckStep}">查看本步说明与表格 ↗</button><div><button class="check-prev" data-check-step="${activeCheckStep-1}" ${activeCheckStep===0?'disabled':''}>上一步</button><button class="check-next" data-check-step="${activeCheckStep+1}" ${activeCheckStep===7?'disabled':''}>下一步 →</button></div></div>`;
+ const extras=extraChecklist.flatMap(group=>group.items);
+ $('checklist-extra-count').textContent=`${extras.filter(item=>checked.has(item[0])).length} / ${extras.length}`;
+ $('checklist-extra-groups').innerHTML=extraChecklist.map(group=>`<section class="check-group"><h3>${stageFor(group.stage).title}</h3>${group.items.map(([id,text,source])=>`<div class="check-item"><input type="checkbox" id="check-${id}" data-check="${id}" ${checked.has(id)?'checked':''}><label for="check-${id}">${escapeHTML(text)}</label><button class="check-source" data-open="${source}" aria-label="查看此清单项的来源笔记">来源 ↗</button></div>`).join('')}</section>`).join('');
+ if(!storageAvailable)$('checklist-storage-note').textContent='当前浏览器无法保存，勾选仅在本次打开期间保留。';
+}
+function selectCheckStep(index,focus=false){
+ if(!Number.isInteger(index)||index<0||index>=planningSteps.length)return;
+ activeCheckStep=index;renderChecklist();
+ if(focus){$('check-step-title').focus({preventScroll:true});$('checklist-detail').scrollIntoView({block:'start',behavior:'instant'});}
+}
+$('checklist-page').addEventListener('click',event=>{
+ const button=event.target.closest('button');if(!button)return;
+ if(button.dataset.checkStep!==undefined)selectCheckStep(Number(button.dataset.checkStep),true);
+ if(button.id==='checklist-continue')selectCheckStep(planningProgress().next<0?7:planningProgress().next,true);
+ if(button.id==='check-pending'){pendingChecksOnly=!pendingChecksOnly;renderChecklist();$('check-pending').focus({preventScroll:true});}
+ if(button.dataset.checkGuide!==undefined){
+  const guide=byId('preplanning-roadmap-20261028');
+  const prefix=['第一步','第二步','第三步','第四步','第五步','第六步','第七步','第八步'][Number(button.dataset.checkGuide)];
+  const section=guide.sections.findIndex(section=>section.title.startsWith(prefix));
+  showNote(guide.id);if(section>=0)scrollReaderTo(`note-section-${section+1}`);
+ }
+});
 document.addEventListener('click',event=>{
  const target=event.target.closest('button,a');if(!target)return;
  if(target.dataset.view)setView(target.dataset.view);
@@ -332,7 +375,7 @@ document.addEventListener('toggle',event=>{if(event.target.id==='reader-toc')$('
 $('close-dialog').addEventListener('click',()=>$('article-dialog').close());
 $('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageScroll();document.dispatchEvent(new CustomEvent('home-reading-change',{detail:false}));});
 $('article-dialog').addEventListener('click',event=>{if(event.target===$('article-dialog')){const r=$('article-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('article-dialog').close();}});
-$('checklist-groups').addEventListener('change',event=>{const id=event.target.dataset.check;if(!id)return;if(event.target.checked)checked.add(id);else checked.delete(id);writeStorage('saya-renovation-checks-v1',[...checked]);const focusId=event.target.id;renderChecklist();document.getElementById(focusId)?.focus();if(!storageAvailable)toast('当前浏览器无法保存，进度仅在本次打开期间保留');});
+$('checklist-groups').addEventListener('change',event=>{const id=event.target.dataset.check;if(!id)return;if(event.target.checked)checked.add(id);else checked.delete(id);writeStorage('saya-renovation-checks-v1',[...checked]);const focusId=event.target.id;renderChecklist();(document.getElementById(focusId)||$('check-pending')).focus({preventScroll:true});if(!storageAvailable)toast('当前浏览器无法保存，进度仅在本次打开期间保留');});
 $('reset-checklist').addEventListener('click',()=>{if(!checked.size){toast('清单尚未勾选');return;}if(window.confirm('将清除当前浏览器中的所有清单勾选，确认重置吗？')){checked.clear();writeStorage('saya-renovation-checks-v1',[]);renderChecklist();toast('勾选已重置');}});
 document.addEventListener('keydown',event=>{if(state.view==='home')return;if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open&&!$('user-note-dialog').open){event.preventDefault();if(!['library','saved'].includes(state.view))setView('library',false);$('search-input').focus();}});
 document.querySelector('.brand').addEventListener('click',event=>{event.preventDefault();setView('library');});

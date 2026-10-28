@@ -1,0 +1,33 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const path=require('node:path');
+const root=path.resolve(__dirname,'..');
+const app=fs.readFileSync(path.join(root,'dist/app.js'),'utf8');
+const ctx=vm.createContext({window:{},checked:new Set(),byId:id=>ctx.window.RENOVATION_NOTES.find(n=>n.id===id)});
+vm.runInContext(fs.readFileSync(path.join(root,'dist/data.js'),'utf8'),ctx);
+vm.runInContext(fs.readFileSync(path.join(root,'dist/checklist-data.js'),'utf8'),ctx);
+vm.runInContext(app.slice(app.indexOf('const checklist=['),app.indexOf('function renderChecklist(){')),ctx);
+const get=expression=>vm.runInContext(expression,ctx);
+const all=get('planningSteps.flatMap(s=>s.items).concat(extraChecklist.flatMap(s=>s.items))');
+assert.equal(get('planningSteps.length'),8);
+assert.equal(get('planningProgress().items.length'),40);
+assert.equal(new Set(all.map(item=>item[0])).size,all.length,'No duplicate checkbox IDs across primary and supplementary lists');
+for(const oldId of get('checklist.flatMap(s=>s.items.map(i=>i[0]))'))assert(all.some(item=>item[0]===oldId),`Existing progress remains reachable: ${oldId}`);
+const guide=ctx.window.RENOVATION_NOTES.find(n=>n.id==='preplanning-roadmap-20261028');
+for(const [i,prefix] of ['第一步','第二步','第三步','第四步','第五步','第六步','第七步','第八步'].entries()){
+ const section=guide.sections.find(section=>section.title.startsWith(prefix));
+ assert(section&&section.title.includes(ctx.window.CHECKLIST_STEPS[i].title));
+ assert(section.tables.length,'Every step links to an existing template');
+}
+ctx.checked.add('planning-needs');ctx.checked.add('electric-plan');ctx.checked.add('stale-key');
+assert.equal(get('planningProgress().done'),1,'Legacy overall check must not mark newly introduced subtasks done');
+assert.equal(get('planningProgress().completed'),0);
+assert.equal(get('planningProgress().next'),0);
+for(const item of ctx.window.CHECKLIST_STEPS[0].items)ctx.checked.add(item[0]);
+assert.equal(get('planningProgress().completed'),1);assert.equal(get('planningProgress().next'),1);
+for(const step of ctx.window.CHECKLIST_STEPS)for(const item of step.items)ctx.checked.add(item[0]);
+assert.equal(get('planningProgress().done'),40);assert.equal(get('planningProgress().completed'),8);assert.equal(get('planningProgress().next'),-1);
+ctx.checked.delete('needs-priority');assert.equal(get('planningProgress().next'),0);assert.equal(get('planningProgress().completed'),7);
+console.log('PASS: 8 guide-linked steps, 40 tasks, all legacy IDs retained, independent supplementary progress, partial/full/reopened completion.');

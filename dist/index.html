@@ -5,7 +5,7 @@
   <meta name="theme-color" content="#ffffff"><meta name="description" content="沙耶的装修攻略与避坑手册。按装修阶段查阅经验、对照清单，保留每一条经验的原帖出处。">
   <title>住前笔记 · 沙耶的装修手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d74738'/%3E%3Cpath d='M16 30 32 16 48 30v20H16zM27 50V35h10v15' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=sort-compact-20261023"><link rel="stylesheet" href="collection.css?v=home-20261027g"><script src="data.js?v=planning-20261028" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261027g"><script src="user-notes.js?v=home-20261027g" defer></script><script src="app.js?v=planning-20261028" defer></script>
+  <link rel="stylesheet" href="styles.css?v=sort-compact-20261023"><link rel="stylesheet" href="collection.css?v=home-20261027g"><script src="data.js?v=planning-20261028" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261027g"><script src="user-notes.js?v=home-20261027g" defer></script><link rel="stylesheet" href="checklist.css?v=20261028"><script src="checklist-data.js?v=20261028" defer></script><script src="app.js?v=checklist-20261028" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -49,7 +49,12 @@
         <div class="empty" id="empty" hidden><span data-icon="search"></span><h3 id="empty-title">暂时没有匹配的笔记</h3><p id="empty-copy">换一个关键词，或者清除筛选再试试。</p><button class="primary" id="reset-filters">查看全部笔记</button></div>
         <p class="collection-stats" id="source-stats"></p>
       </section>
-      <section class="checklist-page" id="checklist-page" hidden><div class="section-heading"><div><span class="eyebrow">A LITTLE PREPARATION GOES A LONG WAY</span><h1>把容易漏的事，逐项确认。</h1><p class="section-description">根据来源笔记整理的沟通与查阅清单。勾选进度保存在当前浏览器。</p></div></div><div class="progress-card"><span data-icon="checklist"></span><div><b id="progress-label">已确认 0 项</b><div class="progress-track"><div id="progress-fill"></div></div></div><button class="text-button" id="reset-checklist">重置勾选</button></div><div id="checklist-groups"></div></section>
+      <section class="checklist-page" id="checklist-page" hidden aria-labelledby="checklist-title">
+        <div class="checklist-heading"><div><span class="eyebrow">从想清楚，到准备好开工</span><h1 id="checklist-title">跟着八步，准备好开工。</h1><p class="section-description">一次确认一件事。每一步都留下能带到下一步的资料。</p></div><button class="check-guide-link" data-open="preplanning-roadmap-20261028">阅读八步完整指南 ↗</button></div>
+        <div class="planning-overview"><div><span class="check-kicker">前期准备进度</span><div class="planning-count"><strong id="checklist-percent">0<small>%</small></strong><span id="progress-label" role="status" aria-live="polite"></span></div><div class="progress-track" role="progressbar" aria-label="八步清单完成进度" aria-valuemin="0" aria-valuemax="40" aria-valuenow="0" id="checklist-progress"><div id="progress-fill"></div></div></div><div class="planning-next"><span class="check-kicker">接下来可以确认</span><b id="checklist-next-title"></b><button id="checklist-continue" class="check-guide-link">继续核对 →</button></div></div>
+        <div class="checklist-layout"><nav id="checklist-steps" class="checklist-steps" aria-label="八步检查清单"></nav><div id="checklist-groups"><section id="checklist-detail" class="checklist-detail" aria-labelledby="check-step-title"></section><details class="checklist-extras" id="checklist-extras"><summary><span>其他装修检查项 <small id="checklist-extra-count"></small></span><span aria-hidden="true">＋</span></summary><p>原有的专项检查继续留在这里，勾选记录保留，不计入八步准备进度。</p><div id="checklist-extra-groups"></div></details></div></div>
+        <div class="checklist-storage"><p id="checklist-storage-note">勾选自动保存在当前浏览器，不跨设备同步。勾选代表自行核实，不代替现场验收。</p><button class="text-button" id="reset-checklist">重置全部勾选</button></div>
+      </section>
       <section class="home-page" id="home-page" hidden aria-labelledby="my-home-title">
         <div class="home-heading"><div><span class="eyebrow">把生活需求，放回自己的家</span><h1 id="my-home-title">我家的装修方案</h1><p>从房间到每一条日常动线，慢慢确认这个家的样子。点击模型里的房间，查看布置、尺寸与需要取舍的细节。</p><div class="home-badges"><span>两人两猫</span><span>主卧套区</span><span>干湿分离</span></div></div><span class="home-status">概念方案 · 2026.10.27</span></div>
         <div id="home-load-status" class="home-loading" role="status"><p>正在打开我家的方案…</p></div><div id="home-model"></div>
