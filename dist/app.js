@@ -23,12 +23,14 @@ function visibleNotes(){
  const query=state.query.trim().toLocaleLowerCase();
  let result=notes.filter(n=>(state.view!=='saved'||saved.has(n.id))&&(state.stage==='all'||n.stage===state.stage)&&(state.type==='all'||n.type===state.type)&&(!state.imagesOnly||n.images?.length)&&(!query||[n.title,n.originalTitle,n.author,n.summary,n.stage,stageFor(n.stage)?.title,...n.tags,...n.points,...(n.images||[]).map(i=>i.caption)].join(' ').toLocaleLowerCase().includes(query)));
  if(state.sort==='newest')result=result.slice().sort((a,b)=>b.date.localeCompare(a.date));
+ else result=result.slice().sort((a,b)=>Number(b.id==='preplanning-roadmap-20261028')-Number(a.id==='preplanning-roadmap-20261028'));
  return result;
 }
 function renderStages(){
  $('filter-chips').innerHTML=[{id:'all',title:'全部阶段'},...stages].map(s=>`<button class="chip ${state.stage===s.id?'active':''}" data-stage="${s.id}" aria-pressed="${state.stage===s.id}">${s.title}</button>`).join('')+`<button class="chip image-filter ${state.imagesOnly?'active':''}" data-images-filter aria-pressed="${state.imagesOnly}">▧ 有配图 · ${notes.filter(n=>n.images?.length).length}</button>`;
 }
 const coverCopy={
+ 'preplanning-roadmap-20261028':{tone:'sage',label:'BEFORE RENOVATION',lines:['装修第一步，','从哪里开始？'],footer:'需求 → 预算 → 签约 → 交底'},
  '69d5b6da0000000023004c9a':{tone:'sage',label:'DESIGN BRIEF',lines:['给设计师的','需求说明书'],footer:'从生活动线，到空间功能'},
  '69ddcb4e000000001d01a01f':{tone:'lilac',label:'BEFORE YOU SIGN',lines:['装修公司','到底怎么选？'],footer:'现场 · 明细 · 负责人'},
  '6a1a292600000000080272aa':{tone:'sand',label:'FIRST MEETING',lines:['第一次到店，','该问什么？'],footer:'费用边界与施工沟通'},
@@ -50,6 +52,7 @@ function inlineImages(n,images){
 }
 function noteGallery(n){return '';}
 function coverageLabel(n){
+ if(n.sourceType==='synthesis')return `综合整理 · ${n.sources.length} 篇参考资料`;
  if(n.userNote)return '本人记录';
  if(!n.coverage)return n.evidence.includes('配图')||n.evidence.includes('拼图')?'正文 / 配图已核对':'正文已核对';
  const c=n.coverage;
@@ -98,6 +101,8 @@ function readerContents(n){
  return `<details class="reader-toc" id="reader-toc"><summary><span>本篇目录</span><small>${n.sections.length} 个主题</small></summary><nav aria-label="本篇主题目录">${n.sections.map((section,i)=>`<button data-note-jump="note-section-${i+1}"><span>${String(i+1).padStart(2,'0')}</span>${escapeHTML(section.title)}</button>`).join('')}</nav></details>`;
 }
 function coveragePanel(n){
+ if(n.sourceType==='synthesis')return `<section class="reader-source note-source-end" id="note-sources" aria-label="来源说明"><h3>参考资料与核对范围</h3><p>住前笔记综合整理 · 更新与核对日期：${escapeHTML(n.checkedAt)}</p><p>${escapeHTML(n.evidence)}。各节的 S 编号对应下列资料。</p><ol>${n.sources.map(ref=>`<li><p><strong>${escapeHTML(ref.id)} · </strong><a href="${escapeHTML(ref.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(ref.title)} ↗</a></p><p>${escapeHTML(ref.publisher)} · ${escapeHTML(ref.date)}</p><p>${escapeHTML(ref.scope)}</p></li>`).join('')}</ol><p>${escapeHTML(n.limits)}</p></section>`;
+
  if(n.userNote)return `<section class="reader-source note-source-end" aria-label="来源说明"><h3>本人记录</h3><p>沙耶 · ${escapeHTML(n.date)}</p>${n.url?`<p><a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">打开来源链接 ↗</a></p>`:''}<p>${escapeHTML(n.limits)}</p></section>`;
  const c=n.coverage;
  return `<section class="reader-source note-source-end" aria-label="来源说明"><h3>来源说明</h3><p>小红书 · ${escapeHTML(n.author)} · ${escapeHTML(n.date)}</p><p>原帖：<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(n.originalTitle||n.title)} ↗</a></p><p>${n.images?.length?(n.expandedAt?'配图按原帖顺序保留，含原作者收集的参考图及署名；原帖整理、本站建议与核算分区标注。':'配图来自原作者，保留原图与水印；文字为整理笔记。'):'文字为本站根据原帖正文整理的摘要；本次未收录配图。'}</p>${c?`<p>${escapeHTML(coverageLabel(n))}。${escapeHTML(c.note||'')}</p>`:''}<p>${escapeHTML(n.evidence)} · 核对日期：${escapeHTML(n.checkedAt||'2026-10-22')}</p>${n.limits?`<p>${escapeHTML(n.limits)}</p>`:''}</section>`;
@@ -108,7 +113,7 @@ function scrollReaderTo(id){
 }
 function card(n){
  const s=stageFor(n.stage);const isSaved=saved.has(n.id);
- return `<article class="article-card" data-note="${escapeHTML(n.id)}">${mediaPreview(n,s)}<div class="card-body"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(s?.title)}</span>${n.userNote?'<span class="my-note-tag">我的</span>':''}</div><h3 class="card-title"><button class="title-button" data-open="${escapeHTML(n.id)}">${escapeHTML(n.title)}</button></h3><p class="card-summary">${escapeHTML(n.summary)}</p><div class="card-tags">${n.tags.map(t=>`<span># ${escapeHTML(t)}</span>`).join('')}</div><div class="card-bottom"><span class="author-dot">${escapeHTML(n.author.slice(0,1))}</span><span class="author-name" title="${escapeHTML(n.author)}">${escapeHTML(n.author)}</span><time class="card-date" datetime="${n.date}">${n.date.slice(5).replace('-','.')}</time><button class="bookmark-button ${isSaved?'saved':''}" data-save="${escapeHTML(n.id)}" aria-label="${isSaved?'取消收藏':'收藏'}：${escapeHTML(n.title)}" aria-pressed="${isSaved}">${icon('bookmark')}</button></div></div><div class="card-source-row"><span>${escapeHTML(coverageLabel(n))}</span>${n.url?`<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${n.userNote?'打开来源链接':'查看原帖'} ↗</a>`:''}</div></article>`;
+ return `<article class="article-card" data-note="${escapeHTML(n.id)}">${mediaPreview(n,s)}<div class="card-body"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(s?.title)}</span>${n.userNote?'<span class="my-note-tag">我的</span>':''}</div><h3 class="card-title"><button class="title-button" data-open="${escapeHTML(n.id)}">${escapeHTML(n.title)}</button></h3><p class="card-summary">${escapeHTML(n.summary)}</p><div class="card-tags">${n.tags.map(t=>`<span># ${escapeHTML(t)}</span>`).join('')}</div><div class="card-bottom"><span class="author-dot">${escapeHTML(n.author.slice(0,1))}</span><span class="author-name" title="${escapeHTML(n.author)}">${escapeHTML(n.author)}</span><time class="card-date" datetime="${n.date}">${n.date.slice(5).replace('-','.')}</time><button class="bookmark-button ${isSaved?'saved':''}" data-save="${escapeHTML(n.id)}" aria-label="${isSaved?'取消收藏':'收藏'}：${escapeHTML(n.title)}" aria-pressed="${isSaved}">${icon('bookmark')}</button></div></div><div class="card-source-row"><span>${escapeHTML(coverageLabel(n))}</span>${n.sourceType==='synthesis'?`<button class="text-button" data-open="${escapeHTML(n.id)}">阅读完整流程 ↗</button>`:n.url?`<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${n.userNote?'打开来源链接':'查看原帖'} ↗</a>`:''}</div></article>`;
 }
 function renderLibrary(){
  const result=visibleNotes();const isSaved=state.view==='saved';
@@ -195,7 +200,7 @@ function showNote(id){
  const n=byId(id);if(!n)return;state.opened=id;
  const count=n.sections?.reduce((sum,section)=>sum+section.items.length,0)||n.points.length;
  const tableCount=n.sections?.reduce((sum,section)=>sum+(section.tables?.length||0),0)||0;
- $('dialog-content').innerHTML=`<article class="reader-document"><header class="reader-heading"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span>${n.userNote?'<span class="my-note-tag">我的</span>':''}</div><h2 id="dialog-title" tabindex="-1" autofocus>${escapeHTML(n.title)}</h2><div class="reader-stats"><span>${count} 条要点</span><span>${n.images?.length||0} 张配图</span>${tableCount?`<span>${tableCount} 组对照表</span>`:''}</div><p class="dialog-intro">${escapeHTML(n.summary)}</p></header>${readerContents(n)}${detailedSummary(n)}<div class="dialog-actions"><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button>${n.url?`<a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${n.userNote?'打开来源链接':'查看小红书原帖'} ↗</a>`:''}${n.userNote?`<button class="secondary" data-delete-note="${escapeHTML(n.id)}">删除这条</button>`:''}</div>${coveragePanel(n)}</article>`;
+ $('dialog-content').innerHTML=`<article class="reader-document"><header class="reader-heading"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span>${n.userNote?'<span class="my-note-tag">我的</span>':''}</div><h2 id="dialog-title" tabindex="-1" autofocus>${escapeHTML(n.title)}</h2><div class="reader-stats"><span>${count} 条要点</span><span>${n.images?.length||0} 张配图</span>${tableCount?`<span>${tableCount} 组对照表</span>`:''}</div><p class="dialog-intro">${escapeHTML(n.summary)}</p></header>${readerContents(n)}${detailedSummary(n)}<div class="dialog-actions"><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button>${n.sourceType==='synthesis'?'<button class="primary" data-note-jump="note-sources">查看参考资料 ↓</button>':n.url?`<a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${n.userNote?'打开来源链接':'查看小红书原帖'} ↗</a>`:''}${n.userNote?`<button class="secondary" data-delete-note="${escapeHTML(n.id)}">删除这条</button>`:''}</div>${coveragePanel(n)}</article>`;
  $('reader-contents-button').hidden=!n.sections?.length;$('reader-contents-button').setAttribute('aria-expanded','false');$('reader-gallery-button').hidden=!n.images?.length;if(n.images?.length)$('reader-gallery-button').dataset.noteJump=`note-image-${n.images[0].sourceIndex||1}`;
  updateDialogSave(id);openModal($('article-dialog'));$('dialog-content').scrollTo({top:0,left:0,behavior:'instant'});
 }
@@ -272,7 +277,15 @@ $('image-dialog').addEventListener('keydown',event=>{if(event.key==='ArrowRight'
 $('image-dialog').addEventListener('click',event=>{if(event.target===$('image-dialog')){const r=$('image-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('image-dialog').close();}});
 
 const checklist=[
- {stage:'准备',items:[['plan-list','列出硬装、定制、家具软装和电器，建立完整预算表。','6937eb83000000001e0100df'],['plan-size','在水电定位前明确主要电器、橱柜和卫浴设备的尺寸与位置。','6937eb83000000001e0100df']]},
+ {stage:'准备',items:[
+ ['planning-needs','1 定需求：家人已确认必须项、可选项和需要保留的家具设备。','preplanning-roadmap-20261028'],
+ ['planning-budget','2 定预算：已列全落地费用与备用金，并确认计划总额和最高上限。','preplanning-roadmap-20261028'],
+ ['planning-house','3 看房屋：已整理户型、现场限制、待专业确认事项和入住时间目标。','preplanning-roadmap-20261028'],
+ ['planning-team','4 选团队：已比较服务边界、实际负责人、在建工地和设计收费。','preplanning-roadmap-20261028'],
+ ['planning-design','5 定方案：已确认平面布局、主要设备条件与图纸交付范围。','preplanning-roadmap-20261028'],
+ ['planning-quote','6 审报价：已对照图纸核对明细、排除项、暂估项与自购责任。','preplanning-roadmap-20261028'],
+ ['planning-contract','7 签合同：已核对图纸和材料附件、验收付款、工期、变更及保修约定。','preplanning-roadmap-20261028'],
+ ['planning-handover','8 开工交底：已完成现场核图、手续与保护安排，确认施工及采购负责人。','preplanning-roadmap-20261028'],['plan-list','列出硬装、定制、家具软装和电器，建立完整预算表。','6937eb83000000001e0100df'],['plan-size','在水电定位前明确主要电器、橱柜和卫浴设备的尺寸与位置。','6937eb83000000001e0100df']]},
  {stage:'预算',items:[['budget-whole','把预计总额、已支付、未采购和报价未包含项目分别列出。','6a8443160000000025006648'],['company-visit','线下查看施工现场与落地效果，确认实际项目负责人和团队。','69ddcb4e000000001d01a01f'],['company-detail','用相同配置比较报价，追问材料系列、厚度、规格和工艺。','69ddcb4e000000001d01a01f'],['design-brief','写清居住者、生活动线、总预算和各房间的主要用途。','69d5b6da0000000023004c9a'],['design-reference','参考图标注喜欢的具体部分，把不考虑和待确认事项一起列出。','6aa6b1ff0000000026014d71'],['design-feedback','收到方案后逐区反馈原因，核对设备和新增功能是否落实。','688778790000000025015e87'],['budget-range','核对报价中的品牌、型号、数量和服务包含范围。','company'],['budget-extra','确认搬运、清运、拆后修补的费用与计价方式。','extras'],['budget-contract','在合同中明确工期、质保、延期处理和增项确认方式。','company'],['budget-own','把套餐内、套餐外、业主自购分别列预算。','6ad4b548000000000c00a11b']]},
  {stage:'施工',items:[['electric-plan','逐处核对插座与开关，确认家具遮挡和线缆空间。','6abc64740000000002028ea2'],['electric-label','核对合同中的管材、电线和网线标识。','690c8eb50000000005011f07'],['electric-record','封闭前拍照保存管线位置，归档施工图和验收记录。','690c8eb50000000005011f07']]},
  {stage:'厨卫',items:[['bath-water','和施工方确认门口、门槛及周边墙面的防水收口。','69b942730000000020038cfe'],['bath-drain','查看地漏清理便利性、壁龛积水和检修条件。','69b942730000000020038cfe'],['bath-power','确认卫浴设备的用电点位及防溅措施。','69b942730000000020038cfe'],['bath-air','安装后查看卫生间排风管是否接到通风口。','lived']]},

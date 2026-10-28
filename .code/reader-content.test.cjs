@@ -19,7 +19,7 @@ for(const note of context.window.RENOVATION_NOTES){
   paragraphs+=(html.match(/<p>/g)||[]).length;count++;
  }}
 }
-const baseline=context.window.RENOVATION_NOTES.filter(note=>note.checkedAt!=='2026-10-23');
+const baseline=context.window.RENOVATION_NOTES.filter(note=>note.checkedAt!=='2026-10-23'&&note.sourceType!=='synthesis');
 assert.equal(baseline.length,15);
 assert.equal(baseline.reduce((sum,note)=>sum+note.sections.reduce((n,section)=>n+section.items.length,0),0),213);
 assert.equal(count,context.window.RENOVATION_NOTES.reduce((sum,note)=>sum+note.points.length,0));
