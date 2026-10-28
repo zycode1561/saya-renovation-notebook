@@ -5,7 +5,11 @@
   <meta name="theme-color" content="#ffffff"><meta name="description" content="沙耶的装修攻略与避坑手册。按装修阶段查阅经验、对照清单，保留每一条经验的原帖出处。">
   <title>住前笔记 · 沙耶的装修手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d74738'/%3E%3Cpath d='M16 30 32 16 48 30v20H16zM27 50V35h10v15' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=sort-compact-20261023"><link rel="stylesheet" href="collection.css?v=home-20261027g"><script src="data.js?v=planning-20261028" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261027g"><script src="user-notes.js?v=home-20261027g" defer></script><link rel="stylesheet" href="checklist.css?v=20261028"><script src="checklist-data.js?v=20261028" defer></script><script src="app.js?v=checklist-20261028" defer></script>
+  <link rel="stylesheet" href="styles.css?v=sort-compact-20261023"><link rel="stylesheet" href="collection.css?v=home-20261028a"><script src="data.js?v=planning-20261028" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261028a"><script src="github-store.js?v=home-20261028a" defer></script><script src="user-notes.js?v=home-20261028a" defer></script><link rel="stylesheet" href="checklist.css?v=20261028"><script src="checklist-data.js?v=20261028" defer></script><script src="app.js?v=home-20261028a" defer></script>
+  <link rel="stylesheet" href="ledger.css?v=home-20261028a">
+  <script src="budget.js?v=home-20261028a" defer></script>
+  <script src="inspect-checklist.js?v=home-20261028a" defer></script>
+  <script src="ledger-ui.js?v=home-20261028a" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -16,6 +20,8 @@
         <button class="nav-item" data-view="saved">我的收藏<span class="nav-count" id="saved-count">0</span></button>
         <button class="nav-item" data-view="home">我的家</button>
         <button class="nav-item" data-view="checklist">检查清单</button>
+        <button class="nav-item" data-view="budget">预算账本</button>
+        <button class="nav-item" data-view="inspect">施工验收</button>
       </nav>
       <span class="avatar" aria-label="沙耶的装修手册">沙</span>
       <span class="sr-only" id="breadcrumb">发现笔记</span>
@@ -71,10 +77,20 @@
         </section></div>
         <p class="home-limit">本方案为概念模型，不是施工图。结构可改性、排水与防水边界、门窗和现场净尺寸仍待核实；模型可通行不代表施工可行。视线检查仅针对给定视点与床面高度，实际遮影效果需现场确认。</p>
       </section>
+      <section id="budget-page" class="ledger-page" hidden aria-labelledby="budget-title"></section>
+      <section id="inspect-page" class="ledger-page" hidden aria-labelledby="inspect-title"></section>
       <aside class="bottom-note"><span data-icon="book"></span><div><b>好经验，也要放回自己的家里判断。</b><p>本站整理博主经验，保留正文或配图核对范围。具体施工参数、结构改动及验收要求，请结合房屋条件与适用规范确认。</p></div></aside>
       <footer><span>住前笔记 <i>·</i> 给理想的家，留一点准备时间。</span><span>为沙耶整理 / 2026.10.28</span></footer>
     </main>
   </div>
+  <dialog id="ledger-dialog" aria-labelledby="ledger-dialog-title">
+    <form id="ledger-form">
+      <div class="user-note-handle" aria-hidden="true"><span></span></div>
+      <div class="user-note-heading"><h2 id="ledger-dialog-title" tabindex="-1"></h2><button type="button" data-ledger-close aria-label="关闭表单">×</button></div>
+      <div class="user-note-body" id="ledger-body"><div id="ledger-fields"></div><p id="ledger-error" role="alert"></p></div>
+      <div class="user-note-actions"><button type="button" class="secondary" data-ledger-close>取消</button><button type="submit" class="primary" id="ledger-submit">保存</button></div>
+    </form>
+  </dialog>
   <dialog id="user-note-dialog" aria-labelledby="user-note-heading">
     <form id="user-note-form">
       <div class="user-note-handle" aria-hidden="true"><span></span></div>

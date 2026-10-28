@@ -6,7 +6,6 @@
 })(typeof window==='undefined'?globalThis:window,function(){
  'use strict';
  const stages=['准备','预算','施工','厨卫','安装','入住'];
- const endpoint='https://api.github.com/repos/zycode1561/saya-renovation-notebook/contents/dist/data/user-notes.json';
  const tokenKey='saya-renovation-gh-token-v1';
  function validateNoteInput(input={}){
   const normalized={};
@@ -50,33 +49,14 @@
  }
  function buildPutPayload({doc,sha,title,mode}){return {message:`note: ${mode==='delete'?'delete ':''}${title}`,content:encodeUserNotesFile(doc),...(sha?{sha}:{}),branch:'main'};}
  function tokenStorage(storage){return {read:()=>storage.getItem(tokenKey)||'',write:value=>storage.setItem(tokenKey,value.trim()),clear:()=>storage.removeItem(tokenKey)};}
- async function loadUserNotes({fetch:request=globalThis.fetch}={}){
-  for(const path of ['https://raw.githubusercontent.com/zycode1561/saya-renovation-notebook/main/dist/data/user-notes.json','./data/user-notes.json']){
-   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
-   try{const response=await request(`${path}?t=${Date.now()}`,{cache:'no-store',signal:controller.signal});if(response.ok)return decodeUserNotesFile(await response.text()).notes;}catch{}finally{clearTimeout(timer);}
-  }
-  return [];
+ function store(){return typeof module==='object'&&module.exports?require('./github-store.js'):window.GithubStore;}
+ async function loadUserNotes(options={}){
+  try{return (await store().load({...options,path:'user-notes.json',parse:decodeUserNotesFile})).notes;}catch{return [];}
  }
- async function writeUserNote({note,mode='add',token,fetch:request=globalThis.fetch}){
-  if(!token)throw new Error('请先填写 GitHub 令牌');
-  const headers={Accept:'application/vnd.github+json',Authorization:`Bearer ${token}`,'X-GitHub-Api-Version':'2022-11-28'};
-  async function call(url,options){
-   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
-   try{return await request(url,{...options,signal:controller.signal});}catch{throw new Error('网络连接失败或超时，请检查网络后重试');}finally{clearTimeout(timer);}
-  }
-  function failure(status){return new Error(status===401||status===403?'令牌无效或权限不足，请检查令牌设置':status===409?'笔记同时被修改，请稍后再试':'GitHub 写入失败，请稍后重试');}
-  for(let attempt=0;attempt<3;attempt++){
-   const response=await call(`${endpoint}?ref=main&t=${Date.now()}`,{headers,cache:'no-store'});
-   if(!response.ok)throw failure(response.status);
-   let file;try{file=await response.json();}catch{throw new Error('无法读取 GitHub 笔记文件');}
-   if(!file.sha||typeof file.content!=='string')throw new Error('无法读取 GitHub 笔记文件');
-   const doc=decodeUserNotesFile(file.content,{base64:true});
-   doc.notes=doc.notes.filter(n=>n.id!==note.id);
-   if(mode!=='delete')doc.notes.push(note);
-   const result=await call(endpoint,{method:'PUT',headers:{...headers,'Content-Type':'application/json'},body:JSON.stringify(buildPutPayload({doc,sha:file.sha,title:note.title,mode}))});
-   if(result.ok)return doc.notes;
-   if(result.status!==409||attempt===2)throw failure(result.status);
-  }
+ async function writeUserNote({note,mode='add',...options}){
+  const doc=await store().write({...options,path:'user-notes.json',parse:decodeUserNotesFile,message:`note: ${mode==='delete'?'delete ':''}${note.title}`,mutate:doc=>{
+   doc.notes=doc.notes.filter(n=>n.id!==note.id);if(mode!=='delete')doc.notes.push(note);return doc;
+  }});return doc.notes;
  }
  return {validateNoteInput,buildUserNote,mergeNotes,encodeUserNotesFile,decodeUserNotesFile,buildPutPayload,tokenStorage,loadUserNotes,writeUserNote};
 });

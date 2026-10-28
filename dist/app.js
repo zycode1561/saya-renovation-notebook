@@ -138,7 +138,7 @@ function syncHomeWorkspace(){
  if(homeController){homeController.setActive(state.view==='home');return;}
  if(state.view!=='home'||homeLoading)return;
  const status=$('home-load-status');status.hidden=false;status.innerHTML='<p>正在打开我家的方案…</p>';
- homeLoading=import('./home-workspace.js?v=home-20261027g').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
+ homeLoading=import('./home-workspace.js?v=home-20261028a').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
   homeController=controller;controller.setActive(state.view==='home');status.hidden=true;
  }).catch(error=>{
   console.error('Home workspace:',error);status.innerHTML='<p>方案暂时没能加载，笔记和清单仍可使用。</p><button class="primary" id="home-retry">重新加载方案</button>';
@@ -146,15 +146,15 @@ function syncHomeWorkspace(){
  }).finally(()=>{homeLoading=null;});
 }
 function setView(view,scroll=true){
- if(!['library','saved','checklist','home'].includes(view))return;
+ if(!['library','saved','checklist','home','budget','inspect'].includes(view))return;
  workspaceState.set(state.view,{stage:state.stage,type:state.type,query:state.query,imagesOnly:state.imagesOnly,sort:state.sort,scrollY:window.scrollY});
  const previous=workspaceState.get(view);
  state.view=view;
  Object.assign(state,previous||{stage:view==='library'?'预算':'all',type:'all',query:'',imagesOnly:false,sort:'recommended'});
  $('search-input').value=state.query;
- const titles={library:'发现笔记',saved:'我的收藏',checklist:'检查清单',home:'我的家'};
+ const titles={library:'发现笔记',saved:'我的收藏',checklist:'检查清单',home:'我的家',budget:'预算账本',inspect:'施工验收'};
  $('breadcrumb').textContent=titles[view];
- $('current-stage').hidden=view!=='library';$('hero').hidden=view!=='library';$('library').hidden=!['library','saved'].includes(view);$('checklist-page').hidden=view!=='checklist';$('home-page').hidden=view!=='home';
+ $('current-stage').hidden=view!=='library';$('hero').hidden=view!=='library';$('library').hidden=!['library','saved'].includes(view);$('checklist-page').hidden=view!=='checklist';$('home-page').hidden=view!=='home';$('budget-page').hidden=view!=='budget';$('inspect-page').hidden=view!=='inspect';
  document.querySelectorAll('.site-nav [data-view]').forEach(b=>{b.classList.toggle('active',b.dataset.view===view);if(b.dataset.view===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  $('sort-value').textContent=state.sort==='newest'?'最新发布':'推荐阅读';
  document.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.sort===state.sort)));
@@ -377,13 +377,13 @@ $('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageS
 $('article-dialog').addEventListener('click',event=>{if(event.target===$('article-dialog')){const r=$('article-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('article-dialog').close();}});
 $('checklist-groups').addEventListener('change',event=>{const id=event.target.dataset.check;if(!id)return;if(event.target.checked)checked.add(id);else checked.delete(id);writeStorage('saya-renovation-checks-v1',[...checked]);const focusId=event.target.id;renderChecklist();(document.getElementById(focusId)||$('check-pending')).focus({preventScroll:true});if(!storageAvailable)toast('当前浏览器无法保存，进度仅在本次打开期间保留');});
 $('reset-checklist').addEventListener('click',()=>{if(!checked.size){toast('清单尚未勾选');return;}if(window.confirm('将清除当前浏览器中的所有清单勾选，确认重置吗？')){checked.clear();writeStorage('saya-renovation-checks-v1',[]);renderChecklist();toast('勾选已重置');}});
-document.addEventListener('keydown',event=>{if(state.view==='home')return;if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open&&!$('user-note-dialog').open){event.preventDefault();if(!['library','saved'].includes(state.view))setView('library',false);$('search-input').focus();}});
+document.addEventListener('keydown',event=>{if(state.view==='home')return;if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open&&!$('user-note-dialog').open&&!$('ledger-dialog').open){event.preventDefault();if(!['library','saved'].includes(state.view))setView('library',false);$('search-input').focus();}});
 document.querySelector('.brand').addEventListener('click',event=>{event.preventDefault();setView('library');});
 fillIcons();renderStages();renderLibrary();renderChecklist();
 
 // 写入成功后直接使用已提交的数据，避免原始文件缓存覆盖本次修改。
 const userNotes=window.UserNotes;
-let pendingDelete=null,userNoteBusy=false,userNotesRevision=0,pendingUserNote=null;
+let pendingDelete=null,userNoteBusy=false,userNotesRevision=0,pendingUserNote=null,tokenSettingsOnly=false;
 function storedToken(){try{return userNotes.tokenStorage(localStorage).read();}catch{return '';}}
 function refreshTokenUI(){const present=Boolean(storedToken());$('user-token-input').hidden=present;$('user-token-saved').hidden=!present;const settings=$('user-note-token-settings');if(!present)settings.open=true;else if(pendingDelete)settings.open=false;}
 function hideUserToken(){ $('user-note-token').type='password';$('toggle-user-token').textContent='显示';$('toggle-user-token').setAttribute('aria-pressed','false'); }
@@ -416,7 +416,7 @@ function applyUserNotes(list){
 }
 function openUserNoteForm(note=null){
  if(userNoteBusy)return;
- pendingDelete=note;pendingUserNote=null;
+ tokenSettingsOnly=false;pendingDelete=note;pendingUserNote=null;
  $('user-note-form').reset();$('user-note-error').textContent='';clearUserNoteFieldErrors();
  $('user-note-form').classList.toggle('user-note-delete-mode',Boolean(note));
  $('user-note-fields').hidden=Boolean(note);$('user-note-fields').disabled=Boolean(note);
@@ -430,14 +430,20 @@ function openUserNoteForm(note=null){
  if(note){$('user-note-token-settings').open=!storedToken();$('user-note-token-settings').querySelector('summary').textContent=storedToken()?'令牌已保存，可直接删除':'填写令牌后删除';}
  else {$('user-note-token-settings').querySelector('summary').textContent='令牌设置';$('user-note-token-settings').open=!storedToken();}
  openModal($('user-note-dialog'));
- document.querySelector('.user-note-body').scrollTop=0;
+ document.querySelector('#user-note-dialog .user-note-body').scrollTop=0;
  if(note)$('cancel-user-note').focus();else $('user-note-heading').focus();
+}
+function openTokenSettings(){
+ openUserNoteForm();tokenSettingsOnly=true;
+ $('user-note-fields').hidden=true;$('user-note-fields').disabled=true;
+ $('user-note-heading').textContent='令牌设置';$('submit-user-note').textContent='保存设置';
+ $('cancel-user-note').hidden=false;$('user-note-token-settings').open=true;
 }
 $('add-note').addEventListener('click',()=>openUserNoteForm());
 function closeUserNoteForm(){if(!userNoteBusy)$('user-note-dialog').close();}
 $('close-user-note').addEventListener('click',closeUserNoteForm);
 $('cancel-user-note').addEventListener('click',closeUserNoteForm);
-document.querySelector('.user-note-handle').addEventListener('click',closeUserNoteForm);
+document.querySelector('#user-note-dialog .user-note-handle').addEventListener('click',closeUserNoteForm);
 $('user-note-dialog').addEventListener('click',event=>{if(event.target===$('user-note-dialog')){const r=event.currentTarget.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeUserNoteForm();}});
 $('user-note-token').addEventListener('input',()=>$('user-note-token').classList.remove('is-invalid'));
 $('toggle-user-token').addEventListener('click',()=>{const show=$('user-note-token').type==='password';$('user-note-token').type=show?'text':'password';$('toggle-user-token').textContent=show?'隐藏':'显示';$('toggle-user-token').setAttribute('aria-pressed',String(show));});
@@ -450,11 +456,12 @@ $('user-note-form').addEventListener('submit',async event=>{
  event.preventDefault();if(userNoteBusy)return;
  const form=event.currentTarget;
  const checkedInput=userNotes.validateNoteInput(Object.fromEntries(new FormData(form)));
- if(!pendingDelete&&!checkedInput.ok){showUserNoteError(checkedInput.errors.join('；'));return;}
+ if(!tokenSettingsOnly&&!pendingDelete&&!checkedInput.ok){showUserNoteError(checkedInput.errors.join('；'));return;}
  const token=storedToken()||$('user-note-token').value.trim();
  if(!token){refreshTokenUI();showUserNoteError('请先填写 GitHub 令牌',{tokenInvalid:true});$('user-note-token').focus();return;}
  try{userNotes.tokenStorage(localStorage).write(token);}catch{$('user-note-error').textContent='浏览器无法保存令牌，请允许本地存储后重试';return;}
  $('user-note-token').value='';refreshTokenUI();
+ if(tokenSettingsOnly){$('user-note-dialog').close();toast('令牌已保存，请继续保存记录');return;}
  // 重试沿用同一个编号，避免网络中断后重复添加。
  const draft=JSON.stringify(checkedInput.normalized);
  if(!pendingDelete&&pendingUserNote?.draft!==draft)pendingUserNote={draft,note:userNotes.buildUserNote(checkedInput.normalized)};
