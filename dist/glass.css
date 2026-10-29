@@ -148,3 +148,149 @@ input::placeholder,textarea::placeholder{color:#3a3a3c;opacity:1}
  :root{--glass-bg:#fff;--glass-primary:#fff;--glass-reader-bg:#fff;--glass-list-bg:#fff;--glass-filter:none;--glass-reader-filter:none;--glass-control:#fff;--glass-paper:#fff;--glass-sticky:#fff;--white:#fff}
  *,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 }
+
+/* Round 3: one material per group; proximity and type define its contents. */
+:root {
+ --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px; --space-8:32px;
+ --group-radius:28px; --group-padding:20px; --inner-radius:8px;
+ --glass-border:0 solid transparent;
+ --glass-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 32px rgba(35,58,88,.07);
+ --control-shadow:0 3px 12px rgba(35,58,88,.08);
+ --line:rgba(35,58,88,.08);
+}
+/* Remove the old perimeter highlight: only the upper face catches light. */
+:is(.hero,.current-stage,.article-card,.planning-overview,.progress-card,.checklist-detail,.checklist-extras,.check-group,.ledger-summary,.ledger-panel,.home-summary,.home-related,.sort-options,.site-nav,.tabs,.search,.chip,.filter-chip,.sort-trigger,.site-header,dialog)::before{content:none}
+:is(.hero,.current-stage,.planning-overview,.progress-card,.checklist-detail,.checklist-extras,.ledger-summary,.ledger-panel,.home-plan-bottom,.article-grid){border:0;border-radius:var(--group-radius)}
+:is(.article-grid,.home-plan-bottom,.checklist-steps){background:var(--glass-list-bg);box-shadow:var(--glass-shadow)}
+:is(.hero,.planning-overview,.checklist-detail,.ledger-summary,.ledger-panel,.home-plan-bottom,.article-grid){padding:var(--group-padding)}
+:is(.hero,.current-stage,.planning-overview,.ledger-summary,.ledger-panel){margin-block:0 var(--space-8)}
+.library,.home-plan-bottom{margin-top:var(--space-8)}
+.section-heading,.library-tools{margin-bottom:var(--space-6)}
+:is(.hero-meta,.filter-line,.card-source-row,.card-bottom,.current-steps li,.current-stage-footnote,.planning-next,.home-summary li,.home-related button[data-open],.home-check-link,.home-limit,footer){border:0}
+:is(.eyebrow,.hero .eyebrow,.home-heading .eyebrow){display:none}
+:is(.home-heading h1,.checklist-page h1,.ledger-page h1,.hero h1){font-size:30px;line-height:1.4;font-weight:700;letter-spacing:-.025em;margin:0 0 12px}
+:is(.section-heading h2,.home-summary h2,.home-related h2,.ledger-page h2){font-size:20px;line-height:1.5;font-weight:650;margin:0 0 12px}
+:is(.hero-copy>p,.section-description,.home-heading p){font-size:15px;line-height:1.8}
+:is(.site-nav,.tabs){border:0;background:var(--glass-control);box-shadow:none;padding:4px;gap:4px}
+:is(.site-nav .nav-item,.tabs button,.chip,.filter-chip,.sort-trigger,.search,.secondary,.bookmark-button,.home-badges span,.type-tag,.current-label,.nav-count,.my-note-tag,.check-detail-count){border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.site-nav .nav-item:is(.active,:hover),.tabs button.active,.chip.active,.filter-chip.active{border:0;box-shadow:var(--control-shadow);backdrop-filter:none;-webkit-backdrop-filter:none;color:#004eaa}
+:is(.chip,.filter-chip,.bookmark-button,.home-badges span,.type-tag,.current-label,.nav-count,.my-note-tag){background:transparent}
+:is(.primary,#submit-user-note,#add-note,.ledger-page .primary,#ledger-form .primary):is(*,:hover){background:#0066d6;border:0;box-shadow:var(--control-shadow);backdrop-filter:none;-webkit-backdrop-filter:none}
+/* A single gallery surface; individual notes have no enclosing frame. */
+.article-grid{gap:32px 24px}
+.article-grid .article-card{padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.article-card .note-cover{border-radius:var(--inner-radius);background:var(--glass-control);padding:20px 16px}
+.card-photo{border:0;border-radius:var(--inner-radius)}
+.cover-rule{display:none}.card-body{padding:16px 0 0}.card-title{font-size:16px;line-height:1.6;margin:8px 0}
+.card-source-row{padding-top:8px;margin-top:4px}
+.library-heading h2>span{border:0;padding:0;margin-left:8px}
+.type-tag.pitfall{background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+:is(.article-card,.card-body,.card-bottom,.home-plan-bottom>*,.planning-overview>*,.ledger-heading>*,.check-detail-heading>*){min-width:0}
+:is(.card-title,.home-summary,.home-related,.check-task>span,.ledger-entry h3){overflow-wrap:anywhere}.card-tags{margin-bottom:8px}
+.bottom-note{padding:24px 0;background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.current-stage{padding:0}.current-stage>summary{padding:16px 20px}.current-stage-body{padding:8px 20px 20px;border:0}
+.current-steps{gap:24px;margin-top:24px}.current-steps li{padding-top:0}.current-stage-footnote{margin-top:24px;padding-top:0}
+/* Grouped checklists: selection gets a lens, ordinary rows remain unboxed. */
+.checklist-layout{gap:24px}.checklist-steps{gap:4px;padding:8px;border-radius:24px}
+.checklist-steps .check-step{border:0;border-radius:16px;background:transparent;box-shadow:none;padding:12px;gap:12px;backdrop-filter:none;-webkit-backdrop-filter:none}
+.checklist-steps .check-step.active{background:var(--glass-primary);box-shadow:var(--control-shadow)}
+.checklist-steps .check-step.active :is(.check-step-number,.check-step-copy b){color:#004eaa}
+.planning-overview{gap:32px}.planning-next{padding-left:0}.planning-count{gap:16px;margin:8px 0 16px}
+.check-detail-heading h2{margin-top:0}.check-deliverable{padding:16px 0;margin:24px 0 16px;background:transparent;border:0;border-radius:0}
+:is(.check-task,.check-item,.ledger-entry,.inspect-item){border:0;border-radius:0;background:transparent;box-shadow:none;margin:0;padding:16px 0;backdrop-filter:none;-webkit-backdrop-filter:none}
+.check-task{gap:12px}.check-task>span{gap:8px}.check-task b{font-size:15px}.check-task small{line-height:1.8}
+.check-completion{border:0;background:transparent;padding:16px 0;margin:16px 0 0}.check-detail-bottom{padding-top:16px}
+.checklist-extras{margin-top:32px}.checklist-extras .check-group{background:transparent;border:0;box-shadow:none;padding:16px 20px;backdrop-filter:none;-webkit-backdrop-filter:none}
+/* One shared home briefing, two columns on wide screens. */
+.home-plan-bottom{gap:32px}
+.home-plan-bottom :is(.home-summary,.home-related){padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.home-summary li{padding:12px 0}.home-related button[data-open]{padding:12px 0}.home-check-link{margin-top:24px;padding-top:0}
+.home-limit{background:transparent;padding:0;margin:24px 0}.home-badges{gap:12px}.home-badges span{padding:0}
+/* Ledger and inspection groups retain one outer surface, even for long lists. */
+.ledger-summary,.ledger-panel{margin-top:32px}.ledger-panel{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--glass-list-bg)}
+.ledger-chart{gap:16px}.ledger-choice{margin:16px 0;gap:8px}.ledger-entries{margin-top:24px}
+.inspect-item{padding:16px 0}.inspect-item label{gap:8px}.inspect-item .ledger-row-actions{padding-left:52px;justify-content:flex-start}
+.ledger-page .secondary,#ledger-form .secondary{border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+/* The reader is one sheet, with editorial space instead of rules. */
+#article-dialog :is(.dialog-top,.dialog-intro,blockquote,.reader-toc,.reader-toc nav,.summary-section h3,.detail-points li,.note-table th,.note-table td,.note-gallery,.reader-source,.note-source-end,.dialog-actions,.reader-back,.reader-toolbar-nav,.summary-image-ref){border:0;box-shadow:none}
+#article-dialog .dialog-top{box-shadow:0 8px 24px rgba(35,58,88,.04)}
+#article-dialog :is(.dialog-intro,blockquote){padding-left:0}
+#article-dialog :is(.reader-toc,.reader-source,.note-source-end){border-radius:8px;background:var(--glass-control)}
+#article-dialog .reader-toc>summary{padding:16px}#article-dialog .reader-toc nav{padding:0 8px 8px}
+#article-dialog .summary-section{margin-bottom:32px}#article-dialog .summary-section h3{padding-bottom:8px}
+#article-dialog .detail-points>.reader-point{padding:16px 0;border:0}
+#article-dialog .note-table tbody tr:nth-child(even){background:var(--glass-control)}
+#article-dialog .note-gallery{margin:32px 0;padding-top:0}#article-dialog .dialog-actions{margin-top:32px;padding-top:0}
+#article-dialog .reader-back,#article-dialog .reader-toolbar-nav button{min-height:44px;min-width:44px}
+/* Form labels and breathing room define fields; only inputs get a tonal well. */
+.user-note-actions,#ledger-form>.user-note-actions{border:0;box-shadow:0 -8px 24px rgba(35,58,88,.04)}
+#user-note-form .user-note-body,#ledger-form .user-note-body{background:transparent}
+#user-note-fields{gap:24px}.user-note-body{gap:24px}
+#user-note-form :is(input,textarea),#ledger-form :is(input,textarea){border:0;border-radius:8px;background:var(--glass-paper);padding:12px 16px}
+#user-note-form .user-note-pills button,.ledger-page .user-note-pills button,#ledger-form .user-note-pills button{border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+#user-note-form [data-choice] button[aria-checked=true],#user-note-form [data-choice="type"] [data-value][aria-checked=true],.ledger-page .user-note-pills button[aria-pressed=true],#ledger-form .user-note-pills button[aria-pressed=true]{color:#004eaa;box-shadow:var(--control-shadow)}
+.user-note-token{border:0;border-radius:0;background:transparent;padding:0}
+::selection{background:#cde4ff;color:#1c1c1e}input,textarea{caret-color:#0066d6}a{text-underline-offset:3px}
+@media(max-width:760px){
+ .home-plan-bottom{gap:32px}.home-heading h1,.checklist-page h1,.ledger-page h1,.hero h1{font-size:26px}
+}
+@media(max-width:640px){
+ :root{--group-radius:24px;--group-padding:16px}
+ .article-grid{gap:24px 16px}.article-card .note-cover{padding:16px 8px}.card-title{font-size:14px}.cover-title{font-size:20px}
+ .card-body{padding-top:12px}.library-tools{gap:12px}.filter-line{gap:12px}
+ .checklist-steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-bottom:24px}
+ .checklist-steps .check-step{flex-direction:row;text-align:left;min-height:72px;padding:12px 8px;border-radius:16px}
+ .planning-overview{gap:24px}.planning-next{padding-top:0}.check-detail-heading{gap:8px}
+ .ledger-summary{gap:24px}.ledger-panel{padding:16px}.inspect-item{padding:16px 0}
+ .article-grid,.checklist-steps,.checklist-extras{backdrop-filter:none;-webkit-backdrop-filter:none}
+}
+
+/* Review refinements: one toolbar surface and no rules masquerading as data. */
+:root{--glass-sticky:#f8fbff;--nav-scroll-space:112px;--hero-scroll-space:280px}
+.site-header{top:0;width:100%;max-width:none;margin:0;border-radius:0;background:var(--glass-sticky);-webkit-backdrop-filter:blur(40px);backdrop-filter:blur(40px)}
+.header-inner{max-width:1184px;margin-inline:auto}
+html{scroll-padding-top:var(--nav-scroll-space)}
+.hero{scroll-margin-top:16px}
+.library{scroll-margin-top:var(--hero-scroll-space)}
+.library-toolbar{padding:20px;margin-bottom:24px;border-radius:var(--group-radius);background:var(--glass-bg);box-shadow:var(--glass-shadow)}
+.library-toolbar .current-stage{margin:0 0 16px;background:transparent;box-shadow:none;border-radius:0;backdrop-filter:none;-webkit-backdrop-filter:none}
+.library-toolbar .current-stage>summary{padding:0;min-height:44px}
+.library-toolbar .current-stage-body{padding:16px 0}
+.library-toolbar .library-tools{margin-bottom:16px}
+.library-toolbar .tabs{background:transparent;padding:0}
+.library-toolbar .search{border-radius:12px}
+.library-toolbar .filter-line{padding:0;margin:0;display:flex;flex-direction:column;align-items:stretch;gap:12px}
+.library-toolbar .filter-chips{flex:1;display:flex;flex-wrap:wrap;gap:8px}
+.library-toolbar .sort-control{align-self:flex-end}
+.ledger-chart>div{grid-template-columns:minmax(0,1fr) auto;gap:24px;font-size:14px}
+#inspect-page .ledger-panel>.ledger-track{width:88px;max-width:30%;height:5px;margin:4px 0 20px}
+.ledger-page .text-button{font-size:14px;color:#004eaa}
+#user-note-form>.user-note-body{display:block;flex:1 1 auto;padding-bottom:calc(40px + env(safe-area-inset-bottom));scroll-padding-block:24px}
+#user-note-fields{margin-bottom:24px}
+#user-note-form>.user-note-actions{position:relative;flex:0 0 auto}
+.user-note-token,.user-note-token li span,.user-note-token p,.user-note-token a{font-size:14px;color:#3a3a3c}
+@media(max-width:1000px){:root{--nav-scroll-space:180px}}
+@media(max-width:640px){
+ .library-toolbar{padding:16px}
+ .library-toolbar .current-stage>summary{flex-wrap:wrap;gap:4px 12px}
+ .library-toolbar .current-label{padding:0}
+ .library-toolbar .current-summary-action{margin-left:auto}
+ .library-toolbar .library-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px}
+ .library-toolbar .tabs{grid-column:1/-1;grid-row:1;width:auto;gap:4px}
+ .library-toolbar .search{grid-column:1;grid-row:2;width:100%;height:44px}
+ .library-toolbar #add-note{grid-column:2;grid-row:2;padding:8px 12px}
+ .article-grid{grid-template-columns:minmax(0,1fr);gap:32px}
+ .article-card .note-cover{padding:24px 20px}
+ .cover-title{font-size:26px}.card-title{font-size:16px}
+}
+@media(prefers-reduced-transparency:reduce){:root{--glass-sticky:#fff}}
+
+/* Keep the progress indicator inside the card; no perimeter rule or highlight. */
+.planning-overview{border:0;box-shadow:0 12px 32px rgba(35,58,88,.07);background-clip:padding-box}
+.planning-overview::before,.planning-overview::after{content:none}
+.planning-overview .progress-track{position:static;width:88px;max-width:100%;box-shadow:none}
+/* The footer occupies its own grid row, outside the scrollable form body. */
+#user-note-form{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto}
+#user-note-form>.user-note-heading{grid-row:2}
+#user-note-form>.user-note-body{grid-row:3;min-height:0;overflow-y:auto}
+#user-note-form>.user-note-actions{grid-row:4}

@@ -138,7 +138,7 @@ function syncHomeWorkspace(){
  if(homeController){homeController.setActive(state.view==='home');return;}
  if(state.view!=='home'||homeLoading)return;
  const status=$('home-load-status');status.hidden=false;status.innerHTML='<p>正在打开我家的方案…</p>';
- homeLoading=import('./home-workspace.js?v=home-20261029a').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
+ homeLoading=import('./home-workspace.js?v=home-20261029c').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
   homeController=controller;controller.setActive(state.view==='home');status.hidden=true;
  }).catch(error=>{
   console.error('Home workspace:',error);status.innerHTML='<p>方案暂时没能加载，笔记和清单仍可使用。</p><button class="primary" id="home-retry">重新加载方案</button>';
@@ -159,11 +159,17 @@ function setView(view,scroll=true){
  $('sort-value').textContent=state.sort==='newest'?'最新发布':'推荐阅读';
  document.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.sort===state.sort)));
  renderStages();renderLibrary();if(view==='checklist')renderChecklist();syncHomeWorkspace();
- if(scroll)window.scrollTo({top:previous?.scrollY||0,behavior:'instant'});
+ if(scroll){
+  let top=previous?.scrollY||0;
+  // Restore deep reading positions, but never reopen with a sliced hero.
+  if(view==='library'&&top<$('hero').offsetTop+$('hero').offsetHeight)top=0;
+  window.scrollTo({top,behavior:'instant'});
+ }
 }
 function setStage(id){
  if(!['library','saved'].includes(state.view))setView('library',false);
  state.stage=id;renderStages();renderLibrary();
+ updateNotesScrollSpace();
  $('library').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function toggleSaved(id){
@@ -370,7 +376,7 @@ sortOptions.addEventListener('keydown',event=>{
 sortControl.addEventListener('keydown',event=>{if(event.key==='Escape'&&!sortOptions.hidden){event.preventDefault();closeSortMenu(true);}if(event.key==='Tab')closeSortMenu();});
 sortControl.addEventListener('focusout',event=>{if(!sortControl.contains(event.relatedTarget))closeSortMenu();});
 document.addEventListener('click',event=>{if(!sortControl.contains(event.target))closeSortMenu();});
-$('reset-filters').addEventListener('click',()=>{setView('library',false);state.stage='all';renderStages();renderLibrary();$('library').scrollIntoView({behavior:'smooth'});});
+$('reset-filters').addEventListener('click',()=>{setView('library',false);state.stage='all';renderStages();renderLibrary();updateNotesScrollSpace();$('library').scrollIntoView({behavior:'smooth'});});
 document.addEventListener('toggle',event=>{if(event.target.id==='reader-toc')$('reader-contents-button').setAttribute('aria-expanded',String(event.target.open));},true);
 $('close-dialog').addEventListener('click',()=>$('article-dialog').close());
 $('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageScroll();document.dispatchEvent(new CustomEvent('home-reading-change',{detail:false}));});
@@ -493,3 +499,15 @@ $('user-note-form').addEventListener('submit',async event=>{
 });
 const initialUserNotesRevision=userNotesRevision;
 userNotes.loadUserNotes().then(list=>{if(userNotesRevision===initialUserNotesRevision)applyUserNotes(list);});
+
+// Reserve the entire hero when the library anchor is brought below the sticky nav.
+function updateNotesScrollSpace(){
+ const header=document.querySelector('.site-header'),hero=$('hero'),library=$('library');
+ document.documentElement.style.setProperty('--nav-scroll-space',`${header.getBoundingClientRect().height+16}px`);
+ const heroSpace=hero.hidden?0:library.offsetTop-hero.offsetTop;
+ document.documentElement.style.setProperty('--hero-scroll-space',`${Math.max(0,heroSpace)}px`);
+}
+const notesLayoutObserver=new ResizeObserver(updateNotesScrollSpace);
+notesLayoutObserver.observe(document.querySelector('.site-header'));
+notesLayoutObserver.observe($('hero'));
+updateNotesScrollSpace();

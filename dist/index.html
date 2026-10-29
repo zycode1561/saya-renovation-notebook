@@ -5,12 +5,12 @@
   <meta name="theme-color" content="#ffffff"><meta name="description" content="沙耶的装修攻略与避坑手册。按装修阶段查阅经验、对照清单，保留每一条经验的原帖出处。">
   <title>住前笔记 · 沙耶的装修手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23007AFF'/%3E%3Cpath d='M16 30 32 16 48 30v20H16zM27 50V35h10v15' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=home-20261029a"><link rel="stylesheet" href="collection.css?v=home-20261029a"><script src="data.js?v=planning-20261028" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261029a"><script src="github-store.js?v=home-20261029a" defer></script><script src="user-notes.js?v=home-20261029a" defer></script><link rel="stylesheet" href="checklist.css?v=home-20261029a"><script src="checklist-data.js?v=20261028" defer></script><script src="app.js?v=home-20261029a" defer></script>
-  <link rel="stylesheet" href="ledger.css?v=home-20261029a">
-  <script src="budget.js?v=home-20261029a" defer></script>
-  <script src="inspect-checklist.js?v=home-20261029a" defer></script>
-  <script src="ledger-ui.js?v=home-20261029a" defer></script>
-  <link rel="stylesheet" href="glass.css?v=home-20261029a">
+  <link rel="stylesheet" href="styles.css?v=home-20261029c"><link rel="stylesheet" href="collection.css?v=home-20261029c"><script src="data.js?v=planning-20261028" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261029c"><script src="github-store.js?v=home-20261029c" defer></script><script src="user-notes.js?v=home-20261029c" defer></script><link rel="stylesheet" href="checklist.css?v=home-20261029c"><script src="checklist-data.js?v=20261028" defer></script><script src="app.js?v=home-20261029c" defer></script>
+  <link rel="stylesheet" href="ledger.css?v=home-20261029c">
+  <script src="budget.js?v=home-20261029c" defer></script>
+  <script src="inspect-checklist.js?v=home-20261029c" defer></script>
+  <script src="ledger-ui.js?v=home-20261029c" defer></script>
+  <link rel="stylesheet" href="glass.css?v=home-20261029c">
 </head>
 <body>
   <header class="site-header">
@@ -35,6 +35,10 @@
         <div class="hero-copy"><div class="eyebrow">装修功课，慢慢收好</div><h1 id="home-title">找到这一阶段的好经验。</h1><p>先把生活需求和总预算写清楚，再一步步走到<span class="keep-word">开工。</span></p><button class="text-button" data-open="preplanning-roadmap-20261028">第一次装修？先看八步规划流程 ↗</button></div>
         <div class="hero-meta"><span><b id="hero-count">24</b> 篇装修笔记</span><span>每条经验，保留出处</span></div>
       </section>
+
+      <section class="library" id="library" aria-labelledby="library-title">
+        <div class="section-heading library-heading"><div><span class="eyebrow" id="library-eyebrow">收藏一点经验，少走一点弯路</span><h2 id="library-title">装修笔记 <span id="result-total"></span></h2></div></div>
+        <div class="library-toolbar" role="region" aria-label="路线与笔记筛选">
       <details class="current-stage" id="current-stage"><summary><span class="current-label">前期路线</span><span>从定需求到开工</span><span class="current-summary-action">八步规划 <span aria-hidden="true">＋</span></span></summary><div class="current-stage-body">
         <div class="section-heading"><div><span class="eyebrow">前期规划 · 2026.10.28 更新</span><h2 id="current-stage-title">先做两张表，再找合适的人。</h2><p class="section-description">先准备需求清单和预算初稿。量房、方案与报价可以往返调整，每一步都有具体行动和完成标志。</p></div><button class="primary" data-open="preplanning-roadmap-20261028">阅读完整流程与模板 ↗</button></div>
         <ol class="current-steps">
@@ -48,10 +52,9 @@
           <li><span>08 / 交底</span><h3>现场核对后再开工</h3><p>业主、设计师与工长一起核图，记录问题与责任人，排好手续、保护和材料进场。</p></li>
         </ol><p class="current-stage-footnote">完整笔记内含 10 组路线与填写表格、八步完成标志和 6 篇参考资料。模板示例不代表你家的已确认条件；合同与施工要求需结合当地及现场情况。</p>
       </div></details>
-      <section class="library" id="library" aria-labelledby="library-title">
-        <div class="section-heading library-heading"><div><span class="eyebrow" id="library-eyebrow">收藏一点经验，少走一点弯路</span><h2 id="library-title">装修笔记 <span id="result-total"></span></h2></div></div>
         <div class="library-tools"><button class="secondary add-note" id="add-note">+ 记一条</button><div class="tabs" role="group" aria-label="内容类型"><button class="active" data-type="all">全部笔记</button><button data-type="攻略">装修攻略</button><button data-type="避坑">避坑经验</button></div><label class="search"><span data-icon="search"></span><input id="search-input" type="search" placeholder="搜索预算、设计、装修公司…" aria-label="搜索装修笔记"><kbd>/</kbd></label></div>
         <div class="filter-line"><div class="filter-chips" id="filter-chips"></div><div class="sort-control" id="sort-control"><span class="sort-caption" id="sort-caption">排序</span><button class="sort-trigger" id="sort-trigger" aria-haspopup="listbox" aria-controls="sort-options" aria-expanded="false" aria-labelledby="sort-caption sort-value"><span id="sort-value">推荐阅读</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="sort-options" id="sort-options" role="listbox" aria-label="笔记排序" hidden><button class="sort-option" role="option" aria-selected="true" data-sort="recommended" tabindex="-1"><span>推荐阅读</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button><button class="sort-option" role="option" aria-selected="false" data-sort="newest" tabindex="-1"><span>最新发布</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button></div></div></div>
+        </div>
         <div class="result-note" id="result-note" aria-live="polite"></div><div class="article-grid" id="article-grid"></div>
         <div class="empty" id="empty" hidden><span data-icon="search"></span><h3 id="empty-title">暂时没有匹配的笔记</h3><p id="empty-copy">换一个关键词，或者清除筛选再试试。</p><button class="primary" id="reset-filters">查看全部笔记</button></div>
         <p class="collection-stats" id="source-stats"></p>

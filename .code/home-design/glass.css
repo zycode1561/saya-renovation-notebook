@@ -66,3 +66,39 @@ dialog{background:var(--glass-paper)}
 .notice{border-left-color:rgba(255,255,255,.85)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.room-label,.room-label.clearance-label,.room-label:hover{background:rgba(255,255,255,.94)}}
 @media(prefers-reduced-transparency:reduce){.room-label,.room-label.clearance-label,.room-label:hover{background:#fff}}
+
+/* Round 3: the workspace is a continuous group, with quiet internal controls.
+   Scene, camera, canvas, labels and material swatches are deliberately untouched. */
+:root,:host,:host([data-style=modern]),body[data-style=modern]{--glass-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 32px rgba(35,58,88,.07)}
+:is(header,.home-room-card,.home-more,.home-toolbar,.segmented,.room-menu button,dialog)::before{content:none}
+:is(header,.explorer,.home-room-card,.home-more,dialog){border:0;border-radius:28px}
+.home-component{gap:24px}.home-more{margin-top:32px}.home-room-card{padding:20px}
+:is(.home-toolbar,.home-settings,.home-settings-body,.room-menu,.underbar,.detail-list li,.room-detail,.technical details,.dialog-head,.notice){border:0;box-shadow:none}
+.home-toolbar{padding:16px;gap:12px;background:transparent;border-radius:0}
+.home-settings-body{background:transparent;padding:8px 16px 16px}
+.home-settings-body :is(.style-bar,.layout-bar,.walk-bar,.privacy-bar){border:0;padding:16px 0;gap:12px}
+.home-settings>summary{padding:12px 16px}.room-menu{padding:8px 16px 16px;gap:8px}
+:is(.segmented,.room-menu button,.home-settings-body button,.tag){border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.segmented{background:var(--glass-control);padding:4px;gap:4px}
+.segmented button{border:0}.room-menu button,.tag{background:transparent}
+.segmented button.active,.room-menu button.active,.home-settings-body button:is(.active,[aria-pressed=true]){background:var(--glass-strong);color:#004eaa;box-shadow:0 3px 12px rgba(35,58,88,.08)}
+.detail-list li{padding:16px 0;background:transparent}.detail-list b{margin-bottom:8px}.tags{gap:12px}.tag{padding:0}
+.home-more .materials{background:transparent!important}.home-more :is(.original-card,.notice){background:transparent;border:0;box-shadow:none}
+.home-more .original-card{padding:0}.home-more .technical{gap:24px}.home-more .technical details{padding-block:16px}
+.home-more>summary{padding:16px 20px}.underbar{background:transparent;padding:16px;border-radius:0 0 28px 28px}
+@media(max-width:640px){
+ :is(.explorer,.home-room-card,.home-more){border-radius:24px}
+ .home-component{gap:24px}.home-room-card{padding:16px}
+ .home-more .detail-list>*{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+ .home-more,.home-room-card{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--glass-paper)}
+}
+
+/* Room navigation stays inside the explorer, including its padding. */
+@media(max-width:640px){
+ .room-menu{box-sizing:border-box;width:100%;min-width:0;max-width:100%;flex-wrap:wrap;overflow:visible}
+ .room-menu button{flex:0 0 auto;max-width:100%;white-space:nowrap}
+}
+
+/* Give HTML labels an explicit canvas-sized positioning box. */
+#labels{position:absolute;inset:0;pointer-events:none}
+#labels .room-label{max-width:calc(100% - 16px);white-space:normal;overflow-wrap:anywhere;transition:none}
