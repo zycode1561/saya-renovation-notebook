@@ -1,0 +1,31 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const app=fs.readFileSync(__dirname+'/../dist/app.js','utf8');
+const elements=new Map();
+const $=id=>{if(!elements.has(id))elements.set(id,{hidden:false,innerHTML:'',textContent:'',firstChild:{textContent:''}});return elements.get(id)};
+const notes=[{id:'one',title:'厨房经验',stage:'厨房',type:'攻略',tags:[],points:[],images:[]}];
+const state={view:'saved',stage:'all',type:'all',query:'',imagesOnly:false};
+const saved=new Set();
+const ctx=vm.createContext({state,saved,notes,$,stageFor:id=>({title:id}),card:()=>'<article>笔记</article>',document:{querySelectorAll:()=>[]}});
+vm.runInContext(app.slice(app.indexOf('function visibleNotes('),app.indexOf('function renderStages(')),ctx);
+vm.runInContext(app.slice(app.indexOf('function renderLibrary('),app.indexOf('// Each workspace')),ctx);
+function check(empty,title){
+ ctx.renderLibrary();
+ assert.equal($('article-grid').hidden,empty);
+ assert.equal($('article-grid').innerHTML==='',empty);
+ assert.equal($('empty').hidden,!empty);
+ if(title)assert.equal($('empty-title').textContent,title);
+}
+check(true,'把有用的经验，先收进来。');
+saved.add('one');check(false);
+saved.clear();check(true);
+state.view='library';check(false);
+state.query='无匹配关键词';check(true,'暂时没有匹配的笔记');
+state.query='';check(false);
+state.stage='预算';check(true);
+state.stage='all';check(false);
+state.imagesOnly=true;check(true);
+state.imagesOnly=false;check(false);
+state.type='避坑';check(true);
+state.type='all';check(false);
+console.log('PASS: empty favorites/search/filters hide the grid; clearing filters and saving restore it.');

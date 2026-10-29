@@ -125,6 +125,7 @@ function renderLibrary(){
  $('side-count').textContent=notes.length;
  $('hero-count').textContent=notes.length;
  $('source-stats').textContent=`${notes.length} 篇 · ${notes.reduce((sum,n)=>sum+(n.images?.length||0),0)} 张配图 · ${notes.reduce((sum,n)=>sum+n.points.length,0)} 条要点`;
+ $('article-grid').hidden=result.length===0;
  $('empty').hidden=result.length>0;
  $('empty-title').textContent=isSaved&&saved.size===0?'把有用的经验，先收进来。':'暂时没有匹配的笔记';
  $('empty-copy').textContent=isSaved&&saved.size===0?'点击笔记右下角的书签图标，在这里随时回看。':'换一个关键词，或者清除筛选再试试。';
@@ -138,7 +139,7 @@ function syncHomeWorkspace(){
  if(homeController){homeController.setActive(state.view==='home');return;}
  if(state.view!=='home'||homeLoading)return;
  const status=$('home-load-status');status.hidden=false;status.innerHTML='<p>正在打开我家的方案…</p>';
- homeLoading=import('./home-workspace.js?v=home-20261029g').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
+ homeLoading=import('./home-workspace.js?v=home-20261029h').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
   homeController=controller;controller.setActive(state.view==='home');status.hidden=true;
  }).catch(error=>{
   console.error('Home workspace:',error);status.innerHTML='<p>方案暂时没能加载，笔记和清单仍可使用。</p><button class="primary" id="home-retry">重新加载方案</button>';
