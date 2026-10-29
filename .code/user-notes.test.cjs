@@ -29,9 +29,9 @@ assert.equal(browser.window.UserNotes.encodeUserNotesFile(doc),lib.encodeUserNot
 const app=fs.readFileSync('dist/app.js','utf8');
 const elements=new Map();
 const element=id=>{if(!elements.has(id))elements.set(id,{innerHTML:'',hidden:false,dataset:{},setAttribute(){},scrollTo(){}});return elements.get(id);};
-const renderer={coverCopy:{},saved:new Set(),stageFor:()=>({title:'厨卫'}),icon:()=>'',escapeHTML:value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),byId:()=>note,state:{},$:element,document:{dispatchEvent(){}},CustomEvent:function(){},updateDialogSave(){},openModal(){},readerContents:()=>'',detailedSummary:()=>''};
+const renderer={window:{matchMedia:()=>({matches:false})},coverCopy:{},saved:new Set(),stageFor:()=>({title:'厨卫'}),icon:()=>'',escapeHTML:value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),byId:()=>note,state:{},$:element,document:{dispatchEvent(){}},CustomEvent:function(){},updateDialogSave(){},openModal(){},readerContents:()=>'',detailedSummary:()=>''};
 vm.createContext(renderer);
-for(const [start,end] of [['mediaPreview','inlineImages'],['coverageLabel','imageReferences'],['coveragePanel','scrollReaderTo'],['card','renderLibrary'],['showNote','showImage']])vm.runInContext(app.slice(app.indexOf(`function ${start}(`),app.indexOf(`function ${end}(`)),renderer);
+for(const [start,end] of [['mediaPreview','inlineImages'],['coverageLabel','imageReferences'],['coveragePanel','scrollReaderTo'],['card','renderLibrary'],['selectMobileReaderSegment','showImage']])vm.runInContext(app.slice(app.indexOf(`function ${start}(`),app.indexOf(`function ${end}(`)),renderer);
 const card=renderer.card(note);assert(card.includes('我的'));assert(card.includes('本人记录'));assert(!card.includes('查看原帖'));assert(!renderer.coveragePanel(note).includes('小红书'));
 renderer.showNote(note.id);assert(element('dialog-content').innerHTML.includes('删除这条'));assert(element('dialog-content').innerHTML.includes('我的'));assert(!element('dialog-content').innerHTML.includes('查看小红书原帖'));
 assert(renderer.card({...note,url:'https://example.com',title:'<img src=x>'}).includes('&lt;img src=x&gt;'));assert(renderer.card({...note,url:'https://example.com'}).includes('打开来源链接'));

@@ -138,7 +138,7 @@ function syncHomeWorkspace(){
  if(homeController){homeController.setActive(state.view==='home');return;}
  if(state.view!=='home'||homeLoading)return;
  const status=$('home-load-status');status.hidden=false;status.innerHTML='<p>正在打开我家的方案…</p>';
- homeLoading=import('./home-workspace.js?v=home-20261029c').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
+ homeLoading=import('./home-workspace.js?v=home-20261029d').then(module=>module.createHomeWorkspace($('home-model'))).then(controller=>{
   homeController=controller;controller.setActive(state.view==='home');status.hidden=true;
  }).catch(error=>{
   console.error('Home workspace:',error);status.innerHTML='<p>方案暂时没能加载，笔记和清单仍可使用。</p><button class="primary" id="home-retry">重新加载方案</button>';
@@ -201,6 +201,15 @@ function restorePageScroll(){
  document.body.style.removeProperty('--modal-page-top');
  window.scrollTo({left:position.x,top:position.y,behavior:'auto'});
 }
+// Reader segment selection is a phone-only presentation state.
+function selectMobileReaderSegment(button){
+ if(!window.matchMedia('(max-width:600px)').matches)return;
+ button=button||document.querySelector('.reader-toolbar-nav button');
+ document.querySelectorAll('.reader-toolbar-nav button').forEach(item=>{
+  if(item===button)item.setAttribute('aria-current','location');
+  else item.removeAttribute('aria-current');
+ });
+}
 function showNote(id){
  document.dispatchEvent(new CustomEvent('home-reading-change',{detail:true}));
  const n=byId(id);if(!n)return;state.opened=id;
@@ -208,6 +217,7 @@ function showNote(id){
  const tableCount=n.sections?.reduce((sum,section)=>sum+(section.tables?.length||0),0)||0;
  $('dialog-content').innerHTML=`<article class="reader-document"><header class="reader-heading"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(stageFor(n.stage)?.title)}</span>${n.userNote?'<span class="my-note-tag">我的</span>':''}</div><h2 id="dialog-title" tabindex="-1" autofocus>${escapeHTML(n.title)}</h2><div class="reader-stats"><span>${count} 条要点</span><span>${n.images?.length||0} 张配图</span>${tableCount?`<span>${tableCount} 组对照表</span>`:''}</div><p class="dialog-intro">${escapeHTML(n.summary)}</p></header>${readerContents(n)}${detailedSummary(n)}<div class="dialog-actions"><button class="secondary" id="dialog-save" data-save="${escapeHTML(n.id)}"></button>${n.sourceType==='synthesis'?'<button class="primary" data-note-jump="note-sources">查看参考资料 ↓</button>':n.url?`<a class="primary" href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${n.userNote?'打开来源链接':'查看小红书原帖'} ↗</a>`:''}${n.userNote?`<button class="secondary" data-delete-note="${escapeHTML(n.id)}">删除这条</button>`:''}</div>${coveragePanel(n)}</article>`;
  $('reader-contents-button').hidden=!n.sections?.length;$('reader-contents-button').setAttribute('aria-expanded','false');$('reader-gallery-button').hidden=!n.images?.length;if(n.images?.length)$('reader-gallery-button').dataset.noteJump=`note-image-${n.images[0].sourceIndex||1}`;
+ selectMobileReaderSegment();
  updateDialogSave(id);openModal($('article-dialog'));$('dialog-content').scrollTo({top:0,left:0,behavior:'instant'});
 }
 function showImage(id,index=0){
@@ -350,6 +360,7 @@ $('checklist-page').addEventListener('click',event=>{
 });
 document.addEventListener('click',event=>{
  const target=event.target.closest('button,a');if(!target)return;
+ if(target.closest('.reader-toolbar-nav'))selectMobileReaderSegment(target);
  if(target.dataset.view)setView(target.dataset.view);
  if(target.dataset.stage)setStage(target.dataset.stage);
  if(target.dataset.type){state.type=target.dataset.type;renderLibrary();}

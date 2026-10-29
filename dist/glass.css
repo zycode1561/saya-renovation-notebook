@@ -294,3 +294,45 @@ html{scroll-padding-top:var(--nav-scroll-space)}
 #user-note-form>.user-note-heading{grid-row:2}
 #user-note-form>.user-note-body{grid-row:3;min-height:0;overflow-y:auto}
 #user-note-form>.user-note-actions{grid-row:4}
+
+/* Round 4: compact phone navigation and inset note lists. */
+@media (max-width:600px) {
+ :root{--nav-scroll-space:108px}
+ .site-header{padding-top:env(safe-area-inset-top,0px)}
+ .site-header .header-inner{min-height:0;padding:0 12px 4px;gap:0;display:flex;flex-wrap:wrap}
+ .site-header .brand{min-height:44px;padding:0 4px;font-size:18px}
+ .site-header .brand-icon{width:24px;height:24px}
+ .site-header .avatar{margin:0 4px 0 auto;width:28px;height:28px}
+ .site-header .site-nav{display:flex;flex:0 0 100%;flex-wrap:nowrap;justify-content:flex-start;gap:4px;min-height:44px;padding:0;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:12px;padding-right:24px;scroll-padding-inline:12px 24px;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent)}
+ .site-header .site-nav::-webkit-scrollbar{display:none}
+ .site-header .site-nav .nav-item{flex:0 0 auto;width:auto;min-height:44px;padding:8px 12px;white-space:nowrap;font-size:13px}
+ html{scroll-padding-top:var(--nav-scroll-space)}
+ .library,.hero,.current-stage,.checklist-detail{scroll-margin-top:0}
+ .hero,.library-toolbar,.library-tools,.filter-line,.library .tabs{position:relative;top:auto}
+ .library-toolbar .library-tools{grid-template-columns:minmax(0,1fr)}
+ .library-toolbar .search{grid-column:1;grid-row:2;width:100%;margin-bottom:0}
+ .library-toolbar #add-note{grid-column:1;grid-row:3;justify-self:stretch;width:100%;min-height:44px;background:#e4efff;color:#004eaa;box-shadow:none}
+ #article-dialog .reader-toolbar-nav{background:#e8edf4;padding:3px;gap:2px}
+ #article-dialog .reader-toolbar-nav button{min-height:44px;background:transparent;box-shadow:none;color:#3a3a3c;font-weight:400}
+ #article-dialog .reader-toolbar-nav button[aria-current="location"],
+ #article-dialog .reader-toolbar-nav:not(:has([aria-current="location"])) button:first-child{background:#fff;box-shadow:0 2px 6px rgba(35,58,88,.16);color:#1c1c1e;font-weight:600}
+ .collection-stats{border-top:0;padding-top:0;margin-top:28px}
+ .article-grid{grid-template-columns:minmax(0,1fr);gap:8px}
+ .article-grid .article-card{position:relative;padding:12px 14px;border:0;border-radius:16px;background:var(--glass-list-bg);box-shadow:inset 0 1px 0 rgba(255,255,255,.8);backdrop-filter:none;-webkit-backdrop-filter:none}
+ .article-grid .article-card :is(.note-cover,.card-photo,.card-banner,.card-tags,.card-source-row,.author-dot,.author-name,.type-tag,.my-note-tag){display:none}
+ .article-grid .card-body{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 6px;padding:0;min-width:0}
+ .article-grid .card-title{grid-column:1/-1;grid-row:1;margin:0;min-height:0;font-size:16px;line-height:22px;min-width:0}
+ .article-grid .title-button{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
+ /* Stretch the existing reader button; keep the independent bookmark above it. */
+ .article-grid .title-button::after{content:"";position:absolute;inset:0;z-index:1;border-radius:16px}
+ .article-grid .title-button:focus-visible::after{outline:2px solid #0066d6;outline-offset:2px}
+ .article-grid .card-summary{grid-column:1/-1;grid-row:2;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:40px;max-height:40px;margin:0;padding-right:32px;font-size:14px;line-height:20px;color:#3a3a3c}
+ .article-grid .card-meta{grid-column:1;grid-row:3;display:flex;flex-wrap:nowrap;gap:0;min-height:20px;font-size:12px;line-height:20px;color:#3a3a3c}
+ .article-grid .card-bottom{display:contents}
+ .article-grid .card-date{display:block;grid-column:2;grid-row:3;margin:0;padding-right:32px;font-size:12px;line-height:20px;color:#3a3a3c}
+ .article-grid .card-date::before{content:"·";margin-right:6px}
+ .article-grid .bookmark-button{position:absolute;right:4px;bottom:2px;z-index:2;min-width:44px;min-height:44px;margin:0;padding:12px;background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;color:#3a3a3c}
+ .article-grid .bookmark-button.saved{color:#004eaa}
+ .article-grid .bookmark-button.saved .icon{fill:#cde4ff}
+ .article-grid .article-card:active{background:var(--glass-primary)}
+}
