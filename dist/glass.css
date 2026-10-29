@@ -346,3 +346,12 @@ html{scroll-padding-top:var(--nav-scroll-space)}
 .site-header .avatar{background:rgba(255,255,255,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.site-header{background:#f8fbff}}
 @media(prefers-reduced-transparency:reduce){.site-header{background:#fff}.site-header .site-nav .nav-item.active{background:#e4efff}}
+
+/* Desktop feed and favorites: each note owns its glass surface.
+   Keep the v4 compact cards at <=600px unchanged. */
+@media(min-width:601px){
+ .article-grid{padding:0;gap:16px;background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+ .article-grid .article-card{padding:12px;border:0;border-radius:var(--group-radius);background:rgba(255,255,255,.76);box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),0 8px 24px rgba(48,100,156,.12);-webkit-backdrop-filter:blur(36px) saturate(190%);backdrop-filter:blur(36px) saturate(190%)}
+ .article-grid .article-card :is(.note-cover,.card-photo,.card-banner){border-radius:calc(var(--group-radius) - 12px);overflow:hidden}
+ @media(prefers-reduced-transparency:reduce){.article-grid .article-card{background:#fff}}
+}
