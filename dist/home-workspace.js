@@ -1,6 +1,6 @@
 // Lazily loaded native component. Shadow DOM isolates the model's CSS and IDs.
 export async function createHomeWorkspace(host) {
- const version='home-20261029e';
+ const version='home-20261029f';
  const [markupResponse,cssResponse,model]=await Promise.all([
   fetch(`./home/view.html?v=${version}`),fetch(`./home/model.css?v=${version}`),import(`./home/model.js?v=${version}`)
  ]);

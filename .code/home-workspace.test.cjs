@@ -36,4 +36,4 @@ const html=read('dist/index.html');const section=html.slice(html.indexOf('id="ho
 for(const [,id] of section.matchAll(/data-open="([^"]+)"/g))assert(ids.has(id),'Related note must exist: '+id);
 console.log('PASS: independent filters/scroll, native isolation, valid related notes, pause/cancel, input cleanup, idempotent resume and zero-size resize.');
 
-const version="home-20261029e";for(const file of ["dist/app.js","dist/index.html","dist/home-workspace.js"]){const versions=read(file).match(/home-\d{8}[a-z]?/g);assert(versions?.length);assert(versions.every(v=>v===version),file+" cache mismatch")}
+const version="home-20261029f";for(const file of ["dist/app.js","dist/index.html","dist/home-workspace.js"]){const versions=read(file).match(/home-\d{8}[a-z]?/g);assert(versions?.length);assert(versions.every(v=>v===version),file+" cache mismatch")}

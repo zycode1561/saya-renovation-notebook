@@ -236,17 +236,40 @@ function init3D(){
  function win(x,z,w,along='x'){const g=new T.Group();home.add(g);g.position.set(x,0,z);if(along==='z')g.rotation.y=Math.PI/2;box(0,.43,0,w,.86,.16,'#edece2',g);box(0,1.7,0,w,1.55,.035,'#bfd2cc',g,{transparent:true,opacity:.25,depthWrite:false});for(const xx of [-w/2,0,w/2])box(xx,1.7,0,.035,1.6,.06,'#aeb8aa',g);box(0,.95,0,w+.12,.06,.25,'#eceadf',g);box(0,2.46,0,w,.04,.06,'#aeb8aa',g);return g}
  // Openings traced against the 11.5 m dimension chain (no invented clear-width extension).
  wall(.4,0,.8,.18);win(1.65,0,1.7);wall(3.08,0,1.16,.18);win(3.95,0,.58);wall(4.94,0,1.4,.18);win(6.25,0,1.22);wall(7.9,0,2.08,.18);win(9.85,0,1.82);wall(11.13,0,.74,.18);
- wall(8.7,9.9,1,.18);wall(11.3,9.9,.4,.18);win(6.3,11.9,3.4);win(8,11,1.8,'z');win(11.5,4.3,.6,'z');
+ // Stop masonry 40 mm short of the bay returns, including their rear edges.
+ // The old wall end faces were coplanar with the glass beside the AC ledge.
+ wall(8.68,9.9,.96,.18);wall(11.32,9.9,.36,.18);win(6.3,11.9,3.4);win(8,11,1.8,'z');win(11.5,4.3,.6,'z');
  wall(2.8,1,.15,2);wall(2.8,3.4,.15,.8);wall(2.95,2,.3,.15);wall(4.25,2,.7,.15);wall(4.6,1,.18,2);wall(4.6,3.5,.18,.6);wall(3.7,3.8,1.8,.15);wall(8.2,1,.18,2);wall(8.2,4.1,.18,2.4);wall(8.2,8.1,.18,3.6);wall(9.85,3.2,3.3,.18).userData.suiteOriginal=true;wall(8.5,5.3,.6,.18).userData.suiteOriginal=true;wall(10.55,5.3,1.9,.18).userData.suiteOriginal=true;
  // Left WC opens south into the circulation strip below the shower.
 
  // Bay: open to the bedroom at z=9.9, solid sill and three glazed outer faces.
  const bay=local(10.15,10.2);bay.name='master-bay-window';
  box(0,.42,0,1.9,.84,.6,'#edece2',bay);box(0,.87,0,2,.06,.7,'#eceadf',bay);
- function bayGlass(x,z,w,rot=0){const g=new T.Group();g.position.set(x,0,z);g.rotation.y=rot;bay.add(g);box(0,1.7,0,w,1.55,.035,'#bfd2cc',g,{transparent:true,opacity:.25,depthWrite:false});for(const xx of [-w/2,w/2])box(xx,1.7,0,.035,1.6,.06,'#aeb8aa',g);for(const y of [.95,2.46])box(0,y,0,w,.04,.06,'#aeb8aa',g);}
- bayGlass(0,.3,1.9);bayGlass(-.95,0,.6,Math.PI/2);bayGlass(.95,0,.6,Math.PI/2);
- function acLedge(name,x,z,w,d){const g=local(x,z);g.name=name;box(0,-.02,0,w,.16,d,'#eceadf',g);for(const xx of [-w/2,w/2])box(xx,.23,0,.07,.5,d,'#efeee5',g);box(0,.23,z<0?-d/2:d/2,w,.5,.07,'#efeee5',g);}
- acLedge('ac-guest',3,-.45,1.18,.7);acLedge('ac-study',8.5,-.45,1.18,.7);acLedge('ac-master',8.65,10.3,1.18,.7);
+ // One double-sided surface avoids overlapping box faces whitening the returns.
+ // All three panes share glass, outside wallPieces in both wall modes.
+ const bayMaterial=mat('#bfd2cc',{transparent:true,opacity:.22,depthWrite:false,side:T.DoubleSide,roughness:.12});
+ function bayGlass(name,x,z,w,rot=0){
+  const g=new T.Group();g.name='bay-'+name;g.position.set(x,0,z);g.rotation.y=rot;bay.add(g);
+  const pane=new T.Mesh(new T.PlaneGeometry(w,1.55),bayMaterial);
+  pane.name='bay-glass-'+name;pane.position.y=1.7;pane.renderOrder=1;
+  pane.castShadow=false;pane.receiveShadow=false;g.add(pane);allMeshes.push(pane);
+  for(const xx of [-w/2,0,w/2])box(xx,1.7,0,.035,1.6,.06,'#32383a',g).name='bay-mullion';
+  for(const y of [.95,2.46])box(0,y,0,w,.04,.06,'#32383a',g).name='bay-rail';
+ }
+ bayGlass('front',0,.3,1.9);bayGlass('left',-.95,0,.6,Math.PI/2);bayGlass('right',.95,0,.6,Math.PI/2);
+ // Start at the wall axis: 390 mm projects beyond the 180 mm exterior wall.
+ // Thin open edges expose the slab instead of enclosing a solid-walled notch.
+ function acLedge(name,x,wallZ,w,outward){
+  const d=.48,g=local(x,wallZ+outward*d/2);g.name=name;
+  box(0,-.02,0,w,.12,d,'#eceadf',g).name='ac-slab';
+  const front=outward*(d/2-.02);
+  for(const xx of [-w/2+.02,w/2-.02]){
+   box(xx,.19,front,.025,.32,.025,'#efeee5',g);
+   for(const y of [.13,.23,.34])box(xx,y,0,.025,.025,d,'#efeee5',g);
+  }
+  for(const y of [.13,.23,.34])box(0,y,front,w,.025,.025,'#efeee5',g);
+ }
+ acLedge('ac-guest',3,0,1.18,-1);acLedge('ac-study',8.5,0,1.18,-1);acLedge('ac-master',8.65,9.9,1,1);
 
  // Glazed kitchen separation and balcony boundary, kept in original locations.
  for(const x of [4.85,7.95])box(x,1.1,2,.4,2.2,.035,'#bccabd',home,{transparent:true,opacity:.23,depthWrite:false});box(6.4,.025,2,3.5,.04,.1,'#9eaa9b');box(6.4,.025,9.9,3.5,.04,.12,'#9eaa9b');
