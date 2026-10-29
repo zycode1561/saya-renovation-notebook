@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict');
+const {context,run}=require('./walkthrough.test.cjs');
+const T=context.THREE;context.home.updateMatrixWorld(true);
+const bay=context.home.getObjectByName('master-bay-window');assert(bay,'Missing bay volume');
+const bounds=new T.Box3().setFromObject(bay);
+assert(bounds.max.z>10.49&&bounds.min.z<9.91,'Bay must project beyond bedroom');
+let glass=[];bay.traverse(m=>{if(m.isMesh&&m.material.transparent)glass.push(m)});
+assert.equal(glass.length,3,'Front and both side faces must be glazed');
+assert(glass.every(m=>m.geometry.parameters.height>1.5));
+for(const name of ['ac-guest','ac-study','ac-master'])assert(context.home.getObjectByName(name),name);
+assert(!context.wallPieces.some(({m})=>{const b=new T.Box3().setFromObject(m);return b.containsPoint(new T.Vector3(11.5,1.5,4.3))}),'Right bathroom window occluded');
+const master=context.pickFloors.find(m=>m.userData.room==='master');assert.equal(master.geometry.parameters.width,3.3);assert.equal(master.position.x,9.85);
+assert(!context.wallPieces.some(({m})=>m.position.x>11.5),'Invented east-wall extension');
+assert(!context.wallPieces.some(({m})=>new T.Box3().setFromObject(m).containsPoint(new T.Vector3(2.8,1,4.6))),'Entrance must open on the west recess');
+console.log('PASS: CAD footprint, protruding three-sided bay, three AC ledges, unobstructed bathroom window and west entrance.');

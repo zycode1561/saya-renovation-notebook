@@ -141,6 +141,6 @@ function setupSuite(){
  $('#suite-shower-door').onclick=()=>setSuiteDoor('shower',!suiteShowerOpen);
  $('#suite-study-door').onchange=()=>{const old=suiteStudyClosure.visible;suiteStudyClosure.visible=!$('#suite-study-door').checked;
   if(walkMode){refreshWalkGeometry();if(!canWalkAt(walk.x,walk.z)){suiteStudyClosure.visible=old;$('#suite-study-door').checked=!old;refreshWalkGeometry();toast('请先离开书房外门口再封闭门洞')}}for(const o of layoutParts.studyArc||[])o.visible=!suiteStudyClosure.visible;dirty=true};
- setLayout('suite');selectRoom('master');goal.theta=.62;goal.phi=.86;goal.span=7.3;goal.cz=7.5;
+ setLayout('original');selectRoom('master');goal.theta=.62;goal.phi=.86;goal.span=7.3;goal.cz=7.5;
 }
 if(activeModel)setupSuite();else document.querySelectorAll('.layout-bar button,.layout-bar input').forEach(b=>b.disabled=true);

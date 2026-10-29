@@ -14,7 +14,7 @@ function computeClearances(T,items,walls,layout,suite){
  const wall=(x,z)=>walls.find(({m})=>Math.abs(m.position.x-x)<1e-6&&Math.abs(m.position.z-z)<1e-6)?.m;
  const named=n=>suite?.getObjectByName(n),gap=(...args)=>clearanceGap(T,...args);
  return [
-  gap('master','床尾通道',items.masterBed,wall(11.68,7.6),'x'),
+  gap('master','床尾通道',items.masterBed,wall(11.5,7.25),'x'),
   items.screen?.visible?gap('master','屏风桌后净距',items.screen,items.masterBed,'z'):null,
   gap('living','沙发—茶几',items.sofa,items.coffee,'x'),
   gap('living','电视柜前通道',items.coffee,items.tv,'x'),

@@ -8,11 +8,11 @@ const rows=()=>run('computeClearances(THREE,clearanceItems,wallPieces,layoutMode
 const near=(a,b)=>assert(Math.abs(a-b)<1e-6,`${a} != ${b}`);
 const bounds=o=>new context.THREE.Box3().setFromObject(o);
 let data=rows();assert.equal(new Set(data.map(r=>r.room)).size,6);
-near(data.find(r=>r.title==='床尾通道').metres,1.24);
+near(data.find(r=>r.title==='床尾通道').metres,1.06);
 near(data.find(r=>r.title==='屏风桌后净距').metres,.65);
 near(data.find(r=>r.room==='study').metres,3.11-bounds(context.clearanceItems.studyChair).max.z);
 near(data.find(r=>r.room==='dining').metres,8.11-bounds(context.clearanceItems.diningChair).max.x);
-assert.equal(data.find(r=>r.title==='床尾通道').text,'床尾通道 1,240 mm');
+assert.equal(data.find(r=>r.title==='床尾通道').text,'床尾通道 1,060 mm');
 // A geometry edit must change the result; copied design prose cannot pass this.
 context.clearanceItems.studyChair.position.z+=.1;
 near(rows().find(r=>r.room==='study').metres,data.find(r=>r.room==='study').metres-.1);

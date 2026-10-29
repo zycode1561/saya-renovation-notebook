@@ -189,7 +189,7 @@ const rooms={
  living:{num:'02',name:'客厅',title:'一起放松，也给猫留一条路',en:'LIVING TOGETHER',center:[6.4,7.8],span:7.4,desc:'约 3.6 米宽的中部空间更适合轻巧直排沙发。电视靠右墙，沙发靠左，避免大转角占满通道。低台、猫抓柱与分段跳台在客厅一侧串联，地面仍可轻松打扫。',tags:['直排沙发','轻量茶几','可替换猫抓件'],facts:[['家具组合','约 2,100 × 850 mm 沙发，800 × 450 mm 小茶几，深约 300 mm 电视柜；不做大型固定茶台。'],['走动空间','餐厅—客厅—阳台保持连续通行。茶几可移动，通道目标约 800–900 mm，以家具实际外径复核。'],['猫咪使用','猫墙有起点、观察点和回落点；不跨房门、不接近电视线缆。两端跳台按猫咪体能调整。'],['氛围与收纳','暖白墙面、浅木地面，灰绿靠包；落地灯与电视侧照明独立控制，电线隐藏收束。']]},
  dining:{num:'03',name:'餐厅 · 玄关',title:'家里的交汇处，要留白',en:'THE DAILY CROSSROADS',center:[5.9,3.85],span:7.4,desc:'厨房门口直达四人餐桌，餐桌长边沿原图上下方向，左右留出通往各房间的通道。玄关只布置必要鞋物收纳，避免用整排深柜挤占回家路线。',tags:['四人餐桌','无岛台','轻量玄关'],facts:[['餐桌尺寸','约 1,300 × 750 mm 圆角餐桌，两侧各两把椅；不用位时推入桌下，主通道目标约 900 mm。'],['入户收纳','玄关柜深约 350 mm，局部开放放钥匙；门扇扫过区域留空，底部预留扫地机位。'],['适应变化','两人日常用桌一侧，来客拉出其他椅。尽量避免固定卡座，以便以后调整。'],['需核实','图中左侧凹口的入户门、公区边界与净宽不够清晰，本模型仅示意连接关系，柜体待复测后定。']]},
  kitchen:{num:'04',name:'厨房',title:'一条顺手的备餐路线',en:'A QUIET, PRACTICAL KITCHEN',center:[6.4,1.05],span:6.1,desc:'保留原厨房位置与设备侧关系。冰箱靠入口左侧，水槽靠上侧，灶具靠右侧，中间留备餐台。灰绿地柜搭配浅色台面，保留可关闭的厨房分隔，兼顾烹饪和猫咪隔离。',tags:['L 形操作台','灰绿柜门','保留厨房分隔'],facts:[['工作顺序','冰箱取物 → 水槽清洗 → 中段备餐 → 右侧烹饪。水槽、灶具位置须服从实际管道与烟道。'],['柜体预留','地柜按 600 mm 深示意；水槽旁预留约 600 mm 洗碗机位，灶旁保留落锅空间。'],['收纳与灯','常用器具收在抽屉，台面上只留必需品；吊柜下任务照明独立开关。'],['现场条件','原图未给设备井净尺寸、燃气位置与窗开启范围。高柜、烟机与厨房门方案必须据此调整。']]},
- master:{num:'05',name:'主卧 · 右下',title:'床头靠客厅背墙，屏风带一张窄桌',en:'THE MAIN BEDROOM',center:[9.94,7.6],span:7.4,desc:'按沙耶要求将床调头 180°，并向窗侧微移 100 mm 留出床尾转角，床头改靠左侧、客厅背后的墙，床头灯与小边几同步移位。保留 1.8 米床与右上 L 形衣柜、内嵌梳妆位。入口原实板改为细边框遮影屏风，卧室侧接一张 860 × 240 mm 窄桌，作为随手置物台；不预留固定座椅，避免占用通路。',tags:['床头改靠左墙','屏风＋窄桌','1.8 米床保留'],facts:[['睡眠核心','床垫 1,800 × 2,000 mm，床架约 1,880 × 2,050 mm；床头靠左墙，床尾朝右。窗侧间距约 620 mm，右侧床尾空间约 1,240 mm（模型值）。'],['L 柜尺寸','长边约 1,580 mm、短边约 1,630 mm（含 600 mm 转角重叠及 700 mm 梳妆位），主柜深 600 mm、高 2,350 mm；柜体位置保留。'],['入口遮挡','屏风宽 950 mm、高 2,000 mm，使用连续遮影面板与细边框，不采用通透格栅。窄桌长 860 mm、深 240 mm，台面高 800 mm，接在卧室侧。固定视点可切换有／无屏风检查，不保证所有斜角完全遮挡。'],['收纳与通行','床尾通路改到右侧，屏风与桌子不进入主卫入口。梳妆凳收入台下时检查日常通行；拉出使用会占用床尾入口一部分空间，应先收凳再通过。'],['一体梳妆','保留 700 × 450 mm 台面、高 750 mm，上方柜底约 1,950 mm；原 320 mm 凳支持收起／拉出。屏风窄桌仅作置物台，不作为第二处坐式梳妆台。']]},
+ master:{num:'05',name:'主卧 · 右下',title:'床头靠客厅背墙，屏风带一张窄桌',en:'THE MAIN BEDROOM',center:[9.94,7.6],span:7.4,desc:'按沙耶要求将床调头 180°，并向窗侧微移 100 mm 留出床尾转角，床头改靠左侧、客厅背后的墙，床头灯与小边几同步移位。保留 1.8 米床与右上 L 形衣柜、内嵌梳妆位。入口原实板改为细边框遮影屏风，卧室侧接一张 860 × 240 mm 窄桌，作为随手置物台；不预留固定座椅，避免占用通路。',tags:['床头改靠左墙','屏风＋窄桌','1.8 米床保留'],facts:[['睡眠核心','床垫 1,800 × 2,000 mm，床架约 1,880 × 2,050 mm；床头靠左墙，床尾朝右。窗侧间距约 620 mm，右侧床尾空间约 1,060 mm（模型值）。'],['L 柜尺寸','长边约 1,580 mm、短边约 1,630 mm（含 600 mm 转角重叠及 700 mm 梳妆位），主柜深 600 mm、高 2,350 mm；柜体位置保留。'],['入口遮挡','屏风宽 950 mm、高 2,000 mm，使用连续遮影面板与细边框，不采用通透格栅。窄桌长 860 mm、深 240 mm，台面高 800 mm，接在卧室侧。固定视点可切换有／无屏风检查，不保证所有斜角完全遮挡。'],['收纳与通行','床尾通路改到右侧，屏风与桌子不进入主卫入口。梳妆凳收入台下时检查日常通行；拉出使用会占用床尾入口一部分空间，应先收凳再通过。'],['一体梳妆','保留 700 × 450 mm 台面、高 750 mm，上方柜底约 1,950 mm；原 320 mm 凳支持收起／拉出。屏风窄桌仅作置物台，不作为第二处坐式梳妆台。']]},
  study:{num:'06',name:'书房 · 右上',title:'并肩工作，也各有一方天地',en:'A STUDIO FOR TWO',center:[9.85,1.6],span:6.8,desc:'用约 2.6 米长桌形成双人工位，每人约 1.3 米。桌面面向原图上侧窗，显示器加可调支架和遮光帘控制眩光；右侧薄书柜收纳，房间中央留给椅子后退和走动。',tags:['双人独立工位','薄书柜','设备线缆收束'],facts:[['工作尺度','桌面约 2,600 × 650 mm，高度随使用者调整；椅后净距目标 900 mm。柜门开启也要计入活动区。'],['视频会议','两套可独立控制的任务灯与电源。需要同时通话时，一人移到次卧临时使用小桌。'],['猫咪陪伴','书房左侧设独立食点，与客厅食点分开；窗边休息台不挡窗扇，不让猫接触未收束线缆。'],['窗与屏幕','窗宽、窗台高度未给定。若窗光影响屏幕，先调遮光和屏幕角度，再决定桌子是否转向侧墙。']]},
  guest:{num:'07',name:'次卧 · 左上',title:'给来客，也给生活留一点余量',en:'A ROOM WITH ROOM TO CHANGE',center:[1.4,1.9],span:6.6,desc:'采用 1.35 米成品床与下侧衣柜，不做难以调整的满铺榻榻米。平时作为独处和临时休息空间，来客时依然是一间完整卧室。房门附近保留可移动的小桌位。',tags:['成品床','客卧保留','弹性使用'],facts:[['床与衣柜','床垫约 1,350 × 2,000 mm，床头靠图上侧墙；衣柜深约 600 mm。床右侧保留通道，床尾与衣柜之间预留约 700 mm 的目标距离。'],['备用工作','小桌按约 700 × 400 mm 示意，适合短时使用，不能替代长期办公工位；若常用可改 1.2 米床释放面积。'],['猫砂位置','角落留开放猫砂盆位，用可擦洗垫承接；远离门口与床头。来客若关门，须先另设可达替代盆位。'],['安静收纳','换季被褥收进衣柜，墙面不堆展示架，预留成品家具调整的余地。']]},
  baths:{num:'08',name:'双卫 · 洗漱',title:'保留双卫，早晨不用排队',en:'BATH & EVERYDAY CARE',center:[8.7,3.9],span:7.7,desc:'保留原图两处卫生间及左侧外置洗手区，避免迁移排水。右卫承担主要淋浴、如厕与洗漱，左卫作为辅助。湿区边界、防水、排风与检修条件优先于造型。',tags:['不迁排水','保留外置台盆','开放猫砂位'],facts:[['干湿划分','右卫右侧淋浴区以玻璃分隔示意，主通行和门扇打开区留空；玻璃与地漏位置现场确定。'],['早高峰','两人可分别使用外置台盆和右卫，左卫保留辅助如厕与淋浴能力。'],['猫咪可达','主卫干区预留第三处猫砂盆，远离淋浴溅水和门扇范围，必须保证随时进入；不装进密闭柜。'],['工程条件','不因模型调整排水或拆墙。防水闭水、排水坡度、排风和地面防滑需施工图与现场验收。']]},
@@ -197,7 +197,7 @@ const rooms={
 };
 let selected='all';
 for(const [id,r] of Object.entries(rooms)){const b=document.createElement('button');b.dataset.room=id;b.innerHTML=`<span>${r.num}</span>${r.name}`;b.addEventListener('click',()=>selectRoom(id));$('#room-menu').appendChild(b)}
-function fillDetail(id){const r=styledRoom(id);$('#detail-num').textContent=r.num;$('#detail-title').textContent=r.title;$('#detail-en').textContent=r.en;$('#detail-desc').textContent=r.desc;$('#detail-tags').innerHTML=r.tags.map(t=>`<span class="tag">${t}</span>`).join('');$('#detail-list').innerHTML=r.facts.map(([a,b])=>`<li><b>${a}</b><span>${b}</span></li>`).join('');root.querySelectorAll('[data-room]').forEach(b=>{b.classList.toggle('active',b.dataset.room===id);b.setAttribute('aria-pressed',b.dataset.room===id?'true':'false')});$('#camera-caption').textContent=`${r.num} / ${r.name}${id==='master'?' · 净宽330cm（暂定）':''}`;$('#viewer').classList.toggle('focused',id!=='all')}
+function fillDetail(id){const r=styledRoom(id);$('#detail-num').textContent=r.num;$('#detail-title').textContent=r.title;$('#detail-en').textContent=r.en;$('#detail-desc').textContent=r.desc;$('#detail-tags').innerHTML=r.tags.map(t=>`<span class="tag">${t}</span>`).join('');$('#detail-list').innerHTML=r.facts.map(([a,b])=>`<li><b>${a}</b><span>${b}</span></li>`).join('');root.querySelectorAll('[data-room]').forEach(b=>{b.classList.toggle('active',b.dataset.room===id);b.setAttribute('aria-pressed',b.dataset.room===id?'true':'false')});$('#camera-caption').textContent=`${r.num} / ${r.name}${id==='master'?' · 轴距330cm':''}`;$('#viewer').classList.toggle('focused',id!=='all')}
 function toast(message){$('#toast').textContent=message;$('#toast').classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('#toast').classList.remove('show'),2600)}
 function openPlan(){$('#plan-dialog').showModal()}
 $('#original-btn').onclick=openPlan;$('#original-lower').onclick=openPlan;$('#close-dialog').onclick=()=>$('#plan-dialog').close();$('#plan-dialog').addEventListener('click',e=>{if(e.target===$('#plan-dialog'))$('#plan-dialog').close()});
@@ -225,28 +225,43 @@ function init3D(){
  function local(x,z,rot=0){const g=new T.Group();g.position.set(x,0,z);g.rotation.y=rot;home.add(g);return g}
  function floor(x,z,w,d,c,id){const m=box(x,-.055,z,w,.12,d,c);m.material=m.material.clone();m.material.userData.finishRole=['baths','balcony','kitchen'].includes(id)?'stone':'woodFloor';m.userData={room:id,color:c};pickFloors.push(m);return m}
  // Plan coordinates: x follows the supplied 4.6 / 3.6 / 3.3 m segments; z follows drawing downward.
- floor(1.4,1.9,2.8,3.8,'#d5bf9e','guest');floor(3.7,1.0,1.8,2.0,'#cfcec0','baths');floor(3.7,2.6,1.8,1.2,'#d9c7a9','dining');floor(3.7,3.5,1.8,.6,'#d3d0c2','baths');floor(3.7,4.7,1.8,1.8,'#d8c5a6','dining');floor(6.4,1,3.6,2,'#d4d2c6','kitchen');floor(6.4,3.65,3.6,3.3,'#dac8a9','dining');floor(6.4,7.6,3.6,4.6,'#d8c3a2','living');floor(9.85,1.6,3.3,3.2,'#d5c09f','study');floor(9.85,4.25,3.3,2.1,'#c9cec2','baths');floor(9.94,7.6,3.48,4.6,'#d8c3a3','master');floor(6.4,10.9,3.6,2,'#cccdbd','balcony');
+ floor(1.4,1.9,2.8,3.8,'#d5bf9e','guest');floor(3.7,1.0,1.8,2.0,'#cfcec0','baths');floor(3.7,2.6,1.8,1.2,'#d9c7a9','dining');floor(3.7,3.5,1.8,.6,'#d3d0c2','baths');floor(3.7,4.55,1.8,1.5,'#d8c5a6','dining');floor(6.4,1,3.6,2,'#d4d2c6','kitchen');floor(6.4,3.65,3.6,3.3,'#dac8a9','dining');floor(6.4,7.6,3.6,4.6,'#d8c3a2','living');floor(9.85,1.6,3.3,3.2,'#d5c09f','study');floor(9.85,4.25,3.3,2.1,'#c9cec2','baths');floor(9.85,7.6,3.3,4.6,'#d8c3a3','master');floor(6.3,10.9,3.4,2,'#cccdbd','balcony');
  // Subtle plank and tile joints preserve readable room boundaries.
  for(const m of pickFloors){const {width:w,depth:d}=m.geometry.parameters;const x=m.position.x,z=m.position.z,isTile=['baths','balcony','kitchen'].includes(m.userData.room);for(let xx=x-w/2+.22;xx<x+w/2;xx+=isTile?.6:.22)box(xx,.009,z,.007,.003,d-.03,isTile?'#bbbfb3':'#baa482').userData.naturalOnly=!isTile;for(let zz=z-d/2+.7;zz<z+d/2;zz+=isTile?.6:1.25)box(x,.009,zz,w-.03,.003,.006,isTile?'#bbbfb3':'#c5b08d').userData.naturalOnly=!isTile;}
  // Foundation pads follow the irregular footprint, not a fictitious rectangular home.
- box(5.75,-.23,1.9,11.75,.3,4.05,'#f5f2e7');box(7.2,-.23,4.7,9.1,.3,1.8,'#f5f2e7');box(8.14,-.23,7.75,7.38,.3,4.5,'#f5f2e7');box(6.4,-.23,11,3.85,.3,2.2,'#f5f2e7');
+ box(5.75,-.23,1.9,11.68,.3,3.98,'#f5f2e7');box(7.15,-.23,4.55,8.88,.3,1.5,'#f5f2e7');box(8.05,-.23,7.6,7.08,.3,4.6,'#f5f2e7');box(6.3,-.23,10.9,3.58,.3,2.18,'#f5f2e7');
  function wall(x,z,w,d,h=2.7){const m=box(x,.53,z,w,1.06,d,'#efeee5',wallGroup);wallPieces.push({m,h});return m}
  // Exterior walls with explicit window openings; interior doors remain open passages.
- wall(.0,1.9,.18,3.8);wall(11.5,2.65,.18,5.3);wall(11.68,7.6,.18,4.6);wall(1.4,3.8,2.8,.18);wall(2.8,4.45,.18,1.3);wall(3.2,5.6,.8,.18);wall(4.4,5.6,.4,.18);wall(4.6,7.75,.18,4.3);wall(4.6,10.9,.18,2);wall(8.2,11,.18,2);wall(6.4,11.9,3.6,.18,.85);
+ wall(.0,1.9,.18,3.8);wall(11.5,2,.18,4);wall(11.5,7.25,.18,5.3);wall(1.4,3.8,2.8,.18);wall(2.8,5.15,.18,.3);wall(3.7,5.3,1.8,.18);wall(4.6,7.6,.18,4.6);wall(4.6,10.9,.18,2);
  function win(x,z,w,along='x'){const g=new T.Group();home.add(g);g.position.set(x,0,z);if(along==='z')g.rotation.y=Math.PI/2;box(0,.43,0,w,.86,.16,'#edece2',g);box(0,1.7,0,w,1.55,.035,'#bfd2cc',g,{transparent:true,opacity:.25,depthWrite:false});for(const xx of [-w/2,0,w/2])box(xx,1.7,0,.035,1.6,.06,'#aeb8aa',g);box(0,.95,0,w+.12,.06,.25,'#eceadf',g);box(0,2.46,0,w,.04,.06,'#aeb8aa',g);return g}
- wall(.4,0,.8,.18);win(1.6,0,1.6);wall(2.75,0,.7,.18);win(3.7,0,1.2);wall(4.8,0,1,.18);win(6.4,0,2.1);wall(8.1,0,1.3,.18);win(9.85,0,2.1);wall(11.2,0,.6,.18);wall(8.5,9.9,.6,.18);win(10.09,9.9,2.58);wall(11.53,9.9,.3,.18);win(6.4,11.9,3.4);win(11.5,4.3,.8,'z');
- wall(2.8,1,.15,2);wall(2.8,3.25,.15,1.1);wall(3.1,2,.6,.15);wall(4.35,2,.5,.15);wall(4.6,1,.18,2);wall(4.6,3.5,.18,.6);wall(3.6,3.8,1.8,.15);wall(8.2,1,.18,2);wall(8.2,4.1,.18,2.4);wall(8.2,8.1,.18,3.6);wall(9.85,3.2,3.3,.18).userData.suiteOriginal=true;wall(8.55,5.3,.7,.18).userData.suiteOriginal=true;wall(10.79,5.3,1.78,.18).userData.suiteOriginal=true;
+ // Openings traced against the 11.5 m dimension chain (no invented clear-width extension).
+ wall(.4,0,.8,.18);win(1.65,0,1.7);wall(3.08,0,1.16,.18);win(3.95,0,.58);wall(4.94,0,1.4,.18);win(6.25,0,1.22);wall(7.9,0,2.08,.18);win(9.85,0,1.82);wall(11.13,0,.74,.18);
+ wall(8.7,9.9,1,.18);wall(11.3,9.9,.4,.18);win(6.3,11.9,3.4);win(8,11,1.8,'z');win(11.5,4.3,.6,'z');
+ wall(2.8,1,.15,2);wall(2.8,3.4,.15,.8);wall(2.95,2,.3,.15);wall(4.25,2,.7,.15);wall(4.6,1,.18,2);wall(4.6,3.5,.18,.6);wall(3.7,3.8,1.8,.15);wall(8.2,1,.18,2);wall(8.2,4.1,.18,2.4);wall(8.2,8.1,.18,3.6);wall(9.85,3.2,3.3,.18).userData.suiteOriginal=true;wall(8.5,5.3,.6,.18).userData.suiteOriginal=true;wall(10.55,5.3,1.9,.18).userData.suiteOriginal=true;
+ // Left WC opens south into the circulation strip below the shower.
+
+ // Bay: open to the bedroom at z=9.9, solid sill and three glazed outer faces.
+ const bay=local(10.15,10.2);bay.name='master-bay-window';
+ box(0,.42,0,1.9,.84,.6,'#edece2',bay);box(0,.87,0,2,.06,.7,'#eceadf',bay);
+ function bayGlass(x,z,w,rot=0){const g=new T.Group();g.position.set(x,0,z);g.rotation.y=rot;bay.add(g);box(0,1.7,0,w,1.55,.035,'#bfd2cc',g,{transparent:true,opacity:.25,depthWrite:false});for(const xx of [-w/2,w/2])box(xx,1.7,0,.035,1.6,.06,'#aeb8aa',g);for(const y of [.95,2.46])box(0,y,0,w,.04,.06,'#aeb8aa',g);}
+ bayGlass(0,.3,1.9);bayGlass(-.95,0,.6,Math.PI/2);bayGlass(.95,0,.6,Math.PI/2);
+ function acLedge(name,x,z,w,d){const g=local(x,z);g.name=name;box(0,-.02,0,w,.16,d,'#eceadf',g);for(const xx of [-w/2,w/2])box(xx,.23,0,.07,.5,d,'#efeee5',g);box(0,.23,z<0?-d/2:d/2,w,.5,.07,'#efeee5',g);}
+ acLedge('ac-guest',3,-.45,1.18,.7);acLedge('ac-study',8.5,-.45,1.18,.7);acLedge('ac-master',8.65,10.3,1.18,.7);
+
  // Glazed kitchen separation and balcony boundary, kept in original locations.
  for(const x of [4.85,7.95])box(x,1.1,2,.4,2.2,.035,'#bccabd',home,{transparent:true,opacity:.23,depthWrite:false});box(6.4,.025,2,3.5,.04,.1,'#9eaa9b');box(6.4,.025,9.9,3.5,.04,.12,'#9eaa9b');
  function door(x,z,rot=0,w=.8){const g=local(x,z,rot);const leaf=box(w/2,1.02,0,w,2.04,.045,'#d7c4a8',g);g.rotation.y+=-.28;box(w-.08,1,0,.035,.035,.11,'#5f6759',g);const arc=[];for(let i=0;i<=20;i++){let a=i/20*Math.PI/2;arc.push([x+w*Math.cos(a),.025,z+w*Math.sin(a)])}line(arc,'#a4aa97',.008);return leaf}
  // Door arcs are floor hints; physical panels omitted in cutaway to avoid visually blocking rooms.
  function arc(x,z,angle,w=.8){const pts=[];for(let i=0;i<=24;i++){const a=angle+i/24*Math.PI/2;pts.push([x+Math.cos(a)*w,.028,z+Math.sin(a)*w])}line(pts,'#9da58e',.007)}
- arc(2.8,2.8,-Math.PI/2,.75);captureLayout('studyArc',()=>arc(8.2,2.9,-Math.PI/2,.75));arc(8.2,6.2,-Math.PI/2,.8);captureLayout('bathArc',()=>arc(9.1,5.3,-Math.PI/2,.75));arc(3.55,5.6,-Math.PI/2,.75);
+ // Door leaf strokes and quarter-circle swings, all measured approximately from raster.
+ function planDoor(x,z,angle,w){arc(x,z,angle,w);const a=angle+Math.PI/2;line([[x,.028,z],[x+Math.cos(a)*w,.028,z+Math.sin(a)*w]],'#9da58e',.012);}
+ planDoor(2.8,3,Math.PI,.95);captureLayout('studyArc',()=>planDoor(8.2,3,-Math.PI/2,.95));planDoor(8.2,5.5,0,.9);captureLayout('bathArc',()=>planDoor(8.8,5.3,-Math.PI/2,.8));planDoor(2.8,3.95,Math.PI/2,1.05);planDoor(3.1,2,-Math.PI/2,.8);planDoor(2.8,5.15,Math.PI,.3);
+
  function rug(x,z,w,d,c){box(x,.025,z,w,.025,d,c,home,{finishRole:'fabric'});for(let i=0;i<5;i++)box(x-w/2+.08+i*.025,.041,z,.008,.004,d-.12,'#d5cfba')}
  function cabinet(x,z,w,d,h,c='#c1a77f',rot=0){const g=local(x,z,rot);box(0,h/2,0,w,h,d,c,g,{finishRole:'cabinet'});box(0,h+.025,0,w+.025,.05,d+.025,'#e4dcc8',g,{finishRole:'stone'});let n=Math.ceil(w/.5);for(let i=1;i<n;i++)box(-w/2+w*i/n,h/2,-d/2-.006,.012,h-.08,.01,'#ac997a',g);for(let i=0;i<n;i++)box(-w/2+w*(i+.5)/n,h*.65,-d/2-.022,.09,.012,.03,'#687060',g).userData.naturalOnly=true;return g}
  function bed(x,z,w,len,rot,c){const g=local(x,z,rot);box(0,.17,0,w+.08,.26,len+.1,'#bca07e',g);box(0,.39,0,w,.23,len,'#f5f0df',g);box(0,.99,-len/2-.045,w+.16,1.2,.1,c,g).userData.furniturePart='headboard';box(0,.54,.22,w+.025,.08,len-.45,'#e2e1cd',g);for(const xx of [-w*.25,w*.25])box(xx,.58,-len/2+.35,w*.43,.13,.44,'#faf7e9',g);box(0,.59,.63,w+.04,.07,.48,c,g);return g}
  function bedside(x,z,c='#bca07e'){cyl(x,.26,z,.23,.48,c);cyl(x,.56,z,.065,.1,'#9a875e');cyl(x,.72,z,.14,.2,'#f3e6c7',home,.10)}
- // MASTER LAYOUT START. Interior faces x=8.29..11.59: user-assumed 3.30 m clear width.
+ // MASTER LAYOUT START. Interior faces x=8.29..11.41: user-assumed 3.30 m clear width.
  function compactBed(x,z){const g=local(x,z,Math.PI/2);g.name='master-bed-head-west';box(0,.17,-.005,1.84,.26,2.03,'#bca07e',g);box(0,.39,0,1.8,.23,2,'#f5f0df',g);box(0,.84,-1.025,1.88,.95,.03,'#9da48d',g).userData.furniturePart='headboard';box(0,.54,.23,1.82,.08,1.5,'#e2e1cd',g);for(const xx of [-.45,.45])box(xx,.58,-.65,.76,.13,.44,'#faf7e9',g);box(0,.59,.65,1.82,.07,.45,'#9da48d',g);return g}
  function lWardrobe(){
   const g=local(0,0);g.name='master-L-wardrobe';
@@ -258,7 +273,7 @@ function init3D(){
   // The return remains continuous above the recessed vanity.
   box(11.43,2.15,6.7,.3,.4,.7,'#c1a77f',g);
   box(11.283,2.15,6.7,.006,.36,.66,'#e4dcc8',g);
-  return g;
+  g.position.x=-.18;return g;
  }
  const masterBed=compactBed(9.34,8.25);masterBedModel=masterBed;clearanceItems.masterBed=masterBed;
  const masterWardrobe=lWardrobe();
@@ -274,10 +289,10 @@ function init3D(){
   box(11.54,1.31,6.7,.012,.83,.49,'#b8c8bc',g,{metalness:.65,roughness:.18});
   for(const z of [6.405,6.995])box(11.52,1.31,z,.025,.75,.018,'#f3e6c7',g,{emissive:'#ffe1ad',emissiveIntensity:.35});
   box(11.47,.79,6.46,.1,.08,.13,'#65705e',g);
-  const stool=local(11.34,6.7);stool.name='vanity-stool';
+  const stool=local(11.16,6.7);stool.name='vanity-stool';
   cyl(0,.42,0,.16,.08,'#9da48d',stool);
   for(const x of [-.095,.095])for(const z of [-.095,.095])box(x,.19,z,.025,.38,.025,'#687060',stool);
-  return {furniture:g,stool};
+  g.position.x=-.18;return {furniture:g,stool};
  }
  function createPrivacyScreen(){
   const g=local(0,0);g.name='master-screen-console';
@@ -295,12 +310,12 @@ function init3D(){
  }
  privacyScreen=createPrivacyScreen();clearanceItems.screen=privacyScreen;
  const masterVanity=createMasterVanity();vanityStool=masterVanity.stool;
- vanityUseZone=box(10.73,.036,6.7,.78,.008,.62,'#ba946c',home,{transparent:true,opacity:.2,depthWrite:false});vanityUseZone.visible=false;
- line([[8.29,.055,9.69],[11.59,.055,9.69]],'#65705e',.009);
- for(const x of [8.29,11.59])line([[x,.055,9.6],[x,.055,9.78]],'#65705e',.009);
- addLabel('master','净宽 330 cm · 暂定',[9.6,.1,9.69]);
+ vanityUseZone=box(10.55,.036,6.7,.78,.008,.62,'#ba946c',home,{transparent:true,opacity:.2,depthWrite:false});vanityUseZone.visible=false;
+ line([[8.29,.055,9.69],[11.41,.055,9.69]],'#65705e',.009);
+ for(const x of [8.29,11.41])line([[x,.055,9.6],[x,.055,9.78]],'#65705e',.009);
+ addLabel('master','轴距 330 cm · 净宽约312 cm',[9.6,.1,9.69]);
  addLabel('master','屏风＋窄桌 · 桌深 24 cm',[8.765,2.08,6.38]);
- addLabel('master','转角净距 ≈ 82 cm',[9.65,.08,6.2]);
+ addLabel('master','转角净距 ≈ 66 cm · 路径不足80 cm',[9.65,.08,6.2]);
  addLabel('master','L 形衣柜',[10.5,2.42,5.65]);
  addLabel('master','内嵌梳妆位',[11.18,.85,6.7]);
  // MASTER LAYOUT END
@@ -323,7 +338,7 @@ function init3D(){
  captureLayout('dining',()=>{
  desk(6.4,3.27,.75,1.3);for(const z of [2.87,3.68]){chair(5.85,z,-Math.PI/2,'#b4bba1');clearanceItems.diningChair=chair(6.95,z,Math.PI/2,'#b4bba1')}cyl(6.4,.88,3.28,.075,.18,'#b8a482');line([[6.4,.97,3.28],[6.42,1.15,3.25]],'#788567',.008);ball(6.46,1.13,3.25,.09,.025,.04,'#8b9675');
  });
- cabinet(3.04,4.56,1.25,.35,1.5,'#bea37c',-Math.PI/2);box(2.87,.045,4.8,.3,.06,.4,'#3d4740');box(2.86,1.12,4.45,.04,.55,.4,'#c4d1bf',home, {metalness:.3});
+ cabinet(4.32,4.5,1.25,.35,1.5,'#bea37c',Math.PI/2);box(2.87,.045,4.8,.3,.06,.4,'#3d4740');box(2.86,1.12,4.45,.04,.55,.4,'#c4d1bf',home, {metalness:.3});
  // Kitchen L: wash on upper side, prepare in the middle, cook at right.
  cabinet(6.35,.43,2.75,.6,.85,'#809178');cabinet(7.77,1.13,1.35,.6,.85,'#809178',Math.PI/2);box(6.35,.9,.43,2.8,.055,.64,'#efeddf');clearanceItems.kitchenTop=box(7.77,.9,1.12,.64,.055,1.35,'#efeddf');box(6.35,.935,.43,.65,.025,.43,'#8a9b91');box(6.35,.95,.43,.54,.01,.34,'#bdc9bf');line([[6.55,.95,.27],[6.55,1.18,.27],[6.43,1.18,.27],[6.43,1.08,.27]],'#7b897d',.018);box(7.77,.94,1.2,.48,.025,.62,'#45524a');for(const z of [1.03,1.37]){cyl(7.77,.96,z,.105,.015,'#899586');cyl(7.77,.971,z,.075,.01,'#343f38')}
  clearanceItems.fridge=box(5.02,1.01,1.25,.68,2.02,.64,'#b7bdb0');box(5.02,1.34,1.579,.62,1.24,.015,'#c9cec2');box(5.02,.36,1.579,.62,.65,.015,'#c4c9be');box(5.25,1.4,1.6,.025,.36,.03,'#697969');box(5.7,.53,.752,.59,.64,.02,'#b8c1b4');box(5.7,.78,.772,.46,.035,.02,'#657560');box(7.8,1.85,1.18,.55,.22,.75,'#b3bbac');
@@ -350,7 +365,8 @@ function init3D(){
  // Warm pools of light, intentionally approximate mood lighting.
  for(const [x,z] of [[6.4,3.3],[5.05,6.15],[10.95,6.6],[10.95,9.1],[9.85,.6],[6.35,.8]]){const l=new T.PointLight(0xffd59a,3,5,2);l.position.set(x,2.1,z);nightLights.add(l)}
  const ground=new T.Mesh(new T.PlaneGeometry(200,200),new T.ShadowMaterial({opacity:.13}));ground.rotation.x=-Math.PI/2;ground.position.y=-.4;ground.receiveShadow=true;scene.add(ground);
- for(const [id,point] of Object.entries({guest:[1.5,.7,2.5],kitchen:[6.4,.8,1.4],study:[9.85,.7,2.25],dining:[6.4,.6,4.55],baths:[9.55,.65,4.5],master:[9.75,.8,8.8],living:[6.65,.7,8.7],balcony:[6.4,.5,11.5]})){addLabel(id,rooms[id].name.replace(/ · .*/,''),point)}
+ for(const [id,point] of Object.entries({guest:[1.5,.7,2.5],kitchen:[6.4,.8,1.4],study:[9.85,.7,2.25],dining:[6.4,.6,4.55],baths:[9.55,.65,4.5],master:[9.75,.8,8.8],living:[6.65,.7,8.7],balcony:[6.4,.5,11.5]})){addLabel(id,({guest:'卧室',study:'（规划局）卧室',master:'主卧',baths:'卫生间'}[id]||rooms[id].name.replace(/ · .*/,'')),point)}
+ addLabel('baths','卫生间 · 左卫',[3.8,.8,.7]);addLabel('master','飘窗',[10.15,.9,10.3]);
  setupInput();resize();new ResizeObserver(resize).observe($('#viewer'));designAPI={rooms,scene,renderer,camera,selectRoom,state,goal,labels,pickFloors};
 }
 function addLabel(id,text,point,cat=false){const b=document.createElement('button');b.className='room-label';b.textContent=text;b.title=cat?'猫咪资源预留位置':`查看${text}设计`;if(!cat){b.dataset.room=id;b.onclick=e=>{e.stopPropagation();selectRoom(id)}}else b.onclick=()=>toast('猫咪资源位置需结合日常开门习惯与实际使用调整');$('#labels').appendChild(b);labels.push({id,el:b,p:new THREE.Vector3(...point),cat})}
@@ -385,7 +401,7 @@ function setupInput(){const canvas=$('#scene'),pointers=new Map();let last=null,
 function setWalls(){for(const {m,h} of wallPieces){const height=wallFull?h:Math.min(h,1.06);m.scale.y=height/1.06;m.position.y=height/2}}
 function setNight(){$('#night-toggle').setAttribute('aria-pressed',night);$('#night-toggle').textContent=night?'日间采光':'夜间氛围';$('#viewer').classList.toggle('night',night);ambient.intensity=night?.65:1.7;sun.intensity=night?.25:2.15;nightLights.visible=night;renderer.toneMappingExposure=night?1.4:1.05;syncModernLighting()}
 function view(isTop){if(walkMode)exitWalk();if(privacyView)exitPrivacyView();topView=isTop;goal.phi=isTop?.015:.71;goal.theta=isTop?0:.16;$('#view2d').classList.toggle('active',isTop);$('#view3d').classList.toggle('active',!isTop);$('#view2d').setAttribute('aria-pressed',isTop);$('#view3d').setAttribute('aria-pressed',!isTop);$('#interaction-hint').textContent=isTop?'俯视沿用原图方向 · 单指/双指拖动平移 · 滚轮/捏合缩放 · 点击房间查看方案':'拖动旋转 · 双指平移 · 滚轮/捏合缩放 · 点击房间查看方案';syncModernLighting();dirty=true}
-function setVanityUse(value){vanityInUse=value;vanityStool.position.x=value?10.78:11.34;vanityUseZone.visible=value;$('#vanity-toggle').setAttribute('aria-pressed',String(value));$('#vanity-toggle').textContent=value?'收起梳妆凳':'拉出梳妆凳';dirty=true}
+function setVanityUse(value){vanityInUse=value;vanityStool.position.x=value?10.60:11.16;vanityUseZone.visible=value;$('#vanity-toggle').setAttribute('aria-pressed',String(value));$('#vanity-toggle').textContent=value?'收起梳妆凳':'拉出梳妆凳';dirty=true}
 function reset(){if(walkMode)exitWalk();if(privacyView)exitPrivacyView();setPrivacyEnabled(true);setVanityUse(false);selected='all';view(false);wallFull=false;setWalls();night=false;setNight();catGroup.visible=false;humanGroup.visible=false;for(const id of ['cat-toggle','human-toggle','wall-toggle'])$('#'+id).setAttribute('aria-pressed','false');$('#wall-toggle').textContent='完整墙高';selectRoom('all');goal.theta=.16;goal.phi=.71;goal.span=17;dirty=true}
 function capture(){renderer.render(scene,camera);const out=document.createElement('canvas'),source=renderer.domElement;out.width=source.width;out.height=source.height+90;const c=out.getContext('2d');c.fillStyle=night?'#354139':currentStyle==='modern'?'#e8ebea':'#efeee5';c.fillRect(0,0,out.width,out.height);c.drawImage(source,0,0);c.fillStyle=night?'#f7f3df':'#365c4b';c.font='24px sans-serif';c.fillText('住前笔记 · '+styleNames[currentStyle]+' · '+rooms[selected].name,35,out.height-48);c.font='15px sans-serif';c.fillText('为沙耶设计 / 概念模型 · 尺寸与结构待现场核实',35,out.height-22);const a=document.createElement('a');a.href=out.toDataURL('image/png');a.download='我的家-'+styleNames[currentStyle]+'-'+rooms[selected].name.replaceAll(' · ','-')+'.png';a.click();toast('已生成当前视角 PNG')}
 
@@ -743,7 +759,7 @@ function setupSuite(){
  $('#suite-shower-door').onclick=()=>setSuiteDoor('shower',!suiteShowerOpen);
  $('#suite-study-door').onchange=()=>{const old=suiteStudyClosure.visible;suiteStudyClosure.visible=!$('#suite-study-door').checked;
   if(walkMode){refreshWalkGeometry();if(!canWalkAt(walk.x,walk.z)){suiteStudyClosure.visible=old;$('#suite-study-door').checked=!old;refreshWalkGeometry();toast('请先离开书房外门口再封闭门洞')}}for(const o of layoutParts.studyArc||[])o.visible=!suiteStudyClosure.visible;dirty=true};
- setLayout('suite');selectRoom('master');goal.theta=.62;goal.phi=.86;goal.span=7.3;goal.cz=7.5;
+ setLayout('original');selectRoom('master');goal.theta=.62;goal.phi=.86;goal.span=7.3;goal.cz=7.5;
 }
 if(activeModel)setupSuite();else root.querySelectorAll('.layout-bar button,.layout-bar input').forEach(b=>b.disabled=true);
 
@@ -763,7 +779,7 @@ function computeClearances(T,items,walls,layout,suite){
  const wall=(x,z)=>walls.find(({m})=>Math.abs(m.position.x-x)<1e-6&&Math.abs(m.position.z-z)<1e-6)?.m;
  const named=n=>suite?.getObjectByName(n),gap=(...args)=>clearanceGap(T,...args);
  return [
-  gap('master','床尾通道',items.masterBed,wall(11.68,7.6),'x'),
+  gap('master','床尾通道',items.masterBed,wall(11.5,7.25),'x'),
   items.screen?.visible?gap('master','屏风桌后净距',items.screen,items.masterBed,'z'):null,
   gap('living','沙发—茶几',items.sofa,items.coffee,'x'),
   gap('living','电视柜前通道',items.coffee,items.tv,'x'),

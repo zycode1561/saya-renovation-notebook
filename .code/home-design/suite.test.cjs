@@ -6,7 +6,7 @@ context.addLabel=(id,text,point,cat=false)=>context.labels.push({id,el:{textCont
 vm.runInContext(read('suite.js'),context);
 run("buildSuiteModel();setSuiteDoor('bath',true);setSuiteDoor('shower',false);setLayout('suite',false);walk.eye=1.65;refreshWalkGeometry()");
 const suiteSource=read('suite.js');
-run(suiteSource.slice(suiteSource.indexOf(" $('#suite-study-door').onchange="),suiteSource.indexOf("\n setLayout('suite');")));
+run(suiteSource.slice(suiteSource.indexOf(" $('#suite-study-door').onchange="),suiteSource.indexOf("\n setLayout('original');")));
 run("$('#suite-study-door').checked=true;$('#suite-study-door').onchange();refreshWalkGeometry()");assert(run('canWalkAt(8.2,2.45)'),'Optional study door did not reopen');
 run("$('#suite-study-door').checked=false;$('#suite-study-door').onchange();refreshWalkGeometry()");assert(!run('canWalkAt(8.2,2.45)'),'Optional study door did not close');
 for(const name of run('Object.keys(walkStarts)'))assert(run(`canWalkAt(...(suiteWalkStarts[${JSON.stringify(name)}]||walkStarts[${JSON.stringify(name)}]))`),'Blocked alternate start: '+name);
