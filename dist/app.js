@@ -10,18 +10,16 @@ const stageFor=id=>stages.find(s=>s.id===id);
 const byId=id=>notes.find(n=>n.id===id);
 let storageAvailable=true;
 function readStorage(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{storageAvailable=false;return fallback;}}
-function writeStorage(key,data){try{localStorage.setItem(key,JSON.stringify(data));}catch{storageAvailable=false;}}
 const knownIds=new Set(notes.map(n=>n.id));
 const storedSaved=readStorage('saya-renovation-saved-v1',[]);
 const saved=new Set(Array.isArray(storedSaved)?storedSaved.filter(id=>knownIds.has(id)||(typeof id==='string'&&id.startsWith('user-'))):[]);
 const storedChecks=readStorage('saya-renovation-checks-v1',[]);
 const checked=new Set(Array.isArray(storedChecks)?storedChecks:[]);
-const state={view:'library',stage:'预算',type:'all',query:'',sort:'recommended',opened:null,imagesOnly:false,imageNote:null,imageIndex:0};
+const state={view:'library',stage:'all',type:'all',query:'',searchScope:'all',sort:'recommended',opened:null,imagesOnly:false,imageNote:null,imageIndex:0};
 let toastTimer;
 function toast(message){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),2300);}
 function visibleNotes(){
- const query=state.query.trim().toLocaleLowerCase();
- let result=notes.filter(n=>(state.view!=='saved'||saved.has(n.id))&&(state.stage==='all'||n.stage===state.stage)&&(state.type==='all'||n.type===state.type)&&(!state.imagesOnly||n.images?.length)&&(!query||[n.title,n.originalTitle,n.author,n.summary,n.stage,stageFor(n.stage)?.title,...n.tags,...n.points,...(n.images||[]).map(i=>i.caption)].join(' ').toLocaleLowerCase().includes(query)));
+ let result=window.NoteSearch.filter(notes,state,saved);
  if(state.sort==='newest')result=result.slice().sort((a,b)=>b.date.localeCompare(a.date));
  else result=result.slice().sort((a,b)=>Number(b.id==='preplanning-roadmap-20261028')-Number(a.id==='preplanning-roadmap-20261028'));
  return result;
@@ -116,20 +114,25 @@ function card(n){
  return `<article class="article-card" data-note="${escapeHTML(n.id)}">${mediaPreview(n,s)}<div class="card-body"><div class="card-meta"><span class="type-tag ${n.type==='避坑'?'pitfall':''}">${n.type==='避坑'?'避坑经验':'装修攻略'}</span><span>${escapeHTML(s?.title)}</span>${n.userNote?'<span class="my-note-tag">我的</span>':''}</div><h3 class="card-title"><button class="title-button" data-open="${escapeHTML(n.id)}">${escapeHTML(n.title)}</button></h3><p class="card-summary">${escapeHTML(n.summary)}</p><div class="card-tags">${n.tags.map(t=>`<span># ${escapeHTML(t)}</span>`).join('')}</div><div class="card-bottom"><span class="author-dot">${escapeHTML(n.author.slice(0,1))}</span><span class="author-name" title="${escapeHTML(n.author)}">${escapeHTML(n.author)}</span><time class="card-date" datetime="${n.date}">${n.date.slice(5).replace('-','.')}</time><button class="bookmark-button ${isSaved?'saved':''}" data-save="${escapeHTML(n.id)}" aria-label="${isSaved?'取消收藏':'收藏'}：${escapeHTML(n.title)}" aria-pressed="${isSaved}">${icon('bookmark')}</button></div></div><div class="card-source-row"><span>${escapeHTML(coverageLabel(n))}</span>${n.sourceType==='synthesis'?`<button class="text-button" data-open="${escapeHTML(n.id)}">阅读完整流程 ↗</button>`:n.url?`<a href="${escapeHTML(n.url)}" target="_blank" rel="noopener noreferrer">${n.userNote?'打开来源链接':'查看原帖'} ↗</a>`:''}</div></article>`;
 }
 function renderLibrary(){
- const result=visibleNotes();const isSaved=state.view==='saved';
+ const result=visibleNotes();const isSaved=state.view==='saved',savedCount=notes.filter(n=>saved.has(n.id)).length;
  $('article-grid').innerHTML=result.map(card).join('');
  $('result-total').textContent=`${result.length} 篇`;
  $('library-title').firstChild.textContent=isSaved?'我的收藏 ':'装修笔记 ';
  $('library-eyebrow').textContent=isSaved?'把有用的经验，留在手边':'收藏一点经验，少走一点弯路';
- $('saved-count').textContent=saved.size;
+ $('saved-count').textContent=savedCount;
  $('side-count').textContent=notes.length;
  $('hero-count').textContent=notes.length;
  $('source-stats').textContent=`${notes.length} 篇 · ${notes.reduce((sum,n)=>sum+(n.images?.length||0),0)} 张配图 · ${notes.reduce((sum,n)=>sum+n.points.length,0)} 条要点`;
  $('article-grid').hidden=result.length===0;
  $('empty').hidden=result.length>0;
- $('empty-title').textContent=isSaved&&saved.size===0?'把有用的经验，先收进来。':'暂时没有匹配的笔记';
- $('empty-copy').textContent=isSaved&&saved.size===0?'点击笔记右下角的书签图标，在这里随时回看。':'换一个关键词，或者清除筛选再试试。';
- $('result-note').textContent=state.stage!=='all'||state.query||state.imagesOnly?`当前找到 ${result.length} 篇${state.stage!=='all'?`「${stageFor(state.stage).title}」`:''}${state.imagesOnly?'带配图的':''}笔记${state.query?`，关键词「${state.query}」`:''}`:'';
+ $('empty-title').textContent=isSaved&&savedCount===0?'把有用的经验，先收进来。':'暂时没有匹配的笔记';
+ $('empty-copy').textContent=isSaved&&savedCount===0?'点击笔记右下角的书签图标，在这里随时回看。':'换一个关键词，或者清除筛选再试试。';
+ const searching=Boolean(state.query.trim()),scope=state.searchScope==='all'||state.stage==='all'?'全部阶段':stageFor(state.stage).title;
+ $('search-current-stage').textContent=state.stage==='all'?'当前阶段（全部）':`仅${stageFor(state.stage).title}`;
+ document.querySelectorAll('[data-search-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.searchScope===state.searchScope)));
+ $('search-scope-hint').textContent=searching?`在${isSaved?'我的收藏':'笔记库'} · ${scope}中搜索正文与表格${state.type!=='all'?' · '+state.type:''}${state.imagesOnly?' · 有配图':''}`:'搜索标题、正文和表格';
+ $('search-all-stages').hidden=!(searching&&state.searchScope==='stage'&&state.stage!=='all'&&result.length===0);
+ $('result-note').textContent=`${searching?`搜索范围：${scope} · `:''}找到 ${result.length} 篇${searching?`，关键词「${state.query}」`:''}${state.type!=='all'?` · ${state.type}`:''}${state.imagesOnly?' · 有配图':''}`;
  document.querySelectorAll('[data-type]').forEach(b=>{b.classList.toggle('active',b.dataset.type===state.type);b.setAttribute('aria-pressed',String(b.dataset.type===state.type));});
 }
 // Each workspace owns its browsing state; model resources load only on first entry.
@@ -148,18 +151,19 @@ function syncHomeWorkspace(){
 }
 function setView(view,scroll=true){
  if(!['library','saved','checklist','home','budget','inspect'].includes(view))return;
- workspaceState.set(state.view,{stage:state.stage,type:state.type,query:state.query,imagesOnly:state.imagesOnly,sort:state.sort,scrollY:window.scrollY});
+ workspaceState.set(state.view,{stage:state.stage,type:state.type,query:state.query,searchScope:state.searchScope,imagesOnly:state.imagesOnly,sort:state.sort,scrollY:window.scrollY});
  const previous=workspaceState.get(view);
  state.view=view;
- Object.assign(state,previous||{stage:view==='library'?'预算':'all',type:'all',query:'',imagesOnly:false,sort:'recommended'});
+ Object.assign(state,previous||{stage:'all',type:'all',query:'',searchScope:'all',imagesOnly:false,sort:'recommended'});
  $('search-input').value=state.query;
- const titles={library:'发现笔记',saved:'我的收藏',checklist:'检查清单',home:'我的家',budget:'预算账本',inspect:'施工验收'};
+ const titles={library:'发现笔记',saved:'我的收藏',checklist:'开工准备',home:'我的家',budget:'预算账本',inspect:'施工验收'};
  $('breadcrumb').textContent=titles[view];
  $('current-stage').hidden=view!=='library';$('hero').hidden=view!=='library';$('library').hidden=!['library','saved'].includes(view);$('checklist-page').hidden=view!=='checklist';$('home-page').hidden=view!=='home';$('budget-page').hidden=view!=='budget';$('inspect-page').hidden=view!=='inspect';
  document.querySelectorAll('.site-nav [data-view]').forEach(b=>{b.classList.toggle('active',b.dataset.view===view);if(b.dataset.view===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  $('sort-value').textContent=state.sort==='newest'?'最新发布':'推荐阅读';
  document.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.sort===state.sort)));
  renderStages();renderLibrary();if(view==='checklist')renderChecklist();syncHomeWorkspace();
+ updateMobileNavigation(view);
  if(scroll){
   let top=previous?.scrollY||0;
   // Restore deep reading positions, but never reopen with a sliced hero.
@@ -169,17 +173,14 @@ function setView(view,scroll=true){
 }
 function setStage(id){
  if(!['library','saved'].includes(state.view))setView('library',false);
- state.stage=id;renderStages();renderLibrary();
+ state.stage=id;if(state.query.trim())state.searchScope='stage';renderStages();renderLibrary();
  updateNotesScrollSpace();
  $('library').scrollIntoView({behavior:'smooth',block:'start'});
 }
-function toggleSaved(id){
+async function toggleSaved(id){
  if(!byId(id))return;
- if(saved.has(id)){saved.delete(id);toast('已取消收藏');}else{saved.add(id);toast('已收藏，随时回看这篇笔记');}
- writeStorage('saya-renovation-saved-v1',[...saved]);
- if(!storageAvailable)toast('当前浏览器无法保存，记录仅在本次打开期间保留');
- renderLibrary();
- if(state.opened===id)updateDialogSave(id);
+ const value=!saved.has(id);
+ if(await savePersonal({type:'set',group:'saved',id,value}))toast(value?'已收藏并保存到 GitHub':'已取消收藏并保存到 GitHub');
 }
 function updateDialogSave(id){const b=$('dialog-save');if(b){b.textContent=saved.has(id)?'已收藏 · 点击取消':'收藏这篇笔记';b.setAttribute('aria-pressed',String(saved.has(id)));}}
 // 固定背景而非仅设置 overflow，兼容手机浏览器的触摸滚动；嵌套弹窗共用一把锁。
@@ -340,7 +341,7 @@ function renderChecklist(){
  const extras=extraChecklist.flatMap(group=>group.items);
  $('checklist-extra-count').textContent=`${extras.filter(item=>checked.has(item[0])).length} / ${extras.length}`;
  $('checklist-extra-groups').innerHTML=extraChecklist.map(group=>`<section class="check-group"><h3>${stageFor(group.stage).title}</h3>${group.items.map(([id,text,source])=>`<div class="check-item"><input type="checkbox" id="check-${id}" data-check="${id}" ${checked.has(id)?'checked':''}><label for="check-${id}">${escapeHTML(text)}</label><button class="check-source" data-open="${source}" aria-label="查看此清单项的来源笔记">来源 ↗</button></div>`).join('')}</section>`).join('');
- if(!storageAvailable)$('checklist-storage-note').textContent='当前浏览器无法保存，勾选仅在本次打开期间保留。';
+
 }
 function selectCheckStep(index,focus=false){
  if(!Number.isInteger(index)||index<0||index>=planningSteps.length)return;
@@ -363,6 +364,7 @@ document.addEventListener('click',event=>{
  const target=event.target.closest('button,a');if(!target)return;
  if(target.closest('.reader-toolbar-nav'))selectMobileReaderSegment(target);
  if(target.dataset.view)setView(target.dataset.view);
+ if(target.dataset.searchScope){state.searchScope=target.dataset.searchScope;renderLibrary();}
  if(target.dataset.stage)setStage(target.dataset.stage);
  if(target.dataset.type){state.type=target.dataset.type;renderLibrary();}
  if(target.dataset.open)showNote(target.dataset.open);
@@ -388,20 +390,21 @@ sortOptions.addEventListener('keydown',event=>{
 sortControl.addEventListener('keydown',event=>{if(event.key==='Escape'&&!sortOptions.hidden){event.preventDefault();closeSortMenu(true);}if(event.key==='Tab')closeSortMenu();});
 sortControl.addEventListener('focusout',event=>{if(!sortControl.contains(event.relatedTarget))closeSortMenu();});
 document.addEventListener('click',event=>{if(!sortControl.contains(event.target))closeSortMenu();});
-$('reset-filters').addEventListener('click',()=>{setView('library',false);state.stage='all';renderStages();renderLibrary();updateNotesScrollSpace();$('library').scrollIntoView({behavior:'smooth'});});
+$('reset-filters').addEventListener('click',()=>{Object.assign(state,{stage:'all',type:'all',query:'',searchScope:'all',imagesOnly:false});$('search-input').value='';renderStages();renderLibrary();});
+$('search-all-stages').addEventListener('click',()=>{state.searchScope='all';renderLibrary();});
 document.addEventListener('toggle',event=>{if(event.target.id==='reader-toc')$('reader-contents-button').setAttribute('aria-expanded',String(event.target.open));},true);
 $('close-dialog').addEventListener('click',()=>$('article-dialog').close());
 $('article-dialog').addEventListener('close',()=>{state.opened=null;restorePageScroll();document.dispatchEvent(new CustomEvent('home-reading-change',{detail:false}));});
 $('article-dialog').addEventListener('click',event=>{if(event.target===$('article-dialog')){const r=$('article-dialog').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('article-dialog').close();}});
-$('checklist-groups').addEventListener('change',event=>{const id=event.target.dataset.check;if(!id)return;if(event.target.checked)checked.add(id);else checked.delete(id);writeStorage('saya-renovation-checks-v1',[...checked]);const focusId=event.target.id;renderChecklist();(document.getElementById(focusId)||$('check-pending')).focus({preventScroll:true});if(!storageAvailable)toast('当前浏览器无法保存，进度仅在本次打开期间保留');});
-$('reset-checklist').addEventListener('click',()=>{if(!checked.size){toast('清单尚未勾选');return;}if(window.confirm('将清除当前浏览器中的所有清单勾选，确认重置吗？')){checked.clear();writeStorage('saya-renovation-checks-v1',[]);renderChecklist();toast('勾选已重置');}});
-document.addEventListener('keydown',event=>{if(state.view==='home')return;if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open&&!$('user-note-dialog').open&&!$('ledger-dialog').open){event.preventDefault();if(!['library','saved'].includes(state.view))setView('library',false);$('search-input').focus();}});
+$('checklist-groups').addEventListener('change',async event=>{const id=event.target.dataset.check;if(!id)return;const value=event.target.checked,focusId=event.target.id;event.target.checked=checked.has(id);await savePersonal({type:'set',group:'checks',id,value});(document.getElementById(focusId)||$('check-pending')).focus({preventScroll:true});});
+$('reset-checklist').addEventListener('click',async()=>{if(!checked.size){toast('清单尚未勾选');return;}if(window.confirm('将重置所有设备的开工准备勾选，确认继续吗？')&&await savePersonal({type:'reset-checks'}))toast('勾选已重置并保存到 GitHub');});
+document.addEventListener('keydown',event=>{if(state.view==='home')return;if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('article-dialog').open&&!$('image-dialog').open&&!$('user-note-dialog').open&&!$('ledger-dialog').open&&!$('sync-dialog').open){event.preventDefault();if(!['library','saved'].includes(state.view))setView('library',false);$('search-input').focus();}});
 document.querySelector('.brand').addEventListener('click',event=>{event.preventDefault();setView('library');});
 fillIcons();renderStages();renderLibrary();renderChecklist();
 
 // 写入成功后直接使用已提交的数据，避免原始文件缓存覆盖本次修改。
 const userNotes=window.UserNotes;
-let pendingDelete=null,userNoteBusy=false,userNotesRevision=0,pendingUserNote=null,tokenSettingsOnly=false;
+let pendingDelete=null,userNoteBusy=false,userNotesRevision=0,pendingUserNote=null;
 function storedToken(){try{return userNotes.tokenStorage(localStorage).read();}catch{return '';}}
 function refreshTokenUI(){const present=Boolean(storedToken());$('user-token-input').hidden=present;$('user-token-saved').hidden=!present;const settings=$('user-note-token-settings');if(!present)settings.open=true;else if(pendingDelete)settings.open=false;}
 function hideUserToken(){ $('user-note-token').type='password';$('toggle-user-token').textContent='显示';$('toggle-user-token').setAttribute('aria-pressed','false'); }
@@ -429,12 +432,12 @@ document.querySelectorAll('#user-note-form [data-choice]').forEach(group=>{
 function applyUserNotes(list){
  notes.splice(0,notes.length,...userNotes.mergeNotes(notes,list));
  knownIds.clear();notes.forEach(n=>knownIds.add(n.id));
- for(const id of saved)if(!knownIds.has(id))saved.delete(id);
+
  renderStages();renderLibrary();
 }
 function openUserNoteForm(note=null){
  if(userNoteBusy)return;
- tokenSettingsOnly=false;pendingDelete=note;pendingUserNote=null;
+ pendingDelete=note;pendingUserNote=null;
  $('user-note-form').reset();$('user-note-error').textContent='';clearUserNoteFieldErrors();
  $('user-note-form').classList.toggle('user-note-delete-mode',Boolean(note));
  $('user-note-fields').hidden=Boolean(note);$('user-note-fields').disabled=Boolean(note);
@@ -444,18 +447,13 @@ function openUserNoteForm(note=null){
  $('cancel-user-note').hidden=!note;
  hideUserToken();
  $('user-note-form').elements.stage.value=stageFor(state.stage)?state.stage:'准备';
- syncUserNoteChoices();refreshTokenUI();
- if(note){$('user-note-token-settings').open=!storedToken();$('user-note-token-settings').querySelector('summary').textContent=storedToken()?'令牌已保存，可直接删除':'填写令牌后删除';}
- else {$('user-note-token-settings').querySelector('summary').textContent='令牌设置';$('user-note-token-settings').open=!storedToken();}
+ syncUserNoteChoices();
  openModal($('user-note-dialog'));
  document.querySelector('#user-note-dialog .user-note-body').scrollTop=0;
  if(note)$('cancel-user-note').focus();else $('user-note-heading').focus();
 }
 function openTokenSettings(){
- openUserNoteForm();tokenSettingsOnly=true;
- $('user-note-fields').hidden=true;$('user-note-fields').disabled=true;
- $('user-note-heading').textContent='令牌设置';$('submit-user-note').textContent='保存设置';
- $('cancel-user-note').hidden=false;$('user-note-token-settings').open=true;
+ refreshTokenUI();$('sync-error').textContent='';openModal($('sync-dialog'));$('sync-heading').focus();
 }
 $('add-note').addEventListener('click',()=>openUserNoteForm());
 function closeUserNoteForm(){if(!userNoteBusy)$('user-note-dialog').close();}
@@ -468,18 +466,15 @@ $('toggle-user-token').addEventListener('click',()=>{const show=$('user-note-tok
 $('user-note-dialog').addEventListener('cancel',event=>{if(userNoteBusy)event.preventDefault();});
 $('user-note-dialog').addEventListener('close',()=>{pendingDelete=null;pendingUserNote=null;$('user-note-token').value='';hideUserToken();restorePageScroll();});
 $('clear-user-token').addEventListener('click',()=>{
- try{userNotes.tokenStorage(localStorage).clear();$('user-note-token').value='';hideUserToken();refreshTokenUI();$('user-note-token').focus();}catch{$('user-note-error').textContent='浏览器无法清除令牌，请检查存储设置';}
+ try{userNotes.tokenStorage(localStorage).clear();$('user-note-token').value='';hideUserToken();refreshTokenUI();renderSyncStatus();$('user-note-token').focus();}catch{$('sync-error').textContent='浏览器无法清除连接，请检查存储设置';}
 });
 $('user-note-form').addEventListener('submit',async event=>{
  event.preventDefault();if(userNoteBusy)return;
  const form=event.currentTarget;
  const checkedInput=userNotes.validateNoteInput(Object.fromEntries(new FormData(form)));
- if(!tokenSettingsOnly&&!pendingDelete&&!checkedInput.ok){showUserNoteError(checkedInput.errors.join('；'));return;}
- const token=storedToken()||$('user-note-token').value.trim();
- if(!token){refreshTokenUI();showUserNoteError('请先填写 GitHub 令牌',{tokenInvalid:true});$('user-note-token').focus();return;}
- try{userNotes.tokenStorage(localStorage).write(token);}catch{$('user-note-error').textContent='浏览器无法保存令牌，请允许本地存储后重试';return;}
- $('user-note-token').value='';refreshTokenUI();
- if(tokenSettingsOnly){$('user-note-dialog').close();toast('令牌已保存，请继续保存记录');return;}
+ if(!pendingDelete&&!checkedInput.ok){showUserNoteError(checkedInput.errors.join('；'));return;}
+ const token=storedToken();
+ if(!token){showUserNoteError('请先连接 GitHub，再保存这条笔记');openTokenSettings();return;}
  // 重试沿用同一个编号，避免网络中断后重复添加。
  const draft=JSON.stringify(checkedInput.normalized);
  if(!pendingDelete&&pendingUserNote?.draft!==draft)pendingUserNote={draft,note:userNotes.buildUserNote(checkedInput.normalized)};
@@ -494,7 +489,7 @@ $('user-note-form').addEventListener('submit',async event=>{
   const list=await userNotes.writeUserNote({note,mode,token});
   applyUserNotes(list);
   if(mode==='delete'){
-   saved.delete(note.id);writeStorage('saya-renovation-saved-v1',[...saved]);
+   renderLibrary();
    $('article-dialog').close();toast('已删除，所有设备都会同步');
   }else{
    state.stage='all';state.type='all';state.query='';state.imagesOnly=false;
@@ -510,7 +505,9 @@ $('user-note-form').addEventListener('submit',async event=>{
  }
 });
 const initialUserNotesRevision=userNotesRevision;
-userNotes.loadUserNotes().then(list=>{if(userNotesRevision===initialUserNotesRevision)applyUserNotes(list);});
+window.GithubStore.configure(storedToken);
+userNotes.loadUserNotes().then(list=>{if(userNotesRevision===initialUserNotesRevision)applyUserNotes(list);}).catch(()=>toast('个人笔记读取失败，请在同步设置中重试'));
+document.addEventListener('sync-refresh',()=>{if(userNoteBusy)return;const revision=userNotesRevision;userNotes.loadUserNotes().then(list=>{if(userNotesRevision===revision)applyUserNotes(list);}).catch(()=>{});});
 
 // Reserve the entire hero when the library anchor is brought below the sticky nav.
 function updateNotesScrollSpace(){

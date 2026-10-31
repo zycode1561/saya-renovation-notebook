@@ -51,7 +51,7 @@
  function tokenStorage(storage){return {read:()=>storage.getItem(tokenKey)||'',write:value=>storage.setItem(tokenKey,value.trim()),clear:()=>storage.removeItem(tokenKey)};}
  function store(){return typeof module==='object'&&module.exports?require('./github-store.js'):window.GithubStore;}
  async function loadUserNotes(options={}){
-  try{return (await store().load({...options,path:'user-notes.json',parse:decodeUserNotesFile})).notes;}catch{return [];}
+  return (await store().load({...options,path:'user-notes.json',parse:decodeUserNotesFile})).notes;
  }
  async function writeUserNote({note,mode='add',...options}){
   const doc=await store().write({...options,path:'user-notes.json',parse:decodeUserNotesFile,message:`note: ${mode==='delete'?'delete ':''}${note.title}`,mutate:doc=>{

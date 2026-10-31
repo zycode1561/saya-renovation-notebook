@@ -19,9 +19,9 @@ async function run(){
   if(o.method!=='PUT')return {ok:true,json:async()=>({sha:String(++gets),content:S.encode(gets===1?empty:{...empty,items:{[first.id]:{checked:false,notes:'另一设备的备注'}},custom:[item]})})};
   const payload=JSON.parse(o.body);assert.equal(payload.sha,String(gets));if(++puts===1)return {ok:false,status:409};return {ok:true};
  }});assert.equal(gets,2);assert(result.items[first.id].checked);assert.equal(result.items[first.id].notes,'另一设备的备注');assert.equal(result.custom.length,1);
- let calls=0;assert.deepEqual(await I.load({fetch:async()=>++calls===1?{ok:true,text:async()=>'{'}:{ok:true,text:async()=>JSON.stringify(empty)}}),empty);assert.equal(calls,2);
+ let calls=0;await assert.rejects(I.load({fetch:async()=>{calls++;return {ok:true,json:async()=>({sha:'remote',content:S.encode({version:2})})};}}),/格式不正确/);assert.equal(calls,1);
  let saved;await I.write({token:'test-placeholder',action:{type:'delete',id:item.id},fetch:async(url,o)=>{if(o.method!=='PUT')return {ok:true,json:async()=>({sha:'latest',content:S.encode(result)})};saved=JSON.parse(S.decode(JSON.parse(o.body).content));return {ok:true};}});assert.equal(saved.custom.length,0);assert.equal(saved.items[first.id].notes,'另一设备的备注');
  assert.deepEqual(JSON.parse(fs.readFileSync('dist/data/checklist.json','utf8')),empty);
- console.log('通过：验收预置项、数据规范化、阶段与总进度、自建条目增删、备注合并、409 重试与加载回退。');
+ console.log('通过：验收预置项、数据规范化、阶段与总进度、自建条目增删、备注合并、409 重试与损坏数据拒绝。');
 }
 run().catch(error=>{console.error(error);process.exitCode=1;});

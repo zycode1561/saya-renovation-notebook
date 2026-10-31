@@ -6,7 +6,7 @@ const $=id=>{if(!elements.has(id))elements.set(id,{hidden:false,innerHTML:'',tex
 const notes=[{id:'one',title:'厨房经验',stage:'厨房',type:'攻略',tags:[],points:[],images:[]}];
 const state={view:'saved',stage:'all',type:'all',query:'',imagesOnly:false};
 const saved=new Set();
-const ctx=vm.createContext({state,saved,notes,$,stageFor:id=>({title:id}),card:()=>'<article>笔记</article>',document:{querySelectorAll:()=>[]}});
+const ctx=vm.createContext({window:{NoteSearch:require('../dist/note-search.js')},state,saved,notes,$,stageFor:id=>({title:id}),card:()=>'<article>笔记</article>',document:{querySelectorAll:()=>[]}});
 vm.runInContext(app.slice(app.indexOf('function visibleNotes('),app.indexOf('function renderStages(')),ctx);
 vm.runInContext(app.slice(app.indexOf('function renderLibrary('),app.indexOf('// Each workspace')),ctx);
 function check(empty,title){

@@ -53,7 +53,7 @@ const uiForm=uiElement('user-note-form');uiForm.elements={type:{value:'避坑'},
 uiForm.reset=()=>{uiForm.elements.type.value='避坑';uiForm.elements.stage.value='准备';};
 let uiToken='saved-token';
 const ui={window:{UserNotes:{tokenStorage:()=>({read:()=>uiToken,clear:()=>{uiToken='';}})}},localStorage:{},$:uiElement,
- document:{querySelectorAll:()=>groups,querySelector:()=>uiElement('body')},state:{stage:'厨卫'},stageFor:v=>v==='厨卫',openModal(){},restorePageScroll(){}};
+ document:{querySelectorAll:()=>groups,querySelector:()=>uiElement('body')},renderSyncStatus(){},state:{stage:'厨卫'},stageFor:v=>v==='厨卫',openModal(){},restorePageScroll(){}};
 vm.createContext(ui);
 vm.runInContext(app.slice(app.indexOf('const userNotes=window.UserNotes;'),app.indexOf("$('user-note-form').addEventListener('submit'")),ui);
 ui.openUserNoteForm();assert.equal(uiForm.elements.stage.value,'厨卫');assert.equal(groups[1].buttons[3].attrs['aria-checked'],'true');
@@ -92,10 +92,10 @@ async function run(){
  await assert.rejects(lib.writeUserNote({note,token:'测试用占位值',fetch:async()=>({ok:false,status:403})}),/权限不足/);
  await assert.rejects(lib.writeUserNote({note,token:'测试用占位值',fetch:async()=>{throw Error('测试用占位值');}}),error=>!error.message.includes('测试用占位值'));
  let paths=[];
- assert.deepEqual(await lib.loadUserNotes({fetch:async url=>{paths.push(url);if(paths.length===1)throw Error();return {ok:true,text:async()=>JSON.stringify(doc)};}}),[note]);
- assert(paths[0].startsWith('https://raw.githubusercontent.com/'));assert(paths[1].startsWith('./data/user-notes.json?t='));
- assert.deepEqual(await lib.loadUserNotes({fetch:async()=>({ok:false})}),[]);
+ assert.deepEqual(await lib.loadUserNotes({fetch:async url=>{paths.push(url);return {ok:true,json:async()=>({sha:'remote',content:lib.encodeUserNotesFile(doc)})};}}),[note]);
+ assert.equal(paths.length,1);assert(paths[0].startsWith('https://api.github.com/'));
+ await assert.rejects(lib.loadUserNotes({fetch:async()=>({ok:false})}));
  assert.deepEqual(JSON.parse(fs.readFileSync('dist/data/user-notes.json','utf8')),{version:1,notes:[]});
- console.log('通过：输入校验、北京时间、合并去重、中文编码、写入与冲突重试、删除、令牌存取、加载回退。');
+ console.log('通过：输入校验、北京时间、合并去重、中文编码、写入与冲突重试、删除、令牌存取、单源读取与失败提示。');
 }
 run().catch(error=>{console.error(error);process.exitCode=1;});

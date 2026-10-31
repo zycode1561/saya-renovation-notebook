@@ -1,0 +1,37 @@
+/* Search scope, GitHub status and discoverable phone navigation. */
+.nav-short,.site-nav .nav-more{display:none}.nav-extra{display:contents}
+.sync-status-button{min-height:44px;padding:8px 10px;border-radius:12px;font-size:12px;white-space:nowrap;color:#004eaa;background:rgba(255,255,255,.5);flex-shrink:0}
+.sync-status-button[data-state=error]{color:#9c3027;background:#fff1ed}
+.search-scope{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 16px;font-size:13px}
+.search-scope button{min-height:44px;padding:8px 12px;border-radius:12px;color:#3a3a3c;background:rgba(255,255,255,.3)}
+.search-scope button[aria-pressed=true]{background:#e4efff;color:#004eaa;font-weight:600;box-shadow:inset 0 0 0 1px #8eb9ec}
+.search-scope small{flex-basis:100%;font-size:13px;color:#3a3a3c}.empty button{margin:6px}
+#sync-dialog{width:min(560px,calc(100% - 32px));max-height:88dvh;padding:0;border:0;border-radius:24px;color:#1c1c1e;background:#f4f8fc}
+#sync-form{display:flex;flex-direction:column;max-height:88dvh;margin:0}
+#sync-dialog .user-note-heading{display:flex;align-items:center;justify-content:space-between;padding:20px 24px}
+#sync-heading{margin:0;font-size:20px}#close-sync{width:44px;height:44px;font-size:26px;border-radius:12px}
+.sync-body{overflow-y:auto;overscroll-behavior:contain;padding:0 24px 24px;line-height:1.7;font-size:14px}
+#sync-details{padding:0;list-style:none;margin:20px 0}#sync-details li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;padding:12px 0;border-bottom:1px solid #dce4ee}#sync-details b{font-weight:500;color:#004eaa}#sync-details p{flex-basis:100%;margin:0;color:#9c3027;font-size:13px}
+#sync-migration{padding:12px;border-radius:12px;background:#fff0d7}#sync-error{color:#9c3027}
+#sync-form .user-note-actions{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px calc(16px + env(safe-area-inset-bottom));flex-shrink:0}
+#sync-form input{width:100%;min-width:0;min-height:44px;padding:10px 12px;font-size:16px;border:1px solid #c7d4e5;border-radius:10px;background:#fff}
+#sync-form button,#sync-form summary{min-height:44px}#sync-form .secondary{padding:10px 12px;border-radius:12px;background:#e4efff;color:#004eaa}
+#sync-form .user-token-control{display:flex;gap:8px}#sync-form .user-token-control button{flex-shrink:0}.save-destination{font-size:13px;color:#3a3a3c}
+.site-nav button,.search-scope button,.sync-status-button{touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.site-nav button:active,.search-scope button:active,.sync-status-button:active{background:#e4efff}
+button:disabled{cursor:wait;opacity:.6}
+@media(max-width:1000px){.header-inner .sync-status-button{margin-left:auto}.site-nav{order:2}}
+@media(max-width:600px){
+ .site-header .header-inner{padding-inline:max(12px,env(safe-area-inset-left));justify-content:space-between}
+ .site-header .site-nav{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible;padding:0;gap:3px;mask:none;-webkit-mask:none}
+ .site-nav .nav-full,.site-nav>.nav-item .nav-count{display:none}.site-nav .nav-short,.site-nav .nav-more{display:inline}
+ .site-header .site-nav>.nav-item{width:100%;min-width:0;min-height:44px;padding:8px 4px;font-size:14px}
+ .site-nav .nav-extra{display:none;position:absolute;right:0;top:calc(100% + 8px);width:min(230px,calc(100vw - 24px));padding:8px;border-radius:18px;background:#f8fbff;box-shadow:0 12px 36px rgba(35,58,88,.2);z-index:40}
+ .site-nav .nav-extra.is-open{display:grid;gap:4px}
+ .site-header .site-nav .nav-extra .nav-item{width:100%;justify-content:flex-start;padding:12px 16px;min-height:48px}
+ .sync-status-button{max-width:50%;overflow:hidden;text-overflow:ellipsis;font-size:12px;background:transparent}
+ .search-scope{gap:6px}.search-scope>span{width:100%}
+ #sync-dialog{inset:auto 0 0;margin:0;width:100%;max-width:100%;border-radius:24px 24px 0 0}
+ #sync-dialog .user-note-heading{padding:16px 20px}.sync-body{padding-inline:20px}
+}
+@media(hover:hover) and (pointer:fine){.sync-status-button:hover,.search-scope button:hover{background:#e4efff}}

@@ -1,30 +1,35 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#ffffff"><meta name="description" content="沙耶的装修攻略与避坑手册。按装修阶段查阅经验、对照清单，保留每一条经验的原帖出处。">
   <title>住前笔记 · 沙耶的装修手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23007AFF'/%3E%3Cpath d='M16 30 32 16 48 30v20H16zM27 50V35h10v15' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=home-20261029h"><link rel="stylesheet" href="collection.css?v=home-20261029h"><script src="data.js?v=planning-20261028" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=home-20261029h"><script src="github-store.js?v=home-20261029h" defer></script><script src="user-notes.js?v=home-20261029h" defer></script><link rel="stylesheet" href="checklist.css?v=home-20261029h"><script src="checklist-data.js?v=20261028" defer></script><script src="app.js?v=home-20261029h" defer></script>
-  <link rel="stylesheet" href="ledger.css?v=home-20261029h">
-  <script src="budget.js?v=home-20261029h" defer></script>
-  <script src="inspect-checklist.js?v=home-20261029h" defer></script>
-  <script src="ledger-ui.js?v=home-20261029h" defer></script>
-  <link rel="stylesheet" href="glass.css?v=home-20261029h">
+  <link rel="stylesheet" href="styles.css?v=sync-20261031"><link rel="stylesheet" href="collection.css?v=sync-20261031"><script src="data.js?v=planning-20261028" defer></script><script src="image-carousel.js" defer></script><link rel="stylesheet" href="home-workspace.css?v=sync-20261031"><script src="github-store.js?v=sync-20261031" defer></script><script src="user-notes.js?v=sync-20261031" defer></script><link rel="stylesheet" href="checklist.css?v=sync-20261031"><script src="checklist-data.js?v=20261028" defer></script><script src="personal-state.js?v=sync-20261031" defer></script><script src="note-search.js?v=sync-20261031" defer></script><script src="app.js?v=sync-20261031" defer></script>
+  <link rel="stylesheet" href="ledger.css?v=sync-20261031">
+  <script src="budget.js?v=sync-20261031" defer></script>
+  <script src="inspect-checklist.js?v=sync-20261031" defer></script>
+  <script src="ledger-ui.js?v=sync-20261031" defer></script>
+  <script src="sync-ui.js?v=sync-20261031" defer></script>
+  <link rel="stylesheet" href="glass.css?v=sync-20261031">
+  <link rel="stylesheet" href="usability.css?v=sync-20261031">
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#library" aria-label="住前笔记首页"><span class="brand-icon" data-icon="book"></span><span>住前笔记</span></a>
       <nav class="site-nav" aria-label="主要导航">
-        <button class="nav-item active" data-view="library">发现笔记<span class="nav-count" id="side-count">24</span></button>
-        <button class="nav-item" data-view="saved">我的收藏<span class="nav-count" id="saved-count">0</span></button>
-        <button class="nav-item" data-view="home">我的家</button>
-        <button class="nav-item" data-view="checklist">检查清单</button>
-        <button class="nav-item" data-view="budget">预算账本</button>
-        <button class="nav-item" data-view="inspect">施工验收</button>
+        <button class="nav-item active" data-view="library"><span class="nav-full">发现笔记</span><span class="nav-short">笔记</span><span class="nav-count" id="side-count">24</span></button>
+        <button class="nav-item" data-view="checklist">开工准备</button>
+        <button class="nav-item" data-view="budget"><span class="nav-full">预算账本</span><span class="nav-short">预算</span></button>
+        <button class="nav-item nav-more" id="nav-more" aria-expanded="false" aria-controls="nav-extra">更多 ▾</button>
+        <div class="nav-extra" id="nav-extra">
+          <button class="nav-item" data-view="saved">我的收藏<span class="nav-count" id="saved-count">0</span></button>
+          <button class="nav-item" data-view="home">我的家</button>
+          <button class="nav-item" data-view="inspect">施工验收</button>
+        </div>
       </nav>
-      <span class="avatar" aria-label="沙耶的装修手册">沙</span>
+      <button class="sync-status-button" id="sync-settings" aria-controls="sync-dialog"><span id="sync-status" role="status" aria-live="polite">读取 GitHub…</span><span aria-hidden="true"> ⚙</span></button>
       <span class="sr-only" id="breadcrumb">发现笔记</span>
     </div>
   </header>
@@ -53,17 +58,18 @@
         </ol><p class="current-stage-footnote">完整笔记内含 10 组路线与填写表格、八步完成标志和 6 篇参考资料。模板示例不代表你家的已确认条件；合同与施工要求需结合当地及现场情况。</p>
       </div></details>
         <div class="library-tools"><button class="secondary add-note" id="add-note">+ 记一条</button><div class="tabs" role="group" aria-label="内容类型"><button class="active" data-type="all">全部笔记</button><button data-type="攻略">装修攻略</button><button data-type="避坑">避坑经验</button></div><label class="search"><span data-icon="search"></span><input id="search-input" type="search" placeholder="搜索预算、设计、装修公司…" aria-label="搜索装修笔记"><kbd>/</kbd></label></div>
+        <div class="search-scope" id="search-scope"><span>搜索范围</span><button type="button" data-search-scope="all" aria-pressed="true">全部阶段</button><button type="button" data-search-scope="stage" aria-pressed="false" id="search-current-stage">当前阶段</button><small id="search-scope-hint">搜索标题、正文和表格</small></div>
         <div class="filter-line"><div class="filter-chips" id="filter-chips"></div><div class="sort-control" id="sort-control"><span class="sort-caption" id="sort-caption">排序</span><button class="sort-trigger" id="sort-trigger" aria-haspopup="listbox" aria-controls="sort-options" aria-expanded="false" aria-labelledby="sort-caption sort-value"><span id="sort-value">推荐阅读</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="sort-options" id="sort-options" role="listbox" aria-label="笔记排序" hidden><button class="sort-option" role="option" aria-selected="true" data-sort="recommended" tabindex="-1"><span>推荐阅读</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button><button class="sort-option" role="option" aria-selected="false" data-sort="newest" tabindex="-1"><span>最新发布</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button></div></div></div>
         </div>
         <div class="result-note" id="result-note" aria-live="polite"></div><div class="article-grid" id="article-grid"></div>
-        <div class="empty" id="empty" hidden><span data-icon="search"></span><h3 id="empty-title">暂时没有匹配的笔记</h3><p id="empty-copy">换一个关键词，或者清除筛选再试试。</p><button class="primary" id="reset-filters">查看全部笔记</button></div>
+        <div class="empty" id="empty" hidden><span data-icon="search"></span><h3 id="empty-title">暂时没有匹配的笔记</h3><p id="empty-copy">换一个关键词，或者清除筛选再试试。</p><button class="primary" id="search-all-stages" hidden>搜索全部阶段</button><button class="secondary" id="reset-filters">清除全部筛选</button></div>
         <p class="collection-stats" id="source-stats"></p>
       </section>
       <section class="checklist-page" id="checklist-page" hidden aria-labelledby="checklist-title">
         <div class="checklist-heading"><div><span class="eyebrow">从想清楚，到准备好开工</span><h1 id="checklist-title">跟着八步，准备好开工。</h1><p class="section-description">一次确认一件事。每一步都留下能带到下一步的资料。</p></div><button class="check-guide-link" data-open="preplanning-roadmap-20261028">阅读八步完整指南 ↗</button></div>
         <div class="planning-overview"><div><span class="check-kicker">前期准备进度</span><div class="planning-count"><strong id="checklist-percent">0<small>%</small></strong><span id="progress-label" role="status" aria-live="polite"></span></div><div class="progress-track" role="progressbar" aria-label="八步清单完成进度" aria-valuemin="0" aria-valuemax="40" aria-valuenow="0" id="checklist-progress"><div id="progress-fill"></div></div></div><div class="planning-next"><span class="check-kicker">接下来可以确认</span><b id="checklist-next-title"></b><button id="checklist-continue" class="check-guide-link">继续核对 →</button></div></div>
         <div class="checklist-layout"><nav id="checklist-steps" class="checklist-steps" aria-label="八步检查清单"></nav><div id="checklist-groups"><section id="checklist-detail" class="checklist-detail" aria-labelledby="check-step-title"></section><details class="checklist-extras" id="checklist-extras"><summary><span>其他装修检查项 <small id="checklist-extra-count"></small></span><span aria-hidden="true">＋</span></summary><p>原有的专项检查继续留在这里，勾选记录保留，不计入八步准备进度。</p><div id="checklist-extra-groups"></div></details></div></div>
-        <div class="checklist-storage"><p id="checklist-storage-note">勾选自动保存在当前浏览器，不跨设备同步。勾选代表自行核实，不代替现场验收。</p><button class="text-button" id="reset-checklist">重置全部勾选</button></div>
+        <div class="checklist-storage"><p id="checklist-storage-note">收藏与勾选统一保存到 GitHub。勾选代表自行核实，不代替现场验收。</p><button class="text-button" id="reset-checklist">重置全部勾选</button></div>
       </section>
       <section class="home-page" id="home-page" hidden aria-labelledby="my-home-title">
         <div class="home-heading"><div><span class="eyebrow">把生活需求，放回自己的家</span><h1 id="my-home-title">我家的装修方案</h1><p>从房间到每一条日常动线，慢慢确认这个家的样子。点击模型里的房间，查看布置、尺寸与需要取舍的细节。</p><div class="home-badges"><span>两人两猫</span><span>主卧套区</span><span>干湿分离</span></div></div><span class="home-status">概念方案 · 2026.10.27</span></div>
@@ -77,7 +83,7 @@
           <button data-open="69d5b6da0000000023004c9a">把生活习惯写成设计需求 ↗<small>人数、动线、设备与空间取舍，逐项聊清楚</small></button>
           <button data-open="6a756d0600000000280318f0">装修之前，先认识自己 ↗<small>把常住方式与家庭活动放在风格前面</small></button>
           <button data-open="6a1a292600000000080272aa">第一次到店，带着问题去 ↗<small>确认设计交付、费用边界与施工沟通</small></button>
-          <div class="home-check-link"><p>下一步：核对实测净尺寸、门洞与结构、排水防水，以及方案交付范围。相关沟通事项继续记在原检查清单。</p><button class="primary" data-view="checklist">去检查清单 ↗</button></div>
+          <div class="home-check-link"><p>下一步：核对实测净尺寸、门洞与结构、排水防水，以及方案交付范围。相关沟通事项继续记在开工准备清单。</p><button class="primary" data-view="checklist">去开工准备 ↗</button></div>
         </section></div>
         <p class="home-limit">本方案为概念模型，不是施工图。结构可改性、排水与防水边界、门窗和现场净尺寸仍待核实；模型可通行不代表施工可行。视线检查仅针对给定视点与床面高度，实际遮影效果需现场确认。</p>
       </section>
@@ -87,6 +93,22 @@
       <footer><span>住前笔记 <i>·</i> 给理想的家，留一点准备时间。</span><span>为沙耶整理 / 2026.10.28</span></footer>
     </main>
   </div>
+  <dialog id="sync-dialog" aria-labelledby="sync-heading">
+    <form id="sync-form">
+      <div class="user-note-heading"><h2 id="sync-heading" tabindex="-1">同步设置</h2><button type="button" id="close-sync" aria-label="关闭同步设置">×</button></div>
+      <div class="sync-body"><p>收藏、开工准备、个人笔记、预算和施工验收，统一保存到 GitHub。</p><p id="sync-migration" role="status" hidden></p><ul id="sync-details" aria-label="各项同步状态"></ul>
+        <details class="user-note-token" id="user-note-token-settings">
+          <summary>GitHub 连接设置</summary>
+          <ol><li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">打开 GitHub 精细权限令牌页 ↗</a></li><li>只选本仓库 <span>zycode1561/saya-renovation-notebook</span></li><li>Contents = Read and write</li></ol>
+          <div id="user-token-input"><label for="user-note-token">GitHub 令牌</label><div class="user-token-control"><input id="user-note-token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…"><button type="button" id="toggle-user-token" class="secondary" aria-controls="user-note-token" aria-pressed="false">显示</button></div></div>
+          <p id="user-token-saved" hidden>已保存令牌 · <button type="button" id="clear-user-token" class="text-button">清除</button></p>
+          <p id="user-token-hint">令牌只保存在此浏览器，其他设备需各自填写。</p>
+        </details>
+        <p id="sync-error" role="alert"></p>
+      </div>
+      <div class="user-note-actions"><button type="button" class="secondary" id="sync-refresh">重新同步</button><button type="submit" class="primary" id="sync-connect">保存连接</button></div>
+    </form>
+  </dialog>
   <dialog id="ledger-dialog" aria-labelledby="ledger-dialog-title">
     <form id="ledger-form">
       <div class="user-note-handle" aria-hidden="true"><span></span></div>
@@ -108,13 +130,7 @@
           <div class="user-note-choice"><span id="user-note-stage-label">阶段</span><input type="hidden" name="stage" value="准备"><div class="user-note-pills" role="radiogroup" aria-labelledby="user-note-stage-label" data-choice="stage"><button type="button" role="radio" aria-checked="true" tabindex="0" data-value="准备">准备</button><button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="预算">预算</button><button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="施工">施工</button><button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="厨卫">厨卫</button><button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="安装">安装</button><button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="入住">入住</button></div></div>
           <label>来源链接（选填）<input name="sourceUrl" type="url" placeholder="选填，文章或商品链接" inputmode="url"></label>
         </fieldset>
-        <details class="user-note-token" id="user-note-token-settings">
-          <summary>令牌设置</summary>
-          <ol><li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">打开 GitHub 精细权限令牌页 ↗</a></li><li>只选本仓库 <span>zycode1561/saya-renovation-notebook</span></li><li>Contents = Read and write</li></ol>
-          <div id="user-token-input"><label for="user-note-token">GitHub 令牌</label><div class="user-token-control"><input id="user-note-token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…"><button type="button" id="toggle-user-token" class="secondary" aria-controls="user-note-token" aria-pressed="false">显示</button></div></div>
-          <p id="user-token-saved" hidden>已保存令牌 · <button type="button" id="clear-user-token" class="text-button">清除</button></p>
-          <p id="user-token-hint">令牌只保存在此浏览器，其他设备需各自填写。</p>
-        </details>
+        <p class="save-destination">保存到 GitHub · <button type="button" class="text-button" data-sync-settings>同步设置</button></p>
         <p id="user-note-error" role="alert"></p>
       </div>
       <div class="user-note-actions"><button class="secondary" id="cancel-user-note" type="button" hidden>取消</button><button class="primary" id="submit-user-note" type="submit">保存笔记</button></div>

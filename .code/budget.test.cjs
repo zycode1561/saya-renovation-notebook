@@ -25,14 +25,14 @@ async function run(){
   const body=JSON.parse(options.body);assert.equal(body.sha,String(gets));assert.equal(body.branch,'main');
   if(++puts===1)return {ok:false,status:409};return {ok:true};
  }});assert.equal(gets,2);assert.equal(result.entries.length,2);
- let paths=[];assert.deepEqual(await B.load({fetch:async url=>{paths.push(url);return paths.length===1?{ok:false}:{ok:true,text:async()=>JSON.stringify(empty)};}}),empty);assert(paths[0].startsWith('https://raw.githubusercontent.com/'));assert(paths[1].startsWith('./data/budget.json?'));
- await assert.rejects(B.load({fetch:async()=>({ok:false})}),/无法加载/);
- await assert.rejects(B.write({token:'',action:{type:'total',value:0}}),/令牌/);
+ let paths=[];assert.deepEqual(await B.load({fetch:async url=>{paths.push(url);return {ok:true,json:async()=>({sha:'remote',content:S.encode(empty)})};}}),empty);assert.equal(paths.length,1);assert(paths[0].startsWith('https://api.github.com/'));
+ await assert.rejects(B.load({fetch:async()=>({ok:false})}),/读写失败/);
+ await assert.rejects(B.write({token:'',action:{type:'total',value:0}}),/连接 GitHub/);
  await assert.rejects(B.write({token:'test-placeholder',action:{type:'total',value:0},fetch:async()=>({ok:false,status:403})}),/权限不足/);
  await assert.rejects(B.write({token:'test-placeholder',action:{type:'total',value:0},fetch:async()=>{throw Error('test-placeholder');}}),e=>!e.message.includes('test-placeholder'));
  let attempts=0;await assert.rejects(B.write({token:'test-placeholder',action:{type:'total',value:0},fetch:async(url,o)=>o.method==='PUT'?(attempts++,{ok:false,status:409}):{ok:true,json:async()=>({sha:'s',content:S.encode(empty)})}}),/同时被修改/);assert.equal(attempts,3);
  let wrote=false;await assert.rejects(B.write({token:'test-placeholder',action:{type:'total',value:0},fetch:async(url,o)=>{if(o.method==='PUT')wrote=true;return {ok:true,json:async()=>({sha:'s',content:S.encode({version:2})})};}}));assert(!wrote);
  assert.deepEqual(B.normalize(JSON.parse(fs.readFileSync('dist/data/budget.json','utf8'))),{version:1,totalBudget:0,entries:[]});
- console.log('通过：预算金额格式、校验规范化、汇总与分类聚合、增改删、SHA 冲突重试、读取回退和错误处理。');
+ console.log('通过：预算金额格式、校验规范化、汇总与分类聚合、增改删、SHA 冲突重试、GitHub 单源读取和错误处理。');
 }
 run().catch(error=>{console.error(error);process.exitCode=1;});
